@@ -1,225 +1,127 @@
 import React, { useState } from "react";
-import styles from "./postJob.module.css";
+import styles from "../css/postJob.module.css";
 import paper from ".././imgs/paper.webp";
-
+import serviceCategories from "../lib/ServiceCategories";
 const PostJob = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
   var selectedOption;
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [serviceCategory, setServiceCategory] = useState(["..."]);
-  const architectsCategory = [
-    "Fundamental design concepts (for generating quotes and presenting planning applications)",
-    "Detailed compliant blueprints (for builders and building regulations)",
-    "Building structure calculations",
-    "Not sure",
-  ];
-  const bathroomCategory = [
-    "Bathroom refurbishment / installation",
-    "Install or replace a fixture",
-    "Repair",
-    "Tiling",
-    "Other",
-  ];
-  const BricklayingRepointingCategory = [
-    "Building a wall",
-    "Building a structure",
-    "Building custom brickwork",
-    "Wall alterations",
-    "Repointing",
-    "Chimney work",
-    "Repairs",
-  ];
-  const CarpentryJoineryCategory = [
-    "Doors, windows & floors",
-    "Furniture making, assembly & repairs",
-    "Kitchen units & worktops",
-    "Decking",
-    "Other carpentry work",
-  ];
-  const CarpetsLinoFlooringCategory = [
-    "New or replacement flooring",
-    "Sanding / Restoration",
-    "Repair / Adjustment",
-    "Other",
-  ];
-  const centralHeatingCategory = [
-    "Boiler",
-    "Pipework / supply",
-    "Radiators",
-    "Thermostat",
-    "Underfloor heating",
-    "Full system installation",
-    "Other",
-  ];
-  const chimneyFireplaceCategory = [
-    "Chimney",
-    "Fireplace",
-    "Flue",
-    "Other or several of the above",
-  ];
-  const conservatoriesCategory = [
-    "A new conservatory installation",
-    "Replace or improve an existing conservatory",
-    "A repair",
-  ];
-  const dampProofingCategory = [
-    "No - I need help investigating",
-    "Yes - I just need help fixing the problem",
-  ];
-  const demolitionClearanceCategory = [
-    "Waste removal only",
-    "Building / structure demolition",
-    "Knock down a wall",
-  ];
-  const drivewaysPavingCategory = [
-    "Install a driveway",
-    "Clean or reseal a driveway",
-    "Dropped kerb (crossover)",
-    "Dropped kerb (crossover)",
-    "Paving, patios and paths",
-  ];
-  const electricalCategory = [
-    "Rewiring",
-    "Fuseboxes",
-    "Electrical fittings & appliances",
-    "Safety check or certificate",
-    "Electrical faults & repairs",
-    "Other",
-  ];
-  const extensionsCategory = [
-    "Property extension",
-    "Loft conversion",
-    "A porch",
-    "Outbuilding",
-    "Internal alterations",
-    "Other",
-  ];
-  const fasciasSoffitsGutteringCategory = [
-    "Guttering only",
-    "Fascias and/or soffits only",
-    "Both",
-  ];
-  const fencingCategory = [
-    "Fencing",
-    "Gates",
-    "Fencing and gates",
-    "Repair a fence or gate",
-  ];
-  const gardeningLandscapingCategory = [
-    "General gardening",
-    "Landscaping",
-    "Tree Surgery",
-  ];
-  const gasWorkCategory = [
-    "Gas safety check",
-    "Service boiler or appliance",
-    "Install or replace boiler or appliance",
-    "Move or remove boiler or appliance",
-    "Pipework only",
-    "Problem or repair",
-    "Other",
-  ];
-  const groundworkFoundationsCategory = [
-    "Foundations for a structure to be built",
-    "Drainage & pipework",
-    "General garden earthworks",
-    "Other",
-  ];
-  const handymanCategory = [
-    "The job include eletrical work",
-    "The job does not include eletrical work",
-  ];
-  const insulationCategory = [
-    "Loft / roof insulation",
-    "Wall insulation",
-    "Floor insulation",
-    "Other",
-  ];
-  const kitchenFittingCategory = [
-    "New kitchen installation",
-    "Worktop installation",
-    "Cabinet door refurbishment / replacement",
-    "Fit appliance (sink, oven, dishwasher, etc.)",
-    "Minor repair",
-    "Several of the above, or other",
-  ];
-  const locksmithCategory = [
-    "Install new locks",
-    "Repair locks",
-    "Other (e.g. locked out)",
-  ];
-  const loftConversionsCategory = [
-    "Loft conversion with structural changes",
-    "Loft conversion (no structural changes)",
-    "Loft conversion for storage purposes",
-    "Fit a skylight",
-  ];
-  const newBuildCategory = [
-    "I own the land I plan to build on",
-    "I`m purchasing the land I plan to build on",
-    "I don`t own the land I plan to build on",
-  ];
-  const paintingDecoratingCategory = [
-    "Inside painting",
-    "Outside painting",
-    "Both",
-  ];
-  const plasteringRenderingCategory = [
-    "Plastering (indoors)",
-    "Rendering (outdoors)",
-  ];
-  const plumbingCategory = [
-    "Radiators",
-    "Boilers",
-    "Appliances",
-    "Fixtures",
-    "Pipework, taps & drainage",
-  ];
-  const restorationRefurbishmentCategory = [
-    "I understand that This trade is for large jobs that require management and oversight. If you require multiple jobs that cover various trades, please post these separately in the appropriate trade categories.",
-  ];
-  const roofingCategory = [
-    "New or replacement roof",
-    "Roof repair or assessment",
-    "Chimney work",
-    "Something else"
-  ];
-  const securitySystems = [
-    "Security alarm system",
-    "CCTV/Smart camera",
-    "Entry system",
-    "Smoke alarms",
-    "Security lights",
-    "Locks",
-    "Other"
-  ];
-  const stonemasonryCategory = [
-    "Building",
-    "Repairing",
-    "Repointing",
-    "Other"
-  ]
+
   const handleChange = (event) => {
     selectedOption = event.target.value;
     console.log(selectedOption);
 
     switch (selectedOption) {
       case "architects":
-        setServiceCategory(architectsCategory);
+        setServiceCategory(serviceCategories.architects);
         console.log(serviceCategory);
         break;
 
       case "bathroom-fitters":
-        setServiceCategory(bathroomCategory);
+        setServiceCategory(serviceCategories.bathroom);
         console.log(serviceCategory);
         break;
       case "bricklayers":
-        setServiceCategory(BricklayingRepointingCategory);
+        setServiceCategory(serviceCategories.bricklayingRepointing);
         console.log(serviceCategory);
         break;
       case "carpenters-and-joiners":
-        setServiceCategory(CarpentryJoineryCategory);
+        setServiceCategory(serviceCategories.carpentryJoinery);
         console.log(serviceCategory);
+        break;
+      case "carpet-flooring-fitters":
+        setServiceCategory(serviceCategories.carpetsLinoFlooring);
+        console.log(serviceCategory);
+        break;
+      case "heating-engineers":
+        setServiceCategory(serviceCategories.centralHeating);
+        break;
+      case "chimney-fireplace-specialists":
+        setServiceCategory(serviceCategories.chimneyFireplace);
+        break;
+      case "conservatories-specialists":
+        setServiceCategory(serviceCategories.conservatories);
+        break;
+      case "damp-proofing-specialists":
+        setServiceCategory(serviceCategories.dampProofing);
+        break;
+      case "demolition-specialists":
+        setServiceCategory(serviceCategories.demolitionClearance);
+        break;
+      case "driveway-specialists":
+        setServiceCategory(serviceCategories.drivewaysPaving);
+        break;
+      case "electricians":
+        setServiceCategory(serviceCategories.electrical);
+        break;
+      case "extension-specialists":
+        setServiceCategory(serviceCategories.extensions);
+        break;
+      case "fascias-soffits-guttering-specialists":
+        setServiceCategory(serviceCategories.fasciasSoffitsGuttering);
+        break;
+      case "fencers":
+        setServiceCategory(serviceCategories.fencing);
+        break;
+      case "landscape-gardeners":
+        setServiceCategory(serviceCategories.gardeningLandscaping);
+        break;
+      case "gas-engineers":
+        setServiceCategory(serviceCategories.gasWork);
+        break;
+      case "groundwork-and-foundations-specialists":
+        setServiceCategory(serviceCategories.groundworkFoundations);
+        break;
+      case "handymen":
+        setServiceCategory(serviceCategories.handymanCategory);
+        break;
+      case "insulation-specialists":
+        setServiceCategory(serviceCategories.insulationCategory);
+        break;
+      case "kitchen-fitters":
+        setServiceCategory(serviceCategories.kitchenFittingCategory);
+        break;
+      case "locksmiths":
+        setServiceCategory(serviceCategories.locksmithCategory);
+        break;
+      case "loft-conversion-specialists":
+        setServiceCategory(serviceCategories.loftConversionsCategory);
+        break;
+      case "new-builds-specialists":
+        setServiceCategory(serviceCategories.newBuildCategory);
+        break;
+      case "painters-and-decorators":
+        setServiceCategory(serviceCategories.paintingDecoratingCategory);
+        break;
+      case "plasterers":
+        setServiceCategory(serviceCategories.plasteringRenderingCategory);
+        break;
+      case "plumbers":
+        setServiceCategory(serviceCategories.plumbingCategory);
+        break;
+      case "restoration-and-refurbishment-specialists":
+        setServiceCategory(serviceCategories.restorationRefurbishmentCategory);
+        break;
+      case "roofers":
+        setServiceCategory(serviceCategories.roofingCategory);
+        break;
+      case "security-system-installers":
+        setServiceCategory(serviceCategories.securitySystems);
+        break;
+      case "stonemasons":
+        setServiceCategory(
+          serviceCategories.plumbinstonemasonryCategorygCategory
+        );
+        break;
+      case "tilers":
+        setServiceCategory(serviceCategories.tillingCategory);
+        break;
+      case "tree-surgeons":
+        setServiceCategory(serviceCategories.treeSurgeryCategory);
+        break;
+      case "window-fitters":
+        setServiceCategory(serviceCategories.windowsDoorFitingCategory);
         break;
       default:
         break;
