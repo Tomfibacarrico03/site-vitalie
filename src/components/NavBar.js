@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../css/navbar.module.css";
+import { UserAuth } from "../context/AuthContext";
 
 const NavBar = () => {
+
+  const { user } = UserAuth();
   return (
     <nav>
       <div className={styles.logo}>
@@ -10,12 +13,20 @@ const NavBar = () => {
       </div>
       <ul>
         <Link to="/postJob" style={{textDecoration: "none"}}>
-          <li className={styles.btnPostJob} href="/postJob">
+          <li className={styles.btnPostJob}>
             Post a job
           </li>
         </Link>
         <li>Homeowners</li>
-        <li>Register</li>
+        {user && user.email ? (
+          <Link to="/minha-conta" style={{ textDecoration: "none" }}>
+            <li className={styles.btnPostJob}>Minha Conta</li>
+          </Link>
+        ) : (
+          <Link to="/register" style={{ textDecoration: "none" }}>
+            <li className={styles.btnPostJob}>Registar</li>
+          </Link>
+        )}
       </ul>
     </nav>
   );

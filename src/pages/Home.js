@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import styles from "../css/home.module.css";
 import paper from ".././imgs/paper.webp";
+import { UserAuth } from '../context/AuthContext'
 
 const Home = () => {
+  const {user} = UserAuth()
+  console.log(user)
+  
   return (
     <div>
       <div className={styles.paper}>
@@ -18,11 +22,12 @@ const Home = () => {
             <li className={styles.btnPostJob}>
               <h3>Post a job</h3>
             </li>
-          </Link>
-
+          </Link>   
+          <Link to="/aplicativo-de-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
           <li className={styles.btnRegister}>
             <h3>Register</h3>
           </li>
+          </Link>
         </div>
       </div>
       <div className={styles.divAboutUs}>

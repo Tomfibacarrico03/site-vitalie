@@ -5,17 +5,27 @@ import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
 import PostJob from "./pages/postJob";
+import SignUp from "./pages/SignUp";
+import RegistoComerciante from "./pages/RegistoComerciante";
+import MyAccount from "./pages/MyAccount";
+
+import { AuthContextProvider } from './context/AuthContext'
 
 function App() {
   return (
     <BrowserRouter>
+    <AuthContextProvider>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/postjob" element={<PostJob />} />
+        <Route path="/aplicativo-de-comerciante" element={<SignUp/>} />
+        <Route path="/registrar-como-comerciante" element={<RegistoComerciante/>} />
+        <Route path="/minha-conta" element={<MyAccount/>} />
       </Routes>
 
       <Footer />
+      </AuthContextProvider>
     </BrowserRouter>
   );
 }
