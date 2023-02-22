@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import styles from "../css/postJob.module.css";
 import paper from ".././imgs/paper.webp";
 import serviceCategories from "../lib/ServiceCategories";
+import { db } from "../firebase";
+import { collection, addDoc} from 'firebase/firestore';
+import { UserAuth } from "../context/AuthContext";
 const PostJob = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
   var selectedOption;
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [serviceCategory, setServiceCategory] = useState(["..."]);
+
+  const [error, setError] = useState(null);
+
+  const {user} = UserAuth()
 
   const handleChange = (event) => {
     selectedOption = event.target.value;
@@ -136,6 +143,22 @@ const PostJob = () => {
   async function questionDicrement() {
     setQuestionNumber(questionNumber - 1);
   }
+
+  const SaveJob = async () => {
+    try {
+      const dbRef = collection(db, "jobs");
+      addDoc(dbRef, {
+        headline: "teste",
+
+      })
+      .then(console.log("Document has been added successfully"))
+        console.log('Document Added')
+    } catch (e) {
+        setError(error.message);
+        console.log(e.message)
+          
+    }
+  }
   return (
     <div>
       <div className={styles.paper}>
@@ -256,6 +279,7 @@ const PostJob = () => {
         <button className={styles.continueButton} onClick={questionIncrement}>
           Continue &#8594;
         </button>
+        <button onClick={SaveJob}>Guardar</button>
       </div>
     </div>
   );
