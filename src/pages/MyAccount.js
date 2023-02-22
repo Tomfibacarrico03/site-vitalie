@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext'
+import { Link, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
 import { doc, updateDoc} from 'firebase/firestore';
 const MyAccount = () => {
 
-  const {user} = UserAuth()
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
-  const [phone, setPhone] = useState(user.phone);
-  const [address1, setAddress1] = useState(user.address1);
-  const [address2, setAddress2] = useState(user.address2);
-  const [city, setCity] = useState(user.city);
-  const [postalCode, setPostalCode] = useState(user.postalCode);
+  const navigate = useNavigate()
+
+  const {user, logout} = UserAuth()
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName || '');
+      setLastName(user.lastName || '');
+      setEmail(user.email || '');
+      setPhone(user.phone || '');
+      setAddress1(user.address1 || '');
+      setAddress2(user.address2 || '');
+      setCity(user.city || '');
+      setPostalCode(user.postalCode || '');
+    }
+  }, [user]);
+
 
   const handleSave = async () => {
     const userRef = doc(db, 'users', user.uid);
@@ -28,6 +46,17 @@ const MyAccount = () => {
 
    });
     console.log('Updated user information saved!');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      alert("Sessão Terminada")
+      console.log('You are logged out')
+      navigate('/')
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   return (
@@ -106,6 +135,25 @@ const MyAccount = () => {
         />
       </div>
       <button onClick={handleSave}>Guardar meus detalhes do contato</button>
+      <button
+            style={{
+              backgroundColor: "#f00",
+              marginTop: -65,
+              borderRadius: 5,
+              border: 0,
+              padding: 15,
+              fontSize: 12,
+              marginRight: 0,
+              width: "150px",
+              position: "absolute",
+              fontFamily: "Avenir Next",
+              color: "#fff",
+              left: 440
+            }}
+            onClick={handleLogout}
+          >
+            Terminar Sessão
+          </button>
     </div>
   );
 };

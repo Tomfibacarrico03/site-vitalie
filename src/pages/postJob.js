@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import styles from "../css/postJob.module.css";
 import paper from ".././imgs/paper.webp";
 import serviceCategories from "../lib/ServiceCategories";
+import { Link, useNavigate } from 'react-router-dom'
 import { db } from "../firebase";
-import { collection, addDoc} from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp,setDoc, doc} from 'firebase/firestore';
 import { UserAuth } from "../context/AuthContext";
 const PostJob = () => {
+
+
   const [questionNumber, setQuestionNumber] = useState(1);
   var selectedOption;
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [serviceCategory, setServiceCategory] = useState(["..."]);
 
-  const [error, setError] = useState(null);
 
-  const {user} = UserAuth()
+  
 
   const handleChange = (event) => {
     selectedOption = event.target.value;
@@ -144,18 +146,73 @@ const PostJob = () => {
     setQuestionNumber(questionNumber - 1);
   }
 
-  const SaveJob = async () => {
+  
+  const navigate = useNavigate()
+    
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [receiveTipsChecked, setReceiveTipsChecked] = useState(false);
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const { createUser, user, logout } = UserAuth();
+  const [headline, setHeadline] = useState("")
+  const [description, setDescription] = useState("")
+
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!termsChecked) {
+      setError('Please accept the terms and conditions');
+      return;
+    }
+
+    try {
+      const { user } = await createUser(email, password);
+      await setDoc(doc(db, "users", user.uid), { 
+          firstName,
+          lastName,
+          username,
+          email,
+          phone,
+          address1: "",
+          address2: "",
+          city: "",
+          postalCode,
+          role: 'home-owner'
+
+       })
+      SaveJob(user) 
+      setError(null);
+      navigate('/minha-conta')
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const SaveJob = async (user) => {
     try {
       const dbRef = collection(db, "jobs");
       addDoc(dbRef, {
-        headline: "teste",
+        headline,
+        description,
+        userId: user.uid,
+        createdAt: serverTimestamp(),
 
       })
       .then(console.log("Document has been added successfully"))
         console.log('Document Added')
-    } catch (e) {
+    } catch (error) {
         setError(error.message);
-        console.log(e.message)
+        console.log(error.message)
           
     }
   }
@@ -279,7 +336,94 @@ const PostJob = () => {
         <button className={styles.continueButton} onClick={questionIncrement}>
           Continue &#8594;
         </button>
-        <button onClick={SaveJob}>Guardar</button>
+        <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="email">Email</label>
+                    <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    />
+                </div>
+                <div>
+                <label htmlFor="firstName">Primeiro nome</label>
+                <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                />
+                </div>
+                <div>
+                <label htmlFor="lastName">Último nome</label>
+                <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                />
+                </div>
+                <div>
+                <label htmlFor="phone">Número de telemóvel</label>
+                <input
+                    type="text"
+                    id="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                />
+                </div>
+                <div>
+                  <label htmlFor="username">Nome de usuário público</label>
+                  <input
+                      type="text"
+                      id="username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                  />
+                </div>
+                
+                <div>
+                    <label htmlFor="password">Palavara-passe</label>
+                    <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="receiveTipsChecked"
+                        checked={receiveTipsChecked}
+                        onChange={(e) => setReceiveTipsChecked(e.target.checked)}
+                    />
+                    <label htmlFor="receiveTipsChecked">
+                        Eu gostaria de receber notícias, conselhos e dicas do MyBuilder
+                    </label>
+                </div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="termsChecked"
+                        checked={termsChecked}
+                        onChange={(e) => setTermsChecked(e.target.checked)}
+                        required
+                    />
+                    <label htmlFor="termsChecked">
+                        Eu concordo com os <a href="/terms">termos e condições</a>.
+                    </label>
+                </div>
+              {error && <p>{error}</p>}
+              <button type="submit">Continuar</button>
+            </form>
       </div>
     </div>
   );

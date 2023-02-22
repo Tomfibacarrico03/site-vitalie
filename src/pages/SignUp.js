@@ -41,7 +41,8 @@ const SignUp = () => {
             address1,
             address2,
             city,
-            postalCode
+            postalCode,
+            role: 'trade-member'
 
          }) 
         setError(null);

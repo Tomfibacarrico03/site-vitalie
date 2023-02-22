@@ -17,15 +17,27 @@ const NavBar = () => {
             Post a job
           </li>
         </Link>
-        <li>Homeowners</li>
         {user && user.email ? (
+          <>
+          <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
+            <li className={styles.btnPostJob}>Meus trabalhos publicados</li>
+          </Link>
+           <li className={styles.btnPostJob}>Ajuda</li>
+         
           <Link to="/minha-conta" style={{ textDecoration: "none" }}>
             <li className={styles.btnPostJob}>Minha Conta</li>
           </Link>
+          </>
         ) : (
+          <>
+          <li>Homeowners</li>
           <Link to="/registrar-como-comerciante" style={{ textDecoration: "none" }}>
-            <li className={styles.btnPostJob}>Registar</li>
+            <li className={styles.btnPostJob}>Comerciantes - Registar</li>
           </Link>
+          <Link to="/entrar" style={{ textDecoration: "none" }}>
+          <li className={styles.btnPostJob}>Entrar</li>
+        </Link>
+        </>
         )}
       </ul>
     </nav>
