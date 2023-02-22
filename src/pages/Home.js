@@ -23,7 +23,7 @@ const Home = () => {
               <h3>Post a job</h3>
             </li>
           </Link>   
-          <Link to="/aplicativo-de-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
+          <Link to="/registrar-como-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
           <li className={styles.btnRegister}>
             <h3>Register</h3>
           </li>

@@ -23,7 +23,7 @@ const NavBar = () => {
             <li className={styles.btnPostJob}>Minha Conta</li>
           </Link>
         ) : (
-          <Link to="/register" style={{ textDecoration: "none" }}>
+          <Link to="/registrar-como-comerciante" style={{ textDecoration: "none" }}>
             <li className={styles.btnPostJob}>Registar</li>
           </Link>
         )}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { UserAuth } from '../context/AuthContext'
+import { db } from '../firebase'
+import { doc, updateDoc} from 'firebase/firestore';
 const MyAccount = () => {
 
   const {user} = UserAuth()
@@ -12,9 +14,19 @@ const MyAccount = () => {
   const [city, setCity] = useState(user.city);
   const [postalCode, setPostalCode] = useState(user.postalCode);
 
-  const handleSave = () => {
-    // Here you can write the logic to save the updated user information
-    // to your backend or database
+  const handleSave = async () => {
+    const userRef = doc(db, 'users', user.uid);
+    await updateDoc(userRef, { 
+      firstName,
+      lastName,
+      email,
+      phone,
+      address1,
+      address2,
+      city,
+      postalCode
+
+   });
     console.log('Updated user information saved!');
   };
 
