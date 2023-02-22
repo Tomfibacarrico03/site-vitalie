@@ -27,6 +27,9 @@ const Login = () => {
     return (
         <div>
         <h2>Login</h2>
+        <p>Testar com:</p>
+        <p>mail: afonsoresendasdades03@gmail.com</p>
+        <p>pwd: azazazaz</p>
         <form onSubmit={handleLogin}>
             <div>
             <label htmlFor="email">Email:</label>

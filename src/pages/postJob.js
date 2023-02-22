@@ -202,8 +202,8 @@ const PostJob = () => {
     try {
       const dbRef = collection(db, "jobs");
       addDoc(dbRef, {
-        headline,
-        description,
+        headline: "Yest",
+        description: "desccoco",
         userId: user.uid,
         createdAt: serverTimestamp(),
 
@@ -336,6 +336,7 @@ const PostJob = () => {
         <button className={styles.continueButton} onClick={questionIncrement}>
           Continue &#8594;
         </button>
+        { !user ? (
         <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="email">Email</label>
@@ -423,7 +424,7 @@ const PostJob = () => {
                 </div>
               {error && <p>{error}</p>}
               <button type="submit">Continuar</button>
-            </form>
+            </form>):(<button onClick={() => SaveJob(user)}>Continuar</button>)}
       </div>
     </div>
   );
