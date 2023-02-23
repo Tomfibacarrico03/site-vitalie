@@ -3,10 +3,15 @@ import styles from "../css/postJob.module.css";
 import paper from ".././imgs/paper.webp";
 import serviceCategories from "../lib/ServiceCategories";
 import { Link, useNavigate } from 'react-router-dom'
-import { db } from "../firebase";
+import { db, functions } from "../firebase";
 import { collection, addDoc, serverTimestamp,setDoc, doc} from 'firebase/firestore';
 import { UserAuth } from "../context/AuthContext";
+
+import { httpsCallable } from "firebase/functions";
 const PostJob = () => {
+  const saveJob = httpsCallable(functions, 'SaveJob');
+  const createUserAndSaveJob = httpsCallable(functions, 'createUserAndSaveJob');
+
 
 
   const [questionNumber, setQuestionNumber] = useState(1);
@@ -169,36 +174,34 @@ const PostJob = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!termsChecked) {
       setError('Please accept the terms and conditions');
       return;
     }
-
+  
     try {
-      const { user } = await createUser(email, password);
-      await setDoc(doc(db, "users", user.uid), { 
-          firstName,
-          lastName,
-          username,
-          email,
-          phone,
-          address1: "",
-          address2: "",
-          city: "",
-          postalCode,
-          role: 'home-owner'
-
-       })
-      SaveJob(user) 
+      const result = await createUserAndSaveJob({
+        email,
+        password,
+        firstName,
+        lastName,
+        username,
+        phone,
+        postalCode,
+        headline: 'Some headline',
+        description: 'Some description'
+      });
+  
+      console.log(result.data.message); // Output: "User created successfully and job saved!"
       setError(null);
-      navigate('/minha-conta')
+      navigate('/minha-conta');
     } catch (error) {
       setError(error.message);
     }
   };
 
-  const SaveJob = async (user) => {
+ /*  const SaveJob = async (user) => {
     try {
       const dbRef = collection(db, "jobs");
       addDoc(dbRef, {
@@ -215,7 +218,32 @@ const PostJob = () => {
         console.log(error.message)
           
     }
+  } */
+
+   const SaveJob = async (user) => {
+    try {
+      //setIsLoading(true);
+
+      //const saveJob = functions.httpsCallable("SaveJob");
+      //const { data: response } = await saveJob(
+        await saveJob(
+        {
+          headline: "Yest",
+          description: "desccoco",
+          userId: user.uid,
+          createdAt: serverTimestamp(),
+  
+        }
+      );
+
+     // setResult(response);
+     // setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      //setIsLoading(false);
+    }
   }
+  
   return (
     <div>
       <div className={styles.paper}>
