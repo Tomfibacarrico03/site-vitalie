@@ -4,7 +4,6 @@ import styles from "../css/navbar.module.css";
 import { UserAuth } from "../context/AuthContext";
 
 const NavBar = () => {
-
   const { user } = UserAuth();
   return (
     <nav>
@@ -12,32 +11,34 @@ const NavBar = () => {
         <h3>Logotipo</h3>
       </div>
       <ul>
-        <Link to="/postJob" style={{textDecoration: "none"}}>
-          <li className={styles.btnPostJob}>
-            Post a job
-          </li>
+        <Link to="/postJob" style={{ textDecoration: "none" }}>
+          <li className={styles.btnPostJob}>Criar Trabalho</li>
         </Link>
         {user && user.email ? (
           <>
-          <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
-            <li className={styles.btnPostJob}>Meus trabalhos publicados</li>
-          </Link>
-           <li className={styles.btnPostJob}>Ajuda</li>
-         
-          <Link to="/minha-conta" style={{ textDecoration: "none" }}>
-            <li className={styles.btnPostJob}>Minha Conta</li>
-          </Link>
+            <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
+              <li className={styles.btnPostJob}>Meus trabalhos publicados</li>
+            </Link>
+            <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
+              <li className={styles.btnPostJob}>Ajuda</li>
+            </Link>
+            <Link to="/minha-conta" style={{ textDecoration: "none" }}>
+              <li className={styles.btnPostJob}>Minha Conta</li>
+            </Link>
           </>
         ) : (
           <>
-          <li>Homeowners</li>
-          <Link to="/registrar-como-comerciante" style={{ textDecoration: "none" }}>
-            <li className={styles.btnPostJob}>Comerciantes - Registar</li>
-          </Link>
-          <Link to="/entrar" style={{ textDecoration: "none" }}>
-          <li className={styles.btnPostJob}>Entrar</li>
-        </Link>
-        </>
+            <li>Homeowners</li>
+            <Link
+              to="/registrar-como-comerciante"
+              style={{ textDecoration: "none" }}
+            >
+              <li className={styles.btnPostJob}>Comerciantes - Registar</li>
+            </Link>
+            <Link to="/entrar" style={{ textDecoration: "none" }}>
+              <li className={styles.btnPostJob}>Entrar</li>
+            </Link>
+          </>
         )}
       </ul>
     </nav>

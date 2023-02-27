@@ -14,27 +14,26 @@ const Home = () => {
         <img src={paper} />
       </div>
       <div className={styles.divCabecalho}>
-        <h1 className={styles.title}>Best way to find workers, Simple.</h1>
-        <h3 className={styles.subtitle}>The New Way, The Best Way.</h3>
+        <h1 className={styles.title}>A melhor forma de encontrar trabalhadores, Simples.</h1>
+        <h3 className={styles.subtitle}>Uma nova forma, a melhor forma.</h3>
 
         <div className={styles.botoes}>
           <Link to="/postJob" style={{ textDecoration: "none", zIndex: 120 }}>
             <li className={styles.btnPostJob}>
-              <h3>Post a job</h3>
+              <h3>Criar Trabalho</h3>
             </li>
           </Link>   
           <Link to="/registrar-como-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
           <li className={styles.btnRegister}>
-            <h3>Register</h3>
+            <h3>Registar</h3>
           </li>
           </Link>
         </div>
       </div>
       <div className={styles.divAboutUs}>
-        <h1 className={styles.title}>Our Mission.</h1>
+        <h1 className={styles.title}>A nossa missão.</h1>
         <h3 className={styles.subtitleSemDots}>
-          We help homeowners choose great builders, and we help great builders
-          succeed
+          Ajudamos donos de casas a encontrar o trabalhador ideal, e bons trabalhadores a ter sucesso.
         </h3>
       </div>
     </div>
