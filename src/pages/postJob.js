@@ -331,6 +331,7 @@ const PostJob = () => {
             <option value="not-determined">
               Não tenho certeza qual escolher
             </option>
+            Qual é a categoria do seu trabalho?
           </select>
         </div>
         <div
@@ -338,7 +339,7 @@ const PostJob = () => {
             questionNumber === 2 ? styles.question : styles.displayNone
           }
         >
-          <h1>What category of {selectedOption} are you in need of?</h1>
+          <h1>Qual é a categoria do seu trabalho?</h1>
           {serviceCategory.map((serviceCategory, index) => (
             <label
               className={
