@@ -143,7 +143,32 @@ const serviceCategories = {
     "Mover ou Substituir",
     "Outro"
   ],
-  
+  heatingUnderFloor:[
+    "Que tipo de piso aquecido necessita?",
+    "Caldeira fornecida",
+    "Eletrico"
+  ],
+  heatingFullSystem:[
+    "Têm que tipo de sistema?",
+    "Gás",
+    "Elétrico",
+    "Oléo",
+    "Outro"
+  ],
+  chimneyFireChimney:[
+    "O que precisa de fazer na sua chaminé?",
+    "Varrer",
+    "Remoção",
+    "Reconstruir / Grandes alterações",
+    "Reemcaminhamento / Reparação",
+    "Outros",
+  ],
+  chimneyFireFireplace:[
+    "Qual é o seu sistema?",
+    "Gás",
+    "Elétrico",
+    "Combustivél sólido (madeira, etc..)"
+  ],
 
 };
 export default serviceCategories;

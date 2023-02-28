@@ -55,7 +55,7 @@ const PostJob = () => {
       case "chimney-fireplace-specialists":
         setServiceCategory(serviceCategories.chimneyFireplace);
         break;
-      case "conservatories-specialists":
+      case "conversions":
         setServiceCategory(serviceCategories.conservatories);
         break;
       case "damp-proofing-specialists":

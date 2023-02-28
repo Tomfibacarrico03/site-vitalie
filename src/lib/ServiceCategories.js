@@ -46,13 +46,11 @@ const serviceCategories = {
   chimneyFireplace: [
     "Chaminé",
     "Lareira",
-    "Tubo de escape",
     "Outro ou vários dos acima",
   ],
-  conservatories: [
-    "Instalação de novo conservatório",
-    "Substituir ou melhorar um conservatório existente",
-    "Reparo",
+  conversions:[
+    "Conversão de loft",
+    //CONTINUAR AQUI
   ],
   dampProofing: [
     "Não - Preciso de ajuda para investigar",
