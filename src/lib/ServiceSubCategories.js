@@ -7,73 +7,143 @@ const serviceCategories = {
     "Nova construção",
     "Outros",
   ],
-  bathroomRefurbishmentInstallationSub:[
+  bathroomRefurbishmentInstallationSub: [
     "Quantas casas de banho precisam de renovação / instalação de banheiro?",
     "1",
-    "2 ou mais"
+    "2 ou mais",
   ],
-  bathroomInstallReplaceFixture:[
+  bathroomInstallReplaceFixture: [
     "É necessário mais algum serviço?",
     "Sim",
-    "Não"
+    "Não",
   ],
-  bathroomRepair: [
-    "É alguma fuga?",
-    "Sim",
-    "Não"
-  ],
-  bathroomTilling:[
+  bathroomRepair: ["É alguma fuga?", "Sim", "Não"],
+  bathroomTilling: [
     "O que involve o teu trabalho de Azulejos?",
     "Novo ou Substituição de azulejos.",
     "Reparação de azulejos.",
-    "Outros"
+    "Outros",
   ],
-  bricklayingBuildingWall:[
+  bricklayingBuildingWall: [
     "Que tipo de parede quer construir?",
     "Parede pequena, decorativa",
     "Parede pequena",
     "Parede de jardim",
     "Parede mestra",
-    "Mais que uma parede"
+    "Mais que uma parede",
   ],
-  bricklayingBuildStructure:[
+  bricklayingBuildStructure: [
     "Que tipo de estrutura quer construir?",
     "Anexo",
     "Varanda",
     "Garagem",
     "Extensão",
-    "Outros"
+    "Outros",
   ],
-  bricklayingBuildingBrickWork:[
+  bricklayingBuildingBrickWork: [
     "Que tipo de trabalho de alvenaria?",
     "Pilar",
     "Degraus",
-    "Outros"
+    "Outros",
   ],
-  bricklayingWallAlterations:[
+  bricklayingWallAlterations: [
     "Que tipo de alteração quer fazer?",
     "Instalação / Subtituição de janelas ou portas.",
     "Remoção de parede",
-    "Outros"
+    "Outros",
   ],
-  bricklayingRepointing:[
+  bricklayingRepointing: [
     "que tipo de reencaminhamento?",
     "Alvenaria",
-    "Pedra natural"
+    "Pedra natural",
   ],
-  bricklayingChimney:[
+  bricklayingChimney: [
     "O que precisa de fazer na sua chaminé?",
     "Remoção",
     "Reconstruir / Grandes alterações",
     "Reemcaminhamento / Reparação",
-    "Outros"
+    "Outros",
   ],
-  bricklayingRepair:[
+  bricklayingRepair: [
     "Que tipo de reparação necessita?",
     "Pequena",
     "Média",
-    "Grande"
-  ]
+    "Grande",
+  ],
+  carpentryJoinerySub: [
+    "Precisas de ajuda de um capinteiro em quê?",
+    "Portas indoor",
+    "Portas outdoor",
+    "Janelas",
+    "Chão",
+    "Rodapés e Arquitraves",
+    "Vários dos acima",
+  ],
+  carpentryFurniture: [
+    "Oque precisas?",
+    "Móveis feitos",
+    "Móveis por montar (Ikea, etc..)",
+    "Reparações a móveis",
+  ],
+  carpentryKitchenUnits: [
+    "Precisas de ajuda de um capinteiro em quê?",
+    "Colocar bancada de madeira",
+    "Reparar bancada de madeira",
+    "Instalar unidades",
+    "Construir unidades de cozinha personalizadas",
+    "Reparar / Ajustar unidades de cozinha",
+  ],
+  carpentryDecking: [
+    "Que tipo de trabalho precisas?",
+    "Construir um deck novo",
+    "Reparar um deck existente",
+  ],
+  carpetsFloring: [
+    "Que tipo de trablho de piso necessita?",
+    "Carpet",
+    "Linóleo",
+    "Laminado",
+    "Tijoleira",
+    "Projetado",
+    "Madeira",
+    "Outros",
+  ],
+  carpetsSanding: [
+    "Que tipo de trablho de piso necessita de lixar / restaurar?",
+    "Projetado",
+    "Madeira",
+    "Outros",
+  ],
+  carpetsRepair: [
+    "Que tipo de trablho de piso necessita de reparação?",
+    "Carpet",
+    "Linóleo",
+    "Laminado",
+    "Tijoleira",
+    "Projetado",
+    "Madeira",
+    "Outros",
+  ],
+  heatingBoiler:[
+    "Têm que tipo de caldeira?",
+    "Gás",
+    "Elétrica",
+    "Oléo",
+    "Outra"
+  ],
+  heatingPipes:[
+    "Que tipo de tubo requer o trabalho?",
+    "Gás",
+    "Água",
+    "Outro"
+  ],
+  heatingRaditors:[
+    "O que precisa?",
+    "Problema pequeno (fugas, etc..)",
+    "Mover ou Substituir",
+    "Outro"
+  ],
   
+
 };
 export default serviceCategories;

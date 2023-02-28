@@ -25,7 +25,7 @@ const serviceCategories = {
     "Portas, janelas e pisos",
     "Fabricação, montagem e reparos de móveis",
     "Unidades de cozinha e bancadas",
-    "Decking",
+    "Área coberta",
     "Outro trabalho em carpintaria",
   ],
   carpetsLinoFlooring: [
