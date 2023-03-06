@@ -49,8 +49,10 @@ const serviceCategories = {
     "Outro ou vários dos acima",
   ],
   conversions:[
-    "Conversão de loft",
-    //CONTINUAR AQUI
+    "Conversão de sotão",
+    "Conversão de um espaço existente",
+    "Alteração de paredes",
+    "Restaurar ou melhorar um espaço existente"
   ],
   dampProofing: [
     "Não - Preciso de ajuda para investigar",
@@ -62,7 +64,7 @@ const serviceCategories = {
     "Derrubar uma parede",
   ],
   drivewaysPaving: [
-    "Instalar uma entrada",
+    "Instalar / Reparar uma entrada",
     "Limpar ou selar uma entrada",
     "Kerb suspenso (crossover)",
     "Pavimentação, pátios e caminhos",

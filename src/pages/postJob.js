@@ -56,7 +56,7 @@ const PostJob = () => {
         setServiceCategory(serviceCategories.chimneyFireplace);
         break;
       case "conversions":
-        setServiceCategory(serviceCategories.conservatories);
+        setServiceCategory(serviceCategories.conversions);
         break;
       case "damp-proofing-specialists":
         setServiceCategory(serviceCategories.dampProofing);
@@ -280,9 +280,6 @@ const PostJob = () => {
             <option value="chimney-fireplace-specialists">
               Chaminé &amp; Lareira
             </option>
-            <option value="conservatories-specialists">
-              Jardins de Inverno
-            </option>
             <option value="conversions">Conversões</option>
             <option value="damp-proofing-specialists">Prova de Umidade</option>
             <option value="demolition-specialists">
@@ -340,6 +337,31 @@ const PostJob = () => {
           }
         >
           <h1>Qual é a categoria do seu trabalho?</h1>
+          {serviceCategory.map((serviceCategory, index) => (
+            <label
+              className={
+                selectedCategory === serviceCategory
+                  ? styles.categoryLabelSelected
+                  : styles.categoryLabel
+              }
+            >
+              <input
+                onChange={handleCatergoryChange}
+                checked={selectedCategory === serviceCategory}
+                type="checkbox"
+                value={serviceCategory}
+                className={styles.displayNone}
+              />
+              <h4>{serviceCategory}</h4>
+            </label>
+          ))}
+        </div>
+        <div
+          className={
+            questionNumber === 3 ? styles.question : styles.displayNone
+          }
+        >
+          <h1>Qual é a categoria do seu agagagag?</h1>
           {serviceCategory.map((serviceCategory, index) => (
             <label
               className={
