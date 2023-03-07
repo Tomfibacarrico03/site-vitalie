@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../css/postJob.module.css";
 import paper from ".././imgs/paper.webp";
 import serviceCategories from "../lib/ServiceCategories";
+import serviceSubCategories from "../lib/ServiceSubCategories";
 import { Link, useNavigate } from "react-router-dom";
 import { db, functions } from "../firebase";
 import {
@@ -20,8 +21,15 @@ const PostJob = () => {
 
   const [questionNumber, setQuestionNumber] = useState(1);
   var selectedOption;
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
   const [serviceCategory, setServiceCategory] = useState(["..."]);
+  const [serviceSubCategory, setServiceSubCategory] = useState(["..."]);
+  useEffect(() => {
+    console.log(serviceSubCategory);
+    setSubCategoryQuestion(serviceSubCategory[0]);
+  }, [serviceSubCategory]);
 
   const handleChange = (event) => {
     selectedOption = event.target.value;
@@ -142,8 +150,140 @@ const PostJob = () => {
         break;
     }
   };
+
   const handleCatergoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+    const val = event.target.value;
+    setSelectedCategory(val);
+    console.log(val);
+    switch (val) {
+      case "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)":
+        setServiceSubCategory(serviceSubCategories.architectsSub);
+        break;
+      case "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)":
+        setServiceSubCategory(serviceSubCategories.architectsSub);
+        break;
+      case "Renovação / instalação de banheiro":
+        setServiceSubCategory(
+          serviceSubCategories.bathroomRefurbishmentInstallationSub
+        );
+        break;
+      case "Instalar ou substituir um dispositivo":
+        setServiceSubCategory(
+          serviceSubCategories.bathroomInstallReplaceFixture
+        );
+        break;
+      case "Reparar":
+        setServiceSubCategory(serviceSubCategories.bathroomRepair);
+        break;
+      case "Azulejos":
+        setServiceSubCategory(serviceSubCategories.bathroomTilling);
+        break;
+      case "Construindo uma parede":
+        setServiceSubCategory(serviceSubCategories.bricklayingBuildingWall);
+        break;
+      case "Construção de uma estrutura":
+        setServiceSubCategory(serviceSubCategories.bricklayingBuildStructure);
+        break;
+      case "Trabalho de alvenaria personalizado":
+        setServiceSubCategory(
+          serviceSubCategories.bricklayingBuildingBrickWork
+        );
+        break;
+      case "Alterações na parede":
+        setServiceSubCategory(serviceSubCategories.bricklayingWallAlterations);
+        break;
+      case "Reapontamento":
+        setServiceSubCategory(serviceSubCategories.bricklayingRepointing);
+        break;
+      case "Trabalho na chaminé":
+        setServiceSubCategory(serviceSubCategories.bricklayingChimney);
+        break;
+      case "Reparos":
+        setServiceSubCategory(serviceSubCategories.bricklayingRepair);
+        break;
+      case "Portas, janelas e pisos":
+        setServiceSubCategory(serviceSubCategories.carpentryJoinerySub);
+        break;
+      case "Fabricação, montagem e reparos de móveis":
+        setServiceSubCategory(serviceSubCategories.carpentryFurniture);
+        break;
+      case "Unidades de cozinha e bancadas":
+        setServiceSubCategory(serviceSubCategories.carpentryKitchenUnits);
+        break;
+      case "Área coberta":
+        setServiceSubCategory(serviceSubCategories.carpentryDecking);
+        break;
+      case "Piso novo ou substituição":
+        setServiceSubCategory(serviceSubCategories.carpetsFloring);
+        break;
+      case "Lixamento / restauração":
+        setServiceSubCategory(serviceSubCategories.carpetsSanding);
+        break;
+      case "Reparo / ajuste":
+        setServiceSubCategory(serviceSubCategories.carpetsRepair);
+        break;
+      case "Caldeira":
+        setServiceSubCategory(serviceSubCategories.heatingBoiler);
+        break;
+      case "Tubulação / fornecimento":
+        setServiceSubCategory(serviceSubCategories.heatingPipes);
+        break;
+      case "Radiadores":
+        setServiceSubCategory(serviceSubCategories.heatingRaditors);
+        break;
+      case "Aquecimento de piso":
+        setServiceSubCategory(serviceSubCategories.heatingUnderFloor);
+        break;
+      case "Instalação completa do sistema":
+        setServiceSubCategory(serviceSubCategories.heatingFullSystem);
+        break;
+      case "Chaminé":
+        setServiceSubCategory(serviceSubCategories.chimneyFireChimney);
+        break;
+      case "Lareira":
+        setServiceSubCategory(serviceSubCategories.chimneyFireFireplace);
+        break;
+      case "Conversão de sotão":
+        setServiceSubCategory(serviceSubCategories.consversionLoft);
+        break;
+      case "Conversão de um espaço existente":
+        setServiceSubCategory(serviceSubCategories.conversionExistingSpace);
+        break;
+      case "Alteração de paredes":
+        setServiceSubCategory(serviceSubCategories.conversionWall);
+        break;
+      case "Restaurar ou melhorar um espaço existente":
+        setServiceSubCategory(
+          serviceSubCategories.conversionRestoringImproving
+        );
+        break;
+      case "Sim - Preciso apenas de ajuda para resolver o problema":
+        setServiceSubCategory(serviceSubCategories.DampProofingYes);
+        break;
+      case "Remoção de lixo apenas":
+        setServiceSubCategory(serviceSubCategories.DemoltionClearWaste);
+        break;
+      case "Demolição de edifícios / estruturas":
+        setServiceSubCategory(serviceSubCategories.DemoltionClearBuilding);
+        break;
+      case "Derrubar uma parede":
+        setServiceSubCategory(serviceSubCategories.DemolitionClearKnock);
+        break;
+      case "Instalar / Reparar uma entrada":
+        setServiceSubCategory(serviceSubCategories.drivewaysPavingInstallRepair);
+        break;
+      case "Pavimentação, pátios e caminho":
+        setServiceSubCategory(serviceSubCategories.drivewaysPavingPaving);
+        break;
+      //CONTINUAR ELETRICAL COMPLETO LINHA 72 CATEGORIES E LINHA 237 SUBCATEGORIES
+      default:
+        setServiceSubCategory(["description"]);
+        break;
+    }
+  };
+  const handleSubCatergoryChange = (event) => {
+    setSelectedSubCategory(event.target.value);
+    console.log(setSelectedSubCategory);
   };
   function questionIncrement() {
     setQuestionNumber(questionNumber + 1);
@@ -361,25 +501,27 @@ const PostJob = () => {
             questionNumber === 3 ? styles.question : styles.displayNone
           }
         >
-          <h1>Qual é a categoria do seu agagagag?</h1>
-          {serviceCategory.map((serviceCategory, index) => (
-            <label
-              className={
-                selectedCategory === serviceCategory
-                  ? styles.categoryLabelSelected
-                  : styles.categoryLabel
-              }
-            >
-              <input
-                onChange={handleCatergoryChange}
-                checked={selectedCategory === serviceCategory}
-                type="checkbox"
-                value={serviceCategory}
-                className={styles.displayNone}
-              />
-              <h4>{serviceCategory}</h4>
-            </label>
-          ))}
+          <h1>{subCategoryQuestion}</h1>
+          {serviceSubCategory.map((serviceSubCategory, index) =>
+            index === 0 ? null : (
+              <label
+                className={
+                  selectedSubCategory === serviceSubCategory
+                    ? styles.categoryLabelSelected
+                    : styles.categoryLabel
+                }
+              >
+                <input
+                  onChange={handleSubCatergoryChange}
+                  checked={selectedSubCategory === serviceSubCategory}
+                  type="checkbox"
+                  value={serviceSubCategory}
+                  className={styles.displayNone}
+                />
+                <h4>{serviceSubCategory}</h4>
+              </label>
+            )
+          )}
         </div>
         <br />
         <button

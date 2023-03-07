@@ -53,7 +53,7 @@ const serviceCategories = {
     "Outros",
   ],
   bricklayingRepointing: [
-    "que tipo de reencaminhamento?",
+    "Que tipo de reencaminhamento?",
     "Alvenaria",
     "Pedra natural",
   ],
