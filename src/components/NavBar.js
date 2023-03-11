@@ -8,8 +8,11 @@ const NavBar = () => {
   return (
     <nav>
       <div className={styles.logo}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <h3>Logotipo</h3>
+      </Link>
       </div>
+     
       <ul>
         <Link to="/postJob" style={{ textDecoration: "none" }}>
           <li className={styles.btnPostJob}>Criar Trabalho</li>
@@ -33,7 +36,7 @@ const NavBar = () => {
               to="/registrar-como-comerciante"
               style={{ textDecoration: "none" }}
             >
-              <li className={styles.btnPostJob}>Comerciantes - Registar</li>
+              <li className={styles.btnPostJob}>Tornar-se trabalhador</li>
             </Link>
             <Link to="/entrar" style={{ textDecoration: "none" }}>
               <li className={styles.btnPostJob}>Entrar</li>

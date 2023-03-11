@@ -25,7 +25,7 @@ const Home = () => {
           </Link>   
           <Link to="/registrar-como-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
           <li className={styles.btnRegister}>
-            <h3>Registar</h3>
+            <h3>Registar como Trabalhador</h3>
           </li>
           </Link>
         </div>
