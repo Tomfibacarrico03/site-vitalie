@@ -10,6 +10,7 @@ import RegistoComerciante from "./pages/RegistoComerciante";
 import MyAccount from "./pages/MyAccount";
 import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
+import JobPage from "./pages/JobPage";
 import { AuthContextProvider } from './context/AuthContext'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/registrar-como-comerciante" element={<RegistoComerciante/>} />
         <Route path="/minha-conta" element={<MyAccount/>} />
         <Route path="/meustrabalhos" element={<MyPostedJobs/>} />
+        <Route path="/meustrabalhos/:id" element={<JobPage/>} />
       </Routes>
 
       <Footer />

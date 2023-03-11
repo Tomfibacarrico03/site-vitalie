@@ -29,7 +29,9 @@ const MyPostedJobs = () => {
       <h1>Meus Trabalhos publicados</h1>
 
         {jobs.map((job) => (
-          <JobCard key={job.id} value={job}/>
+          <Link style={{textDecoration: "none"}} to={`/meustrabalhos/${job.id}` } state={{ job }}>
+            <JobCard key={job.id} value={job}/>
+          </Link>
         ))}
     </div>
    )

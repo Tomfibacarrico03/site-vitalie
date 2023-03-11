@@ -21,6 +21,7 @@ const PostJob = () => {
 
   const [questionNumber, setQuestionNumber] = useState(1);
   var selectedOption;
+  const [tradeSelected, setTradeSelected] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
@@ -33,6 +34,7 @@ const PostJob = () => {
 
   const handleChange = (event) => {
     selectedOption = event.target.value;
+    setTradeSelected(selectedOption);
     console.log(selectedOption);
 
     switch (selectedOption) {
@@ -331,6 +333,7 @@ const PostJob = () => {
         postalCode,
         headline: "Some headline",
         description: "Some description",
+
       });
 
       console.log(result.data.message); // Output: "User created successfully and job saved!"
@@ -362,6 +365,11 @@ const PostJob = () => {
 
   const SaveJob = async (user) => {
     try {
+      console.log("===")
+      console.log(selectedCategory)
+      console.log(selectedSubCategory)
+      console.log("===")
+
       //setIsLoading(true);
 
       //const saveJob = functions.httpsCallable("SaveJob");
@@ -371,6 +379,9 @@ const PostJob = () => {
         description: "desccoco",
         userId: user.uid,
         createdAt: serverTimestamp(),
+        tradeSelected,
+        selectedCategory,
+        selectedSubCategory,
       });
 
       // setResult(response);

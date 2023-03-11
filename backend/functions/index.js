@@ -7,7 +7,7 @@ const db = admin.firestore();
 
 exports.SaveJob = functions.https.onCall(async (data, context) => {
   try {
-    const { headline, description } = data;
+    const { headline, description, tradeSelected, selectedCategory, selectedSubCategory } = data;
     const userId = context.auth.uid;
     const jobsRef = db.collection("jobs");
 
@@ -16,6 +16,10 @@ exports.SaveJob = functions.https.onCall(async (data, context) => {
       description,
       userId,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      tradeSelected,
+      selectedCategory,
+      selectedSubCategory,
+    
     });
 
     console.log("Document has been added successfully");
