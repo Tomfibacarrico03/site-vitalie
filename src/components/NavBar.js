@@ -22,6 +22,21 @@ const NavBar = () => {
             <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
               <li className={styles.btnPostJob}>Meus trabalhos publicados</li>
             </Link>
+            {user.trade_member == false ? (
+            <Link
+              to="/registrar-como-comerciante"
+              style={{ textDecoration: "none" }}
+            >
+              <li className={styles.btnPostJob}>Tornar-se trabalhador</li>
+            </Link>
+            ):(
+              <Link
+              to="/dashboard-de-trabalhos"
+              style={{ textDecoration: "none" }}
+            >
+              <li className={styles.btnPostJob}>Dashboard de trabalhos</li>
+            </Link>
+            )}
             <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
               <li className={styles.btnPostJob}>Ajuda</li>
             </Link>

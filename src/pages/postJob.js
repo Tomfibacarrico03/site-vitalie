@@ -13,7 +13,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
-
+import Select from 'react-select'
 import { httpsCallable } from "firebase/functions";
 const PostJob = () => {
   const saveJob = httpsCallable(functions, "SaveJob");
@@ -32,126 +32,53 @@ const PostJob = () => {
     setSubCategoryQuestion(serviceSubCategory[0]);
   }, [serviceSubCategory]);
 
-  const handleChange = (event) => {
-    selectedOption = event.target.value;
-    setTradeSelected(selectedOption);
+  const handleChange = (selectedOption) => {
+    setTradeSelected(selectedOption.label);
     console.log(selectedOption);
-
-    switch (selectedOption) {
-      case "architects":
-        setServiceCategory(serviceCategories.architects);
-        console.log(serviceCategory);
-        break;
-
-      case "bathroom-fitters":
-        setServiceCategory(serviceCategories.bathroom);
-        console.log(serviceCategory);
-        break;
-      case "bricklayers":
-        setServiceCategory(serviceCategories.bricklayingRepointing);
-        console.log(serviceCategory);
-        break;
-      case "carpenters-and-joiners":
-        setServiceCategory(serviceCategories.carpentryJoinery);
-        console.log(serviceCategory);
-        break;
-      case "carpet-flooring-fitters":
-        setServiceCategory(serviceCategories.carpetsLinoFlooring);
-        console.log(serviceCategory);
-        break;
-      case "heating-engineers":
-        setServiceCategory(serviceCategories.centralHeating);
-        break;
-      case "chimney-fireplace-specialists":
-        setServiceCategory(serviceCategories.chimneyFireplace);
-        break;
-      case "conversions":
-        setServiceCategory(serviceCategories.conversions);
-        break;
-      case "damp-proofing-specialists":
-        setServiceCategory(serviceCategories.dampProofing);
-        break;
-      case "demolition-specialists":
-        setServiceCategory(serviceCategories.demolitionClearance);
-        break;
-      case "driveway-specialists":
-        setServiceCategory(serviceCategories.drivewaysPaving);
-        break;
-      case "electricians":
-        setServiceCategory(serviceCategories.electrical);
-        break;
-      case "extension-specialists":
-        setServiceCategory(serviceCategories.extensions);
-        break;
-      case "fascias-soffits-guttering-specialists":
-        setServiceCategory(serviceCategories.fasciasSoffitsGuttering);
-        break;
-      case "fencers":
-        setServiceCategory(serviceCategories.fencing);
-        break;
-      case "landscape-gardeners":
-        setServiceCategory(serviceCategories.gardeningLandscaping);
-        break;
-      case "gas-engineers":
-        setServiceCategory(serviceCategories.gasWork);
-        break;
-      case "groundwork-and-foundations-specialists":
-        setServiceCategory(serviceCategories.groundworkFoundations);
-        break;
-      case "handymen":
-        setServiceCategory(serviceCategories.handymanCategory);
-        break;
-      case "insulation-specialists":
-        setServiceCategory(serviceCategories.insulationCategory);
-        break;
-      case "kitchen-fitters":
-        setServiceCategory(serviceCategories.kitchenFittingCategory);
-        break;
-      case "locksmiths":
-        setServiceCategory(serviceCategories.locksmithCategory);
-        break;
-      case "loft-conversion-specialists":
-        setServiceCategory(serviceCategories.loftConversionsCategory);
-        break;
-      case "new-builds-specialists":
-        setServiceCategory(serviceCategories.newBuildCategory);
-        break;
-      case "painters-and-decorators":
-        setServiceCategory(serviceCategories.paintingDecoratingCategory);
-        break;
-      case "plasterers":
-        setServiceCategory(serviceCategories.plasteringRenderingCategory);
-        break;
-      case "plumbers":
-        setServiceCategory(serviceCategories.plumbingCategory);
-        break;
-      case "restoration-and-refurbishment-specialists":
-        setServiceCategory(serviceCategories.restorationRefurbishmentCategory);
-        break;
-      case "roofers":
-        setServiceCategory(serviceCategories.roofingCategory);
-        break;
-      case "security-system-installers":
-        setServiceCategory(serviceCategories.securitySystems);
-        break;
-      case "stonemasons":
-        setServiceCategory(
-          serviceCategories.plumbinstonemasonryCategorygCategory
-        );
-        break;
-      case "tilers":
-        setServiceCategory(serviceCategories.tillingCategory);
-        break;
-      case "tree-surgeons":
-        setServiceCategory(serviceCategories.treeSurgeryCategory);
-        break;
-      case "window-fitters":
-        setServiceCategory(serviceCategories.windowsDoorFitingCategory);
-        break;
-      default:
-        break;
-    }
+  
+    const categoryMapping = {
+      architects: serviceCategories.architects,
+      "bathroom-fitters": serviceCategories.bathroom,
+      bricklayers: serviceCategories.bricklayingRepointing,
+      "carpenters-and-joiners": serviceCategories.carpentryJoinery,
+      "carpet-flooring-fitters": serviceCategories.carpetsLinoFlooring,
+      "heating-engineers": serviceCategories.centralHeating,
+      "chimney-fireplace-specialists": serviceCategories.chimneyFireplace,
+      conversions: serviceCategories.conversions,
+      "damp-proofing-specialists": serviceCategories.dampProofing,
+      "demolition-specialists": serviceCategories.demolitionClearance,
+      "driveway-specialists": serviceCategories.drivewaysPaving,
+      electricians: serviceCategories.electrical,
+      "extension-specialists": serviceCategories.extensions,
+      "fascias-soffits-guttering-specialists":
+        serviceCategories.fasciasSoffitsGuttering,
+      fencers: serviceCategories.fencing,
+      "landscape-gardeners": serviceCategories.gardeningLandscaping,
+      "gas-engineers": serviceCategories.gasWork,
+      "groundwork-and-foundations-specialists":
+        serviceCategories.groundworkFoundations,
+      handymen: serviceCategories.handymanCategory,
+      "insulation-specialists": serviceCategories.insulationCategory,
+      "kitchen-fitters": serviceCategories.kitchenFittingCategory,
+      locksmiths: serviceCategories.locksmithCategory,
+      "loft-conversion-specialists": serviceCategories.loftConversionsCategory,
+      "new-builds-specialists": serviceCategories.newBuildCategory,
+      "painters-and-decorators": serviceCategories.paintingDecoratingCategory,
+      plasterers: serviceCategories.plasteringRenderingCategory,
+      plumbers: serviceCategories.plumbingCategory,
+      "restoration-and-refurbishment-specialists":
+        serviceCategories.restorationRefurbishmentCategory,
+      roofers: serviceCategories.roofingCategory,
+      "security-system-installers": serviceCategories.securitySystems,
+      stonemasons: serviceCategories.plumbinstonemasonryCategorygCategory,
+      tilers: serviceCategories.tillingCategory,
+      "tree-surgeons": serviceCategories.treeSurgeryCategory,
+      "window-fitters": serviceCategories.windowsDoorFitingCategory,
+    };
+  
+    setServiceCategory(categoryMapping[selectedOption.value]);
   };
+  
 
   const handleCatergoryChange = (event) => {
     const val = event.target.value;
@@ -314,35 +241,39 @@ const PostJob = () => {
 
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if (!termsChecked) {
-      setError("Please accept the terms and conditions");
-      return;
-    }
 
-    try {
-      const result = await createUserAndSaveJob({
-        email,
-        password,
-        firstName,
-        lastName,
-        username,
-        phone,
-        postalCode,
-        headline: "Some headline",
-        description: "Some description",
-
-      });
-
-      console.log(result.data.message); // Output: "User created successfully and job saved!"
-      setError(null);
-      navigate("/minha-conta");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        if (!termsChecked) {
+          setError('Please accept the terms and conditions');
+          return;
+        }
+    
+        try {
+          const { user } = await createUser(email, password);
+          await setDoc(doc(db, "users", user.uid), { 
+              firstName,
+              lastName,
+              username,
+              email,
+              phone,
+              address1: "",
+              address2: "",
+              city: "",
+              postalCode,
+              headline: "Some headline",
+              description: "Some description",
+    
+            })
+          SaveJob(user) 
+          setError(null);
+          navigate('/minha-conta')
+        } catch (error) {
+          setError(error.message);
+        }
+      };
 
   /*  const SaveJob = async (user) => {
     try {
@@ -392,6 +323,43 @@ const PostJob = () => {
     }
   };
 
+  const trades = [
+    { value: "architects", label: "Serviços de Arquitetura" },
+    { value: "bathroom-fitters", label: "Instalação de Banheiros" },
+    { value: "bricklayers", label: "Alvenaria & Rejuntamento" },
+    { value: "carpenters-and-joiners", label: "Carpintaria & Marcenaria" },
+    { value: "carpet-flooring-fitters", label: "Carpetes, Lino & Pisos" },
+    { value: "heating-engineers", label: "Aquecimento Central" },
+    { value: "chimney-fireplace-specialists", label: "Chaminé & Lareira" },
+    { value: "conversions", label: "Conversões" },
+    { value: "damp-proofing-specialists", label: "Prova de Umidade" },
+    { value: "demolition-specialists", label: "Demolição & Limpeza" },
+    { value: "driveway-specialists", label: "Entradas & Paving" },
+    { value: "electricians", label: "Elétrica" },
+    { value: "extension-specialists", label: "Ampliações" },
+    { value: "fascias-soffits-guttering-specialists", label: "Fascias, Soffits & Calhas" },
+    { value: "fencers", label: "Cercas" },
+    { value: "landscape-gardeners", label: "Jardinagem & Paisagismo" },
+    { value: "gas-engineers", label: "Gás" },
+    { value: "groundwork-and-foundations-specialists", label: "Terraplenagem & Fundações" },
+    { value: "handymen", label: "Faz-tudo" },
+    { value: "insulation-specialists", label: "Isolamento" },
+    { value: "kitchen-fitters", label: "Instalação de Cozinhas" },
+    { value: "locksmiths", label: "Chaveiro" },
+    { value: "loft-conversion-specialists", label: "Conversão de Sótão" },
+    { value: "new-builds-specialists", label: "Nova Construção" },
+    { value: "painters-and-decorators", label: "Pintura & Decoração" },
+    { value: "plasterers", label: "Gesso & Revestimento" },
+    { value: "plumbers", label: "Encanamento" },
+    { value: "restoration-and-refurbishment-specialists", label: "Restauração & Renovação" },
+    { value: "roofers", label: "Telhados" },
+    { value: "security-system-installers", label: "Sistemas de Segurança" },
+    { value: "stonemasons", label: "Pedreiro" },
+    { value: "tilers", label: "Azulejista" },
+    { value: "tree-surgeons", label: "Cirurgia de Árvores" },
+    { value: "window-fitters", label: "Instalação de Janelas & Portas" },
+  ]
+
   return (
     <div>
       <div className={styles.paper}>
@@ -412,75 +380,11 @@ const PostJob = () => {
           }
         >
           <h1>O que precisas no teu trabalhador?</h1>
-          <select
-            className={styles.jobsSelect}
-            value={selectedOption}
-            onChange={handleChange}
-          >
-            <option value="">Escolhe uma categoria</option>
-            <option value="architects">Serviços de Arquitetura</option>
-            <option value="bathroom-fitters">Instalação de Banheiros</option>
-            <option value="bricklayers">Alvenaria &amp; Rejuntamento</option>
-            <option value="carpenters-and-joiners">
-              Carpintaria &amp; Marcenaria
-            </option>
-            <option value="carpet-flooring-fitters">
-              Carpetes, Lino &amp; Pisos
-            </option>
-            <option value="heating-engineers">Aquecimento Central</option>
-            <option value="chimney-fireplace-specialists">
-              Chaminé &amp; Lareira
-            </option>
-            <option value="conversions">Conversões</option>
-            <option value="damp-proofing-specialists">Prova de Umidade</option>
-            <option value="demolition-specialists">
-              Demolição &amp; Limpeza
-            </option>
-            <option value="driveway-specialists">Entradas &amp; Paving</option>
-            <option value="electricians">Elétrica</option>
-            <option value="extension-specialists">Ampliações</option>
-            <option value="fascias-soffits-guttering-specialists">
-              Fascias, Soffits &amp; Calhas
-            </option>
-            <option value="fencers">Cercas</option>
-            <option value="landscape-gardeners">
-              Jardinagem &amp; Paisagismo
-            </option>
-            <option value="gas-engineers">Gás</option>
-            <option value="groundwork-and-foundations-specialists">
-              Terraplenagem &amp; Fundações
-            </option>
-            <option value="handymen">Faz-tudo</option>
-            <option value="insulation-specialists">Isolamento</option>
-            <option value="kitchen-fitters">Instalação de Cozinhas</option>
-            <option value="locksmiths">Chaveiro</option>
-            <option value="loft-conversion-specialists">
-              Conversão de Sótão
-            </option>
-            <option value="new-builds-specialists">Nova Construção</option>
-            <option value="painters-and-decorators">
-              Pintura &amp; Decoração
-            </option>
-            <option value="plasterers">Gesso &amp; Revestimento</option>
-            <option value="plumbers">Encanamento</option>
-            <option value="restoration-and-refurbishment-specialists">
-              Restauração &amp; Renovação
-            </option>
-            <option value="roofers">Telhados</option>
-            <option value="security-system-installers">
-              Sistemas de Segurança
-            </option>
-            <option value="stonemasons">Pedreiro</option>
-            <option value="tilers">Azulejista</option>
-            <option value="tree-surgeons">Cirurgia de Árvores</option>
-            <option value="window-fitters">
-              Instalação de Janelas &amp; Portas
-            </option>
-            <option value="not-determined">
-              Não tenho certeza qual escolher
-            </option>
-            Qual é a categoria do seu trabalho?
-          </select>
+          <Select 
+            options={trades}
+            onChange={(option) => handleChange(option)}
+            placeholder="Selecionar"
+          />
         </div>
         <div
           className={

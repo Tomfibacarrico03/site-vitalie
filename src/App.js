@@ -11,6 +11,7 @@ import MyAccount from "./pages/MyAccount";
 import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
 import JobPage from "./pages/JobPage";
+import TradesDashboard from "./pages/TradesDashboard";
 import { AuthContextProvider } from './context/AuthContext'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/minha-conta" element={<MyAccount/>} />
         <Route path="/meustrabalhos" element={<MyPostedJobs/>} />
         <Route path="/meustrabalhos/:id" element={<JobPage/>} />
+        <Route path="/dashboard-de-trabalhos" element={<TradesDashboard/>} />
       </Routes>
 
       <Footer />

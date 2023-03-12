@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { doc, setDoc} from 'firebase/firestore';
+import { doc, setDoc, updateDoc} from 'firebase/firestore';
 import { UserAuth } from '../context/AuthContext'
 import { auth, db } from '../firebase';
+import Select from 'react-select'
+
 
 
 
@@ -21,6 +23,9 @@ const SignUp = () => {
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [error, setError] = useState(null);
+
+    const [tradeSelected, setTradeSelected] = useState("")
+
     const { createUser, user, logout } = UserAuth();
   
     const handleSubmit = async (e) => {
@@ -42,7 +47,7 @@ const SignUp = () => {
             address2,
             city,
             postalCode,
-            role: 'trade-member'
+            trade_member: true,
 
          }) 
         setError(null);
@@ -52,15 +57,56 @@ const SignUp = () => {
       }
     };
 
-    const handleLogout = async () => {
-        try {
-          await logout();
-          alert("Sessão Terminada")
-          console.log('You are logged out')
-        } catch (e) {
-          console.log(e.message);
-        }
-      };
+    const becomeTradesPerson = async (e) => {
+      e.preventDefault();
+      try {
+        await updateDoc(doc(db, "users", user.uid), {
+            tradeSelected,
+            trade_member: true,
+
+         }) 
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+
+    const trades = [
+      { value: "architects", label: "Serviços de Arquitetura" },
+      { value: "bathroom-fitters", label: "Instalação de Banheiros" },
+      { value: "bricklayers", label: "Alvenaria & Rejuntamento" },
+      { value: "carpenters-and-joiners", label: "Carpintaria & Marcenaria" },
+      { value: "carpet-flooring-fitters", label: "Carpetes, Lino & Pisos" },
+      { value: "heating-engineers", label: "Aquecimento Central" },
+      { value: "chimney-fireplace-specialists", label: "Chaminé & Lareira" },
+      { value: "conversions", label: "Conversões" },
+      { value: "damp-proofing-specialists", label: "Prova de Umidade" },
+      { value: "demolition-specialists", label: "Demolição & Limpeza" },
+      { value: "driveway-specialists", label: "Entradas & Paving" },
+      { value: "electricians", label: "Elétrica" },
+      { value: "extension-specialists", label: "Ampliações" },
+      { value: "fascias-soffits-guttering-specialists", label: "Fascias, Soffits & Calhas" },
+      { value: "fencers", label: "Cercas" },
+      { value: "landscape-gardeners", label: "Jardinagem & Paisagismo" },
+      { value: "gas-engineers", label: "Gás" },
+      { value: "groundwork-and-foundations-specialists", label: "Terraplenagem & Fundações" },
+      { value: "handymen", label: "Faz-tudo" },
+      { value: "insulation-specialists", label: "Isolamento" },
+      { value: "kitchen-fitters", label: "Instalação de Cozinhas" },
+      { value: "locksmiths", label: "Chaveiro" },
+      { value: "loft-conversion-specialists", label: "Conversão de Sótão" },
+      { value: "new-builds-specialists", label: "Nova Construção" },
+      { value: "painters-and-decorators", label: "Pintura & Decoração" },
+      { value: "plasterers", label: "Gesso & Revestimento" },
+      { value: "plumbers", label: "Encanamento" },
+      { value: "restoration-and-refurbishment-specialists", label: "Restauração & Renovação" },
+      { value: "roofers", label: "Telhados" },
+      { value: "security-system-installers", label: "Sistemas de Segurança" },
+      { value: "stonemasons", label: "Pedreiro" },
+      { value: "tilers", label: "Azulejista" },
+      { value: "tree-surgeons", label: "Cirurgia de Árvores" },
+      { value: "window-fitters", label: "Instalação de Janelas & Portas" },
+    ]
 
       useEffect(() => {
         
@@ -69,7 +115,28 @@ const SignUp = () => {
     return (
         <div>
         {user && user.email ? (
-          <h2>Welcome, {user.email}</h2>
+          <>
+          {user.trade_member == false ? (
+          <div>
+            <h2>Bem vindo, {user.firstName} {user.lastName}</h2>
+            <h3>Inscreva-se para ser um membro comercial</h3>
+            <form onSubmit={becomeTradesPerson}>
+                <div>
+                  <label htmlFor="trade">Que trabalho deseja realizar</label>
+                  <Select 
+                    options={trades}
+                    onChange={(option) => setTradeSelected(option.label)}
+                    placeholder="Selecionar"
+                  />
+                </div>
+                {error && <p>{error}</p>}
+                <button type="submit">Registar como trabalhador</button>
+            </form>
+          </div>
+          ):(
+            <h3>Já se inscreveu</h3>
+          )}
+          </>
         ) : (
           <>
             <h2>Inscreva-se para ser um membro comercial</h2>
@@ -153,27 +220,7 @@ const SignUp = () => {
             </form>
           </>
         )}
-        {user && (
-          <button
-            style={{
-              backgroundColor: "#f00",
-              marginTop: -65,
-              borderRadius: 5,
-              border: 0,
-              padding: 15,
-              fontSize: 12,
-              marginRight: 0,
-              width: "150px",
-              position: "absolute",
-              fontFamily: "Avenir Next",
-              color: "#fff",
-              left: 440
-            }}
-            onClick={handleLogout}
-          >
-            Terminar Sessão
-          </button>
-        )}
+       
       </div>
     );
 };

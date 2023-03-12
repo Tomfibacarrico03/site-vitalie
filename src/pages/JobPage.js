@@ -87,36 +87,51 @@ function JobPage(props) {
       <p>Trabalho: {job.tradeSelected}</p>
       <p>Postado {createdAtString}</p>
       {usuario && <p>Postado por: {usuario.firstName}</p>}
-      <p>0 pré-selecionados de 4 interessados</p>
+      {user.uid == job.userId ? (<p>0 pré-selecionados de 4 interessados</p>) :(
+        <button>Mostrar Interesse</button>
+      ) }
+      
+      
       <h5>Descrição do trabalho</h5>
       <p>{job.selectedSubCategory}: {job.selectedCategory}</p>
       <h5>Descrição do cliente</h5>
       <p>Descrição</p>
       <div>
-        <h2>Image Uploader</h2>
+        <h2>Images</h2>
         <div>
+          {user.uid == job.userId ? (
           <input type="file" id="image1" onChange={handleImage1Upload} />
+          ):(null)}
           {image1Url && <img style={{width: 50}} src={image1Url} alt="Uploaded" />}
         </div>
         <div>
+        {user.uid == job.userId ? (
           <input type="file" id="image2" onChange={handleImage2Upload} />
+          ):(null)}
           {image2Url && <img style={{width: 50}} src={image2Url} alt="Uploaded" />}
         </div>
         <div>
+          {user.uid == job.userId ? (
           <input type="file" id="image3" onChange={handleImage3Upload} />
+          ):(null)}
           {image3Url && <img style={{width: 50}} src={image3Url} alt="Uploaded" />}
         </div>
         <div>
+          {user.uid == job.userId ? (
           <input type="file" id="image4" onChange={handleImage4Upload} />
+          ):(null)}
           {image4Url && <img style={{width: 50}} src={image4Url} alt="Uploaded" />}
         </div>
         <div>
+          {user.uid == job.userId ? (
           <input type="file" id="image5" onChange={handleImage5Upload} />
+          ):(null)}
           {image5Url && <img style={{width: 50}} src={image5Url} alt="Uploaded" />}
         </div>
         <div>
-
-          <input type="file" id="image4" onChange={handleImage6Upload} />
+          {user.uid == job.userId ? (
+          <input type="file" id="image6" onChange={handleImage6Upload} />
+          ):(null)}
           {image6Url && <img style={{width: 50}} src={image6Url} alt="Uploaded" />}
         </div>
       </div>
