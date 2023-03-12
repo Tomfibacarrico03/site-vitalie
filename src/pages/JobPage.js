@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { formatDistanceToNow } from 'date-fns';
 import { pt } from 'date-fns/locale';
-import { getDoc, doc, updateDoc } from 'firebase/firestore';
+import { getDoc, doc, updateDoc, collection, addDoc, serverTimestamp , setDoc} from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -12,8 +12,10 @@ function JobPage(props) {
     const location = useLocation()
     const { job } = location.state
     const {user} = UserAuth()
+
+
   
-    
+    const navigate = useNavigate()
     const createdAt = new Date(job.createdAt.seconds * 1000); 
     const createdAtString = formatDistanceToNow(createdAt, { addSuffix: true, locale: pt });
 
@@ -79,6 +81,40 @@ function JobPage(props) {
       return userData;
     };
 
+
+    function createChat() {
+      const chatDocId = `${user.uid}_${job.userId}`;
+      const chatDocRef = doc(collection(db, "chats"), "2");
+      const messagesCollectionRef = collection(chatDocRef, "messages");
+    
+      const newChatDocData = {
+        users: [user.uid,  job.userId]
+      };
+    
+      setDoc(chatDocRef, newChatDocData)
+        .then(() => {
+          console.log("Chat document created successfully!");
+    
+          const newMessageDocData = {
+            text: "Hello!",
+            senderId: user.uid,
+            timestamp: serverTimestamp(),
+          };
+    
+          setDoc(doc(messagesCollectionRef), newMessageDocData)
+            .then(() => {
+              console.log("Message document created successfully!");
+              navigate("/inbox")
+            })
+            .catch((error) => {
+              console.error("Error creating message document:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error creating chat document:", error);
+        });
+    }
+
     
 
   return (
@@ -88,7 +124,7 @@ function JobPage(props) {
       <p>Postado {createdAtString}</p>
       {usuario && <p>Postado por: {usuario.firstName}</p>}
       {user.uid == job.userId ? (<p>0 pré-selecionados de 4 interessados</p>) :(
-        <button>Mostrar Interesse</button>
+        <button onClick={() => createChat()}>Mostrar Interesse</button>
       ) }
       
       

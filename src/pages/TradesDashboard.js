@@ -33,6 +33,11 @@ const TradesDashboard = () => {
   return (
     <div>
         <h1>Dashboard</h1>
+
+        <h2>Mensagens</h2>
+        <Link style={{textDecoration: "none"}} to={`/inbox` }>
+               <p>Caixa de entrada</p>
+            </Link>
         <h2>Trabalhos publicados na sua área</h2>
         {jobs.map((job) => (
             <Link style={{textDecoration: "none"}} to={`/meustrabalhos/${job.id}` } state={{ job }}>

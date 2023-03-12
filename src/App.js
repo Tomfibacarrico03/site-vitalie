@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
 import JobPage from "./pages/JobPage";
 import TradesDashboard from "./pages/TradesDashboard";
+import Inbox from "./pages/Inbox";
+import Chat from "./pages/Chat";
 import { AuthContextProvider } from './context/AuthContext'
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
         <Route path="/meustrabalhos" element={<MyPostedJobs/>} />
         <Route path="/meustrabalhos/:id" element={<JobPage/>} />
         <Route path="/dashboard-de-trabalhos" element={<TradesDashboard/>} />
+        <Route path="/inbox" element={<Inbox/>} />
+        <Route path="/inbox/chat/:id" element={<Chat/>} />
       </Routes>
 
       <Footer />
