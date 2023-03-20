@@ -84,32 +84,17 @@ const PostJob = () => {
     const val = event.target.value;
     setSelectedCategory(val);
     console.log(val);
+    const subCategoryMapping = {
+      "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)":serviceSubCategories.architectsSub,
+      "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)":serviceSubCategories.architectsSub,
+      "Renovação / instalação de banheiro":serviceSubCategories.bathroomRefurbishmentInstallationSub,
+      "Instalar ou substituir um dispositivo":serviceSubCategories.bathroomInstallReplaceFixture,
+      "Reparar":serviceSubCategories.bathroomRepair,
+      "Azulejos":serviceSubCategories.bathroomTilling,
+      "Construindo uma parede":serviceSubCategories.bricklayingBuildingWall,
+      "Construção de uma estrutura":serviceSubCategories.bricklayingBuildStructure
+    }
     switch (val) {
-      case "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)":
-        setServiceSubCategory(serviceSubCategories.architectsSub);
-        break;
-      case "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)":
-        setServiceSubCategory(serviceSubCategories.architectsSub);
-        break;
-      case "Renovação / instalação de banheiro":
-        setServiceSubCategory(
-          serviceSubCategories.bathroomRefurbishmentInstallationSub
-        );
-        break;
-      case "Instalar ou substituir um dispositivo":
-        setServiceSubCategory(
-          serviceSubCategories.bathroomInstallReplaceFixture
-        );
-        break;
-      case "Reparar":
-        setServiceSubCategory(serviceSubCategories.bathroomRepair);
-        break;
-      case "Azulejos":
-        setServiceSubCategory(serviceSubCategories.bathroomTilling);
-        break;
-      case "Construindo uma parede":
-        setServiceSubCategory(serviceSubCategories.bricklayingBuildingWall);
-        break;
       case "Construção de uma estrutura":
         setServiceSubCategory(serviceSubCategories.bricklayingBuildStructure);
         break;
