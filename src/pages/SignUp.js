@@ -48,6 +48,8 @@ const SignUp = () => {
             city,
             postalCode,
             trade_member: true,
+            tradeSelected,
+            interestedJobs: [],
 
          }) 
         setError(null);
@@ -191,6 +193,15 @@ const SignUp = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     />
+                </div>
+                <div>
+                  <label htmlFor="trade">Que trabalho deseja realizar</label>
+                  <Select 
+                    isMulti
+                    options={trades}
+                    onChange={(option) => setTradeSelected(option.label)}
+                    placeholder="Selecionar"
+                  />
                 </div>
                 <div>
                     <input
