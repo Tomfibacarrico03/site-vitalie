@@ -437,66 +437,76 @@ const PostJob = () => {
         </button>
         {!user ? (
           <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+            <div className={styles.postJobUm}>
+              <div>
+                {/* <label htmlFor="email">Email</label> */}
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                {/* <label htmlFor="firstName">Primeiro Nome</label> */}
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="Primeiro Nome"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                {/* <label htmlFor="lastName">Último Nome</label> */}
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder="Último Nome"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="firstName">Primeiro nome</label>
-              <input
-                type="text"
-                id="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="lastName">Último nome</label>
-              <input
-                type="text"
-                id="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="phone">Número de telemóvel</label>
-              <input
-                type="text"
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="username">Nome de usuário público</label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
+            <div className={styles.postJobDois}>
+              <div>
+                {/* <label htmlFor="phone">Número de Telemóvel</label> */}
+                <input
+                  type="text"
+                  id="phone"
+                  placeholder="Número de Telemóvel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                {/* <label htmlFor="username">Nome de Usuário Público</label> */}
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Nome de Usuário Público"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
 
-            <div>
-              <label htmlFor="password">Palavara-passe</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div>
+                {/* <label htmlFor="password">Palavra-passe</label> */}
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Palavra-passe"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
             </div>
             <div>
               <input
@@ -518,11 +528,11 @@ const PostJob = () => {
                 required
               />
               <label htmlFor="termsChecked">
-                Eu concordo com os <a href="/terms">termos e condições</a>.
+                Eu concordo com os <a href="/terms">Termos e Condições</a>.
               </label>
             </div>
             {error && <p>{error}</p>}
-            <button type="submit">Continuar</button>
+            <button id={styles.Continuarbtn} type="submit">Continuar</button>
           </form>
         ) : (
           <button onClick={() => SaveJob(user)}>Continuar</button>
