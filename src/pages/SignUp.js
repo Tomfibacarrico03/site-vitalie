@@ -23,7 +23,8 @@ const SignUp = () => {
     const [postalCode, setPostalCode] = useState('');
     const [error, setError] = useState(null);
 
-    const [tradeSelected, setTradeSelected] = useState("")
+    const [tradesSelected, setTradesSelected] = useState([])
+    
 
     const { createUser, user, logout } = UserAuth();
   
@@ -47,14 +48,15 @@ const SignUp = () => {
             city,
             postalCode,
             trade_member: true,
-            tradeSelected,
-            interestedJobs: [],
+            tradesSelected,
+            interestedJobs: []
 
          }) 
         setError(null);
         navigate('/minha-conta')
       } catch (error) {
         setError(error.message);
+        console.log(error.message)
       }
     };
 
@@ -62,7 +64,7 @@ const SignUp = () => {
       e.preventDefault();
       try {
         await updateDoc(doc(db, "users", user.uid), {
-            tradeSelected,
+            tradesSelected,
             trade_member: true,
 
          }) 
@@ -112,6 +114,12 @@ const SignUp = () => {
       useEffect(() => {
         
       }, [user]);
+
+
+      const handleSelectedOptionsChange = (selectedOptions) => {
+        const values = selectedOptions.map(option => option.label);
+        setTradesSelected(values);
+      };
   
     return (
         <div className={styles.register}>
@@ -123,10 +131,10 @@ const SignUp = () => {
             <h3>Inscreva-se para ser um membro comercial</h3>
             <form onSubmit={becomeTradesPerson}>
                 <div>
-                  <label htmlFor="trade">Que trabalho deseja realizar</label>
+                  <label htmlFor="trade">Que trabalhos deseja realizar</label>
                   <Select 
                     options={trades}
-                    onChange={(option) => setTradeSelected(option.label)}
+                    onChange={handleSelectedOptionsChange}
                     placeholder="Selecionar"
                   />
                 </div>
@@ -199,12 +207,13 @@ const SignUp = () => {
                     />
                 </div>
                 <div>
-                  <label htmlFor="trade">Que trabalho deseja realizar</label>
+                  <label htmlFor="trade">Que trabalhos deseja realizar</label>
                   <Select 
                     className={styles.select}
                     isMulti
                     options={trades}
-                    onChange={(option) => setTradeSelected(option.label)}
+                    
+                    onChange={handleSelectedOptionsChange}
                     placeholder="Selecionar"
                   />
                 </div>
