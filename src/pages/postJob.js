@@ -508,28 +508,36 @@ const PostJob = () => {
                 />
               </div>
             </div>
+            <div className={styles.containerTudoCheckBoxes}>
             <div>
-              <input
-                type="checkbox"
-                id="receiveTipsChecked"
-                checked={receiveTipsChecked}
-                onChange={(e) => setReceiveTipsChecked(e.target.checked)}
-              />
-              <label htmlFor="receiveTipsChecked">
+              
+              <label className={styles.containerCheckBoxes} htmlFor="receiveTipsChecked">
                 Eu gostaria de receber notícias, conselhos e dicas do MyBuilder
+                <input
+                  type="checkbox"
+                  id="receiveTipsChecked"
+                  className={styles.checkBox}
+                  checked={receiveTipsChecked}
+                  onChange={(e) => setReceiveTipsChecked(e.target.checked)}
+                />
+                <span className={styles.checkmark}></span>
               </label>
             </div>
             <div>
-              <input
-                type="checkbox"
-                id="termsChecked"
-                checked={termsChecked}
-                onChange={(e) => setTermsChecked(e.target.checked)}
-                required
-              />
-              <label htmlFor="termsChecked">
-                Eu concordo com os <a href="/terms">Termos e Condições</a>.
+              
+              <label className={styles.containerCheckBoxes} htmlFor="termsChecked">
+                Eu concordo com os <a href="/terms" style={{color: "#219ebc"}}>Termos e Condições</a>.
+                <input
+                  type="checkbox"
+                  id="termsChecked"
+                  checked={termsChecked}
+                  className={styles.checkBox}
+                  onChange={(e) => setTermsChecked(e.target.checked)}
+                  required
+                />
+                <span className={styles.checkmark}></span>
               </label>
+            </div>
             </div>
             {error && <p>{error}</p>}
             <button id={styles.Continuarbtn} type="submit">Continuar</button>

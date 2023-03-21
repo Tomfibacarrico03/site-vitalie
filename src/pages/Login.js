@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext'
 import { auth, db } from '../firebase';
+import styles from "../css/login.module.css";
+
 
 const Login = () => {
 
@@ -25,27 +27,27 @@ const Login = () => {
     };
 
     return (
-        <div>
-        <h2>Login</h2>
+        <div className={styles.login}>
+        <h2 style={{color: "#219ebc"}}>Bem-vindo de Volta!</h2>
         <p>Testar com:</p>
         <p>mail: afonsoresendasdades03@gmail.com</p>
         <p>pwd: azazazaz</p>
         <form onSubmit={handleLogin}>
             <div>
-            <label htmlFor="email">Email:</label>
             <input 
                 type="email" 
                 id="email" 
+                placeholder='Email'
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
                 required 
             />
             </div>
             <div>
-            <label htmlFor="password">Password:</label>
             <input 
                 type="password" 
                 id="password" 
+                placeholder='Password'
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
                 required 

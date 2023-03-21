@@ -54,7 +54,6 @@
   border-radius: 5px;
   box-shadow: 2px 2px 10px #219ebc;
   list-style-type: none;
-  width: 150px;
   padding: 1px;
   z-index: 10;
 }
@@ -64,6 +63,9 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   text-align: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .btnRegister {
@@ -72,7 +74,6 @@
   border-radius: 5px;
   box-shadow: 2px 2px 10px #219ebc;
   list-style-type: none;
-  width: 150px;
   padding: 1px;
   margin-left: 20px;
   z-index: 10;
@@ -83,6 +84,8 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .btnRegister,
