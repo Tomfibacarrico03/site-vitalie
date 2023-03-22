@@ -3,6 +3,9 @@ import { UserAuth } from '../context/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
 import { doc, updateDoc} from 'firebase/firestore';
+import styles from "../css/minhaconta.module.css";
+
+
 const MyAccount = () => {
 
   const navigate = useNavigate()
@@ -60,10 +63,10 @@ const MyAccount = () => {
   };
 
   return (
-    <div>
+    <div className={styles.detalhesContainer}>
       <h1>Detalhes do contato</h1>
       <div>
-        <label htmlFor="firstName">Primeiro Nome:</label>
+        <label htmlFor="firstName">Primeiro Nome</label>
         <input
           id="firstName"
           type="text"
@@ -72,7 +75,7 @@ const MyAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="lastName">Segundo Nome:</label>
+        <label htmlFor="lastName">Segundo Nome</label>
         <input
           id="lastName"
           type="text"
@@ -81,7 +84,7 @@ const MyAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"
@@ -90,7 +93,7 @@ const MyAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="phoneNumber">Número de telefone:</label>
+        <label htmlFor="phoneNumber">Número de telefone</label>
         <input
           id="phoneNumber"
           type="tel"
@@ -99,7 +102,7 @@ const MyAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="address1">Morada 1:</label>
+        <label htmlFor="address1">Morada 1</label>
         <input
           id="address1"
           type="text"
@@ -108,7 +111,7 @@ const MyAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="address2">Morada 2:</label>
+        <label htmlFor="address2">Morada 2</label>
         <input
           id="address2"
           type="text"
@@ -117,7 +120,7 @@ const MyAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="city">Cidade:</label>
+        <label htmlFor="city">Cidade</label>
         <input
           id="city"
           type="text"
@@ -126,7 +129,7 @@ const MyAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="postalCode">Código Postal:</label>
+        <label htmlFor="postalCode">Código Postal</label>
         <input
           id="postalCode"
           type="text"
@@ -134,26 +137,16 @@ const MyAccount = () => {
           onChange={(e) => setPostalCode(e.target.value)}
         />
       </div>
-      <button onClick={handleSave}>Guardar meus detalhes do contato</button>
-      <button
-            style={{
-              backgroundColor: "#f00",
-              marginTop: -65,
-              borderRadius: 5,
-              border: 0,
-              padding: 15,
-              fontSize: 12,
-              marginRight: 0,
-              width: "150px",
-              position: "absolute",
-              fontFamily: "Avenir Next",
-              color: "#fff",
-              left: 440
-            }}
+      <div className={styles.botoes}>
+          <button
+            className={styles.terminarSessao}
             onClick={handleLogout}
           >
             Terminar Sessão
           </button>
+          <button className={styles.guardar} onClick={handleSave}>Guardar</button>
+
+      </div>
     </div>
   );
 };
