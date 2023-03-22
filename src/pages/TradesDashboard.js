@@ -12,7 +12,7 @@ const TradesDashboard = () => {
         const fetchJobs = async () => {
     
           if (user) {
-            const q = query(collection(db, 'jobs'), where('tradeSelected', '==', user.tradeSelected));
+            const q = query(collection(db, 'jobs'), where('tradeSelected', 'in', user.tradesSelected));
             const querySnapshot = await getDocs(q);
     
             const jobs = [];
@@ -38,7 +38,8 @@ const TradesDashboard = () => {
         <Link style={{textDecoration: "none"}} to={`/inbox` }>
                <p>Caixa de entrada</p>
             </Link>
-        <h2>Trabalhos publicados na sua área</h2>
+        <h2>Trabalhos publicados na sua área para si</h2>
+        {user.tradesSelected.map((trade) => (<p>{trade}</p>))}
         {jobs.map((job) => (
             <Link style={{textDecoration: "none"}} to={`/meustrabalhos/${job.id}` } state={{ job }}>
                 <JobCard key={job.id} value={job}/>
