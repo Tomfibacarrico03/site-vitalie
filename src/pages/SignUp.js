@@ -24,6 +24,9 @@ const SignUp = () => {
     const [error, setError] = useState(null);
 
     const [tradesSelected, setTradesSelected] = useState([])
+    const [workName, setWorkName] = useState('')
+    const [description, setDescription] = useState('')
+    const [location ,setLoocation] = useState('')
     
 
     const { createUser, user, logout } = UserAuth();
@@ -132,7 +135,8 @@ const SignUp = () => {
             <form onSubmit={becomeTradesPerson}>
                 <div>
                   <label htmlFor="trade">Que trabalhos deseja realizar</label>
-                  <Select 
+                  <Select
+                    isMulti
                     options={trades}
                     onChange={handleSelectedOptionsChange}
                     placeholder="Selecionar"
