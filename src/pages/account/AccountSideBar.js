@@ -1,33 +1,37 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { UserAuth } from '../../context/AuthContext'
 import styles from "../../css/dashboard/sidebar.module.css";
 
 const AccountSideBar = () => {
-  const location = useLocation();
-  const isDashboardPage = location.pathname.startsWith(
+
+    const { user } =  UserAuth()
+    const location = useLocation();
+    const isDashboardPage = location.pathname.startsWith(
     "/minha-conta"
-  );
-  return (
+    );
+    return (
     <>
-      {isDashboardPage ? (
+        {isDashboardPage ? (
         <div className={styles.sidebar}>
-          <ul>
+            <ul>
             <li>
-              <Link to="/minha-conta/detalhes-de-contacto">
+                <Link to="/minha-conta/detalhes-de-contacto">
                 Detalhes de contacto
-              </Link>
+                </Link>
             </li>
+            {user.trade_member == true ? (
             <li>
-              <Link to="/minha-conta/perfil-de-trabalhador">Perfil de Trabalhador</Link>
-            </li>
+                <Link to="/minha-conta/perfil-de-trabalhador">Perfil de Trabalhador</Link>
+            </li>):null}
             <li>
-              <Link to="/minha-conta/definições">Definições</Link>
+                <Link to="/minha-conta/definições">Definições</Link>
             </li>
-          </ul>
+            </ul>
         </div>
-      ) : null}
+        ) : null}
     </>
-  );
+    );
 };
 
 export default AccountSideBar;
