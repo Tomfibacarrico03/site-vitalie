@@ -188,7 +188,7 @@ const serviceCategories = {
     "Quão extenso é o seu trabalho de conversão?",
     "Conversão de um único cômodo",
     "Conversão de uma garagem / anexo pequeno",
-    "Conversão de vários cômodos ou anexo grande",
+    "Conversão de vários quartos ou anexo grande",
     "Conversão de toda a propriedade",
   ],
   "Alteração de paredes": [
@@ -203,7 +203,7 @@ const serviceCategories = {
     "Grande reforma",
     "Reforma total",
   ],
-  "Sim - Preciso apenas de ajuda para resolver o problema": [
+  "\ - Preciso apenas de ajuda para resolver o problema": [
     "Qual é a dimensão da área afetada?",
     "Pequena área isolada",
     "Área extensa",
@@ -237,109 +237,109 @@ const serviceCategories = {
     "Asfalto ou resina.",
     "Outros",
   ],
-  drivewaysPavingPaving: [
+  "Pavimentação, pátios e caminho": [
     "Colocar ou substituir um pátio.",
     "Colocar ou substituir um caminho/passeio.",
     "Reparar pavimentação, caminho/passeio ou pátio.",
   ],
-  electricalRewiring: [
+  "Refazer circuitos": [
     "Quantas instalações elétricas precisam ser refeitas?",
     "Parte da minha propriedade.",
     "Entire property",
   ],
-  eletricalFuseBoxs: [
+  "Caixas de fusíveis": [
     "De que tipo de trabalho em caixa de fusíveis se trata?",
     "Substituição da caixa de fusíveis - no mesmo local.",
     "Substituição da caixa de fusíveis - no mesmo local diferente.",
     "Instalação de uma nova caixa de fusíveis.",
     "Outros",
   ],
-  eletricalFittings: [
+  "Fittings e aparelhos elétricos": [
     "O que você deseja instalar?",
     "Instalações elétricas.",
     "Eletrodomésticos.",
     "Sistemas de segurança.",
     "Caldeiras e sistemas de aquecimento.",
   ],
-  eletricalSafety: [
+  "Verificação ou certificado de segurança": [
     "O que você precisa verificar ou certificar?",
     "Um único eletrodoméstico.",
     "Vários eletrodomésticos ou propriedade inteira.",
     "Propriedade comercial.",
   ],
-  eletricalFaults: [
+  "Falhas e reparos elétricos": [
     "Qual das opções abaixo melhor descreve o seu problema?",
     "Simples",
     "Complexo",
   ],
-  extensionsProperty: [
+  "Extensão de propriedade": [
     "Em qual estágio do projeto você se encontra no momento?",
     "Estou pronto / quase pronto para o início do trabalho.",
     "Preciso de ajuda com o design ou planejamento antes de iniciar o trabalho.",
     "Ainda não estou pronto para construir, ainda estou explorando opções.",
   ],
-  extensionsLoft: [
+  "Conversão de loft": [
     "Que tipo de conversão de sótão você deseja?",
     "Conversão de sótão com alterações estruturais.",
     "Conversão de sótão (sem alterações estruturais).",
     "Conversão de sótão para fins de armazenamento.",
     "Instalar uma claraboia",
   ],
-  extensionsPorch: [
+  "Uma varanda": [
     "Que tipo de trabalho em varanda?",
     "Apenas uma varanda nova.",
     "Preciso de uma nova varanda e alguns trabalhos adicionais.",
   ],
-  fasciasSoffitsGutteringGuttering: [
+  "Somente calhas": [
     "Qual trabalho de calhas você precisa?",
     "Instalar / substituir",
     "Reparar (exemplo: vazamento)",
     "Limpeza / bloqueios",
   ],
-  fasciasSoffitsGutteringFascias: [
+  "Somente beirais e / ou guarnições": [
     "O que você deseja ter feito com as suas beirais e / ou guarnições",
     "Instalar / substituir",
     "Reparar",
   ],
-  fasciasSoffitsGutteringBoth: [
+  "Ambos": [
     "O que você deseja ter feito em suas fáscias, sofitos e sarjetas?",
     "Instalar / substituir",
     "Reparar",
   ],
-  fencingFencing: [
+  "Esgrima": [
     "Que tipo de cerca gostaria?",
     "Cerca de painel",
     "Cerca de borda de pena",
     "Outros",
   ],
-  fencingGates: [
+  "Portões": [
     "Quantos portões precisa?",
     "1",
     "2",
     "3 ou mais",
     "portão à medida",
   ],
-  fencingFencingAndGates: [
+  "Esgrima e portões": [
     "Que tipo de cerca gostaria?",
     "Cerca de painel",
     "Cerca de borda de pena",
     "Outros",
   ],
-  fencingRepair: ["Pequena reparação", "Grande reparação"],
-  gardeningLandscapingGeneral: [
+  "Reparar uma cerca ou portão": ["Pequena reparação", "Grande reparação"],
+  "Jardinagem geral": [
     "Qual das opções a seguir melhor descreve seu trabalho de jardinagem?",
     "Pequeno trabalho de jardinagem pontual",
     "Grande trabalho de jardinagem pontual",
     "Pequena manutenção contínua do jardim",
     "Grande manutenção contínua do jardim",
   ],
-  gardeningLandscapingLandscaping: [
+  "Paisagismo": [
     "Qual das opções a seguir melhor descreve seu trabalho de jardinagem?",
     "Reparações de jardins",
     "Adicionar ou substituir elementos",
     "Projeto de reforma de jardim/paisagismo",
   ],
-  gardeningLandscapingTree: [
+  "Cirurgia de árvores": [
     "Que tipo de serviço de cirurgia de árvore você precisa?",
     "Cortar ou Cobrir",
     "Cortar",
@@ -348,39 +348,39 @@ const serviceCategories = {
     "Arbustos ou outras tarefas de jardinagem",
     "Outros",
   ],
-  gasWorkSafety: [
+  "Verificação de segurança de gás": [
     "O que você precisa certificado?",
     "Caldeira",
     "Único aparelho",
     "Vários aparelho",
   ],
-  gasWorkService: [
+  "Serviço de caldeira ou aparelho": [
     "O que você precisa de serviço?",
     "Caldeira",
     "Único aparelho",
     "Vários aparelho",
   ],
-  gasWorkInstall: [
+  "Instalar ou substituir caldeira ou aparelho": [
     "Que tipo de aparelho você deseja instalar ou substituir?",
     "Aquecedor de água a Gás",
     "Fogão a gás ou forno",
     "Outro ou vários dos anteriores",
   ],
-  gasWorkMove: ["Deseja remover uma caldeira a gás?", "Sim", "Não"],
-  gasWorkPipeWork: [
+  "Mover ou remover caldeira ou aparelho": ["Deseja remover uma caldeira a gás?", "Sim", "Não"],
+  "Apenas tubulações": [
     "O que precisa ser mudado com a tubulação?",
     "Desconecte ou tampe a tubulação",
     "Instalar ou alterar tubulações",
     "Outros",
   ],
-  gasWorkRepair: [
+  "Problema ou reparo": [
     "Qual eletrodoméstico precisa de reparo?",
     "Caldeira",
     "Fogão a gás ou forno",
     "Lareira a gás",
     "Outros",
   ],
-  groundworkFoundationsFoundations: [
+  "Fundações para uma estrutura a ser construída": [
     "Para que você quer fundações?",
     "Casa nova",
     "Extensão da casa",
@@ -388,13 +388,25 @@ const serviceCategories = {
     "Cabana",
     "Outros",
   ],
-  kitchenFittingExtensive: [
+  "Isolamento de parede":[
+    "Quantas paredes precisam de isolamento?",
+    "1 parede",
+    "Várias paredes",
+    "Casa inteira",
+  ],
+  "Isolamento de piso":[
+    "Quantos quartos precisam de isolamento?",
+    "1 - 2 quartos",
+    "3 - 4 quartos",  
+    "5+ quartos",
+  ],
+  "Instalação de cozinha nova": [
     "Qual o tamanho da sua cozinha?",
     "Ampla reforma na cozinha",
     "Reforma de cozinha padrão",
     "Outros",
   ],
-  kitchenFittingWorkTop: [
+  "Instalação de bancada": [
     "Qual material da bancada gostaria?",
     "Pedra natural",
     "Composto",
@@ -402,7 +414,7 @@ const serviceCategories = {
     "Laminada",
     "Outros",
   ],
-  kitchenFittingFitAppliance: [
+  "Instalar aparelho (pia, forno, lava-louças, etc.)": [
     "Que tipo de aparelho necessita de instalação?",
     "Fogão a gás / bicombustível / forno",
     "Fogão/forno elétrico",
@@ -411,82 +423,113 @@ const serviceCategories = {
     "Afundar",
     "Outros",
   ],
-  lockSmithInstall: [
+  "Instalar novas fechaduras": [
     "Quantas fechaduras você precisa instalar?",
-    "1 cadeado",
-    "2 cadeados",
-    "3 ou mais cadeados",
+    "1 Fechadura",
+    "2 Fechaduras",
+    "3 ou mais Fechaduras",
   ],
-  loftConversionsConversions: [
-    "Para que tipo de casa é a conversão do loft?",
+  "Reparar fechaduras": [
+    "Quantas fechaduras você precisa reparar?",
+    "1 Fechadura",
+    "2 Fechaduras",
+    "3 ou mais Fechaduras",
+  ],
+  "Conversão de sótão com alterações estruturais": [
+    "Para que tipo de anexo é a conversão do loft?",
     "Desanexado",
     "Geminado",
     "Terraço",
     "Bangalô",
     "Outros",
   ],
-  loftConversionsStorage: [
+  "Conversão de sótão (sem alterações estruturais)": [
+    "Para que tipo de anexo é a conversão do loft?",
+    "Desanexado",
+    "Geminado",
+    "Terraço",
+    "Bangalô",
+    "Outros",
+  ],
+  "Conversão de sótão para fins de armazenamento": [
     "O que você precisa fazer no seu loft?",
     "Embarque no sótão",
     "Embarque mais trabalho adicional",
   ],
-  newBuildSub: [
-    "Você tem permissão de planejamento?",
+  "Eu possuo o terreno em que planejo construir": [
+    "Tem permissão de planejamento?",
     "Sim",
     "Em progresso",
     "Não",
   ],
-  plasteringRenderingPlastering: [
+  "Estou comprando o terreno em que planejo construir": [
+    "Tem permissão de planejamento?",
+    "Sim",
+    "Em progresso",
+    "Não",
+  ],
+  "Não possuo o terreno em que planejo construir": [
+    "Tem permissão de planejamento?",
+    "Sim",
+    "Em progresso",
+    "Não",
+  ],
+  "Reboco (interior)": [
     "Que tipo de gesso você precisa?",
     "Desnatar apenas",
     "Placa de gesso e skim",
     "Outro",
   ],
-  plasteringRenderingRendering: [
+  "Texturização (exterior)": [
     "O que você precisa renderizado?",
     "Exterior da casa",
     "Parede(s) do jardim",
   ],
-  plumbingRadiators: [
+  "Radiador": [
     "O que precisa ser feito?",
     "Problema menor (por exemplo, vazamento, sangramento, batidas",
     "Mover ou substituir",
     "Outros",
   ],
-  plumbingBoiler: [
+  "Caldeiras": [
     "Que tipo de caldeira você tem?",
     "Gás",
     "Óleo",
     "Elétrico",
     "Outros",
   ],
-  plumbingAppliances: [
+  "Aparelhos": [
     "Quantos aparelhos você precisa instalar ou substituir?",
     "1 item",
     "2 to 3 items",
     "4 or more items",
   ],
-  plumbingFixtures: [
+  "Fixações": [
     "Como um encanador pode ajudá-lo com seus acessórios?",
     "Instalar ou substituir",
     "Reparação",
   ],
-  plumbingPipework: [
+  "Tubulações, torneiras e drenagem": [
     "Existe a possibilidade de que seu trabalho envolva tubulação de gás?",
     "Sim",
     "Não",
   ],
-  restorationRefurbishmentSub: [
+  "Entendo que este serviço é para grandes projetos que exigem gerenciamento e supervisão. Se você precisar de vários trabalhos que abranjam várias áreas, publique-os separadamente nas categorias comerciais apropriadas.": [
     "O trabalho envolve mudar o propósito ou a estrutura de uma sala?",
     "Sim",
     "Não",
   ],
-  roofingNewReplace: [
+  "Telhado novo ou de substituição": [
     "Que tipo de telhado você precisa?",
     "Telhado inclinado",
     "Telhado plano",
   ],
-  roofingChimney: [
+  "Reparo ou avaliação de telhado": [
+    "Que tipo de telhado você precisa?",
+    "Telhado inclinado",
+    "Telhado plano",
+  ],
+  "Trabalho de chaminé": [
     "Que trabalho de chaminé precisa ser feito?",
     "Instalar ou reconstruir nova chaminé",
     "Remover uma chaminé existente",
@@ -494,41 +537,41 @@ const serviceCategories = {
     "Tampa de chaminé",
     "Outros",
   ],
-  securitySystemsAlarm: [
-    "Instalar ou reconstruir nova chaminé",
+  "Sistema de alarme de segurança": [
+    "Qual serviço de alarmes precisa?",
+    "Instalação",
+    "Reparo de serviço",
+    "Remoção",
+    "Outro",
+  ],
+  "Câmera de segurança / inteligente": [
+    "Que tipo de serviço de câmera de segurança precisa?",
     "Instalação",
     "Serviço de reparo",
     "Remoção",
     "Outros",
   ],
-  securitySystemsCCTV: [
-    "Que tipo de serviço de câmera de segurança você precisa?",
-    "Instalação",
-    "Serviço de reparo",
-    "Remoção",
-    "Outros",
-  ],
-  stonemasonryBuilding: [
+  "Construção": [
     "Que tipo de trabalho de pedra você precisa?",
     "Silhar",
     "Cascalho aleatório",
     "Pedra seca",
     "Outros",
   ],
-  stonemasonryRepairing: [
+  "Reparação": [
     "Que tipo de trabalho de pedra você precisa reparar?",
     "Silhar",
     "Cascalho aleatório",
     "Pedra seca",
     "Outros",
   ],
-  stonemasonryRepoiting: [
+  "Reapontamentos": [
     "Que tipo de trabalho de pedra você precisa reencaminhamento?",
     "Silhar",
     "Cascalho aleatório",
     "Outros",
   ],
-  tilingNewReplace: [
+  "Telhas novas ou de substituição": [
     "Quantos metros quadrados precisam ser azulejados?",
     "Menos de 2m²",
     "Menos de 2m²",
@@ -539,30 +582,30 @@ const serviceCategories = {
     "Comercial ou projeto",
     "Outros",
   ],
-  tillingRepair: [
+  "Reparação / rejuntes de azulejos": [
     "Aproximadamente, qual é o tamanho da área afetada?",
     "Pequena (menos de 2m²)",
     "Grande (2m² ou mais)",
   ],
-  windowsDoorFitingWindows: [
+  "Janelas novas": [
     "Qual tipo de janela você precisa?",
     "Madeira",
     "PVC",
     "Alumínio",
     "Outro",
   ],
-  windowsDoorFitingDoors: [
+  "Portas novas (internas ou externas)": [
     "As portas são internas ou externas?",
     "Portas internas",
     "Portas externas",
   ],
-  windowsDoorFitingReplaceGalss: [
+  "Substituição de vidro": [
     "Quantos vidros precisam ser substituídos?",
     "1",
     "2 - 3",
     "4 ou mais",
   ],
-  windowsDoorFitingReplaceRepair: [
+  "Reparações": [
     "Que tipo de janelas/portas precisam de reparo?",
     "Madeira",
     "PVC and metal",

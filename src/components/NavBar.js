@@ -31,10 +31,10 @@ const NavBar = () => {
             </Link>
             ):(
               <Link
-              to="/dashboard-de-trabalhos"
+              to="/dashboard-de-trabalhos/trabalhos-proximos"
               style={{ textDecoration: "none" }}
             >
-              <li className={styles.btnPostJob}>Dashboard de trabalhos</li>
+              <li className={styles.btnPostJob}>Dashboard de trabalhador</li>
             </Link>
             )}
             <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>

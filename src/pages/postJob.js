@@ -13,7 +13,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
-import Select from 'react-select'
+import Select from "react-select";
 import { httpsCallable } from "firebase/functions";
 const PostJob = () => {
   const saveJob = httpsCallable(functions, "SaveJob");
@@ -21,7 +21,7 @@ const PostJob = () => {
 
   const [questionNumber, setQuestionNumber] = useState(1);
   var selectedOption;
-  const [tradeSelected, setTradeSelected] = useState("")
+  const [tradeSelected, setTradeSelected] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
@@ -35,7 +35,7 @@ const PostJob = () => {
   const handleChange = (selectedOption) => {
     setTradeSelected(selectedOption.label);
     console.log(selectedOption);
-  
+
     const categoryMapping = {
       architects: serviceCategories.architects,
       "bathroom-fitters": serviceCategories.bathroom,
@@ -75,121 +75,16 @@ const PostJob = () => {
       "tree-surgeons": serviceCategories.treeSurgeryCategory,
       "window-fitters": serviceCategories.windowsDoorFitingCategory,
     };
-  
+
     setServiceCategory(categoryMapping[selectedOption.value]);
   };
-  
 
   const handleCatergoryChange = (event) => {
     const val = event.target.value;
     setSelectedCategory(val);
     console.log(val);
-    serviceSubCategories(val)
-    const subCategoryMapping = {
-      "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)":serviceSubCategories.architectsSub,
-      "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)":serviceSubCategories.architectsSub,
-      "Renovação / instalação de banheiro":serviceSubCategories.bathroomRefurbishmentInstallationSub,
-      "Instalar ou substituir um dispositivo":serviceSubCategories.bathroomInstallReplaceFixture,
-      "Reparar":serviceSubCategories.bathroomRepair,
-      "Azulejos":serviceSubCategories.bathroomTilling,
-      "Construindo uma parede":serviceSubCategories.bricklayingBuildingWall,
-      "Construção de uma estrutura":serviceSubCategories.bricklayingBuildStructure,
-      "Trabalho de alvenaria personalizado":serviceSubCategories.bricklayingBuildingBrickWork,
-      "Alterações na parede":serviceSubCategories.bricklayingWallAlterations,
-      "Reapontamento":serviceSubCategories.bricklayingRepointing,
-      "Trabalho na chaminé":serviceSubCategories.bricklayingChimney,
-      "Reparos":serviceSubCategories.bricklayingRepair,
-      "Portas, janelas e pisos":serviceSubCategories.carpentryJoinerySub,
-      "Fabricação, montagem e reparos de móveis":serviceSubCategories.carpentryFurniture,
-      "Unidades de cozinha e bancadas":serviceSubCategories.carpentryKitchenUnits,
-      "Área coberta":serviceSubCategories.carpentryDecking,
-      "Piso novo ou substituição":serviceSubCategories.carpetsFloring,
-      "Lixamento / restauração":serviceSubCategories.carpetsSanding,
-      "Reparo / ajuste":serviceSubCategories.carpetsRepair,
-      "Caldeira":serviceSubCategories.heatingBoiler,
-      "Tubulação / fornecimento":serviceSubCategories.heatingPipes,
-      "Radiadores":serviceSubCategories.heatingRaditors,
-      "Aquecimento de piso":serviceSubCategories.heatingUnderFloor,
-      "Instalação completa do sistema":serviceSubCategories.heatingFullSystem,
-      "Chaminé":serviceSubCategories.chimneyFireChimney,
-      "Lareira":serviceSubCategories.chimneyFireFireplace,
-      "Conversão de sotão":serviceSubCategories.consversionLoft,
-      "Conversão de um espaço existente":serviceSubCategories.conversionExistingSpace,
-      "Alteração de paredes":serviceSubCategories.conversionWall,
-      "Restaurar ou melhorar um espaço existente":serviceSubCategories.conversionRestoringImproving,
-      "Sim - Preciso apenas de ajuda para resolver o problema":serviceSubCategories.DampProofingYes,
-      "Remoção de lixo apenas":serviceSubCategories.DemoltionClearWaste,
-      "Demolição de edifícios / estruturas":serviceSubCategories.DemoltionClearBuilding,
-      "Derrubar uma parede":serviceSubCategories.DemolitionClearKnock,
-      "Instalar / Reparar uma entrada":serviceSubCategories.drivewaysPavingInstallRepair,
-      "Pavimentação, pátios e caminho":serviceSubCategories.drivewaysPavingPaving,
-      "Refazer circuitos":serviceSubCategories.electricalRewiring,
-      "Caixas de fusíveis":serviceSubCategories.eletricalFuseBoxs,
-      "Fittings e aparelhos elétricos":serviceSubCategories.eletricalFittings,
-      "Verificação ou certificado de segurança":serviceSubCategories.eletricalSafety,
-      "Falhas e reparos elétricos":serviceSubCategories.eletricalFaults,
-      "Extensão de propriedade":serviceSubCategories.extensionsProperty,
-      "Conversão de loft":serviceSubCategories.extensionsLoft,
-      "Uma varanda":serviceSubCategories.extensionsPorch,
-      "Somente calhas":serviceSubCategories.fasciasSoffitsGutteringGuttering,
-      "Somente beirais e / ou guarnições":serviceSubCategories.fasciasSoffitsGutteringFascias,
-      "Ambos":serviceSubCategories.fasciasSoffitsGutteringBoth,
-      "Esgrima":serviceSubCategories.fencingFencing,
-      "Portões":serviceSubCategories.fencingGates,
-      "Esgrima e portões":serviceSubCategories.fencingFencingAndGates,
-      "Reparar uma cerca ou portão":serviceSubCategories.fencingRepair,
-      "Jardinagem geral":serviceSubCategories.gardeningLandscapingGeneral,
-      "Paisagismo":serviceSubCategories.gardeningLandscapingLandscaping,
-      "Cirurgia de árvores":serviceSubCategories.gardeningLandscapingTree,
-      "Verificação de segurança de gás":serviceSubCategories.gasWorkSafety,
-      "Serviço de caldeira ou aparelho":serviceSubCategories.gasWorkService,
-      "Instalar ou substituir caldeira ou aparelho":serviceSubCategories.gasWorkInstall,
-      "ente":serviceSubCategories.fascing,
-    }
-    switch (val) {
-      case "Chaminé":
-        setServiceSubCategory(serviceSubCategories.chimneyFireChimney);
-        break;
-      case "Lareira":
-        setServiceSubCategory(serviceSubCategories.chimneyFireFireplace);
-        break;
-      case "Conversão de sotão":
-        setServiceSubCategory(serviceSubCategories.consversionLoft);
-        break;
-      case "Conversão de um espaço existente":
-        setServiceSubCategory(serviceSubCategories.conversionExistingSpace);
-        break;
-      case "Alteração de paredes":
-        setServiceSubCategory(serviceSubCategories.conversionWall);
-        break;
-      case "Restaurar ou melhorar um espaço existente":
-        setServiceSubCategory(
-          serviceSubCategories.conversionRestoringImproving
-        );
-        break;
-      case "Sim - Preciso apenas de ajuda para resolver o problema":
-        setServiceSubCategory(serviceSubCategories.DampProofingYes);
-        break;
-      case "Remoção de lixo apenas":
-        setServiceSubCategory(serviceSubCategories.DemoltionClearWaste);
-        break;
-      case "Demolição de edifícios / estruturas":
-        setServiceSubCategory(serviceSubCategories.DemoltionClearBuilding);
-        break;
-      case "Derrubar uma parede":
-        setServiceSubCategory(serviceSubCategories.DemolitionClearKnock);
-        break;
-      case "Instalar / Reparar uma entrada":
-        setServiceSubCategory(serviceSubCategories.drivewaysPavingInstallRepair);
-        break;
-      case "Pavimentação, pátios e caminho":
-        setServiceSubCategory(serviceSubCategories.drivewaysPavingPaving);
-        break;
-      //CONTINUAR ELETRICAL COMPLETO LINHA 72 CATEGORIES E LINHA 237 SUBCATEGORIES
-      default:
-        setServiceSubCategory(["description"]);
-        break;
-    }
+    console.log(serviceSubCategories[val]);
+    setServiceSubCategory(serviceSubCategories[val]);
   };
   const handleSubCatergoryChange = (event) => {
     setSelectedSubCategory(event.target.value);
@@ -223,40 +118,37 @@ const PostJob = () => {
 
   const [error, setError] = useState(null);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    if (!termsChecked) {
+      setError("Please accept the terms and conditions");
+      return;
+    }
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        if (!termsChecked) {
-          setError('Please accept the terms and conditions');
-          return;
-        }
-    
-        try {
-          const { user } = await createUser(email, password);
-          await setDoc(doc(db, "users", user.uid), { 
-              firstName,
-              lastName,
-              username,
-              email,
-              phone,
-              address1: "",
-              address2: "",
-              city: "",
-              postalCode,
-              headline: "Some headline",
-              description: "Some description",
-              location
-    
-            })
-          SaveJob(user) 
-          setError(null);
-          navigate('/minha-conta')
-        } catch (error) {
-          setError(error.message);
-        }
-      };
+    try {
+      const { user } = await createUser(email, password);
+      await setDoc(doc(db, "users", user.uid), {
+        firstName,
+        lastName,
+        username,
+        email,
+        phone,
+        address1: "",
+        address2: "",
+        city: "",
+        postalCode,
+        headline: "Some headline",
+        description: "Some description",
+        location,
+      });
+      SaveJob(user);
+      setError(null);
+      navigate("/minha-conta");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   /*  const SaveJob = async (user) => {
     try {
@@ -279,10 +171,10 @@ const PostJob = () => {
 
   const SaveJob = async (user) => {
     try {
-      console.log("===")
-      console.log(selectedCategory)
-      console.log(selectedSubCategory)
-      console.log("===")
+      console.log("===");
+      console.log(selectedCategory);
+      console.log(selectedSubCategory);
+      console.log("===");
 
       //setIsLoading(true);
 
@@ -321,11 +213,17 @@ const PostJob = () => {
     { value: "driveway-specialists", label: "Entradas & Paving" },
     { value: "electricians", label: "Elétrica" },
     { value: "extension-specialists", label: "Ampliações" },
-    { value: "fascias-soffits-guttering-specialists", label: "Fascias, Soffits & Calhas" },
+    {
+      value: "fascias-soffits-guttering-specialists",
+      label: "Fascias, Soffits & Calhas",
+    },
     { value: "fencers", label: "Cercas" },
     { value: "landscape-gardeners", label: "Jardinagem & Paisagismo" },
     { value: "gas-engineers", label: "Gás" },
-    { value: "groundwork-and-foundations-specialists", label: "Terraplenagem & Fundações" },
+    {
+      value: "groundwork-and-foundations-specialists",
+      label: "Terraplenagem & Fundações",
+    },
     { value: "handymen", label: "Faz-tudo" },
     { value: "insulation-specialists", label: "Isolamento" },
     { value: "kitchen-fitters", label: "Instalação de Cozinhas" },
@@ -335,34 +233,37 @@ const PostJob = () => {
     { value: "painters-and-decorators", label: "Pintura & Decoração" },
     { value: "plasterers", label: "Gesso & Revestimento" },
     { value: "plumbers", label: "Encanamento" },
-    { value: "restoration-and-refurbishment-specialists", label: "Restauração & Renovação" },
+    {
+      value: "restoration-and-refurbishment-specialists",
+      label: "Restauração & Renovação",
+    },
     { value: "roofers", label: "Telhados" },
     { value: "security-system-installers", label: "Sistemas de Segurança" },
     { value: "stonemasons", label: "Pedreiro" },
     { value: "tilers", label: "Azulejista" },
     { value: "tree-surgeons", label: "Cirurgia de Árvores" },
     { value: "window-fitters", label: "Instalação de Janelas & Portas" },
-  ]
+  ];
 
   const distritos = [
-    { value: 'Aveiro', label: 'Aveiro' },
-    { value: 'Beja', label: 'Beja' },
-    { value: 'Braga', label: 'Braga' },
-    { value: 'Bragança', label: 'Bragança' },
-    { value: 'Castelo Branco', label: 'Castelo Branco' },
-    { value: 'Coimbra', label: 'Coimbra' },
-    { value: 'Évora', label: 'Évora' },
-    { value: 'Faro', label: 'Faro' },
-    { value: 'Guarda', label: 'Guarda' },
-    { value: 'Leiria', label: 'Leiria' },
-    { value: 'Lisboa', label: 'Lisboa' },
-    { value: 'Portalegre', label: 'Portalegre' },
-    { value: 'Porto', label: 'Porto' },
-    { value: 'Santarém', label: 'Santarém' },
-    { value: 'Setúbal', label: 'Setúbal' },
-    { value: 'Viana do Castelo', label: 'Viana do Castelo' },
-    { value: 'Vila Real', label: 'Vila Real' },
-    { value: 'Viseu', label: 'Viseu' },
+    { value: "Aveiro", label: "Aveiro" },
+    { value: "Beja", label: "Beja" },
+    { value: "Braga", label: "Braga" },
+    { value: "Bragança", label: "Bragança" },
+    { value: "Castelo Branco", label: "Castelo Branco" },
+    { value: "Coimbra", label: "Coimbra" },
+    { value: "Évora", label: "Évora" },
+    { value: "Faro", label: "Faro" },
+    { value: "Guarda", label: "Guarda" },
+    { value: "Leiria", label: "Leiria" },
+    { value: "Lisboa", label: "Lisboa" },
+    { value: "Portalegre", label: "Portalegre" },
+    { value: "Porto", label: "Porto" },
+    { value: "Santarém", label: "Santarém" },
+    { value: "Setúbal", label: "Setúbal" },
+    { value: "Viana do Castelo", label: "Viana do Castelo" },
+    { value: "Vila Real", label: "Vila Real" },
+    { value: "Viseu", label: "Viseu" },
   ];
 
   const handleSelectedDistritosChange = (selectedOptions) => {
@@ -371,7 +272,7 @@ const PostJob = () => {
   };
 
   return (
-    <div>
+    <div className={styles.page}>
       <div className={styles.paper}>
         <img src={paper} />
       </div>
@@ -390,10 +291,11 @@ const PostJob = () => {
           }
         >
           <h1>O que precisas no teu trabalhador?</h1>
-          <Select 
+          <Select
+            className={styles.Select}
             options={trades}
             onChange={(option) => handleChange(option)}
-            placeholder="Selecionar"
+            placeholder="Serviço Necessário"
           />
         </div>
         <div
@@ -402,24 +304,26 @@ const PostJob = () => {
           }
         >
           <h1>Qual é a categoria do seu trabalho?</h1>
-          {serviceCategory.map((serviceCategory, index) => (
-            <label
-              className={
-                selectedCategory === serviceCategory
-                  ? styles.categoryLabelSelected
-                  : styles.categoryLabel
-              }
-            >
-              <input
-                onChange={handleCatergoryChange}
-                checked={selectedCategory === serviceCategory}
-                type="checkbox"
-                value={serviceCategory}
-                className={styles.displayNone}
-              />
-              <h4>{serviceCategory}</h4>
-            </label>
-          ))}
+          <div>
+            {serviceCategory.map((serviceCategory, index) => (
+              <label
+                className={
+                  selectedCategory === serviceCategory
+                    ? styles.categoryLabelSelected
+                    : styles.categoryLabel
+                }
+              >
+                <input
+                  onChange={handleCatergoryChange}
+                  checked={selectedCategory === serviceCategory}
+                  type="checkbox"
+                  value={serviceCategory}
+                  className={styles.displayNone}
+                />
+                <h4>{serviceCategory}</h4>
+              </label>
+            ))}
+          </div>
         </div>
         <div
           className={
@@ -462,6 +366,15 @@ const PostJob = () => {
         </button>
         {!user ? (
           <form onSubmit={handleSubmit}>
+            <div className={styles.postJobZero}>
+              <Select
+                className={styles.Select}
+                isMulti
+                options={distritos}
+                onChange={handleSelectedDistritosChange}
+                placeholder="Localização"
+              />
+            </div>
             <div className={styles.postJobUm}>
               <div>
                 {/* <label htmlFor="email">Email</label> */}
@@ -474,6 +387,7 @@ const PostJob = () => {
                   required
                 />
               </div>
+
               <div>
                 {/* <label htmlFor="firstName">Primeiro Nome</label> */}
                 <input
@@ -534,38 +448,49 @@ const PostJob = () => {
               </div>
             </div>
             <div className={styles.containerTudoCheckBoxes}>
-            <div>
-              
-              <label className={styles.containerCheckBoxes} htmlFor="receiveTipsChecked">
-                Eu gostaria de receber notícias, conselhos e dicas do MyBuilder
-                <input
-                  type="checkbox"
-                  id="receiveTipsChecked"
-                  className={styles.checkBox}
-                  checked={receiveTipsChecked}
-                  onChange={(e) => setReceiveTipsChecked(e.target.checked)}
-                />
-                <span className={styles.checkmark}></span>
-              </label>
-            </div>
-            <div>
-              
-              <label className={styles.containerCheckBoxes} htmlFor="termsChecked">
-                Eu concordo com os <a href="/terms" style={{color: "#219ebc"}}>Termos e Condições</a>.
-                <input
-                  type="checkbox"
-                  id="termsChecked"
-                  checked={termsChecked}
-                  className={styles.checkBox}
-                  onChange={(e) => setTermsChecked(e.target.checked)}
-                  required
-                />
-                <span className={styles.checkmark}></span>
-              </label>
-            </div>
+              <div>
+                <label
+                  className={styles.containerCheckBoxes}
+                  htmlFor="receiveTipsChecked"
+                >
+                  Eu gostaria de receber notícias, conselhos e dicas do
+                  MyBuilder
+                  <input
+                    type="checkbox"
+                    id="receiveTipsChecked"
+                    className={styles.checkBox}
+                    checked={receiveTipsChecked}
+                    onChange={(e) => setReceiveTipsChecked(e.target.checked)}
+                  />
+                  <span className={styles.checkmark}></span>
+                </label>
+              </div>
+              <div>
+                <label
+                  className={styles.containerCheckBoxes}
+                  htmlFor="termsChecked"
+                >
+                  Eu concordo com os{" "}
+                  <a href="/terms" style={{ color: "#219ebc" }}>
+                    Termos e Condições
+                  </a>
+                  .
+                  <input
+                    type="checkbox"
+                    id="termsChecked"
+                    checked={termsChecked}
+                    className={styles.checkBox}
+                    onChange={(e) => setTermsChecked(e.target.checked)}
+                    required
+                  />
+                  <span className={styles.checkmark}></span>
+                </label>
+              </div>
             </div>
             {error && <p>{error}</p>}
-            <button id={styles.Continuarbtn} type="submit">Continuar</button>
+            <button id={styles.Continuarbtn} type="submit">
+              Continuar
+            </button>
           </form>
         ) : (
           <button onClick={() => SaveJob(user)}>Continuar</button>

@@ -14,28 +14,40 @@ import JobPage from "./pages/JobPage";
 import TradesDashboard from "./pages/TradesDashboard";
 import Inbox from "./pages/Inbox";
 import Chat from "./pages/Chat";
-import { AuthContextProvider } from './context/AuthContext'
+import comp1 from "./components/dashboard/comp1";
+import { AuthContextProvider } from "./context/AuthContext";
+import SideBar from "./components/dashboard/SideBar";
 
 function App() {
   return (
     <BrowserRouter>
-    <AuthContextProvider>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/postjob" element={<PostJob />} />
-        <Route path="/aplicativo-de-comerciante" element={<SignUp/>} />
-        <Route path="/entrar" element={<Login/>} />
-        <Route path="/registrar-como-comerciante" element={<RegistoComerciante/>} />
-        <Route path="/minha-conta" element={<MyAccount/>} />
-        <Route path="/meustrabalhos" element={<MyPostedJobs/>} />
-        <Route path="/meustrabalhos/:id" element={<JobPage/>} />
-        <Route path="/dashboard-de-trabalhos" element={<TradesDashboard/>} />
-        <Route path="/inbox" element={<Inbox/>} />
-        <Route path="/inbox/chat/:id" element={<Chat/>} />
-      </Routes>
+      <AuthContextProvider>
+        <NavBar />
+        <SideBar />
 
-      <Footer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/postjob" element={<PostJob />} />
+          <Route path="/aplicativo-de-comerciante" element={<SignUp />} />
+          <Route path="/entrar" element={<Login />} />
+          <Route
+            path="/registrar-como-comerciante"
+            element={<RegistoComerciante />}
+          />
+          <Route path="/minha-conta" element={<MyAccount />} />
+          <Route path="/meustrabalhos" element={<MyPostedJobs />} />
+          <Route path="/meustrabalhos/:id" element={<JobPage />} />
+          <Route
+            path="/dashboard-de-trabalhos/trabalhos-proximos"
+            element={<TradesDashboard />}
+          />
+          <Route path="/dashboard-de-trabalhos/mensagens" element={<comp1 />} />
+          <Route path="/dashboard-de-trabalhos" element={<TradesDashboard />} />
+          <Route path="/inbox" element={<Inbox />} />
+          <Route path="/inbox/chat/:id" element={<Chat />} />
+        </Routes>
+
+        <Footer />
       </AuthContextProvider>
     </BrowserRouter>
   );

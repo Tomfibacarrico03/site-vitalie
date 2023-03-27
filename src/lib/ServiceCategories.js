@@ -112,48 +112,71 @@ const serviceCategories = {
   ],
   groundworkFoundations: [
     "Fundações para uma estrutura a ser construída",
+    //start description
     "Drenagem e tubulação",
     "Terraplanagem geral do jardim",
     "Outro",
+    //end description
   ],
   handymanCategory: [
+    //start description
     "O trabalho inclui trabalho elétrico",
     "O trabalho não inclui trabalho elétrico",
+    //end description
   ],
   insulationCategory: [
+    //start description
     "Isolamento de sótão / telhado",
+    //end description
     "Isolamento de parede",
     "Isolamento de piso",
+    //start description
     "Outro",
+    //end description
   ],
   kitchenFittingCategory: [
     "Instalação de cozinha nova",
     "Instalação de bancada",
+    //start description
     "Reforma / substituição de portas de armário",
+    //end description
     "Instalar aparelho (pia, forno, lava-louças, etc.)",
     "Reparo menor",
+    //start description
     "Vários dos itens acima ou outro",
+    //end description
   ],
   locksmithCategory: [
     "Instalar novas fechaduras",
     "Reparar fechaduras",
+    //start description
     "Outro (ex. trancado do lado de fora)",
+    //end description
   ],
   loftConversionsCategory: [
     "Conversão de sótão com alterações estruturais",
     "Conversão de sótão (sem alterações estruturais)",
     "Conversão de sótão para fins de armazenamento",
+    //start description
     "Instalar uma claraboia",
+    //end description
   ],
   newBuildCategory: [
     "Eu possuo o terreno em que planejo construir",
     "Estou comprando o terreno em que planejo construir",
     "Não possuo o terreno em que planejo construir",
   ],
-  paintingDecoratingCategory: ["Pintura interna", "Pintura externa", "Ambos"],
-  plasteringRenderingCategory: ["Reboco (interior)", "Texturização (exterior)"],
+  paintingDecoratingCategory: [
+    //start description
+    "Pintura interna", "Pintura externa", "Ambos"
+    //end description
+  ],
+  plasteringRenderingCategory: [
+    "Reboco (interior)",
+    "Texturização (exterior)"
+  ],
   plumbingCategory: [
-    "Radiadores",
+    "Radiador",
     "Caldeiras",
     "Aparelhos",
     "Fixações",
@@ -166,22 +189,28 @@ const serviceCategories = {
     "Telhado novo ou de substituição",
     "Reparo ou avaliação de telhado",
     "Trabalho de chaminé",
+    //start description
     "Algo mais",
+    //end description
   ],
   securitySystems: [
     "Sistema de alarme de segurança",
     "Câmera de segurança / inteligente",
+    //start description
     "Sistema de entrada",
     "Alarmes de fumaça",
     "Luzes de segurança",
     "Trancas",
     "Outro",
+    //end description
   ],
-  stonemasonryCategory: ["Construção", "Reparação", "Reapontamento", "Outro"],
+  stonemasonryCategory: ["Construção", "Reparação", "Reapontamentos", "Outro"],
   tillingCategory: [
     "Telhas novas ou de substituição",
     "Reparação / rejuntes de azulejos",
+    //start description
     "Outro",
+    //end description
   ],
   treeSurgeryCategory: [
     "Poda ou corte",
@@ -194,10 +223,14 @@ const serviceCategories = {
   windowsDoorFitingCategory: [
     "Janelas novas",
     "Portas novas (internas ou externas)",
+    //start description
     "Janelas e portas externas novas",
+    //end description
     "Substituição de vidro",
-    "Reparação",
+    "Reparações",
+    //start description
     "Outro",
+    //end description
   ],
 };
 export default serviceCategories;
