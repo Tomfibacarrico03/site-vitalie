@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext'
 import { auth, db } from '../firebase';
+import styles from "../css/login.module.css";
+
 
 const Login = () => {
 
@@ -25,27 +27,24 @@ const Login = () => {
     };
 
     return (
-        <div>
-        <h2>Login</h2>
-        <p>Testar com:</p>
-        <p>mail: afonsoresendasdades03@gmail.com</p>
-        <p>pwd: azazazaz</p>
+        <div className={styles.login}>
+        <h2 style={{color: "#219ebc"}}>Bem-vindo de Volta!</h2>
         <form onSubmit={handleLogin}>
             <div>
-            <label htmlFor="email">Email:</label>
             <input 
                 type="email" 
                 id="email" 
+                placeholder='Email'
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
                 required 
             />
             </div>
             <div>
-            <label htmlFor="password">Password:</label>
             <input 
                 type="password" 
                 id="password" 
+                placeholder='Password'
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
                 required 
@@ -54,6 +53,15 @@ const Login = () => {
             <button type="submit">Login</button>
         </form>
         {errorMessage && <p>{errorMessage}</p>}
+        <div>
+            <h2>Novo?</h2>
+            <p>Procurando um construtor ou comerciante?
+                Publique seu trabalho aqui e obtenha respostas rápidas de comerciantes locais de boa reputação.</p>
+            <p>Criar trabalho</p>
+            <p>Inscreva-se como comerciante
+                 Ajudamos os comerciantes a obter o tipo certo de trabalho, da maneira mais acessível.</p>
+            <p>Tornar-se trabalhador</p>
+        </div>
         </div>
     );
 };

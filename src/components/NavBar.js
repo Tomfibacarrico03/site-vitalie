@@ -15,7 +15,7 @@ const NavBar = () => {
      
       <ul>
         <Link to="/postJob" style={{ textDecoration: "none" }}>
-          <li className={styles.btnPostJob}>Criar Trabalho</li>
+          <li className={styles.btnEntrar}>Criar Trabalho</li>
         </Link>
         {user && user.email ? (
           <>
@@ -46,7 +46,7 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <li>Homeowners</li>
+            <li className={styles.btnPostJob}>Homeowners</li>
             <Link
               to="/registrar-como-comerciante"
               style={{ textDecoration: "none" }}
@@ -54,7 +54,7 @@ const NavBar = () => {
               <li className={styles.btnPostJob}>Tornar-se trabalhador</li>
             </Link>
             <Link to="/entrar" style={{ textDecoration: "none" }}>
-              <li className={styles.btnPostJob}>Entrar</li>
+              <li className={styles.btnEntrar}>Entrar</li>
             </Link>
           </>
         )}

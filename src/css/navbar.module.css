@@ -18,12 +18,14 @@ nav {
 }
 
 .logo h3 {
+    font-family: "Avenir Next";
     color: #219ebc;
 }
 
 nav ul {
     display: inline-flex;
     margin-right: 200px;
+    align-items: center;
 }
 
 nav ul li {
@@ -40,9 +42,18 @@ nav ul li:hover {
 }
 
 .btnPostJob {
-    background-color: #219ebc;
+    border: 1px solid #219ebc;
+    color: #219ebc;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: "Avenir Next";
+}
+
+.btnEntrar {
+    box-shadow: 2px 2px 10px #219ebc;
+    background-color:#219ebc;
+    font-family: "Avenir Next";
     color: #fff;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 2px 2px 10px #219ebc;
 }

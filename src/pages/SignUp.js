@@ -4,8 +4,7 @@ import { doc, setDoc, updateDoc} from 'firebase/firestore';
 import { UserAuth } from '../context/AuthContext'
 import { auth, db } from '../firebase';
 import Select from 'react-select'
-
-
+import styles from "../css/register.module.css";
 
 
 const SignUp = () => {
@@ -24,7 +23,11 @@ const SignUp = () => {
     const [postalCode, setPostalCode] = useState('');
     const [error, setError] = useState(null);
 
-    const [tradeSelected, setTradeSelected] = useState("")
+    const [tradesSelected, setTradesSelected] = useState([])
+    const [workName, setWorkName] = useState('')
+    const [description, setDescription] = useState('')
+    const [location ,setLoocation] = useState('')
+    
 
     const { createUser, user, logout } = UserAuth();
   
@@ -48,14 +51,15 @@ const SignUp = () => {
             city,
             postalCode,
             trade_member: true,
-            tradeSelected,
-            interestedJobs: [],
+            tradesSelected,
+            interestedJobs: []
 
          }) 
         setError(null);
         navigate('/minha-conta')
       } catch (error) {
         setError(error.message);
+        console.log(error.message)
       }
     };
 
@@ -63,7 +67,7 @@ const SignUp = () => {
       e.preventDefault();
       try {
         await updateDoc(doc(db, "users", user.uid), {
-            tradeSelected,
+            tradesSelected,
             trade_member: true,
 
          }) 
@@ -113,9 +117,15 @@ const SignUp = () => {
       useEffect(() => {
         
       }, [user]);
+
+
+      const handleSelectedOptionsChange = (selectedOptions) => {
+        const values = selectedOptions.map(option => option.label);
+        setTradesSelected(values);
+      };
   
     return (
-        <div>
+        <div className={styles.register}>
         {user && user.email ? (
           <>
           {user.trade_member == false ? (
@@ -124,10 +134,11 @@ const SignUp = () => {
             <h3>Inscreva-se para ser um membro comercial</h3>
             <form onSubmit={becomeTradesPerson}>
                 <div>
-                  <label htmlFor="trade">Que trabalho deseja realizar</label>
-                  <Select 
+                  <label htmlFor="trade">Que trabalhos deseja realizar</label>
+                  <Select
+                    isMulti
                     options={trades}
-                    onChange={(option) => setTradeSelected(option.label)}
+                    onChange={handleSelectedOptionsChange}
                     placeholder="Selecionar"
                   />
                 </div>
@@ -145,86 +156,100 @@ const SignUp = () => {
             <p></p>
             <form onSubmit={handleSubmit}>
                 <div>
-                <label htmlFor="firstName">First Name</label>
+                {/* <label htmlFor="firstName">First Name</label> */}
                 <input
                     type="text"
                     id="firstName"
+                    placeholder='First Name'
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     required
                 />
                 </div>
                 <div>
-                <label htmlFor="lastName">Last Name</label>
+                {/* <label htmlFor="lastName">Last Name</label> */}
                 <input
                     type="text"
                     id="lastName"
+                    placeholder='Last Name'
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     required
                 />
                 </div>
                 <div>
-                <label htmlFor="phone">Phone Number</label>
+                {/* <label htmlFor="phone">Phone Number</label> */}
                 <input
                     type="text"
                     id="phone"
+                    placeholder='Phone Number'
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
                 />
                 </div>
                 <div>
-                    <label htmlFor="email">Email</label>
+                    {/* <label htmlFor="email">Email</label> */}
                     <input
                     type="email"
                     id="email"
+                    placeholder='Email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     />
                 </div>
                 <div>
-                    <label htmlFor="password">Password</label>
+                    {/* <label htmlFor="password">Password</label> */}
                     <input
                     type="password"
                     id="password"
+                    placeholder='Password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     />
                 </div>
                 <div>
-                  <label htmlFor="trade">Que trabalho deseja realizar</label>
+                  <label htmlFor="trade">Que trabalhos deseja realizar</label>
                   <Select 
+                    className={styles.select}
                     isMulti
                     options={trades}
-                    onChange={(option) => setTradeSelected(option.label)}
+                    
+                    onChange={handleSelectedOptionsChange}
                     placeholder="Selecionar"
                   />
                 </div>
-                <div>
-                    <input
+                <div className={styles.containerTudoCheckBoxes}>
+                  <div>
+                    <label className={styles.containerCheckBoxes} htmlFor="receiveTipsChecked">
+                      Eu gostaria de receber notícias, conselhos e dicas do MyBuilder
+                      <input
                         type="checkbox"
                         id="receiveTipsChecked"
+                        className={styles.checkBox}
                         checked={receiveTipsChecked}
                         onChange={(e) => setReceiveTipsChecked(e.target.checked)}
-                    />
-                    <label htmlFor="receiveTipsChecked">
-                        Eu gostaria de receber notícias, conselhos e dicas do MyBuilder
+                      />
+                      <span className={styles.checkmark}></span>
                     </label>
-                </div>
-                <div>
-                    <input
+                  </div>
+                  <div>
+                    
+                    <label className={styles.containerCheckBoxes} htmlFor="termsChecked">
+                      Eu concordo com os <a href="/terms" style={{color: "#219ebc"}}>Termos e Condições</a>.
+                      <input
                         type="checkbox"
                         id="termsChecked"
                         checked={termsChecked}
+                        className={styles.checkBox}
                         onChange={(e) => setTermsChecked(e.target.checked)}
                         required
-                    />
-                    <label htmlFor="termsChecked">
-                        Eu concordo com os <a href="/terms">termos e condições</a>.
+                      />
+                      <span className={styles.checkmark}></span>
                     </label>
+                  </div>
                 </div>
               {error && <p>{error}</p>}
               <button type="submit">Sign up</button>
