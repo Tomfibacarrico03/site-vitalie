@@ -1,138 +1,173 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { doc, setDoc, updateDoc} from 'firebase/firestore';
-import { UserAuth } from '../context/AuthContext'
-import { auth, db } from '../firebase';
-import Select from 'react-select'
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { UserAuth } from "../context/AuthContext";
+import { auth, db } from "../firebase";
+import Select from "react-select";
 import styles from "../css/register.module.css";
 
-
 const SignUp = () => {
-    const navigate = useNavigate()
-    
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [receiveTipsChecked, setReceiveTipsChecked] = useState(false);
-    const [termsChecked, setTermsChecked] = useState(false);
-    const [address1, setAddress1] = useState('');
-    const [address2, setAddress2] = useState('');
-    const [city, setCity] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    const [tradesSelected, setTradesSelected] = useState([])
-    const [workName, setWorkName] = useState('')
-    const [description, setDescription] = useState('')
-    const [location ,setLoocation] = useState('')
-    
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [receiveTipsChecked, setReceiveTipsChecked] = useState(false);
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [error, setError] = useState(null);
 
-    const { createUser, user, logout } = UserAuth();
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+  const [tradesSelected, setTradesSelected] = useState([]);
+  const [workName, setWorkName] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState([]);
 
-      if (!termsChecked) {
-        setError('Please accept the terms and conditions');
-        return;
-      }
-  
-      try {
-        const { user } =await createUser(email, password);
-        await setDoc(doc(db, "users", user.uid), { 
-            firstName,
-            lastName,
-            email,
-            phone,
-            address1,
-            address2,
-            city,
-            postalCode,
-            trade_member: true,
-            tradesSelected,
-            interestedJobs: []
+  const { createUser, user, logout } = UserAuth();
 
-         }) 
-        setError(null);
-        navigate('/minha-conta')
-      } catch (error) {
-        setError(error.message);
-        console.log(error.message)
-      }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const becomeTradesPerson = async (e) => {
-      e.preventDefault();
-      try {
-        await updateDoc(doc(db, "users", user.uid), {
-            tradesSelected,
-            trade_member: true,
+    if (!termsChecked) {
+      setError("Please accept the terms and conditions");
+      return;
+    }
 
-         }) 
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
+    try {
+      const { user } = await createUser(email, password);
+      await setDoc(doc(db, "users", user.uid), {
+        firstName,
+        lastName,
+        email,
+        phone,
+        address1,
+        address2,
+        city,
+        postalCode,
+        trade_member: true,
+        tradesSelected,
+        interestedJobs: [],
+        workName,
+        description,
+        location,
+      });
+      setError(null);
+      navigate("/minha-conta");
+    } catch (error) {
+      setError(error.message);
+      console.log(error.message);
+    }
+  };
 
+  const becomeTradesPerson = async (e) => {
+    e.preventDefault();
+    try {
+      await updateDoc(doc(db, "users", user.uid), {
+        tradesSelected,
+        trade_member: true,
+        interestedJobs: [],
+        workName,
+        description,
+        location,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-    const trades = [
-      { value: "architects", label: "Serviços de Arquitetura" },
-      { value: "bathroom-fitters", label: "Instalação de Banheiros" },
-      { value: "bricklayers", label: "Alvenaria & Rejuntamento" },
-      { value: "carpenters-and-joiners", label: "Carpintaria & Marcenaria" },
-      { value: "carpet-flooring-fitters", label: "Carpetes, Lino & Pisos" },
-      { value: "heating-engineers", label: "Aquecimento Central" },
-      { value: "chimney-fireplace-specialists", label: "Chaminé & Lareira" },
-      { value: "conversions", label: "Conversões" },
-      { value: "damp-proofing-specialists", label: "Prova de Umidade" },
-      { value: "demolition-specialists", label: "Demolição & Limpeza" },
-      { value: "driveway-specialists", label: "Entradas & Paving" },
-      { value: "electricians", label: "Elétrica" },
-      { value: "extension-specialists", label: "Ampliações" },
-      { value: "fascias-soffits-guttering-specialists", label: "Fascias, Soffits & Calhas" },
-      { value: "fencers", label: "Cercas" },
-      { value: "landscape-gardeners", label: "Jardinagem & Paisagismo" },
-      { value: "gas-engineers", label: "Gás" },
-      { value: "groundwork-and-foundations-specialists", label: "Terraplenagem & Fundações" },
-      { value: "handymen", label: "Faz-tudo" },
-      { value: "insulation-specialists", label: "Isolamento" },
-      { value: "kitchen-fitters", label: "Instalação de Cozinhas" },
-      { value: "locksmiths", label: "Chaveiro" },
-      { value: "loft-conversion-specialists", label: "Conversão de Sótão" },
-      { value: "new-builds-specialists", label: "Nova Construção" },
-      { value: "painters-and-decorators", label: "Pintura & Decoração" },
-      { value: "plasterers", label: "Gesso & Revestimento" },
-      { value: "plumbers", label: "Encanamento" },
-      { value: "restoration-and-refurbishment-specialists", label: "Restauração & Renovação" },
-      { value: "roofers", label: "Telhados" },
-      { value: "security-system-installers", label: "Sistemas de Segurança" },
-      { value: "stonemasons", label: "Pedreiro" },
-      { value: "tilers", label: "Azulejista" },
-      { value: "tree-surgeons", label: "Cirurgia de Árvores" },
-      { value: "window-fitters", label: "Instalação de Janelas & Portas" },
-    ]
+  const trades = [
+    { value: "architects", label: "Serviços de Arquitetura" },
+    { value: "bathroom-fitters", label: "Instalação de Banheiros" },
+    { value: "bricklayers", label: "Alvenaria & Rejuntamento" },
+    { value: "carpenters-and-joiners", label: "Carpintaria & Marcenaria" },
+    { value: "carpet-flooring-fitters", label: "Carpetes, Lino & Pisos" },
+    { value: "heating-engineers", label: "Aquecimento Central" },
+    { value: "chimney-fireplace-specialists", label: "Chaminé & Lareira" },
+    { value: "conversions", label: "Conversões" },
+    { value: "damp-proofing-specialists", label: "Prova de Umidade" },
+    { value: "demolition-specialists", label: "Demolição & Limpeza" },
+    { value: "driveway-specialists", label: "Entradas & Paving" },
+    { value: "electricians", label: "Elétrica" },
+    { value: "extension-specialists", label: "Ampliações" },
+    {
+      value: "fascias-soffits-guttering-specialists",
+      label: "Fascias, Soffits & Calhas",
+    },
+    { value: "fencers", label: "Cercas" },
+    { value: "landscape-gardeners", label: "Jardinagem & Paisagismo" },
+    { value: "gas-engineers", label: "Gás" },
+    {
+      value: "groundwork-and-foundations-specialists",
+      label: "Terraplenagem & Fundações",
+    },
+    { value: "handymen", label: "Faz-tudo" },
+    { value: "insulation-specialists", label: "Isolamento" },
+    { value: "kitchen-fitters", label: "Instalação de Cozinhas" },
+    { value: "locksmiths", label: "Chaveiro" },
+    { value: "loft-conversion-specialists", label: "Conversão de Sótão" },
+    { value: "new-builds-specialists", label: "Nova Construção" },
+    { value: "painters-and-decorators", label: "Pintura & Decoração" },
+    { value: "plasterers", label: "Gesso & Revestimento" },
+    { value: "plumbers", label: "Encanamento" },
+    {
+      value: "restoration-and-refurbishment-specialists",
+      label: "Restauração & Renovação",
+    },
+    { value: "roofers", label: "Telhados" },
+    { value: "security-system-installers", label: "Sistemas de Segurança" },
+    { value: "stonemasons", label: "Pedreiro" },
+    { value: "tilers", label: "Azulejista" },
+    { value: "tree-surgeons", label: "Cirurgia de Árvores" },
+    { value: "window-fitters", label: "Instalação de Janelas & Portas" },
+  ];
+  const distritos = [
+    { value: 'Aveiro', label: 'Aveiro' },
+    { value: 'Beja', label: 'Beja' },
+    { value: 'Braga', label: 'Braga' },
+    { value: 'Bragança', label: 'Bragança' },
+    { value: 'Castelo Branco', label: 'Castelo Branco' },
+    { value: 'Coimbra', label: 'Coimbra' },
+    { value: 'Évora', label: 'Évora' },
+    { value: 'Faro', label: 'Faro' },
+    { value: 'Guarda', label: 'Guarda' },
+    { value: 'Leiria', label: 'Leiria' },
+    { value: 'Lisboa', label: 'Lisboa' },
+    { value: 'Portalegre', label: 'Portalegre' },
+    { value: 'Porto', label: 'Porto' },
+    { value: 'Santarém', label: 'Santarém' },
+    { value: 'Setúbal', label: 'Setúbal' },
+    { value: 'Viana do Castelo', label: 'Viana do Castelo' },
+    { value: 'Vila Real', label: 'Vila Real' },
+    { value: 'Viseu', label: 'Viseu' },
+  ];
 
-      useEffect(() => {
-        
-      }, [user]);
+  useEffect(() => {}, [user]);
 
+  const handleSelectedOptionsChange = (selectedOptions) => {
+    const values = selectedOptions.map((option) => option.label);
+    setTradesSelected(values);
+  };
 
-      const handleSelectedOptionsChange = (selectedOptions) => {
-        const values = selectedOptions.map(option => option.label);
-        setTradesSelected(values);
-      };
-  
-    return (
-        <div className={styles.register}>
-        {user && user.email ? (
-          <>
+  const handleSelectedDistritosChange = (selectedOptions) => {
+    const values = selectedOptions.map((option) => option.label);
+    setLocation(values);
+  };
+
+  return (
+    <div className={styles.register}>
+      {user && user.email ? (
+        <>
           {user.trade_member == false ? (
-          <div>
-            <h2>Bem vindo, {user.firstName} {user.lastName}</h2>
-            <h3>Inscreva-se para ser um membro comercial</h3>
-            <form onSubmit={becomeTradesPerson}>
+            <div>
+              <h2>
+                Bem vindo, {user.firstName} {user.lastName}
+              </h2>
+              <h3>Inscreva-se para ser um membro comercial</h3>
+              <form onSubmit={becomeTradesPerson}>
                 <div>
                   <label htmlFor="trade">Que trabalhos deseja realizar</label>
                   <Select
@@ -142,123 +177,193 @@ const SignUp = () => {
                     placeholder="Selecionar"
                   />
                 </div>
-                {error && <p>{error}</p>}
-                <button type="submit">Registar como trabalhador</button>
-            </form>
-          </div>
-          ):(
-            <h3>Já se inscreveu</h3>
-          )}
-          </>
-        ) : (
-          <>
-            <h2>Inscreva-se para ser um membro comercial</h2>
-            <p></p>
-            <form onSubmit={handleSubmit}>
                 <div>
-                {/* <label htmlFor="firstName">First Name</label> */}
-                <input
+                  <label htmlFor="workName">Nome de trabalho</label>
+                  <input
                     type="text"
-                    id="firstName"
-                    placeholder='First Name'
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    id="workName"
+                    placeholder="Nome de trabalho"
+                    value={workName}
+                    onChange={(e) => setWorkName(e.target.value)}
                     required
-                />
+                  />
                 </div>
                 <div>
-                {/* <label htmlFor="lastName">Last Name</label> */}
-                <input
+                  <label htmlFor="description">Descrição</label>
+                  <input
                     type="text"
-                    id="lastName"
-                    placeholder='Last Name'
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    id="description"
+                    placeholder="Descrição"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     required
-                />
+                  />
                 </div>
                 <div>
-                {/* <label htmlFor="phone">Phone Number</label> */}
-                <input
-                    type="text"
-                    id="phone"
-                    placeholder='Phone Number'
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                />
-                </div>
-                <div>
-                    {/* <label htmlFor="email">Email</label> */}
-                    <input
-                    type="email"
-                    id="email"
-                    placeholder='Email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    />
-                </div>
-                <div>
-                    {/* <label htmlFor="password">Password</label> */}
-                    <input
-                    type="password"
-                    id="password"
-                    placeholder='Password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    />
-                </div>
-                <div>
-                  <label htmlFor="trade">Que trabalhos deseja realizar</label>
-                  <Select 
-                    className={styles.select}
+                  <label htmlFor="location">Localização</label>
+                  <Select
                     isMulti
-                    options={trades}
-                    
-                    onChange={handleSelectedOptionsChange}
+                    options={distritos}
+                    onChange={handleSelectedDistritosChange}
                     placeholder="Selecionar"
                   />
                 </div>
-                <div className={styles.containerTudoCheckBoxes}>
-                  <div>
-                    <label className={styles.containerCheckBoxes} htmlFor="receiveTipsChecked">
-                      Eu gostaria de receber notícias, conselhos e dicas do MyBuilder
-                      <input
-                        type="checkbox"
-                        id="receiveTipsChecked"
-                        className={styles.checkBox}
-                        checked={receiveTipsChecked}
-                        onChange={(e) => setReceiveTipsChecked(e.target.checked)}
-                      />
-                      <span className={styles.checkmark}></span>
-                    </label>
-                  </div>
-                  <div>
-                    
-                    <label className={styles.containerCheckBoxes} htmlFor="termsChecked">
-                      Eu concordo com os <a href="/terms" style={{color: "#219ebc"}}>Termos e Condições</a>.
-                      <input
-                        type="checkbox"
-                        id="termsChecked"
-                        checked={termsChecked}
-                        className={styles.checkBox}
-                        onChange={(e) => setTermsChecked(e.target.checked)}
-                        required
-                      />
-                      <span className={styles.checkmark}></span>
-                    </label>
-                  </div>
+                {error && <p>{error}</p>}
+                <button type="submit">Registar como trabalhador</button>
+              </form>
+            </div>
+          ) : (
+            <h3>Já se inscreveu</h3>
+          )}
+        </>
+      ) : (
+        <>
+          <h2>Inscreva-se para ser um membro comercial</h2>
+          <p></p>
+          <form onSubmit={handleSubmit}>
+            <div>
+              {/* <label htmlFor="firstName">First Name</label> */}
+              <input
+                type="text"
+                id="firstName"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              {/* <label htmlFor="lastName">Last Name</label> */}
+              <input
+                type="text"
+                id="lastName"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              {/* <label htmlFor="phone">Phone Number</label> */}
+              <input
+                type="text"
+                id="phone"
+                placeholder="Phone Number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              {/* <label htmlFor="email">Email</label> */}
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              {/* <label htmlFor="password">Password</label> */}
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="trade">Que trabalhos deseja realizar</label>
+              <Select
+                className={styles.select}
+                isMulti
+                options={trades}
+                onChange={handleSelectedOptionsChange}
+                placeholder="Selecionar"
+              />
+            </div>
+            <div>
+                  <label htmlFor="workName">Nome de trabalho</label>
+                  <input
+                    type="text"
+                    id="workName"
+                    placeholder="Ex.: Jorge Ferragens & Companhia"
+                    value={workName}
+                    onChange={(e) => setWorkName(e.target.value)}
+                    required
+                  />
                 </div>
-              {error && <p>{error}</p>}
-              <button type="submit">Sign up</button>
-            </form>
-          </>
-        )}
-       
-      </div>
-    );
+                <div>
+                  <label htmlFor="description">Descrição</label>
+                  <input
+                    type="text"
+                    id="description"
+                    placeholder="Inclua todos os detalhes que você acha que o profissional deve saber (local da alteração da parede, prazo, etc.)"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="location">Localização</label>
+                  <Select
+                    isMulti
+                    options={distritos}
+                    onChange={handleSelectedDistritosChange}
+                    placeholder="Selecionar"
+                  />
+                </div>
+            <div className={styles.containerTudoCheckBoxes}>
+              <div>
+                <label
+                  className={styles.containerCheckBoxes}
+                  htmlFor="receiveTipsChecked"
+                >
+                  Eu gostaria de receber notícias, conselhos e dicas do
+                  MyBuilder
+                  <input
+                    type="checkbox"
+                    id="receiveTipsChecked"
+                    className={styles.checkBox}
+                    checked={receiveTipsChecked}
+                    onChange={(e) => setReceiveTipsChecked(e.target.checked)}
+                  />
+                  <span className={styles.checkmark}></span>
+                </label>
+              </div>
+              <div>
+                <label
+                  className={styles.containerCheckBoxes}
+                  htmlFor="termsChecked"
+                >
+                  Eu concordo com os{" "}
+                  <a href="/terms" style={{ color: "#219ebc" }}>
+                    Termos e Condições
+                  </a>
+                  .
+                  <input
+                    type="checkbox"
+                    id="termsChecked"
+                    checked={termsChecked}
+                    className={styles.checkBox}
+                    onChange={(e) => setTermsChecked(e.target.checked)}
+                    required
+                  />
+                  <span className={styles.checkmark}></span>
+                </label>
+              </div>
+            </div>
+            {error && <p>{error}</p>}
+            <button type="submit">Sign up</button>
+          </form>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default SignUp;

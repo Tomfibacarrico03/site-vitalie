@@ -7,7 +7,7 @@ const db = admin.firestore();
 
 exports.SaveJob = functions.https.onCall(async (data, context) => {
   try {
-    const { headline, description, tradeSelected, selectedCategory, selectedSubCategory } = data;
+    const { headline, description, tradeSelected, selectedCategory, selectedSubCategory, location } = data;
     const userId = context.auth.uid;
     const jobsRef = db.collection("jobs");
 
@@ -19,6 +19,7 @@ exports.SaveJob = functions.https.onCall(async (data, context) => {
       tradeSelected,
       selectedCategory,
       selectedSubCategory,
+      location,
     
     });
 

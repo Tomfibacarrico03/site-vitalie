@@ -1,5 +1,5 @@
 const serviceCategories = {
-  architectsSub: [
+  "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)": [
     "Que tipo de serviço precisa?",
     "Extensão",
     "Conversão loft",
@@ -7,24 +7,32 @@ const serviceCategories = {
     "Nova construção",
     "Outros",
   ],
-  bathroomRefurbishmentInstallationSub: [
+  "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)": [
+    "Que tipo de serviço precisa?",
+    "Extensão",
+    "Conversão loft",
+    "Renovação",
+    "Nova construção",
+    "Outros",
+  ],
+  "Renovação / instalação de banheiro": [
     "Quantas casas de banho precisam de renovação / instalação de banheiro?",
     "1",
     "2 ou mais",
   ],
-  bathroomInstallReplaceFixture: [
+  "Instalar ou substituir um dispositivo": [
     "É necessário mais algum serviço?",
     "Sim",
     "Não",
   ],
-  bathroomRepair: ["É alguma fuga?", "Sim", "Não"],
-  bathroomTilling: [
+  "Reparar": ["É alguma fuga?", "Sim", "Não"],
+  "Azulejos": [
     "O que involve o teu trabalho de Azulejos?",
     "Novo ou Substituição de azulejos",
     "Reparação de azulejos",
     "Outros",
   ],
-  bricklayingBuildingWall: [
+  "Construindo uma parede": [
     "Que tipo de parede quer construir?",
     "Parede pequena, decorativa",
     "Parede pequena",
@@ -32,7 +40,7 @@ const serviceCategories = {
     "Parede mestra",
     "Mais que uma parede",
   ],
-  bricklayingBuildStructure: [
+  "Construção de uma estrutura": [
     "Que tipo de estrutura quer construir?",
     "Anexo",
     "Varanda",
@@ -40,37 +48,37 @@ const serviceCategories = {
     "Extensão",
     "Outros",
   ],
-  bricklayingBuildingBrickWork: [
+  "Trabalho de alvenaria personalizado": [
     "Que tipo de trabalho de alvenaria?",
     "Pilar",
     "Degraus",
     "Outros",
   ],
-  bricklayingWallAlterations: [
+  "Alterações na parede": [
     "Que tipo de alteração quer fazer?",
     "Instalação / Subtituição de janelas ou portas",
     "Remoção de parede",
     "Outros",
   ],
-  bricklayingRepointing: [
+  "Reapontamento": [
     "Que tipo de reencaminhamento?",
     "Alvenaria",
     "Pedra natural",
   ],
-  bricklayingChimney: [
+  "Trabalho na chaminé": [
     "O que precisa de fazer na sua chaminé?",
     "Remoção",
     "Reconstruir / Grandes alterações",
     "Reemcaminhamento / Reparação",
     "Outros",
   ],
-  bricklayingRepair: [
+  "Reparos": [
     "Que tipo de reparação necessita?",
     "Pequena",
     "Média",
     "Grande",
   ],
-  carpentryJoinerySub: [
+  "Portas, janelas e pisos": [
     "Precisas de ajuda de um capinteiro em quê?",
     "Portas indoor",
     "Portas outdoor",
@@ -79,13 +87,13 @@ const serviceCategories = {
     "Rodapés e Arquitraves",
     "Vários dos acima",
   ],
-  carpentryFurniture: [
+  "Fabricação, montagem e reparos de móveis": [
     "Oque precisas?",
     "Móveis feitos",
     "Móveis por montar (Ikea, etc....)",
     "Reparações a móveis",
   ],
-  carpentryKitchenUnits: [
+  "Unidades de cozinha e bancadas": [
     "Precisas de ajuda de um capinteiro em quê?",
     "Colocar bancada de madeira",
     "Reparar bancada de madeira",
@@ -93,12 +101,12 @@ const serviceCategories = {
     "Construir unidades de cozinha personalizadas",
     "Reparar / Ajustar unidades de cozinha",
   ],
-  carpentryDecking: [
+  "Área coberta": [
     "Que tipo de trabalho precisas?",
     "Construir um deck novo",
     "Reparar um deck existente",
   ],
-  carpetsFloring: [
+  "Piso novo ou substituição": [
     "Que tipo de trablho de piso necessita?",
     "Carpet",
     "Linóleo",
@@ -108,13 +116,13 @@ const serviceCategories = {
     "Madeira",
     "Outros",
   ],
-  carpetsSanding: [
+  "Lixamento / restauração": [
     "Que tipo de trablho de piso necessita de lixar / restaurar?",
     "Projetado",
     "Madeira",
     "Outros",
   ],
-  carpetsRepair: [
+  "Reparo / ajuste": [
     "Que tipo de trablho de piso necessita de reparação?",
     "Carpet",
     "Linóleo",
@@ -124,33 +132,33 @@ const serviceCategories = {
     "Madeira",
     "Outros",
   ],
-  heatingBoiler: [
+  "Caldeira": [
     "Têm que tipo de caldeira?",
     "Gás",
     "Elétrica",
     "Oléo",
     "Outra",
   ],
-  heatingPipes: ["Que tipo de tubo requer o trabalho?", "Gás", "Água", "Outro"],
-  heatingRaditors: [
+  "Tubulação / fornecimento": ["Que tipo de tubo requer o trabalho?", "Gás", "Água", "Outro"],
+  "Radiadores": [
     "O que precisa?",
     "Problema pequeno (fugas, etc..)",
     "Mover ou Substituir",
     "Outro",
   ],
-  heatingUnderFloor: [
+  "Aquecimento de piso": [
     "Que tipo de piso aquecido necessita?",
     "Caldeira fornecida",
     "Eletrico",
   ],
-  heatingFullSystem: [
+  "Instalação completa do sistema": [
     "Têm que tipo de sistema?",
     "Gás",
     "Elétrico",
     "Oléo",
     "Outro",
   ],
-  chimneyFireChimney: [
+  "Chaminé": [
     "O que precisa de fazer na sua chaminé?",
     "Varrer",
     "Remoção",
@@ -158,7 +166,7 @@ const serviceCategories = {
     "Reemcaminhamento / Reparação",
     "Outros",
   ],
-  chimneyFireFireplace: [
+  "Lareira": [
     "Qual é o seu sistema?",
     "Gás",
     "Elétrico",
@@ -169,59 +177,59 @@ const serviceCategories = {
     "Instalação ou alteração",
     "Reparação",
   ],
-  consversionLoft: [
+  "Conversão de sotão": [
     "Qual tipo de conversão de sótão você deseja?",
     "Conversão de sótão com mudanças estruturais",
     "Conversão de sótão (sem mudanças estruturais)",
     "Conversão de sótão para fins de armazenamento",
     "Instalar uma claraboia",
   ],
-  conversionExistingSpace: [
+  "Conversão de um espaço existente": [
     "Quão extenso é o seu trabalho de conversão?",
     "Conversão de um único cômodo",
     "Conversão de uma garagem / anexo pequeno",
     "Conversão de vários cômodos ou anexo grande",
     "Conversão de toda a propriedade",
   ],
-  conversionWall: [
+  "Alteração de paredes": [
     "E qual das seguintes opções melhor descreve o trabalho de alteração da sua parede?",
     "Instalação ou substituição de janela ou porta",
     "Remoção de parede",
     "Outros",
   ],
-  conversionRestoringImproving: [
+  "Restaurar ou melhorar um espaço existente": [
     "De que tipo de trabalho se trata?",
     "Pequena reforma",
     "Grande reforma",
     "Reforma total",
   ],
-  DampProofingYes: [
+  "Sim - Preciso apenas de ajuda para resolver o problema": [
     "Qual é a dimensão da área afetada?",
     "Pequena área isolada",
     "Área extensa",
     "Não tenho certeza",
   ],
-  DemoltionClearWaste: [
+  "Remoção de lixo apenas": [
     "Quanto lixo você precisa remover?",
     "Pequena quantidade, que cabe em uma carrinha ou carro",
     "Quantidade média, que cabe em uma carrinha média",
     "Grande quantidade, que cabe em uma carrinha grande",
     "Limpeza completa do local ou mais",
   ],
-  DemoltionClearBuilding: [
+  "Demolição de edifícios / estruturas": [
     "Aproximadamente, qual é o tamanho da estrutura que precisa ser demolida?",
     "Pequena",
     "Média",
     "Grande",
     "Muito grande",
   ],
-  DemolitionClearKnock: [
+  "Derrubar uma parede": [
     "Que tipo de parede você deseja remover?",
     "Parede de estrutura de madeira",
     "Parede não portante (que não suporta cargas estruturais).",
     "Parede portante (que suporta cargas estruturais).",
   ],
-  drivewaysPavingInstallRepair: [
+  "Instalar / Reparar uma entrada": [
     "Qual é o material de superfície que você precisa?",
     "Pavimentação de blocos (também conhecida como 'pavimentação intertravada' ou 'pavimentação de pavers').",
     "Brita (também conhecida como 'cascalho' ou 'pedra britada').",

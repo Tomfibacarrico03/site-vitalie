@@ -70,7 +70,7 @@ const serviceCategories = {
     "Pavimentação, pátios e caminhos",
   ],
   electrical: [
-    "Retrofit",
+    "Refazer circuitos",
     "Caixas de fusíveis",
     "Fittings e aparelhos elétricos",
     "Verificação ou certificado de segurança",

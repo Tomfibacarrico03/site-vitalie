@@ -84,6 +84,7 @@ const PostJob = () => {
     const val = event.target.value;
     setSelectedCategory(val);
     console.log(val);
+    serviceSubCategories(val)
     const subCategoryMapping = {
       "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)":serviceSubCategories.architectsSub,
       "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)":serviceSubCategories.architectsSub,
@@ -122,8 +123,28 @@ const PostJob = () => {
       "Derrubar uma parede":serviceSubCategories.DemolitionClearKnock,
       "Instalar / Reparar uma entrada":serviceSubCategories.drivewaysPavingInstallRepair,
       "Pavimentação, pátios e caminho":serviceSubCategories.drivewaysPavingPaving,
-      "Reapontamento":serviceSubCategories.drivewaysPavingPaving,
-      "Reapontamento":serviceSubCategories.bricklayingRepointing,
+      "Refazer circuitos":serviceSubCategories.electricalRewiring,
+      "Caixas de fusíveis":serviceSubCategories.eletricalFuseBoxs,
+      "Fittings e aparelhos elétricos":serviceSubCategories.eletricalFittings,
+      "Verificação ou certificado de segurança":serviceSubCategories.eletricalSafety,
+      "Falhas e reparos elétricos":serviceSubCategories.eletricalFaults,
+      "Extensão de propriedade":serviceSubCategories.extensionsProperty,
+      "Conversão de loft":serviceSubCategories.extensionsLoft,
+      "Uma varanda":serviceSubCategories.extensionsPorch,
+      "Somente calhas":serviceSubCategories.fasciasSoffitsGutteringGuttering,
+      "Somente beirais e / ou guarnições":serviceSubCategories.fasciasSoffitsGutteringFascias,
+      "Ambos":serviceSubCategories.fasciasSoffitsGutteringBoth,
+      "Esgrima":serviceSubCategories.fencingFencing,
+      "Portões":serviceSubCategories.fencingGates,
+      "Esgrima e portões":serviceSubCategories.fencingFencingAndGates,
+      "Reparar uma cerca ou portão":serviceSubCategories.fencingRepair,
+      "Jardinagem geral":serviceSubCategories.gardeningLandscapingGeneral,
+      "Paisagismo":serviceSubCategories.gardeningLandscapingLandscaping,
+      "Cirurgia de árvores":serviceSubCategories.gardeningLandscapingTree,
+      "Verificação de segurança de gás":serviceSubCategories.gasWorkSafety,
+      "Serviço de caldeira ou aparelho":serviceSubCategories.gasWorkService,
+      "Instalar ou substituir caldeira ou aparelho":serviceSubCategories.gasWorkInstall,
+      "ente":serviceSubCategories.fascing,
     }
     switch (val) {
       case "Chaminé":
@@ -198,6 +219,7 @@ const PostJob = () => {
   const { createUser, user, logout } = UserAuth();
   const [headline, setHeadline] = useState("");
   const [description, setDescription] = useState("");
+  const [location, setLocation] = useState([]);
 
   const [error, setError] = useState(null);
 
@@ -225,6 +247,7 @@ const PostJob = () => {
               postalCode,
               headline: "Some headline",
               description: "Some description",
+              location
     
             })
           SaveJob(user) 
@@ -273,6 +296,7 @@ const PostJob = () => {
         tradeSelected,
         selectedCategory,
         selectedSubCategory,
+        location,
       });
 
       // setResult(response);
@@ -319,6 +343,32 @@ const PostJob = () => {
     { value: "tree-surgeons", label: "Cirurgia de Árvores" },
     { value: "window-fitters", label: "Instalação de Janelas & Portas" },
   ]
+
+  const distritos = [
+    { value: 'Aveiro', label: 'Aveiro' },
+    { value: 'Beja', label: 'Beja' },
+    { value: 'Braga', label: 'Braga' },
+    { value: 'Bragança', label: 'Bragança' },
+    { value: 'Castelo Branco', label: 'Castelo Branco' },
+    { value: 'Coimbra', label: 'Coimbra' },
+    { value: 'Évora', label: 'Évora' },
+    { value: 'Faro', label: 'Faro' },
+    { value: 'Guarda', label: 'Guarda' },
+    { value: 'Leiria', label: 'Leiria' },
+    { value: 'Lisboa', label: 'Lisboa' },
+    { value: 'Portalegre', label: 'Portalegre' },
+    { value: 'Porto', label: 'Porto' },
+    { value: 'Santarém', label: 'Santarém' },
+    { value: 'Setúbal', label: 'Setúbal' },
+    { value: 'Viana do Castelo', label: 'Viana do Castelo' },
+    { value: 'Vila Real', label: 'Vila Real' },
+    { value: 'Viseu', label: 'Viseu' },
+  ];
+
+  const handleSelectedDistritosChange = (selectedOptions) => {
+    const values = selectedOptions.map((option) => option.label);
+    setLocation(values);
+  };
 
   return (
     <div>
