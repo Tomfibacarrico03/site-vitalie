@@ -92,65 +92,40 @@ const PostJob = () => {
       "Reparar":serviceSubCategories.bathroomRepair,
       "Azulejos":serviceSubCategories.bathroomTilling,
       "Construindo uma parede":serviceSubCategories.bricklayingBuildingWall,
-      "Construção de uma estrutura":serviceSubCategories.bricklayingBuildStructure
+      "Construção de uma estrutura":serviceSubCategories.bricklayingBuildStructure,
+      "Trabalho de alvenaria personalizado":serviceSubCategories.bricklayingBuildingBrickWork,
+      "Alterações na parede":serviceSubCategories.bricklayingWallAlterations,
+      "Reapontamento":serviceSubCategories.bricklayingRepointing,
+      "Trabalho na chaminé":serviceSubCategories.bricklayingChimney,
+      "Reparos":serviceSubCategories.bricklayingRepair,
+      "Portas, janelas e pisos":serviceSubCategories.carpentryJoinerySub,
+      "Fabricação, montagem e reparos de móveis":serviceSubCategories.carpentryFurniture,
+      "Unidades de cozinha e bancadas":serviceSubCategories.carpentryKitchenUnits,
+      "Área coberta":serviceSubCategories.carpentryDecking,
+      "Piso novo ou substituição":serviceSubCategories.carpetsFloring,
+      "Lixamento / restauração":serviceSubCategories.carpetsSanding,
+      "Reparo / ajuste":serviceSubCategories.carpetsRepair,
+      "Caldeira":serviceSubCategories.heatingBoiler,
+      "Tubulação / fornecimento":serviceSubCategories.heatingPipes,
+      "Radiadores":serviceSubCategories.heatingRaditors,
+      "Aquecimento de piso":serviceSubCategories.heatingUnderFloor,
+      "Instalação completa do sistema":serviceSubCategories.heatingFullSystem,
+      "Chaminé":serviceSubCategories.chimneyFireChimney,
+      "Lareira":serviceSubCategories.chimneyFireFireplace,
+      "Conversão de sotão":serviceSubCategories.consversionLoft,
+      "Conversão de um espaço existente":serviceSubCategories.conversionExistingSpace,
+      "Alteração de paredes":serviceSubCategories.conversionWall,
+      "Restaurar ou melhorar um espaço existente":serviceSubCategories.conversionRestoringImproving,
+      "Sim - Preciso apenas de ajuda para resolver o problema":serviceSubCategories.DampProofingYes,
+      "Remoção de lixo apenas":serviceSubCategories.DemoltionClearWaste,
+      "Demolição de edifícios / estruturas":serviceSubCategories.DemoltionClearBuilding,
+      "Derrubar uma parede":serviceSubCategories.DemolitionClearKnock,
+      "Instalar / Reparar uma entrada":serviceSubCategories.drivewaysPavingInstallRepair,
+      "Pavimentação, pátios e caminho":serviceSubCategories.drivewaysPavingPaving,
+      "Reapontamento":serviceSubCategories.drivewaysPavingPaving,
+      "Reapontamento":serviceSubCategories.bricklayingRepointing,
     }
     switch (val) {
-      case "Construção de uma estrutura":
-        setServiceSubCategory(serviceSubCategories.bricklayingBuildStructure);
-        break;
-      case "Trabalho de alvenaria personalizado":
-        setServiceSubCategory(
-          serviceSubCategories.bricklayingBuildingBrickWork
-        );
-        break;
-      case "Alterações na parede":
-        setServiceSubCategory(serviceSubCategories.bricklayingWallAlterations);
-        break;
-      case "Reapontamento":
-        setServiceSubCategory(serviceSubCategories.bricklayingRepointing);
-        break;
-      case "Trabalho na chaminé":
-        setServiceSubCategory(serviceSubCategories.bricklayingChimney);
-        break;
-      case "Reparos":
-        setServiceSubCategory(serviceSubCategories.bricklayingRepair);
-        break;
-      case "Portas, janelas e pisos":
-        setServiceSubCategory(serviceSubCategories.carpentryJoinerySub);
-        break;
-      case "Fabricação, montagem e reparos de móveis":
-        setServiceSubCategory(serviceSubCategories.carpentryFurniture);
-        break;
-      case "Unidades de cozinha e bancadas":
-        setServiceSubCategory(serviceSubCategories.carpentryKitchenUnits);
-        break;
-      case "Área coberta":
-        setServiceSubCategory(serviceSubCategories.carpentryDecking);
-        break;
-      case "Piso novo ou substituição":
-        setServiceSubCategory(serviceSubCategories.carpetsFloring);
-        break;
-      case "Lixamento / restauração":
-        setServiceSubCategory(serviceSubCategories.carpetsSanding);
-        break;
-      case "Reparo / ajuste":
-        setServiceSubCategory(serviceSubCategories.carpetsRepair);
-        break;
-      case "Caldeira":
-        setServiceSubCategory(serviceSubCategories.heatingBoiler);
-        break;
-      case "Tubulação / fornecimento":
-        setServiceSubCategory(serviceSubCategories.heatingPipes);
-        break;
-      case "Radiadores":
-        setServiceSubCategory(serviceSubCategories.heatingRaditors);
-        break;
-      case "Aquecimento de piso":
-        setServiceSubCategory(serviceSubCategories.heatingUnderFloor);
-        break;
-      case "Instalação completa do sistema":
-        setServiceSubCategory(serviceSubCategories.heatingFullSystem);
-        break;
       case "Chaminé":
         setServiceSubCategory(serviceSubCategories.chimneyFireChimney);
         break;
