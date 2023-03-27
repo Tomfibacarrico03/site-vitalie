@@ -6,17 +6,25 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import PostJob from "./pages/postJob";
 import SignUp from "./pages/SignUp";
-import RegistoComerciante from "./pages/RegistoComerciante";
-import MyAccount from "./pages/MyAccount";
+import TradesPage from "./pages/TradesPage";
 import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
 import JobPage from "./pages/JobPage";
-import TradesDashboard from "./pages/TradesDashboard";
-import Inbox from "./pages/Inbox";
-import Chat from "./pages/Chat";
-import comp1 from "./components/dashboard/comp1";
+
+import SideBar from "./pages/dashboard/Sidebar";
+import NearTrades from "./pages/dashboard/NearTrades";
+import Inbox from "./pages/dashboard/Inbox";
+import Chat from "./pages/dashboard/Chat";
+
+import AccountSideBar from "./pages/account/AccountSideBar";
+import MyAccount from "./pages/account/MyAccount";
+import TradesProfile from "./pages/account/TradesProfile";
+import Settings from "./pages/account/Settings";
+
+
 import { AuthContextProvider } from "./context/AuthContext";
-import SideBar from "./components/dashboard/SideBar";
+
+
 
 function App() {
   return (
@@ -24,6 +32,7 @@ function App() {
       <AuthContextProvider>
         <NavBar />
         <SideBar />
+        <AccountSideBar/>
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -32,18 +41,18 @@ function App() {
           <Route path="/entrar" element={<Login />} />
           <Route
             path="/registrar-como-comerciante"
-            element={<RegistoComerciante />}
+            element={<TradesPage />}
           />
-          <Route path="/minha-conta" element={<MyAccount />} />
+          <Route path="/minha-conta/detalhes-de-contacto" element={<MyAccount />} />
+          <Route path="/minha-conta/perfil-de-trabalhador" element={<TradesProfile />} />
+          <Route path="/minha-conta/definições" element={<Settings />} />
           <Route path="/meustrabalhos" element={<MyPostedJobs />} />
           <Route path="/meustrabalhos/:id" element={<JobPage />} />
           <Route
             path="/dashboard-de-trabalhos/trabalhos-proximos"
-            element={<TradesDashboard />}
+            element={<NearTrades />}
           />
-          <Route path="/dashboard-de-trabalhos/mensagens" element={<comp1 />} />
-          <Route path="/dashboard-de-trabalhos" element={<TradesDashboard />} />
-          <Route path="/inbox" element={<Inbox />} />
+          <Route path="/dashboard-de-trabalhos/mensagens" element={<Inbox/>} />
           <Route path="/inbox/chat/:id" element={<Chat />} />
         </Routes>
 

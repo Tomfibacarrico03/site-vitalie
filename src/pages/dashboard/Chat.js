@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from '../firebase';
-import { UserAuth } from '../context/AuthContext'
-import JobCard from '../components/cards/JobCard';
+import { auth, db } from '../../firebase';
+import { UserAuth } from '../../context/AuthContext'
+import JobCard from '../../components/cards/JobCard';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const Chat = () => {

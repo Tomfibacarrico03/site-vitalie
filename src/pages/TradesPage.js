@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import styles from "../css/comerciante.module.css";
 
-const RegistoComerciante = () => {
+const TradesPage = () => {
   return (
     <div className={styles.divTotal}>
       <div className={styles.textInicial}>
@@ -20,4 +20,4 @@ const RegistoComerciante = () => {
   );
 };
 
-export default RegistoComerciante;
+export default TradesPage;

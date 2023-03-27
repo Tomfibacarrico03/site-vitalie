@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { UserAuth } from '../context/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
-import { db } from '../firebase'
+import { UserAuth } from '../../context/AuthContext'
+import { db } from '../../firebase'
 import { doc, updateDoc} from 'firebase/firestore';
-import styles from "../css/minhaconta.module.css";
+import styles from "../../css/minhaconta.module.css";
 
 
 const MyAccount = () => {
 
-  const navigate = useNavigate()
-
-  const {user, logout} = UserAuth()
+  const {user, } = UserAuth()
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -51,16 +48,7 @@ const MyAccount = () => {
     console.log('Updated user information saved!');
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      alert("Sessão Terminada")
-      console.log('You are logged out')
-      navigate('/')
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+  
 
   return (
     <div className={styles.detalhesContainer}>
@@ -138,12 +126,7 @@ const MyAccount = () => {
         />
       </div>
       <div className={styles.botoes}>
-          <button
-            className={styles.terminarSessao}
-            onClick={handleLogout}
-          >
-            Terminar Sessão
-          </button>
+          
           <button className={styles.guardar} onClick={handleSave}>Guardar</button>
 
       </div>

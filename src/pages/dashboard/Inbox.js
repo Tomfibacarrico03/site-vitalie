@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { auth, db } from '../firebase';
-import { UserAuth } from '../context/AuthContext'
+import { auth, db } from '../../firebase';
+import { UserAuth } from '../../context/AuthContext'
 import { Link, Route, useParams, useRouteMatch, Routes } from 'react-router-dom';
 import Chat from "./Chat";
 const Inbox = () => {
@@ -29,8 +29,8 @@ const Inbox = () => {
 
 
   return (
-    <div>
-      <h1>Inbox</h1>
+    <div style={{marginLeft: 300}}>
+      <h2>Caixa de Mensagens</h2>
       {chats.map((chat, index) => (
         <div key={chat.id}>
           <Link to={`/inbox/chat/${chat.id}`} state={{ chatId: chat.id }}>Chat {index + 1}</Link>

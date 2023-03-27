@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from '../firebase';
-import { UserAuth } from '../context/AuthContext'
-import JobCard from '../components/cards/JobCard';
+import { auth, db } from '../../firebase';
+import { UserAuth } from '../../context/AuthContext'
+import JobCard from '../../components/cards/JobCard';
 import { Link, useNavigate } from 'react-router-dom'
-const TradesDashboard = () => {
+const NearTrades = () => {
     const {user } = UserAuth()
     const [jobs, setJobs] = useState([]);
 
@@ -31,13 +31,7 @@ const TradesDashboard = () => {
   
 
   return (
-    <div>
-        <h1>Dashboard</h1>
-
-        <h2>Mensagens</h2>
-        <Link style={{textDecoration: "none"}} to={`/inbox` }>
-               <p>Caixa de entrada</p>
-            </Link>
+    <div style={{marginLeft: 300}}>
         <h2>Trabalhos publicados na sua área para si</h2>
         {user.tradesSelected.map((trade) => (<p>{trade}</p>))}
         {jobs.map((job) => (
@@ -49,4 +43,4 @@ const TradesDashboard = () => {
   );
 };
 
-export default TradesDashboard;
+export default NearTrades;
