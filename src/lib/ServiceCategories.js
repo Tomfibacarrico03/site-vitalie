@@ -5,14 +5,14 @@ const serviceCategories = {
     "Cálculos de estrutura de construção",
     "Não tenho certeza",
   ],
-  bathroom: [
+  "bathroom-fitters": [
     "Renovação / instalação de banheiro",
     "Instalar ou substituir um dispositivo",
     "Reparar",
     "Azulejos",
     "Outro",
   ],
-  bricklayingRepointing: [
+  bricklayers: [
     "Construindo uma parede",
     "Construção de uma estrutura",
     "Trabalho de alvenaria personalizado",
@@ -21,20 +21,20 @@ const serviceCategories = {
     "Trabalho na chaminé",
     "Reparos",
   ],
-  carpentryJoinery: [
+  "carpenters-and-joiners": [
     "Portas, janelas e pisos",
     "Fabricação, montagem e reparos de móveis",
     "Unidades de cozinha e bancadas",
     "Área coberta",
     "Outro trabalho em carpintaria",
   ],
-  carpetsLinoFlooring: [
+  "carpet-flooring-fitters": [
     "Piso novo ou substituição",
     "Lixamento / restauração",
     "Reparo / ajuste",
     "Outro",
   ],
-  centralHeating: [
+  "heating-engineers": [
     "Caldeira",
     "Tubulação / fornecimento",
     "Radiadores",
@@ -43,33 +43,33 @@ const serviceCategories = {
     "Instalação completa do sistema",
     "Outro",
   ],
-  chimneyFireplace: [
+  "chimney-fireplace-specialists": [
     "Chaminé",
     "Lareira",
     "Outro ou vários dos acima",
   ],
-  conversions:[
+  conversions: [
     "Conversão de sotão",
     "Conversão de um espaço existente",
     "Alteração de paredes",
-    "Restaurar ou melhorar um espaço existente"
+    "Restaurar ou melhorar um espaço existente",
   ],
-  dampProofing: [
+  "damp-proofing-specialists": [
     "Não - Preciso de ajuda para investigar",
     "Sim - Preciso apenas de ajuda para resolver o problema",
   ],
-  demolitionClearance: [
+  "demolition-specialists": [
     "Remoção de lixo apenas",
     "Demolição de edifícios / estruturas",
     "Derrubar uma parede",
   ],
-  drivewaysPaving: [
+  "driveway-specialists": [
     "Instalar / Reparar uma entrada",
     "Limpar ou selar uma entrada",
     "Kerb suspenso (crossover)",
     "Pavimentação, pátios e caminhos",
   ],
-  electrical: [
+  electricians: [
     "Refazer circuitos",
     "Caixas de fusíveis",
     "Fittings e aparelhos elétricos",
@@ -77,7 +77,7 @@ const serviceCategories = {
     "Falhas e reparos elétricos",
     "Outro",
   ],
-  extensions: [
+  "extension-specialists": [
     "Extensão de propriedade",
     "Conversão de loft",
     "Uma varanda",
@@ -85,23 +85,23 @@ const serviceCategories = {
     "Alterações internas",
     "Outro",
   ],
-  fasciasSoffitsGuttering: [
+  "fascias-soffits-guttering-specialists": [
     "Somente calhas",
     "Somente beirais e / ou guarnições",
     "Ambos",
   ],
-  fencing: [
+  fencers: [
     "Esgrima",
     "Portões",
     "Esgrima e portões",
     "Reparar uma cerca ou portão",
   ],
-  gardeningLandscaping: [
+  "landscape-gardeners": [
     "Jardinagem geral",
     "Paisagismo",
     "Cirurgia de árvores",
   ],
-  gasWork: [
+  "gas-engineers": [
     "Verificação de segurança de gás",
     "Serviço de caldeira ou aparelho",
     "Instalar ou substituir caldeira ou aparelho",
@@ -110,7 +110,7 @@ const serviceCategories = {
     "Problema ou reparo",
     "Outro",
   ],
-  groundworkFoundations: [
+  "groundwork-and-foundations-specialists": [
     "Fundações para uma estrutura a ser construída",
     //start description
     "Drenagem e tubulação",
@@ -118,13 +118,13 @@ const serviceCategories = {
     "Outro",
     //end description
   ],
-  handymanCategory: [
+  handymen: [
     //start description
     "O trabalho inclui trabalho elétrico",
     "O trabalho não inclui trabalho elétrico",
     //end description
   ],
-  insulationCategory: [
+  "insulation-specialists": [
     //start description
     "Isolamento de sótão / telhado",
     //end description
@@ -134,7 +134,7 @@ const serviceCategories = {
     "Outro",
     //end description
   ],
-  kitchenFittingCategory: [
+  "kitchen-fitters": [
     "Instalação de cozinha nova",
     "Instalação de bancada",
     //start description
@@ -146,14 +146,14 @@ const serviceCategories = {
     "Vários dos itens acima ou outro",
     //end description
   ],
-  locksmithCategory: [
+  locksmiths: [
     "Instalar novas fechaduras",
     "Reparar fechaduras",
     //start description
     "Outro (ex. trancado do lado de fora)",
     //end description
   ],
-  loftConversionsCategory: [
+  "loft-conversion-specialists": [
     "Conversão de sótão com alterações estruturais",
     "Conversão de sótão (sem alterações estruturais)",
     "Conversão de sótão para fins de armazenamento",
@@ -161,31 +161,30 @@ const serviceCategories = {
     "Instalar uma claraboia",
     //end description
   ],
-  newBuildCategory: [
+  "new-builds-specialists": [
     "Eu possuo o terreno em que planejo construir",
     "Estou comprando o terreno em que planejo construir",
     "Não possuo o terreno em que planejo construir",
   ],
-  paintingDecoratingCategory: [
+  "painters-and-decorators": [
     //start description
-    "Pintura interna", "Pintura externa", "Ambos"
+    "Pintura interna",
+    "Pintura externa",
+    "Ambos",
     //end description
   ],
-  plasteringRenderingCategory: [
-    "Reboco (interior)",
-    "Texturização (exterior)"
-  ],
-  plumbingCategory: [
+  plasterers: ["Reboco (interior)", "Texturização (exterior)"],
+  plumbers: [
     "Radiador",
     "Caldeiras",
     "Aparelhos",
     "Fixações",
     "Tubulações, torneiras e drenagem",
   ],
-  restorationRefurbishmentCategory: [
+  "restoration-and-refurbishment-specialists": [
     "Entendo que este serviço é para grandes projetos que exigem gerenciamento e supervisão. Se você precisar de vários trabalhos que abranjam várias áreas, publique-os separadamente nas categorias comerciais apropriadas.",
   ],
-  roofingCategory: [
+  roofers: [
     "Telhado novo ou de substituição",
     "Reparo ou avaliação de telhado",
     "Trabalho de chaminé",
@@ -193,7 +192,7 @@ const serviceCategories = {
     "Algo mais",
     //end description
   ],
-  securitySystems: [
+  "security-system-installers": [
     "Sistema de alarme de segurança",
     "Câmera de segurança / inteligente",
     //start description
@@ -204,15 +203,15 @@ const serviceCategories = {
     "Outro",
     //end description
   ],
-  stonemasonryCategory: ["Construção", "Reparação", "Reapontamentos", "Outro"],
-  tillingCategory: [
+  stonemasons: ["Construção", "Reparação", "Reapontamentos", "Outro"],
+  tilers: [
     "Telhas novas ou de substituição",
     "Reparação / rejuntes de azulejos",
     //start description
     "Outro",
     //end description
   ],
-  treeSurgeryCategory: [
+  "tree-surgeons": [
     "Poda ou corte",
     "Corte (abate)",
     "Remoção apenas de toco",
@@ -220,7 +219,7 @@ const serviceCategories = {
     "Arbustos ou outras tarefas de jardinagem",
     "Outro",
   ],
-  windowsDoorFitingCategory: [
+  "window-fitters": [
     "Janelas novas",
     "Portas novas (internas ou externas)",
     //start description
