@@ -18,6 +18,15 @@ const SideBar = () => {
               </Link>
             </li>
             <li>
+              <Link to="/dashboard-de-trabalhos/interessado">Interessado</Link>
+            </li>
+            <li>
+              <Link to="/dashboard-de-trabalhos/mensagens">Lista Restrita</Link>
+            </li>
+            <li>
+              <Link to="/dashboard-de-trabalhos/mensagens">Trabalhos conseguidos</Link>
+            </li>
+            <li>
               <Link to="/dashboard-de-trabalhos/mensagens">Mensagens</Link>
             </li>
           </ul>

@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import { updateDoc, doc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const WorkerPage = () => {
   const location = useLocation();
-  const { user } = location.state;
+  const { user, job } = location.state;
+
+  const [isUserRejected, setIsUserRejected] = useState(job.rejectedUsers.includes(user.id));
+
+  const handleReject = async () => {
+    const jobRef = doc(db, "jobs", job.id);
+    try {
+      await updateDoc(jobRef, {
+        rejectedUsers: [...job.rejectedUsers, user.id],
+      });
+      setIsUserRejected(true);
+      console.log("User added to rejectedUsers field");
+    } catch (error) {
+      console.error("Error adding user to rejectedUsers field", error);
+    }
+  };
+
+  const handleUndoReject = async () => {
+    const jobRef = doc(db, "jobs", job.id);
+    try {
+      await updateDoc(jobRef, {
+        rejectedUsers: job.rejectedUsers.filter((userId) => userId !== user.id),
+      });
+      setIsUserRejected(false);
+      console.log("User removed from rejectedUsers field");
+    } catch (error) {
+      console.error("Error removing user from rejectedUsers field", error);
+    }
+  };
 
   return (
     <div style={{ marginLeft: 771 }}>
@@ -17,8 +47,15 @@ const WorkerPage = () => {
       <hr />
       <p>Adiciona à shortlist para discutir o trabalho</p>
       <p>Agora</p>
-      <button>Adicionar à shortlist</button>
-      <button>Rejeitar</button>
+      <p>{user.id}</p>
+      {isUserRejected ? (
+        <button onClick={handleUndoReject}>Desfazer recusa</button>
+      ) : (
+        <>
+          <button>Adicionar à shortlist</button>
+          <button onClick={handleReject}>Recusar</button>
+        </>
+      )}
       <hr />
       <p>Depois</p>
       <p>

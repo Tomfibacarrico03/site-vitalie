@@ -255,7 +255,7 @@ function JobPage(props) {
             <Link
               style={{ textDecoration: "none" }}
               to={`/trabalhador/${user.id}`}
-              state={{ user }}
+              state={{ user, job }}
             >
               <InterestedUserCard key={user.id} value={user} />
             </Link>

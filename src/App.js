@@ -14,6 +14,7 @@ import WorkerPage from "./pages/WorkerPage";
 
 import SideBar from "./pages/dashboard/Sidebar";
 import NearTrades from "./pages/dashboard/NearTrades";
+import InterestedTrades from "./pages/dashboard/InterestedTrades";
 import Inbox from "./pages/dashboard/Inbox";
 import Chat from "./pages/dashboard/Chat";
 
@@ -52,6 +53,10 @@ function App() {
           <Route
             path="/dashboard-de-trabalhos/trabalhos-proximos"
             element={<NearTrades />}
+          />
+          <Route
+            path="/dashboard-de-trabalhos/interessado"
+            element={<InterestedTrades />}
           />
           <Route path="/dashboard-de-trabalhos/mensagens" element={<Inbox/>} />
           <Route path="/inbox/chat/:id" element={<Chat />} />
