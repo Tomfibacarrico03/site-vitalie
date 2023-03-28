@@ -29,7 +29,7 @@ const Inbox = () => {
 
 
   return (
-    <div style={{marginLeft: 300}}>
+    <div style={{marginLeft: 730}}>
       <h2>Caixa de Mensagens</h2>
       {chats.map((chat, index) => (
         <div key={chat.id}>

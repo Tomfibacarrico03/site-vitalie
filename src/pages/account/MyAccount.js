@@ -78,6 +78,7 @@ const MyAccount = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          readOnly
         />
       </div>
       <div>

@@ -31,7 +31,7 @@ const NearTrades = () => {
   
 
   return (
-    <div style={{marginLeft: 300}}>
+    <div style={{marginLeft: 730}}>
         <h2>Trabalhos publicados na sua área para si</h2>
         {user.tradesSelected.map((trade) => (<p>{trade}</p>))}
         {jobs.map((job) => (
