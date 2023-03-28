@@ -1,104 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styles from "../css/postJob.module.css";
 import paper from ".././imgs/paper.webp";
+import { trades, distritos } from "../lib/SelectOptions";
 import serviceCategories from "../lib/ServiceCategories";
 import serviceSubCategories from "../lib/ServiceSubCategories";
 import { Link, useNavigate } from "react-router-dom";
 import { db, functions } from "../firebase";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import Select from "react-select";
 import { httpsCallable } from "firebase/functions";
 const PostJob = () => {
   const saveJob = httpsCallable(functions, "SaveJob");
   const createUserAndSaveJob = httpsCallable(functions, "createUserAndSaveJob");
-
-  const [questionNumber, setQuestionNumber] = useState(1);
-  var selectedOption;
-  const [tradeSelected, setTradeSelected] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
-  const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
-  const [serviceCategory, setServiceCategory] = useState(["..."]);
-  const [serviceSubCategory, setServiceSubCategory] = useState(["..."]);
-  useEffect(() => {
-    console.log(serviceSubCategory);
-    setSubCategoryQuestion(serviceSubCategory[0]);
-  }, [serviceSubCategory]);
-
-  const handleChange = (selectedOption) => {
-    setTradeSelected(selectedOption.label);
-    console.log(selectedOption);
-
-    const categoryMapping = {
-      architects: serviceCategories.architects,
-      "bathroom-fitters": serviceCategories.bathroom,
-      bricklayers: serviceCategories.bricklayingRepointing,
-      "carpenters-and-joiners": serviceCategories.carpentryJoinery,
-      "carpet-flooring-fitters": serviceCategories.carpetsLinoFlooring,
-      "heating-engineers": serviceCategories.centralHeating,
-      "chimney-fireplace-specialists": serviceCategories.chimneyFireplace,
-      conversions: serviceCategories.conversions,
-      "damp-proofing-specialists": serviceCategories.dampProofing,
-      "demolition-specialists": serviceCategories.demolitionClearance,
-      "driveway-specialists": serviceCategories.drivewaysPaving,
-      electricians: serviceCategories.electrical,
-      "extension-specialists": serviceCategories.extensions,
-      "fascias-soffits-guttering-specialists":
-        serviceCategories.fasciasSoffitsGuttering,
-      fencers: serviceCategories.fencing,
-      "landscape-gardeners": serviceCategories.gardeningLandscaping,
-      "gas-engineers": serviceCategories.gasWork,
-      "groundwork-and-foundations-specialists":
-        serviceCategories.groundworkFoundations,
-      handymen: serviceCategories.handymanCategory,
-      "insulation-specialists": serviceCategories.insulationCategory,
-      "kitchen-fitters": serviceCategories.kitchenFittingCategory,
-      locksmiths: serviceCategories.locksmithCategory,
-      "loft-conversion-specialists": serviceCategories.loftConversionsCategory,
-      "new-builds-specialists": serviceCategories.newBuildCategory,
-      "painters-and-decorators": serviceCategories.paintingDecoratingCategory,
-      plasterers: serviceCategories.plasteringRenderingCategory,
-      plumbers: serviceCategories.plumbingCategory,
-      "restoration-and-refurbishment-specialists":
-        serviceCategories.restorationRefurbishmentCategory,
-      roofers: serviceCategories.roofingCategory,
-      "security-system-installers": serviceCategories.securitySystems,
-      stonemasons: serviceCategories.plumbinstonemasonryCategorygCategory,
-      tilers: serviceCategories.tillingCategory,
-      "tree-surgeons": serviceCategories.treeSurgeryCategory,
-      "window-fitters": serviceCategories.windowsDoorFitingCategory,
-    };
-
-    setServiceCategory(categoryMapping[selectedOption.value]);
-  };
-
-  const handleCatergoryChange = (event) => {
-    const val = event.target.value;
-    setSelectedCategory(val);
-    console.log(val);
-    console.log(serviceSubCategories[val]);
-    setServiceSubCategory(serviceSubCategories[val]);
-  };
-  const handleSubCatergoryChange = (event) => {
-    setSelectedSubCategory(event.target.value);
-    console.log(setSelectedSubCategory);
-  };
-  function questionIncrement() {
-    setQuestionNumber(questionNumber + 1);
-  }
-  async function questionDicrement() {
-    setQuestionNumber(questionNumber - 1);
-  }
-
-  const navigate = useNavigate();
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -115,8 +29,56 @@ const PostJob = () => {
   const [headline, setHeadline] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState([]);
-
   const [error, setError] = useState(null);
+  const [questionNumber, setQuestionNumber] = useState(1);
+  var selectedOption;
+  const [tradeSelected, setTradeSelected] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
+  const [serviceCategory, setServiceCategory] = useState(["..."]);
+  const [serviceSubCategory, setServiceSubCategory] = useState(["..."]);
+  useEffect(() => {
+    if (serviceSubCategory === "description") {
+      setSubCategoryQuestion(
+        "Coloque aqui uma descrição do trabalho que necessita."
+      );
+    } else {
+      setSubCategoryQuestion(serviceSubCategory[0]);
+    }
+  }, [serviceSubCategory]);
+
+  const handleChange = (selectedOption) => {
+    setTradeSelected(selectedOption.label);
+    if (serviceCategories[selectedOption.value]) {
+      setServiceCategory(serviceCategories[selectedOption.value]);
+    } else {
+      setServiceCategory("description");
+    }
+  };
+
+  const handleCatergoryChange = (event) => {
+    const val = event.target.value;
+    setSelectedCategory(val);
+    if (serviceSubCategories[val]) {
+      setServiceSubCategory(serviceSubCategories[val]);
+    } else {
+      setServiceSubCategory("description");
+      console.log("description");
+    }
+  };
+  const handleSubCatergoryChange = (event) => {
+    setSelectedSubCategory(event.target.value);
+    console.log(event.target.value);
+  };
+  function questionIncrement() {
+    setQuestionNumber(questionNumber + 1);
+  }
+  async function questionDicrement() {
+    setQuestionNumber(questionNumber - 1);
+  }
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -171,11 +133,6 @@ const PostJob = () => {
 
   const SaveJob = async (user) => {
     try {
-      console.log("===");
-      console.log(selectedCategory);
-      console.log(selectedSubCategory);
-      console.log("===");
-
       //setIsLoading(true);
 
       //const saveJob = functions.httpsCallable("SaveJob");
@@ -198,73 +155,6 @@ const PostJob = () => {
       //setIsLoading(false);
     }
   };
-
-  const trades = [
-    { value: "architects", label: "Serviços de Arquitetura" },
-    { value: "bathroom-fitters", label: "Instalação de Banheiros" },
-    { value: "bricklayers", label: "Alvenaria & Rejuntamento" },
-    { value: "carpenters-and-joiners", label: "Carpintaria & Marcenaria" },
-    { value: "carpet-flooring-fitters", label: "Carpetes, Lino & Pisos" },
-    { value: "heating-engineers", label: "Aquecimento Central" },
-    { value: "chimney-fireplace-specialists", label: "Chaminé & Lareira" },
-    { value: "conversions", label: "Conversões" },
-    { value: "damp-proofing-specialists", label: "Prova de Umidade" },
-    { value: "demolition-specialists", label: "Demolição & Limpeza" },
-    { value: "driveway-specialists", label: "Entradas & Paving" },
-    { value: "electricians", label: "Elétrica" },
-    { value: "extension-specialists", label: "Ampliações" },
-    {
-      value: "fascias-soffits-guttering-specialists",
-      label: "Fascias, Soffits & Calhas",
-    },
-    { value: "fencers", label: "Cercas" },
-    { value: "landscape-gardeners", label: "Jardinagem & Paisagismo" },
-    { value: "gas-engineers", label: "Gás" },
-    {
-      value: "groundwork-and-foundations-specialists",
-      label: "Terraplenagem & Fundações",
-    },
-    { value: "handymen", label: "Faz-tudo" },
-    { value: "insulation-specialists", label: "Isolamento" },
-    { value: "kitchen-fitters", label: "Instalação de Cozinhas" },
-    { value: "locksmiths", label: "Chaveiro" },
-    { value: "loft-conversion-specialists", label: "Conversão de Sótão" },
-    { value: "new-builds-specialists", label: "Nova Construção" },
-    { value: "painters-and-decorators", label: "Pintura & Decoração" },
-    { value: "plasterers", label: "Gesso & Revestimento" },
-    { value: "plumbers", label: "Encanamento" },
-    {
-      value: "restoration-and-refurbishment-specialists",
-      label: "Restauração & Renovação",
-    },
-    { value: "roofers", label: "Telhados" },
-    { value: "security-system-installers", label: "Sistemas de Segurança" },
-    { value: "stonemasons", label: "Pedreiro" },
-    { value: "tilers", label: "Azulejista" },
-    { value: "tree-surgeons", label: "Cirurgia de Árvores" },
-    { value: "window-fitters", label: "Instalação de Janelas & Portas" },
-  ];
-
-  const distritos = [
-    { value: "Aveiro", label: "Aveiro" },
-    { value: "Beja", label: "Beja" },
-    { value: "Braga", label: "Braga" },
-    { value: "Bragança", label: "Bragança" },
-    { value: "Castelo Branco", label: "Castelo Branco" },
-    { value: "Coimbra", label: "Coimbra" },
-    { value: "Évora", label: "Évora" },
-    { value: "Faro", label: "Faro" },
-    { value: "Guarda", label: "Guarda" },
-    { value: "Leiria", label: "Leiria" },
-    { value: "Lisboa", label: "Lisboa" },
-    { value: "Portalegre", label: "Portalegre" },
-    { value: "Porto", label: "Porto" },
-    { value: "Santarém", label: "Santarém" },
-    { value: "Setúbal", label: "Setúbal" },
-    { value: "Viana do Castelo", label: "Viana do Castelo" },
-    { value: "Vila Real", label: "Vila Real" },
-    { value: "Viseu", label: "Viseu" },
-  ];
 
   const handleSelectedDistritosChange = (selectedOptions) => {
     const values = selectedOptions.map((option) => option.label);
@@ -331,25 +221,32 @@ const PostJob = () => {
           }
         >
           <h1>{subCategoryQuestion}</h1>
-          {serviceSubCategory.map((serviceSubCategory, index) =>
-            index === 0 ? null : (
-              <label
-                className={
-                  selectedSubCategory === serviceSubCategory
-                    ? styles.categoryLabelSelected
-                    : styles.categoryLabel
-                }
-              >
-                <input
-                  onChange={handleSubCatergoryChange}
-                  checked={selectedSubCategory === serviceSubCategory}
-                  type="checkbox"
-                  value={serviceSubCategory}
-                  className={styles.displayNone}
-                />
-                <h4>{serviceSubCategory}</h4>
-              </label>
-            )
+          {serviceSubCategory !== "description" ? (
+            <>
+              {" "}
+              {serviceSubCategory.map((serviceSubCategory, index) =>
+                index === 0 ? null : (
+                  <label
+                    className={
+                      selectedSubCategory === serviceSubCategory
+                        ? styles.categoryLabelSelected
+                        : styles.categoryLabel
+                    }
+                  >
+                    <input
+                      onChange={handleSubCatergoryChange}
+                      checked={selectedSubCategory === serviceSubCategory}
+                      type="checkbox"
+                      value={serviceSubCategory}
+                      className={styles.displayNone}
+                    />
+                    <h4>{serviceSubCategory}</h4>
+                  </label>
+                )
+              )}
+            </>
+          ) : (
+            <textarea className={styles.textarea} />
           )}
         </div>
         <br />

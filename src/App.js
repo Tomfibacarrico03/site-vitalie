@@ -10,6 +10,7 @@ import TradesPage from "./pages/TradesPage";
 import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
 import JobPage from "./pages/JobPage";
+import WorkerPage from "./pages/WorkerPage";
 
 import SideBar from "./pages/dashboard/Sidebar";
 import NearTrades from "./pages/dashboard/NearTrades";
@@ -54,6 +55,8 @@ function App() {
           />
           <Route path="/dashboard-de-trabalhos/mensagens" element={<Inbox/>} />
           <Route path="/inbox/chat/:id" element={<Chat />} />
+
+          <Route path="/trabalhador/:id" element={<WorkerPage />} />
         </Routes>
 
         <Footer />
