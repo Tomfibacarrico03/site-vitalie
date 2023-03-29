@@ -14,7 +14,7 @@ const NavBar = () => {
       </div>
      
       <ul>
-        <Link to="/postJob" style={{ textDecoration: "none" }}>
+        <Link to="/publicar-trabalho" style={{ textDecoration: "none" }}>
           <li className={styles.btnEntrar}>Criar Trabalho</li>
         </Link>
         {user && user.email ? (

@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import PostJob from "./pages/postJob";
 import SignUp from "./pages/SignUp";
+import SendInvite from "./pages/SendInvite";
 import TradesPage from "./pages/TradesPage";
 import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
@@ -39,7 +40,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/postjob" element={<PostJob />} />
+          <Route path="/publicar-trabalho" element={<PostJob />} />
+          <Route path="/publicar-trabalho/publicado" element={<SendInvite />} />
           <Route path="/aplicativo-de-comerciante" element={<SignUp />} />
           <Route path="/entrar" element={<Login />} />
           <Route
@@ -50,7 +52,7 @@ function App() {
           <Route path="/minha-conta/perfil-de-trabalhador" element={<TradesProfile />} />
           <Route path="/minha-conta/definições" element={<Settings />} />
           <Route path="/meustrabalhos" element={<MyPostedJobs />} />
-          <Route path="/meustrabalhos/:id" element={<JobPage />} />
+          <Route path="/meustrabalhos/:jobId" element={<JobPage />} />
           <Route
             path="/dashboard-de-trabalhos/trabalhos-proximos"
             element={<NearTrades />}

@@ -124,10 +124,13 @@ const PostJob = () => {
         headline: "Some headline",
         description: "Some description",
         location,
+        trade_member: false,
+        
+
       });
       SaveJob(user);
       setError(null);
-      navigate("/minha-conta");
+      navigate("/publicar-trabalho/publicado");
     } catch (error) {
       setError(error.message);
     }
@@ -166,8 +169,12 @@ const PostJob = () => {
         tradeSelected,
         selectedCategory,
         selectedSubCategory,
-        location,
+        location: location.value,
+        interestedUsers: [],
+        rejectedUsers: [],
+        shortlistedUsers: [],
       });
+      navigate("/publicar-trabalho/publicado");
 
       // setResult(response);
       // setIsLoading(false);
@@ -177,10 +184,7 @@ const PostJob = () => {
     }
   };
 
-  const handleSelectedDistritosChange = (selectedOptions) => {
-    const values = selectedOptions.map((option) => option.label);
-    setLocation(values);
-  };
+  
 
   return (
     <div className={styles.page}>
@@ -322,7 +326,7 @@ const PostJob = () => {
               <Select
                 className={styles.Select}
                 options={distritos}
-                onChange={handleSelectedDistritosChange}
+                onChange={setLocation}
                 placeholder="Localização"
               />
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { pt } from "date-fns/locale";
 import {
@@ -17,25 +17,23 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { UserAuth } from "../context/AuthContext";
 import InterestedUserCard from "../components/cards/InterestedUserCard";
 function JobPage(props) {
-  const location = useLocation();
-  const { job } = location.state;
+
+  const { jobId } = useParams();
+  const [job, setJob] = useState(null);
   const { user } = UserAuth();
 
   const navigate = useNavigate();
-  const createdAt = new Date(job.createdAt.seconds * 1000);
-  const createdAtString = formatDistanceToNow(createdAt, {
-    addSuffix: true,
-    locale: pt,
-  });
+
+  const [loading, setLoading] = useState(true);
 
   const [usuario, setUsuario] = useState(null);
 
-  const [image1Url, setImage1Url] = useState(job.image1 || "");
-  const [image2Url, setImage2Url] = useState(job.image2 || "");
-  const [image3Url, setImage3Url] = useState(job.image3 || "");
-  const [image4Url, setImage4Url] = useState(job.image4 || "");
-  const [image5Url, setImage5Url] = useState(job.image5 || "");
-  const [image6Url, setImage6Url] = useState(job.image6 || "");
+  const [image1Url, setImage1Url] = useState(job ? job.image1 || "" : "");
+  const [image2Url, setImage2Url] = useState(job ? job.image2 || "" : "");
+  const [image3Url, setImage3Url] = useState(job ? job.image3 || "" : "");
+  const [image4Url, setImage4Url] = useState(job ? job.image4 || "" : "");
+  const [image5Url, setImage5Url] = useState(job ? job.image5 || "" : "");
+  const [image6Url, setImage6Url] = useState(job ? job.image6 || "" : "");
 
   const handleImageUpload = async (file, setImageUrl, imageName) => {
     const storageRef = ref(
@@ -46,6 +44,7 @@ function JobPage(props) {
     const downloadUrl = await getDownloadURL(storageRef);
     setImageUrl(downloadUrl);
     const imageDocRef = doc(db, "jobs", job.id);
+    console.log("entrou")
     await updateDoc(imageDocRef, { [imageName]: downloadUrl });
   };
 
@@ -83,6 +82,7 @@ function JobPage(props) {
 
   const fetchInterestedUsers = async () => {
     const interestedUserIds = job.interestedUsers; // get the interested users' uids from the document
+    console.log(job.interestedUsers)
 
     const interestedUsersInfo = [];
 
@@ -98,14 +98,31 @@ function JobPage(props) {
     setInterestedUsers(interestedUsersInfo); // set the interestedUsers state with the fetched data
   };
 
+
+  
+
+
+  const fetchJob = async () => {
+    const jobDoc = await getDoc(doc(db, "jobs", jobId));
+    if (jobDoc.exists()) {
+      setJob({ ...jobDoc.data(), id: jobDoc.id });
+    } else {
+      console.log("No job found");
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await getUserData(job.userId);
-      setUsuario(userData);
-    };
-    fetchUserData();
-    fetchInterestedUsers();
-  }, [job.userId]);
+    fetchJob();
+    fetchUserData()
+    fetchInterestedUsers()
+    
+  }, [jobId]);
+
+  const fetchUserData = async () => {
+    const userData = await getUserData(job.userId);
+    setUsuario(userData);
+  };
 
   const getUserData = async (userId) => {
     const userDoc = await getDoc(doc(db, "users", userId));
@@ -172,11 +189,25 @@ function JobPage(props) {
       });
   }
 
+ 
+
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+  
+  
+
+
+  
+
   return (
     <div>
       <p>Location: Lisboa</p>
       <p>Trabalho: {job.tradeSelected}</p>
-      <p>Postado {createdAtString}</p>
+      <p>Postado {formatDistanceToNow(new Date(job.createdAt.seconds * 1000), {
+    addSuffix: true,
+    locale: pt,
+  })}</p>
       {usuario && <p>Postado por: {usuario.firstName}</p>}
       {user.uid == job.userId ? (
         <p>0 pré-selecionados de 4 interessados</p>
