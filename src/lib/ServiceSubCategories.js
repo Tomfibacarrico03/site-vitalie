@@ -17,8 +17,8 @@ const serviceCategories = {
   ],
   "Renovação / instalação de banheiro": [
     "Quantas casas de banho precisam de renovação / instalação de banheiro?",
-    "1",
-    "2 ou mais",
+    "1 Casa de banho",
+    "2 ou mais Casas de banhos",
   ],
   "Instalar ou substituir um dispositivo": [
     "É necessário mais algum serviço?",
@@ -203,7 +203,7 @@ const serviceCategories = {
     "Grande reforma",
     "Reforma total",
   ],
-  "\ - Preciso apenas de ajuda para resolver o problema": [
+  "Sim - Preciso apenas de ajuda para resolver o problema": [
     "Qual é a dimensão da área afetada?",
     "Pequena área isolada",
     "Área extensa",

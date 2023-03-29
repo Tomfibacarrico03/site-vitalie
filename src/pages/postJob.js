@@ -4,6 +4,7 @@ import paper from ".././imgs/paper.webp";
 import { trades, distritos } from "../lib/SelectOptions";
 import serviceCategories from "../lib/ServiceCategories";
 import serviceSubCategories from "../lib/ServiceSubCategories";
+import serviceSubSubCategories from "../lib/ServiceSubCategories2";
 import { Link, useNavigate } from "react-router-dom";
 import { db, functions } from "../firebase";
 import { serverTimestamp, setDoc, doc } from "firebase/firestore";
@@ -35,9 +36,13 @@ const PostJob = () => {
   const [tradeSelected, setTradeSelected] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [selectedSubSubCategory, setSelectedSubSubCategory] = useState("");
   const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
+  const [subSubCategoryQuestion, setSubSubCategoryQuestion] = useState("");
   const [serviceCategory, setServiceCategory] = useState(["..."]);
   const [serviceSubCategory, setServiceSubCategory] = useState(["..."]);
+  const [serviceSubSubCategory, setServiceSubSubCategory] = useState(["..."]);
+
   useEffect(() => {
     if (serviceSubCategory === "description") {
       setSubCategoryQuestion(
@@ -47,29 +52,45 @@ const PostJob = () => {
       setSubCategoryQuestion(serviceSubCategory[0]);
     }
   }, [serviceSubCategory]);
-
+  useEffect(() => {
+    if (serviceSubSubCategory === "description") {
+      setSubSubCategoryQuestion(
+        "Coloque aqui uma descrição do trabalho que necessita."
+      );
+    } else {
+      setSubSubCategoryQuestion(serviceSubSubCategory[0]);
+    }
+  }, [serviceSubSubCategory]);
   const handleChange = (selectedOption) => {
     setTradeSelected(selectedOption.label);
     if (serviceCategories[selectedOption.value]) {
       setServiceCategory(serviceCategories[selectedOption.value]);
-    } else {
-      setServiceCategory("description");
     }
   };
 
-  const handleCatergoryChange = (event) => {
+  const handleCatergory1Change = (event) => {
     const val = event.target.value;
     setSelectedCategory(val);
     if (serviceSubCategories[val]) {
       setServiceSubCategory(serviceSubCategories[val]);
     } else {
       setServiceSubCategory("description");
-      console.log("description");
+      console.log("description 1");
     }
   };
   const handleSubCatergoryChange = (event) => {
-    setSelectedSubCategory(event.target.value);
-    console.log(event.target.value);
+    const val = event.target.value;
+    setSelectedSubCategory(val);
+    if (serviceSubSubCategory[val]) {
+      setServiceSubSubCategory(serviceSubSubCategory[val]);
+    } else {
+      setServiceSubSubCategory("description");
+      console.log("description 2");
+    }
+  };
+  const handleSubSubCatergoryChange = (event) => {
+    const val = event.target.value;
+    setSelectedSubSubCategory(val);
   };
   function questionIncrement() {
     setQuestionNumber(questionNumber + 1);
@@ -84,7 +105,7 @@ const PostJob = () => {
     e.preventDefault();
 
     if (!termsChecked) {
-      setError("Please accept the terms and conditions");
+      setError("Por favor aceite os termos e condições");
       return;
     }
 
@@ -204,7 +225,7 @@ const PostJob = () => {
                 }
               >
                 <input
-                  onChange={handleCatergoryChange}
+                  onChange={handleCatergory1Change}
                   checked={selectedCategory === serviceCategory}
                   type="checkbox"
                   value={serviceCategory}
@@ -249,6 +270,40 @@ const PostJob = () => {
             <textarea className={styles.textarea} />
           )}
         </div>
+        <div
+          className={
+            questionNumber === 4 ? styles.question : styles.displayNone
+          }
+        >
+          <h1>{subSubCategoryQuestion}</h1>
+          {serviceSubSubCategory !== "description" ? (
+            <>
+              {" "}
+              {serviceSubSubCategory.map((serviceSubSubCategory, index) =>
+                index === 0 ? null : (
+                  <label
+                    className={
+                      selectedSubSubCategory === serviceSubSubCategory
+                        ? styles.categoryLabelSelected
+                        : styles.categoryLabel
+                    }
+                  >
+                    <input
+                      onChange={handleSubSubCatergoryChange}
+                      checked={selectedSubSubCategory === serviceSubSubCategory}
+                      type="checkbox"
+                      value={serviceSubSubCategory}
+                      className={styles.displayNone}
+                    />
+                    <h4>{serviceSubSubCategory}</h4>
+                  </label>
+                )
+              )}
+            </>
+          ) : (
+            <textarea className={styles.textarea} />
+          )}
+        </div>
         <br />
         <button
           className={
@@ -266,7 +321,6 @@ const PostJob = () => {
             <div className={styles.postJobZero}>
               <Select
                 className={styles.Select}
-                isMulti
                 options={distritos}
                 onChange={handleSelectedDistritosChange}
                 placeholder="Localização"
