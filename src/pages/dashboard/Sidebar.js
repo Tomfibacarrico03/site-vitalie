@@ -21,7 +21,7 @@ const SideBar = () => {
               <Link to="/dashboard-de-trabalhos/interessado">Interessado</Link>
             </li>
             <li>
-              <Link to="/dashboard-de-trabalhos/mensagens">Lista Restrita</Link>
+              <Link to="/dashboard-de-trabalhos/lista-restrita">Lista Restrita</Link>
             </li>
             <li>
               <Link to="/dashboard-de-trabalhos/mensagens">Trabalhos conseguidos</Link>

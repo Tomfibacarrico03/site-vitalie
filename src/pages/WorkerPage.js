@@ -8,6 +8,7 @@ const WorkerPage = () => {
   const { user, job } = location.state;
 
   const [isUserRejected, setIsUserRejected] = useState(job.rejectedUsers.includes(user.id));
+  const [isUserShortlisted, setIsUserShortlisted] = useState(job.shortlistedUsers.includes(user.id));
 
   const handleReject = async () => {
     const jobRef = doc(db, "jobs", job.id);
@@ -35,6 +36,27 @@ const WorkerPage = () => {
     }
   };
 
+  const handleShorlist = async () => {
+    const jobRef = doc(db, "jobs", job.id);
+    const userRef = doc(db, "users", user.id);
+    try {
+      // Update the job document and add the user to the shortlistedUsers array
+      await updateDoc(jobRef, {
+        shortlistedUsers: [...job.rejectedUsers, user.id],
+      });
+      setIsUserShortlisted(true);
+      console.log("User added to shortlisted field");
+  
+      // Update the user document and add the job ID to the shortlistedJobs array
+      await updateDoc(userRef, {
+        shortlistedJobs: [...user.shortlistedJobs, job.id],
+      });
+      console.log("Job added to user's shortlistedJobs field");
+    } catch (error) {
+      console.error("Error adding user to shortlisted field", error);
+    }
+  };
+
   return (
     <div style={{ marginLeft: 771 }}>
       <h1>Worker Page</h1>
@@ -50,9 +72,14 @@ const WorkerPage = () => {
       <p>{user.id}</p>
       {isUserRejected ? (
         <button onClick={handleUndoReject}>Desfazer recusa</button>
-      ) : (
+      ) : 
+      isUserShortlisted ? ( 
         <>
-          <button>Adicionar à shortlist</button>
+          <p>shortlisted</p>
+        </>
+      ):(
+        <>
+          <button onClick={handleShorlist}>Adicionar à shortlist</button>
           <button onClick={handleReject}>Recusar</button>
         </>
       )}
