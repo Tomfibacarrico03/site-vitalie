@@ -204,7 +204,10 @@ function JobPage(props) {
       ) : (
         <>
           {user.interestedJobs.includes(job.id) ? (
-            <p>Interessado</p>
+            <>
+              <p>Interessado</p>
+              <button onClick={() => alert("Yo yo yo ainda não fiz isso. Calma aí brada")}>Remover interesse</button>
+            </>
           ) : (
             <button onClick={() => ShowInterest()}>Mostrar Interesse</button>
           )}
@@ -225,7 +228,7 @@ function JobPage(props) {
                 onChange={(event) => handleImageChange(event, index)}
               />
             )}
-            {imageUrl && <img style={{ width: 50 }} src={imageUrl} alt="" />}
+            {imageUrl && <img style={{ width: 200 }} src={imageUrl} alt="" />}
           </div>
         ))}
       </div>
