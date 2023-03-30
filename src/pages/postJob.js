@@ -7,11 +7,14 @@ import serviceSubCategories from "../lib/ServiceSubCategories";
 import serviceSubSubCategories from "../lib/ServiceSubCategories2";
 import { Link, useNavigate } from "react-router-dom";
 import { db, functions } from "../firebase";
-import { serverTimestamp, setDoc, doc } from "firebase/firestore";
+import { serverTimestamp, setDoc, doc, addDoc,collection } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import Select from "react-select";
 import { httpsCallable } from "firebase/functions";
 const PostJob = () => {
+
+  
+
   const saveJob = httpsCallable(functions, "SaveJob");
   const createUserAndSaveJob = httpsCallable(functions, "createUserAndSaveJob");
   const [firstName, setFirstName] = useState("");
@@ -155,34 +158,37 @@ const PostJob = () => {
     }
   } */
 
+  
   const SaveJob = async (user) => {
+    const newJob = {
+      headline: "Yest",
+      description: "desccoco",
+      userId: user.uid,
+      createdAt: serverTimestamp(),
+      tradeSelected,
+      selectedCategory,
+      selectedSubCategory,
+      //location: location.value,
+      interestedUsers: [],
+      rejectedUsers: [],
+      shortlistedUsers: [],
+    };
+    
     try {
-      //setIsLoading(true);
-
-      //const saveJob = functions.httpsCallable("SaveJob");
-      //const { data: response } = await saveJob(
-      await saveJob({
-        headline: "Yest",
-        description: "desccoco",
-        userId: user.uid,
-        createdAt: serverTimestamp(),
-        tradeSelected,
-        selectedCategory,
-        selectedSubCategory,
-        location: location.value,
-        interestedUsers: [],
-        rejectedUsers: [],
-        shortlistedUsers: [],
+      const docRef = await addDoc(collection(db, "jobs"), newJob);
+      const docId = docRef.id;
+    
+      navigate("/publicar-trabalho/publicado", {
+        state: {
+          ...newJob,
+          id: docId,
+        },
       });
-      navigate("/publicar-trabalho/publicado");
-
-      // setResult(response);
-      // setIsLoading(false);
     } catch (error) {
       console.error(error);
-      //setIsLoading(false);
     }
   };
+  
 
   
 
@@ -222,6 +228,7 @@ const PostJob = () => {
           <div>
             {serviceCategory.map((serviceCategory, index) => (
               <label
+                key={index}
                 className={
                   selectedCategory === serviceCategory
                     ? styles.categoryLabelSelected
@@ -252,6 +259,7 @@ const PostJob = () => {
               {serviceSubCategory.map((serviceSubCategory, index) =>
                 index === 0 ? null : (
                   <label
+                    key={index}
                     className={
                       selectedSubCategory === serviceSubCategory
                         ? styles.categoryLabelSelected
@@ -286,6 +294,7 @@ const PostJob = () => {
               {serviceSubSubCategory.map((serviceSubSubCategory, index) =>
                 index === 0 ? null : (
                   <label
+                    key={index}
                     className={
                       selectedSubSubCategory === serviceSubSubCategory
                         ? styles.categoryLabelSelected

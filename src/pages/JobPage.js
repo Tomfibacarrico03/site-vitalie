@@ -28,59 +28,33 @@ function JobPage(props) {
 
   const [usuario, setUsuario] = useState(null);
 
-  const [image1Url, setImage1Url] = useState(job ? job.image1 || "" : "");
-  const [image2Url, setImage2Url] = useState(job ? job.image2 || "" : "");
-  const [image3Url, setImage3Url] = useState(job ? job.image3 || "" : "");
-  const [image4Url, setImage4Url] = useState(job ? job.image4 || "" : "");
-  const [image5Url, setImage5Url] = useState(job ? job.image5 || "" : "");
-  const [image6Url, setImage6Url] = useState(job ? job.image6 || "" : "");
+  const [images, setImages] = useState([]);
 
-  const handleImageUpload = async (file, setImageUrl, imageName) => {
+  const handleImageUpload = async (file, index) => {
     const storageRef = ref(
       storage,
       `images/${user.uid}/${job.id}/${file.name}`
     );
     await uploadBytes(storageRef, file);
     const downloadUrl = await getDownloadURL(storageRef);
-    setImageUrl(downloadUrl);
+    setImages((prevImages) => {
+      const newImages = [...prevImages];
+      newImages[index] = downloadUrl;
+      return newImages;
+    });
     const imageDocRef = doc(db, "jobs", job.id);
-    console.log("entrou")
-    await updateDoc(imageDocRef, { [imageName]: downloadUrl });
+    await updateDoc(imageDocRef, { [`image${index + 1}`]: downloadUrl });
   };
 
-  const handleImage1Upload = (event) => {
+  const handleImageChange = (event, index) => {
     const file = event.target.files[0];
-    handleImageUpload(file, setImage1Url, "image1");
-  };
-
-  const handleImage2Upload = (event) => {
-    const file = event.target.files[0];
-    handleImageUpload(file, setImage2Url, "image2");
-  };
-
-  const handleImage3Upload = (event) => {
-    const file = event.target.files[0];
-    handleImageUpload(file, setImage3Url, "image4");
-  };
-
-  const handleImage4Upload = (event) => {
-    const file = event.target.files[0];
-    handleImageUpload(file, setImage4Url, "image4");
-  };
-
-  const handleImage5Upload = (event) => {
-    const file = event.target.files[0];
-    handleImageUpload(file, setImage5Url, "image5");
-  };
-
-  const handleImage6Upload = (event) => {
-    const file = event.target.files[0];
-    handleImageUpload(file, setImage6Url, "image6");
+    handleImageUpload(file, index);
   };
 
   const [interestedUsers, setInterestedUsers] = useState([]);
 
   const fetchInterestedUsers = async () => {
+    if (!job) return;
     const interestedUserIds = job.interestedUsers; // get the interested users' uids from the document
     console.log(job.interestedUsers)
 
@@ -106,6 +80,14 @@ function JobPage(props) {
     const jobDoc = await getDoc(doc(db, "jobs", jobId));
     if (jobDoc.exists()) {
       setJob({ ...jobDoc.data(), id: jobDoc.id });
+      setImages([
+        jobDoc.data().image1 || "",
+        jobDoc.data().image2 || "",
+        jobDoc.data().image3 || "",
+        jobDoc.data().image4 || "",
+        jobDoc.data().image5 || "",
+        jobDoc.data().image6 || "",
+      ]);
     } else {
       console.log("No job found");
     }
@@ -114,21 +96,27 @@ function JobPage(props) {
 
   useEffect(() => {
     fetchJob();
-    fetchUserData()
-    fetchInterestedUsers()
+    /* fetchUserData()
+    fetchInterestedUsers() */
     
   }, [jobId]);
 
+  useEffect(() => {
+    
+    fetchUserData()
+    fetchInterestedUsers()
+    
+  }, [job]);
+
   const fetchUserData = async () => {
-    const userData = await getUserData(job.userId);
+    if (!job) return;
+    console.log("userid:" + job.userId)
+    const userDoc = await getDoc(doc(db, "users", job.userId));
+    const userData = userDoc.data();
     setUsuario(userData);
   };
 
-  const getUserData = async (userId) => {
-    const userDoc = await getDoc(doc(db, "users", userId));
-    const userData = userDoc.data();
-    return userData;
-  };
+  
 
   function createChat() {
     const chatDocId = `${user.uid}_${job.userId}`;
@@ -201,13 +189,15 @@ function JobPage(props) {
   
 
   return (
-    <div>
+    <div style={{marginLeft: 760}}>
       <p>Location: Lisboa</p>
       <p>Trabalho: {job.tradeSelected}</p>
-      <p>Postado {formatDistanceToNow(new Date(job.createdAt.seconds * 1000), {
-    addSuffix: true,
-    locale: pt,
-  })}</p>
+      <p>
+        Postado {formatDistanceToNow(new Date(job.createdAt.seconds * 1000), {
+          addSuffix: true,
+          locale: pt,
+        })}
+      </p>
       {usuario && <p>Postado por: {usuario.firstName}</p>}
       {user.uid == job.userId ? (
         <p>0 pré-selecionados de 4 interessados</p>
@@ -222,75 +212,44 @@ function JobPage(props) {
       )}
 
       <h5>Descrição do trabalho</h5>
-      <p>
-        {job.selectedSubCategory}: {job.selectedCategory}
-      </p>
+      <p>{job.selectedSubCategory}: {job.selectedCategory}</p>
       <h5>Descrição do cliente</h5>
       <p>Descrição</p>
       <div>
         <h2>Images</h2>
-        <div>
-          {user.uid == job.userId ? (
-            <input type="file" id="image1" onChange={handleImage1Upload} />
-          ) : null}
-          {image1Url && (
-            <img style={{ width: 50 }} src={image1Url} alt="Uploaded" />
-          )}
-        </div>
-        <div>
-          {user.uid == job.userId ? (
-            <input type="file" id="image2" onChange={handleImage2Upload} />
-          ) : null}
-          {image2Url && (
-            <img style={{ width: 50 }} src={image2Url} alt="Uploaded" />
-          )}
-        </div>
-        <div>
-          {user.uid == job.userId ? (
-            <input type="file" id="image3" onChange={handleImage3Upload} />
-          ) : null}
-          {image3Url && (
-            <img style={{ width: 50 }} src={image3Url} alt="Uploaded" />
-          )}
-        </div>
-        <div>
-          {user.uid == job.userId ? (
-            <input type="file" id="image4" onChange={handleImage4Upload} />
-          ) : null}
-          {image4Url && (
-            <img style={{ width: 50 }} src={image4Url} alt="Uploaded" />
-          )}
-        </div>
-        <div>
-          {user.uid == job.userId ? (
-            <input type="file" id="image5" onChange={handleImage5Upload} />
-          ) : null}
-          {image5Url && (
-            <img style={{ width: 50 }} src={image5Url} alt="Uploaded" />
-          )}
-        </div>
-        <div>
-          {user.uid == job.userId ? (
-            <input type="file" id="image6" onChange={handleImage6Upload} />
-          ) : null}
-          {image6Url && (
-            <img style={{ width: 50 }} src={image6Url} alt="Uploaded" />
-          )}
-        </div>
+        {images.map((imageUrl, index) => (
+          <div key={index}>
+            {user.uid === job.userId && (
+              <input
+                type="file"
+                onChange={(event) => handleImageChange(event, index)}
+              />
+            )}
+            {imageUrl && <img style={{ width: 50 }} src={imageUrl} alt="" />}
+          </div>
+        ))}
       </div>
       {user.uid == job.userId ? (
         <div>
-          <h2>Trabalhadores interessados no seu trabalho:</h2>
-
-          {interestedUsers.map((user) => (
-            <Link
-              style={{ textDecoration: "none" }}
-              to={`/trabalhador/${user.id}`}
-              state={{ user, job }}
-            >
-              <InterestedUserCard key={user.id} value={user} />
-            </Link>
-          ))}
+          {interestedUsers.length > 0 ? (
+            <>
+            {interestedUsers.map((user) => (
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/trabalhador/${user.id}`}
+                state={{ user, job }}
+              >
+                <InterestedUserCard key={user.id} value={user} />
+              </Link>
+            ))}
+            </>
+          ):(
+            <div>
+              <p>Os trabalhadores interessados no seu trabalho aparecerão aqui.</p>
+              <h5>Esperando mais trabalhadores...</h5>
+            </div>
+          )}
+          
         </div>
       ) : null}
     </div>
