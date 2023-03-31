@@ -54,6 +54,8 @@ const SignUp = () => {
         workName,
         description,
         location,
+        interestedJobs: [],
+        shortlistedJobs: []
       });
       setError(null);
       navigate("/minha-conta");

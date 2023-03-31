@@ -18,7 +18,7 @@ const Home = () => {
         <h3 className={styles.subtitle}>Uma nova forma, a melhor forma.</h3>
 
         <div className={styles.botoes}>
-          <Link to="/postJob" style={{ textDecoration: "none", zIndex: 120 }}>
+          <Link to="/publicar-trabalho" style={{ textDecoration: "none", zIndex: 120 }}>
             <li className={styles.btnPostJob}>
               <h3>Criar Trabalho</h3>
             </li>
