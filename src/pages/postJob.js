@@ -327,7 +327,7 @@ const PostJob = () => {
           }
         >
           <h1>Qual é o título do seu trabalho?</h1>
-          <textarea className={styles.textareaSmall} />
+          <input className={styles.textareaSmall} />
         </div>
         <div
           className={
