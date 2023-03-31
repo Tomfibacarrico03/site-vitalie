@@ -84,8 +84,9 @@ const PostJob = () => {
   const handleSubCatergoryChange = (event) => {
     const val = event.target.value;
     setSelectedSubCategory(val);
-    if (serviceSubSubCategory[val]) {
-      setServiceSubSubCategory(serviceSubSubCategory[val]);
+    if (serviceSubSubCategories[val]) {
+      setServiceSubSubCategory(serviceSubSubCategories[val]);
+      console.log(val);
     } else {
       setServiceSubSubCategory("description");
       console.log("description 2");
@@ -94,6 +95,7 @@ const PostJob = () => {
   const handleSubSubCatergoryChange = (event) => {
     const val = event.target.value;
     setSelectedSubSubCategory(val);
+    console.log(val);
   };
   function questionIncrement() {
     setQuestionNumber(questionNumber + 1);
@@ -319,6 +321,150 @@ const PostJob = () => {
             <textarea className={styles.textarea} />
           )}
         </div>
+        <div
+          className={
+            questionNumber === 5 ? styles.question : styles.displayNone
+          }
+        >
+          <h1>Qual é o título do seu trabalho?</h1>
+          <textarea className={styles.textareaSmall} />
+        </div>
+        <div
+          className={
+            questionNumber === 6 ? styles.question : styles.displayNone
+          }
+        >
+          {!user ? (
+            <form onSubmit={handleSubmit}>
+              <div className={styles.postJobZero}>
+                <Select
+                  className={styles.Select}
+                  options={distritos}
+                  onChange={setLocation}
+                  placeholder="Localização"
+                />
+              </div>
+              <div className={styles.postJobUm}>
+                <div>
+                  {/* <label htmlFor="email">Email</label> */}
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div>
+                  {/* <label htmlFor="firstName">Primeiro Nome</label> */}
+                  <input
+                    type="text"
+                    id="firstName"
+                    placeholder="Primeiro Nome"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  {/* <label htmlFor="lastName">Último Nome</label> */}
+                  <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Último Nome"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className={styles.postJobDois}>
+                <div>
+                  {/* <label htmlFor="phone">Número de Telemóvel</label> */}
+                  <input
+                    type="text"
+                    id="phone"
+                    placeholder="Número de Telemóvel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  {/* <label htmlFor="username">Nome de Usuário Público</label> */}
+                  <input
+                    type="text"
+                    id="username"
+                    placeholder="Nome de Usuário Público"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div>
+                  {/* <label htmlFor="password">Palavra-passe</label> */}
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Palavra-passe"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className={styles.containerTudoCheckBoxes}>
+                <div>
+                  <label
+                    className={styles.containerCheckBoxes}
+                    htmlFor="receiveTipsChecked"
+                  >
+                    Eu gostaria de receber notícias, conselhos e dicas do
+                    MyBuilder
+                    <input
+                      type="checkbox"
+                      id="receiveTipsChecked"
+                      className={styles.checkBox}
+                      checked={receiveTipsChecked}
+                      onChange={(e) => setReceiveTipsChecked(e.target.checked)}
+                    />
+                    <span className={styles.checkmark}></span>
+                  </label>
+                </div>
+                <div>
+                  <label
+                    className={styles.containerCheckBoxes}
+                    htmlFor="termsChecked"
+                  >
+                    Eu concordo com os{" "}
+                    <a href="/terms" style={{ color: "#219ebc" }}>
+                      Termos e Condições
+                    </a>
+                    .
+                    <input
+                      type="checkbox"
+                      id="termsChecked"
+                      checked={termsChecked}
+                      className={styles.checkBox}
+                      onChange={(e) => setTermsChecked(e.target.checked)}
+                      required
+                    />
+                    <span className={styles.checkmark}></span>
+                  </label>
+                </div>
+              </div>
+              {error && <p>{error}</p>}
+              <button id={styles.Continuarbtn} type="submit">
+                Continuar
+              </button>
+            </form>
+          ) : (
+            <button onClick={() => SaveJob(user)}>Continuar</button>
+          )}
+        </div>
         <br />
         <button
           className={
@@ -326,140 +472,13 @@ const PostJob = () => {
           }
           onClick={questionDicrement}
         >
-          &#8592; Back
+          &#8592; Recuar
         </button>
-        <button className={styles.continueButton} onClick={questionIncrement}>
-          Continue &#8594;
-        </button>
-        {!user ? (
-          <form onSubmit={handleSubmit}>
-            <div className={styles.postJobZero}>
-              <Select
-                className={styles.Select}
-                options={distritos}
-                onChange={setLocation}
-                placeholder="Localização"
-              />
-            </div>
-            <div className={styles.postJobUm}>
-              <div>
-                {/* <label htmlFor="email">Email</label> */}
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div>
-                {/* <label htmlFor="firstName">Primeiro Nome</label> */}
-                <input
-                  type="text"
-                  id="firstName"
-                  placeholder="Primeiro Nome"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                {/* <label htmlFor="lastName">Último Nome</label> */}
-                <input
-                  type="text"
-                  id="lastName"
-                  placeholder="Último Nome"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className={styles.postJobDois}>
-              <div>
-                {/* <label htmlFor="phone">Número de Telemóvel</label> */}
-                <input
-                  type="text"
-                  id="phone"
-                  placeholder="Número de Telemóvel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                {/* <label htmlFor="username">Nome de Usuário Público</label> */}
-                <input
-                  type="text"
-                  id="username"
-                  placeholder="Nome de Usuário Público"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div>
-                {/* <label htmlFor="password">Palavra-passe</label> */}
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Palavra-passe"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className={styles.containerTudoCheckBoxes}>
-              <div>
-                <label
-                  className={styles.containerCheckBoxes}
-                  htmlFor="receiveTipsChecked"
-                >
-                  Eu gostaria de receber notícias, conselhos e dicas do
-                  MyBuilder
-                  <input
-                    type="checkbox"
-                    id="receiveTipsChecked"
-                    className={styles.checkBox}
-                    checked={receiveTipsChecked}
-                    onChange={(e) => setReceiveTipsChecked(e.target.checked)}
-                  />
-                  <span className={styles.checkmark}></span>
-                </label>
-              </div>
-              <div>
-                <label
-                  className={styles.containerCheckBoxes}
-                  htmlFor="termsChecked"
-                >
-                  Eu concordo com os{" "}
-                  <a href="/terms" style={{ color: "#219ebc" }}>
-                    Termos e Condições
-                  </a>
-                  .
-                  <input
-                    type="checkbox"
-                    id="termsChecked"
-                    checked={termsChecked}
-                    className={styles.checkBox}
-                    onChange={(e) => setTermsChecked(e.target.checked)}
-                    required
-                  />
-                  <span className={styles.checkmark}></span>
-                </label>
-              </div>
-            </div>
-            {error && <p>{error}</p>}
-            <button id={styles.Continuarbtn} type="submit">
-              Continuar
-            </button>
-          </form>
-        ) : (
-          <button onClick={() => SaveJob(user)}>Continuar</button>
+        {questionNumber > 5
+         ? null : (
+          <button className={styles.continueButton} onClick={questionIncrement}>
+            Continuar &#8594;
+          </button>
         )}
       </div>
     </div>
