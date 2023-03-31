@@ -255,6 +255,12 @@ function JobPage(props) {
           
         </div>
       ) : null}
+      <div>
+        <h1>Convites</h1>
+        <h5>{job.invitesLeft} restantes</h5>
+        <p>We’ve notified relevant tradespeople about your job. You can get responses faster by inviting tradespeople yourself.</p>
+        <Link to="/convidar-trabalhadores">Convida trabalhadores</Link>
+      </div>
     </div>
   );
 }

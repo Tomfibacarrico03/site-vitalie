@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import { auth, db } from "../firebase";
 import Select from "react-select";
@@ -55,7 +55,8 @@ const SignUp = () => {
         description,
         location,
         interestedJobs: [],
-        shortlistedJobs: []
+        shortlistedJobs: [],
+        trades_member_since: serverTimestamp()
       });
       setError(null);
       navigate("/minha-conta");

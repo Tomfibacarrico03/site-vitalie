@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
 import JobPage from "./pages/JobPage";
 import WorkerPage from "./pages/WorkerPage";
+import InviteWorkers from "./pages/InviteWorkers";
 
 import SideBar from "./pages/dashboard/Sidebar";
 import NearTrades from "./pages/dashboard/NearTrades";
@@ -53,6 +54,7 @@ function App() {
           <Route path="/minha-conta/definições" element={<Settings />} />
           <Route path="/meustrabalhos" element={<MyPostedJobs />} />
           <Route path="/meustrabalhos/:jobId" element={<JobPage />} />
+          <Route path="/convidar-trabalhadores" element={<InviteWorkers />} />
           <Route
             path="/dashboard-de-trabalhos/trabalhos-proximos"
             element={<NearTrades />}

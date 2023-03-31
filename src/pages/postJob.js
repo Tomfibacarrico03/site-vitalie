@@ -129,6 +129,7 @@ const PostJob = () => {
         location,
         trade_member: false,
         
+        
 
       });
       SaveJob(user);
@@ -172,6 +173,7 @@ const PostJob = () => {
       interestedUsers: [],
       rejectedUsers: [],
       shortlistedUsers: [],
+      invitesLeft: 5,
     };
     
     try {
