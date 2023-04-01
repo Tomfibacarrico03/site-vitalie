@@ -486,5 +486,4 @@ const PostJob = () => {
     </div>
   );
 };
-
 export default PostJob;
