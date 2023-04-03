@@ -1,12 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../css/home.module.css";
 import paper from ".././imgs/paper.webp";
-import { UserAuth } from '../context/AuthContext'
+
 
 const Home = () => {
-  const {user} = UserAuth()
-  console.log(user)
   
   return (
     <div>

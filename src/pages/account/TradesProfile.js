@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserAuth } from '../../context/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase'
 import { doc, updateDoc} from 'firebase/firestore';
 import styles from "../../css/minhaconta.module.css";
@@ -9,8 +9,6 @@ import { trades, distritos} from '../../lib/SelectOptions'
 
 
 const TradesProfile = () => {
-
-  const navigate = useNavigate()
 
   const { user } = UserAuth()
 
@@ -94,12 +92,9 @@ const TradesProfile = () => {
             placeholder="Selecionar"
             />
         </div>
-     
-      <div className={styles.botoes}>
-          
-          <button className={styles.guardar} onClick={handleSave}>Guardar</button>
-
-      </div>
+        <div className={styles.botoes}> 
+            <button className={styles.guardar} onClick={handleSave}>Guardar</button>
+        </div>
     </div>
   );
 };
