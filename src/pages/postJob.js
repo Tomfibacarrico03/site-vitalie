@@ -7,14 +7,17 @@ import serviceSubCategories from "../lib/ServiceSubCategories";
 import serviceSubSubCategories from "../lib/ServiceSubCategories2";
 import { useNavigate } from "react-router-dom";
 import { db, functions } from "../firebase";
-import { serverTimestamp, setDoc, doc, addDoc,collection } from "firebase/firestore";
+import {
+  serverTimestamp,
+  setDoc,
+  doc,
+  addDoc,
+  collection,
+} from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import Select from "react-select";
 import { httpsCallable } from "firebase/functions";
 const PostJob = () => {
-
-  
-
   const saveJob = httpsCallable(functions, "SaveJob");
   const createUserAndSaveJob = httpsCallable(functions, "createUserAndSaveJob");
   const [firstName, setFirstName] = useState("");
@@ -130,9 +133,6 @@ const PostJob = () => {
         description: "Some description",
         location,
         trade_member: false,
-        
-        
-
       });
       SaveJob(user);
       setError(null);
@@ -161,7 +161,6 @@ const PostJob = () => {
     }
   } */
 
-  
   const SaveJob = async (user) => {
     const newJob = {
       headline: "Yest",
@@ -177,11 +176,11 @@ const PostJob = () => {
       shortlistedUsers: [],
       invitesLeft: 5,
     };
-    
+
     try {
       const docRef = await addDoc(collection(db, "jobs"), newJob);
       const docId = docRef.id;
-    
+
       navigate("/publicar-trabalho/publicado", {
         state: {
           ...newJob,
@@ -192,9 +191,6 @@ const PostJob = () => {
       console.error(error);
     }
   };
-  
-
-  
 
   return (
     <div className={styles.page}>
@@ -474,9 +470,15 @@ const PostJob = () => {
         >
           &#8592; Recuar
         </button>
-        {questionNumber > 5
-         ? null : (
+        {questionNumber > 4 && !user ? (
           <button className={styles.continueButton} onClick={questionIncrement}>
+            Continuar &#8594;
+          </button>
+        ) : (
+          <button
+            onClick={() => SaveJob(user)}
+            className={styles.continueButton}
+          >
             Continuar &#8594;
           </button>
         )}
@@ -484,5 +486,4 @@ const PostJob = () => {
     </div>
   );
 };
-
 export default PostJob;
