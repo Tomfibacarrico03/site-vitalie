@@ -23,23 +23,19 @@ const InviteWorkers = () => {
         fetchWorkers();
       }, []);
 
-
-
-  
-  return (
-    <div>
-      <h1>Convide trabalhadores para entrar em contato mais rapidamente</h1>
-      <h5>Notificamos os trabalhadores sobre seu trabalho, mas também pode convidar os profissionais de comércio por conta própria. Se eles aceitarem, entrarão em contato para discutir as cotações.</h5>
-      <h4>Procure especialistas perto de ti</h4>
-      <p>Procure especialistas em conversão perto de si, leia os perfis e contacte-os, convidando-os a fazer uma cotação.</p>
-      {workers.map((worker) => (
-          
-          <WorkerCard value={worker}/>
+    return (
+      <div>
+        <h1>Convide trabalhadores para entrar em contato mais rapidamente</h1>
+        <h5>Notificamos os trabalhadores sobre seu trabalho, mas também pode convidar os profissionais de comércio por conta própria. Se eles aceitarem, entrarão em contato para discutir as cotações.</h5>
+        <h4>Procure especialistas perto de ti</h4>
+        <p>Procure especialistas em conversão perto de si, leia os perfis e contacte-os, convidando-os a fazer uma cotação.</p>
+        {workers.map((worker) => (
+       
+            <WorkerCard value={worker}/>
 
         ))}
-
-    </div>
-  );
+      </div>
+    );
 };
 
 export default InviteWorkers;

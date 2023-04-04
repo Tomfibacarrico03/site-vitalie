@@ -5,7 +5,7 @@ import { trades, distritos } from "../lib/SelectOptions";
 import serviceCategories from "../lib/ServiceCategories";
 import serviceSubCategories from "../lib/ServiceSubCategories";
 import serviceSubSubCategories from "../lib/ServiceSubCategories2";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { db, functions } from "../firebase";
 import {
   serverTimestamp,

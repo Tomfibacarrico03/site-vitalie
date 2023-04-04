@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import { UserAuth } from '../../context/AuthContext'
-import { Link, Route, useParams, useRouteMatch, Routes } from 'react-router-dom';
-import Chat from "./Chat";
+import { Link } from 'react-router-dom';
+
 const Inbox = () => {
     
   const {user} = UserAuth()
@@ -25,23 +25,16 @@ const Inbox = () => {
       });
   }, [user]);
 
-  let { chatId } = useParams();
-
-
   return (
     <div style={{marginLeft: 730}}>
       <h2>Caixa de Mensagens</h2>
       {chats.map((chat, index) => (
         <div key={chat.id}>
-          <Link to={`/inbox/chat/${chat.id}`} state={{ chatId: chat.id }}>Chat {index + 1}</Link>
-         
+          <Link to={`/inbox/chat/${chat.id}`} state={{ chatId: chat.id }}>Chat {index + 1}</Link>  
         </div>
       ))}
-      
     </div>
-  );
-
-  
+  ); 
 };
 
 

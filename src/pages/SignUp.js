@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
-import { auth, db } from "../firebase";
+import {  db } from "../firebase";
 import Select from "react-select";
 import styles from "../css/register.module.css";
+import { trades, distritos} from '../lib/SelectOptions'
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SignUp = () => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState([]);
 
-  const { createUser, user, logout } = UserAuth();
+  const { createUser, user } = UserAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -81,72 +82,6 @@ const SignUp = () => {
       console.log(error.message);
     }
   };
-
-  const trades = [
-    { value: "architects", label: "Serviços de Arquitetura" },
-    { value: "bathroom-fitters", label: "Instalação de Banheiros" },
-    { value: "bricklayers", label: "Alvenaria & Rejuntamento" },
-    { value: "carpenters-and-joiners", label: "Carpintaria & Marcenaria" },
-    { value: "carpet-flooring-fitters", label: "Carpetes, Lino & Pisos" },
-    { value: "heating-engineers", label: "Aquecimento Central" },
-    { value: "chimney-fireplace-specialists", label: "Chaminé & Lareira" },
-    { value: "conversions", label: "Conversões" },
-    { value: "damp-proofing-specialists", label: "Prova de Umidade" },
-    { value: "demolition-specialists", label: "Demolição & Limpeza" },
-    { value: "driveway-specialists", label: "Entradas & Paving" },
-    { value: "electricians", label: "Elétrica" },
-    { value: "extension-specialists", label: "Ampliações" },
-    {
-      value: "fascias-soffits-guttering-specialists",
-      label: "Fascias, Soffits & Calhas",
-    },
-    { value: "fencers", label: "Cercas" },
-    { value: "landscape-gardeners", label: "Jardinagem & Paisagismo" },
-    { value: "gas-engineers", label: "Gás" },
-    {
-      value: "groundwork-and-foundations-specialists",
-      label: "Terraplenagem & Fundações",
-    },
-    { value: "handymen", label: "Faz-tudo" },
-    { value: "insulation-specialists", label: "Isolamento" },
-    { value: "kitchen-fitters", label: "Instalação de Cozinhas" },
-    { value: "locksmiths", label: "Chaveiro" },
-    { value: "loft-conversion-specialists", label: "Conversão de Sótão" },
-    { value: "new-builds-specialists", label: "Nova Construção" },
-    { value: "painters-and-decorators", label: "Pintura & Decoração" },
-    { value: "plasterers", label: "Gesso & Revestimento" },
-    { value: "plumbers", label: "Encanamento" },
-    {
-      value: "restoration-and-refurbishment-specialists",
-      label: "Restauração & Renovação",
-    },
-    { value: "roofers", label: "Telhados" },
-    { value: "security-system-installers", label: "Sistemas de Segurança" },
-    { value: "stonemasons", label: "Pedreiro" },
-    { value: "tilers", label: "Azulejista" },
-    { value: "tree-surgeons", label: "Cirurgia de Árvores" },
-    { value: "window-fitters", label: "Instalação de Janelas & Portas" },
-  ];
-  const distritos = [
-    { value: 'Aveiro', label: 'Aveiro' },
-    { value: 'Beja', label: 'Beja' },
-    { value: 'Braga', label: 'Braga' },
-    { value: 'Bragança', label: 'Bragança' },
-    { value: 'Castelo Branco', label: 'Castelo Branco' },
-    { value: 'Coimbra', label: 'Coimbra' },
-    { value: 'Évora', label: 'Évora' },
-    { value: 'Faro', label: 'Faro' },
-    { value: 'Guarda', label: 'Guarda' },
-    { value: 'Leiria', label: 'Leiria' },
-    { value: 'Lisboa', label: 'Lisboa' },
-    { value: 'Portalegre', label: 'Portalegre' },
-    { value: 'Porto', label: 'Porto' },
-    { value: 'Santarém', label: 'Santarém' },
-    { value: 'Setúbal', label: 'Setúbal' },
-    { value: 'Viana do Castelo', label: 'Viana do Castelo' },
-    { value: 'Vila Real', label: 'Vila Real' },
-    { value: 'Viseu', label: 'Viseu' },
-  ];
 
   useEffect(() => {}, [user]);
 

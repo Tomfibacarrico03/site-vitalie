@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from '../../firebase';
+import { collection, query, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase';
 import { UserAuth } from '../../context/AuthContext'
-import JobCard from '../../components/cards/JobCard';
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import {  useLocation } from 'react-router-dom'
 
 const Chat = () => {
   const location = useLocation();
@@ -27,9 +26,11 @@ const Chat = () => {
     <div>
       {messages.map((message, index) => (
         <div key={index}>
-          {message.senderId === user.uid ? (<p>Eu: {message.text}</p>):
-          (<p>Outro: {message.text} </p>) }
-            
+          {message.senderId === user.uid ? (
+            <p>Eu: {message.text}</p>
+          ):(
+            <p>Outro: {message.text} </p>
+          )}          
         </div>
       ))}
     </div>

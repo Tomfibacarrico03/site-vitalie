@@ -126,10 +126,8 @@ const MyAccount = () => {
           onChange={(e) => setPostalCode(e.target.value)}
         />
       </div>
-      <div className={styles.botoes}>
-          
+      <div className={styles.botoes}>        
           <button className={styles.guardar} onClick={handleSave}>Guardar</button>
-
       </div>
     </div>
   );

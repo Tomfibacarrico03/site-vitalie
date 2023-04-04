@@ -1,9 +1,7 @@
 import React from 'react';
 import { UserAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
-
 import styles from "../../css/minhaconta.module.css";
-
 
 const Settings = () => {
 

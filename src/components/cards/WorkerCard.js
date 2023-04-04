@@ -1,4 +1,5 @@
-import { format, differenceInMonths } from "date-fns";
+import { differenceInMonths } from "date-fns";
+
 const WorkerCard = (props) => {
     const createdAt = props.value.trades_member_since.toDate();
     const monthsSinceCreation = differenceInMonths(new Date(), createdAt);
@@ -21,9 +22,7 @@ const WorkerCard = (props) => {
        <p>{props.value.description}</p>
        <p>=================</p>
      </div>
-
-   
     )
-  }
+}
   
-  export default WorkerCard
+export default WorkerCard

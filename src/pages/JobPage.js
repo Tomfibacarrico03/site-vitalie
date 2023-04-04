@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { pt } from "date-fns/locale";
 import {
@@ -7,7 +7,6 @@ import {
   doc,
   updateDoc,
   collection,
-  addDoc,
   serverTimestamp,
   setDoc,
   arrayUnion,
@@ -71,10 +70,6 @@ function JobPage(props) {
 
     setInterestedUsers(interestedUsersInfo); // set the interestedUsers state with the fetched data
   };
-
-
-  
-
 
   const fetchJob = async () => {
     const jobDoc = await getDoc(doc(db, "jobs", jobId));
@@ -177,15 +172,9 @@ function JobPage(props) {
       });
   }
 
- 
-
   if (loading) {
     return <div>Carregando...</div>;
   }
-  
-  
-
-
   
 
   return (

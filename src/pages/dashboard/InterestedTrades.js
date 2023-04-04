@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import { UserAuth } from '../../context/AuthContext'
 import JobCard from '../../components/cards/JobCard';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const InterestedTrades = () => {
     const {user } = UserAuth()
     const [jobs, setJobs] = useState([]);
 
-    useEffect(() => {
-        const fetchJobs = async () => {
+    const fetchJobs = async () => {
     
-          if (user) {
-            const q = query(collection(db, 'jobs'), where('__name__', 'in', user.interestedJobs));
-            const querySnapshot = await getDocs(q);
-    
-            const jobs = [];
-            querySnapshot.forEach((doc) => {
-              const data = doc.data();
-              if (data.userId !== user.uid) {
-                jobs.push({ id: doc.id, ...data });
-              }
-            });
-            setJobs(jobs);
+      if (user) {
+        const q = query(collection(db, 'jobs'), where('__name__', 'in', user.interestedJobs));
+        const querySnapshot = await getDocs(q);
+
+        const jobs = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.userId !== user.uid) {
+            jobs.push({ id: doc.id, ...data });
           }
-        };
-    
+        });
+        setJobs(jobs);
+      }
+    };
+
+    useEffect(() => { 
         fetchJobs();
-      }, []);
+    }, []);
   
 
   return (
