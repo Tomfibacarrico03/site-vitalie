@@ -470,15 +470,26 @@ const PostJob = () => {
         >
           &#8592; Recuar
         </button>
-        {questionNumber > 4 && !user ? (
-          <button className={styles.continueButton} onClick={questionIncrement}>
-            Continuar &#8594;
-          </button>
+        {questionNumber > 4 ? (
+          <>
+            {!user ? (
+              <button
+                className={styles.continueButton}
+                onClick={questionIncrement}
+              >
+                Continuar &#8594;
+              </button>
+            ) : (
+              <button
+                onClick={() => SaveJob(user)}
+                className={styles.continueButton}
+              >
+                Continuar
+              </button>
+            )}
+          </>
         ) : (
-          <button
-            onClick={() => SaveJob(user)}
-            className={styles.continueButton}
-          >
+          <button className={styles.continueButton} onClick={questionIncrement}>
             Continuar &#8594;
           </button>
         )}
