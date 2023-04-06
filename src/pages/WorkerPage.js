@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
+import styles from "../css/workerPage.module.css";
 
 const WorkerPage = () => {
   const location = useLocation();
@@ -58,38 +59,46 @@ const WorkerPage = () => {
   };
 
   return (
-    <div style={{ marginLeft: 771 }}>
-      <h1>Worker Page</h1>
-      <p>{user.workName}</p>
-      <p>Ainda sem feedback</p>
-      <p>
-        {user.firstName} {user.lastName}
-      </p>
-      <p>Interessado no teu trabalho</p>
-      <hr />
-      <p>Adiciona à shortlist para discutir o trabalho</p>
-      <p>Agora</p>
-      <p>{user.id}</p>
-      {isUserRejected ? (
-        <button onClick={handleUndoReject}>Desfazer recusa</button>
-      ) : 
-      isUserShortlisted ? ( 
-        <>
-          <p>shortlisted</p>
-        </>
-      ):(
-        <>
-          <button onClick={handleShorlist}>Adicionar à shortlist</button>
-          <button onClick={handleReject}>Recusar</button>
-        </>
-      )}
-      <hr />
-      <p>Depois</p>
-      <p>
-        Uma vez selecionado, você trocará detalhes de contato e poderá solicitar
-        cotações
-      </p>
-      <hr />
+    <div className={styles.workerPage}>
+      <header>
+        <h1>{user.workName}</h1>
+        <b>Interessado no teu trabalho</b>
+      </header>
+      <p className={styles.feedback}>Ainda sem feedback</p>
+
+      <p className={styles.nome}>{user.firstName} {user.lastName}</p>
+      <p className={styles.adiciona}>Adiciona à shortlist para discutir o trabalho</p>
+
+      <div className={styles.agoraDepois}>
+        <div className={styles.agora}>
+        <p>Agora</p>
+          <hr />
+
+          <p>{user.id}</p>
+          {isUserRejected ? (
+            <button onClick={handleUndoReject}>Desfazer recusa</button>
+          ) : 
+          isUserShortlisted ? ( 
+            <>
+              <p>shortlisted</p>
+            </>
+          ):(
+            <>
+              <button onClick={handleShorlist}>Adicionar à shortlist</button>
+              <button onClick={handleReject}>Recusar</button>
+            </>
+          )}
+        </div>
+        <div className={styles.depois}>
+          <p>Depois</p>
+          <hr />
+          <p>
+            Uma vez selecionado, você trocará detalhes de contato e poderá solicitar
+            cotações
+          </p>
+        </div>
+      </div>
+
       <h3>Perfil</h3>
       <p>{user.description}</p>
       <p>Trabalha nos distritos:</p>
