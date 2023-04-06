@@ -16,10 +16,8 @@ const SendInvite = () => {
       </Link>
       <br></br>
       <br></br>
-
-    </div>
-    <div className={styles.trabalhadoresRecomendados}>
       <h3>Trabalhadores recomendados</h3>
+
     </div>
   );
 };

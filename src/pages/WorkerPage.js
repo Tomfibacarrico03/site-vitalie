@@ -80,7 +80,7 @@ const WorkerPage = () => {
           ) : 
           isUserShortlisted ? ( 
             <>
-              <p>shortlisted</p>
+              <p>Adicionado</p>
             </>
           ):(
             <>
