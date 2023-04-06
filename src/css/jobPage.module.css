@@ -1,0 +1,61 @@
+.postTrabalho {
+  background-color: #fff;
+  margin-left: 200px;
+  margin-right: 200px;
+  width: 40%;
+  padding: 5px;
+}
+
+.infoTrabalho {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px
+}
+
+.infoTrabalho header {
+  display: inline-flex;
+}
+
+.infoTextos {
+  margin-left: 10px;
+  font-weight: 600;
+  font-family: "Avenir Next";
+}
+
+.infoInfo {
+  margin-left: 50px;
+  font-family: "Avenir Next";
+}
+
+.infoNome {
+  color: #219ebc;
+  font-weight: 500;
+}
+
+.interessados {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 7px;
+  padding-left: 25px;
+  font-family: "Avenir Next";
+  font-weight: 400;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.descricoesTrabalho {
+  margin: 25px;
+}
+
+h3, p {
+  font-family: "Avenir Next";
+}
+
+.postImagens {
+  display: inline-flex;
+}
+
+.postImagens img, .postImagens input {
+  width: 100%
+}

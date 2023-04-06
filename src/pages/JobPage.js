@@ -15,6 +15,8 @@ import { db, storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { UserAuth } from "../context/AuthContext";
 import InterestedUserCard from "../components/cards/InterestedUserCard";
+import styles from "../css/jobPage.module.css";
+
 function JobPage(props) {
 
   const { jobId } = useParams();
@@ -178,16 +180,29 @@ function JobPage(props) {
   
 
   return (
-    <div style={{marginLeft: 760}}>
-      <p>Location: Lisboa</p>
-      <p>Trabalho: {job.tradeSelected}</p>
-      <p>
-        Postado {formatDistanceToNow(new Date(job.createdAt.seconds * 1000), {
-          addSuffix: true,
-          locale: pt,
-        })}
-      </p>
-      {usuario && <p>Postado por: {usuario.firstName}</p>}
+    <div className={styles.postTrabalho}>
+    <div>
+      <div className={styles.infoTrabalho}>
+        <header>
+          <div className={styles.infoTextos}>
+            <p>Localização</p>
+            <p>Trabalho</p>
+            <p>Postado</p>
+            <p>Postado por</p>
+          </div>
+          <div className={styles.infoInfo}>
+            <p>Lisboa</p>
+            <p>{job.tradeSelected}</p>
+            <p>{formatDistanceToNow(new Date(job.createdAt.seconds * 1000), {
+              addSuffix: true,
+              locale: pt,
+            })}</p>
+          {usuario && <p className={styles.infoNome}>{usuario.firstName}</p>}
+          </div>
+        </header>
+      </div>
+
+      <div className={styles.interessados}>
       {user.uid == job.userId ? (
         <p>0 pré-selecionados de 4 interessados</p>
       ) : (
@@ -202,25 +217,33 @@ function JobPage(props) {
           )}
         </>
       )}
-
-      <h5>Descrição do trabalho</h5>
-      <p>{job.selectedSubCategory}: {job.selectedCategory}</p>
-      <h5>Descrição do cliente</h5>
-      <p>Descrição</p>
-      <div>
-        <h2>Images</h2>
-        {images.map((imageUrl, index) => (
-          <div key={index}>
-            {user.uid === job.userId && (
-              <input
-                type="file"
-                onChange={(event) => handleImageChange(event, index)}
-              />
-            )}
-            {imageUrl && <img style={{ width: 200 }} src={imageUrl} alt="" />}
-          </div>
-        ))}
       </div>
+
+      <div className={styles.descricoesTrabalho}>
+        <h3>Descrição do trabalho</h3>
+        <p>{job.selectedSubCategory}: {job.selectedCategory}</p>
+        <h3>Descrição do cliente</h3>
+        <p>Descrição</p>
+        <div>
+          <h2>Imagens</h2>
+          <div className={styles.postImagens}>
+          {images.map((imageUrl, index) => (
+            <div key={index}>
+              {user.uid === job.userId && (
+                <input
+                  type="file"
+                  onChange={(event) => handleImageChange(event, index)}
+                />
+              )}
+              {imageUrl && <img src={imageUrl} alt="" />}
+            </div>
+          ))}
+          </div>
+        </div>
+      </div>
+
+      </div>
+
       {user.uid == job.userId ? (
         <div>
           {interestedUsers.length > 0 ? (
