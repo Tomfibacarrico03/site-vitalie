@@ -46,7 +46,7 @@ const MyPostedJobs = () => {
         className={styles.Select}
         placeholder="Serviço Necessário"
       />
-      <br></br>
+       <br></br>
       <a href="" className={styles.btnPostJob}>Criar Trabalho</a>
     </div>
     </div>
