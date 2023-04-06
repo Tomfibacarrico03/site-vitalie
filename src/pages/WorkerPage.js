@@ -74,7 +74,7 @@ const WorkerPage = () => {
         <p>Agora</p>
           <hr />
 
-          <p>{user.id}</p>
+          {/* <p>{user.id}</p> */}
           {isUserRejected ? (
             <button onClick={handleUndoReject}>Desfazer recusa</button>
           ) : 
@@ -84,8 +84,8 @@ const WorkerPage = () => {
             </>
           ):(
             <>
-              <button onClick={handleShorlist}>Adicionar à shortlist</button>
-              <button onClick={handleReject}>Recusar</button>
+              <button className={styles.adicionarBtn} onClick={handleShorlist}>Adicionar à shortlist</button>
+              <button className={styles.recusarBtn} onClick={handleReject}>Recusar</button>
             </>
           )}
         </div>
@@ -99,11 +99,10 @@ const WorkerPage = () => {
         </div>
       </div>
 
-      <h3>Perfil</h3>
-      <p>{user.description}</p>
-      <p>Trabalha nos distritos:</p>
+      <h3>Perfil de {user.firstName}</h3>
+      <p className={styles.descricao}>{user.description}</p>
       {user.location.map((location) => (
-        <p>{location}</p>
+        <p>Trabalha nos distritos: {location}</p>
       ))}
       <p>Membro desde: 23 de março</p>
       <h4>Serviços</h4>
