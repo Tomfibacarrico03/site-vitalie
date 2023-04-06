@@ -1,0 +1,47 @@
+.workerPage {
+  margin-left: 200px;
+  margin-right: 200px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 40%;
+  font-family: "Avenir Next";
+}
+
+.workerPage header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.workerPage header b {
+  background-color: #bfbfbf;
+  border-radius: 5px;
+  padding: 7px;
+  font-size: 14px;
+  color: #fff
+}
+
+.feedback {
+  color: #219ebc;
+  font-weight: bold;
+  margin-top: -15px;
+}
+
+.nome, .adiciona {
+  font-size: 14px;
+  font-family: "Avenir Next";
+}
+
+.adiciona {
+  color: #8c8c8c
+}
+
+.agoraDepois {
+  display: inline-flex;
+}
+
+.agora
