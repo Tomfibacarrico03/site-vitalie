@@ -76,7 +76,7 @@ h3, p {
 }
 
 .convites p {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .btnConvite {
@@ -84,8 +84,8 @@ h3, p {
   background-color:#219ebc;
   font-family: "Avenir Next";
   color: #fff;
-  padding: 10px;
   border-radius: 5px;
+  padding: 5px;
   text-decoration: none;
 }
 

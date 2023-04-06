@@ -225,7 +225,7 @@ function JobPage(props) {
         <h3>Descrição do cliente</h3>
         <p>Descrição</p>
         <div>
-          <h2>Imagens</h2>
+          <h3>Imagens</h3>
           <div className={styles.postImagens}>
           {images.map((imageUrl, index) => (
             <div key={index}>
