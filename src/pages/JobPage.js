@@ -243,9 +243,12 @@ function JobPage(props) {
       </div>
 
       </div>
-
+      
+      <div className={styles.criticasConvites}>
+      <div className={styles.criticas}>
       {user.uid == job.userId ? (
         <div>
+          <h3>Críticas</h3>
           {interestedUsers.length > 0 ? (
             <>
             {interestedUsers.map((user) => (
@@ -267,12 +270,17 @@ function JobPage(props) {
           
         </div>
       ) : null}
-      <div>
-        <h1>Convites</h1>
-        <h5>{job.invitesLeft} restantes</h5>
-        <p>We’ve notified relevant tradespeople about your job. You can get responses faster by inviting tradespeople yourself.</p>
-        <Link to="/convidar-trabalhadores">Convida trabalhadores</Link>
       </div>
+      <br></br>
+      <div className={styles.convites}>
+        <div className={styles.convitesTitle}>
+          <h3>Convites</h3>
+          <h5>({job.invitesLeft} restantes)</h5>
+        </div>
+        <p style={{marginTop: -5}}>Notificamos trabalhadores relevantes para o seu trabalho. Pode ter respostas mais rápidas se convidar trabalhadores!</p>
+        <Link to="/convidar-trabalhadores" className={styles.btnConvite}>Convida trabalhadores</Link>
+      </div>
+    </div>
     </div>
   );
 }
