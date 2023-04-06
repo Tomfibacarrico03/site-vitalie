@@ -1,15 +1,13 @@
 .sidebar {
-  width: 200px;
+  width: 20%;
   height: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #f1f1f1;
   overflow-x: hidden;
   padding-top: 20px;
-  margin-top:80px;
-  background-color:"grey";
-  border-radius:0px 10px 10px 0px;
+  margin-top: 80px;
+  border-radius: 0px 10px 10px 0px;
   margin-left: 200px;
 }
 
@@ -21,6 +19,10 @@
 
 .sidebar li {
   margin-bottom: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: "Avenir Next";
 }
 
 .sidebar li a {
@@ -30,6 +32,6 @@
   text-decoration: none;
 }
 
-.sidebar li a:hover {
+.sidebar li:hover {
   background-color: #ddd;
 }

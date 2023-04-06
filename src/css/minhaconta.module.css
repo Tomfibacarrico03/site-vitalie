@@ -1,8 +1,9 @@
 .detalhesContainer {
-    margin-left: 730px;
     background-color: #fafafa;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
     width: 630px;
+    position: absolute;
+    right: 200px;
     padding: 20px;
     margin-top: 20px;
     border-radius: 10px;
@@ -39,7 +40,7 @@ label {
     justify-content: flex-end;
     align-content: flex-end;
     margin-top: 10px;
-    margin-left: 350px;
+    margin-left: 510px;
 }
 
 .guardar:hover, .terminarSessao:hover {
