@@ -227,7 +227,7 @@ function JobPage(props) {
         <div>
           <h3>Imagens</h3>
           <div className={styles.postImagens}>
-          {images.map((imageUrl, index) => (
+          {/* {images.map((imageUrl, index) => (
             <div key={index}>
               {user.uid === job.userId && (
                 <input
@@ -237,7 +237,13 @@ function JobPage(props) {
               )}
               {imageUrl && <img src={imageUrl} alt="" />}
             </div>
-          ))}
+          ))} */}
+          <button>+</button>
+          <button>+</button>
+          <button>+</button>
+          <button>+</button>
+          <button>+</button>
+          <button>+</button>
           </div>
         </div>
       </div>
