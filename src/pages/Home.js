@@ -8,9 +8,9 @@ const Home = () => {
   
   return (
     <div>
-      <div className={styles.paper}>
+      {/* <div className={styles.paper}>
         <img src={paper} />
-      </div>
+      </div> */}
       <div className={styles.divCabecalho}>
         <h1 className={styles.title}>A melhor forma de encontrar trabalhadores, Simples.</h1>
         <h3 className={styles.subtitle}>Uma nova forma, a melhor forma.</h3>
@@ -29,7 +29,7 @@ const Home = () => {
         </div>
       </div>
       <div className={styles.divAboutUs}>
-        <h1 className={styles.title}>A nossa missão.</h1>
+        <h1>A nossa missão.</h1>
         <h3 className={styles.subtitleSemDots}>
           Ajudamos donos de casas a encontrar o trabalhador ideal, e bons trabalhadores a ter sucesso.
         </h3>

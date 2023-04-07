@@ -194,9 +194,9 @@ const PostJob = () => {
 
   return (
     <div className={styles.page}>
-      <div className={styles.paper}>
+      {/* <div className={styles.paper}>
         <img src={paper} />
-      </div>
+      </div> */}
       <div className={styles.divCabecalho}>
         <h1 className={styles.title}>Criar Trabalho</h1>
         <h3 className={styles.subtitle}>

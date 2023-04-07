@@ -22,24 +22,19 @@
 
 .title {
   font-size: 240%;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Avenir Next";
   width: 40%;
-  margin-top: 50px;
-  margin-bottom: 50px;
   color: #000;
   font-weight: bold;
 }
 
 .subtitle {
   font-size: 150%;
-  border-top: 5px dotted #219ebc;
-  padding-top: 30px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  padding-bottom: 30px;
+  /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+  font-family: "Avenir Next";
   width: 30%;
-  margin-top: 50px;
-  margin-bottom: 50px;
   color: #219ebc;
   font-weight: 400;
 }
@@ -60,8 +55,7 @@
 
 .btnPostJob h3 {
   font-size: 18px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Avenir Next";
   text-align: center;
   justify-content: center;
   padding-left: 10px;
@@ -81,8 +75,7 @@
 
 .btnRegister h3 {
   font-size: 18px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Avenir Next";
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
@@ -97,23 +90,22 @@
 
 .divAboutUs {
   background-color: #fff;
+  padding: 20px;
   z-index: 10;
-  margin-left: 180px;
-  margin-right: 180px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-top: 5px;
-  margin-top: 50px;
-  border-radius: 10px;
+  border-radius: 5px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 50px
+}
+
+.divAboutUs {
+  font-size: 18px;
+  font-family: "Avenir Next";
 }
 
 .subtitleSemDots {
-  font-size: 150%;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  margin-top: -30px;
-  margin-bottom: 50px;
+  font-size: 18px;
+  font-family: "Avenir Next";
   color: #219ebc;
   font-weight: 400;
 }
