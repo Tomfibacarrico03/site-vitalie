@@ -29,8 +29,8 @@ const ShortlistedTrades = () => {
     }, []);
   
     return (
-      <div style={{marginLeft: 730}}>
-          <h2>Trabalhos a que estou adicionado à lista restrita</h2>
+      <div style={{backgroundColor: "#fff", width: "40%", padding: 20, position: "absolute", right: 200, marginTop: 20, borderRadius: 5}}>
+          <h2 style={{fontFamily: "Avenir Next"}}>Trabalhos a que estou adicionado à lista restrita</h2>
           {jobs.map((job) => (
               <Link style={{textDecoration: "none"}} to={`/meustrabalhos/${job.id}` } state={{ job }}>
                   <JobCard key={job.id} value={job}/>

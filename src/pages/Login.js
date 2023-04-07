@@ -27,7 +27,7 @@ const Login = () => {
 
     return (
         <div className={styles.login}>
-        <h2 style={{color: "#219ebc"}}>Bem-vindo de Volta!</h2>
+        <h2 style={{color: "#219ebc", fontFamily: "Avenir Next"}}>Bem-vindo de Volta!</h2>
         <form onSubmit={handleLogin}>
             <div>
             <input 
@@ -52,11 +52,11 @@ const Login = () => {
             <button type="submit">Login</button>
         </form>
         {errorMessage && <p>{errorMessage}</p>}
-        <div>
+        <div style={{fontFamily: "Avenir Next"}}>
             <h2>Novo?</h2>
             <p>Procurando um construtor ou comerciante?
                 Publique seu trabalho aqui e obtenha respostas rápidas de comerciantes locais de boa reputação.</p>
-            <p>Criar trabalho</p>
+            <h2>Criar trabalho</h2>
             <p>Inscreva-se como comerciante
                  Ajudamos os comerciantes a obter o tipo certo de trabalho, da maneira mais acessível.</p>
             <p>Tornar-se trabalhador</p>

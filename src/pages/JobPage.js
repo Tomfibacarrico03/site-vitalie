@@ -210,7 +210,7 @@ function JobPage(props) {
           {user.interestedJobs.includes(job.id) ? (
             <>
               <p>Interessado</p>
-              <button onClick={() => alert("Yo yo yo ainda não fiz isso. Calma aí brada")}>Remover interesse</button>
+              <button style={{marginTop: -10, marginBottom: 20}} onClick={() => alert("Yo yo yo ainda não fiz isso. Calma aí brada")}>Remover interesse</button>
             </>
           ) : (
             <button onClick={() => ShowInterest()}>Mostrar Interesse</button>

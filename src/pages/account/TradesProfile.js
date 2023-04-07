@@ -61,6 +61,7 @@ const TradesProfile = () => {
             />
         </div>
         <div>
+          <br></br>
             <label htmlFor="workName">Nome de trabalho</label>
             <input
             type="text"

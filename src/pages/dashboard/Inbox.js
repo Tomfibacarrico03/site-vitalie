@@ -26,8 +26,8 @@ const Inbox = () => {
   }, [user]);
 
   return (
-    <div style={{marginLeft: 730}}>
-      <h2>Caixa de Mensagens</h2>
+    <div style={{backgroundColor: "#fff", width: "40%", padding: 20, position: "absolute", right: 200, marginTop: 20, borderRadius: 5}}>
+      <h2 style={{fontFamily: "Avenir Next"}}>Caixa de Mensagens</h2>
       {chats.map((chat, index) => (
         <div key={chat.id}>
           <Link to={`/inbox/chat/${chat.id}`} state={{ chatId: chat.id }}>Chat {index + 1}</Link>  
