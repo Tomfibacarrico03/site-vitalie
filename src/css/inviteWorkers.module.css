@@ -1,0 +1,59 @@
+.convida {
+  position: absolute;
+  right: 200px;
+  background-color: #fff;
+  width: 20%;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.convida h1 {
+  font-family: "Avenir Next";
+  font-size: 20px
+}
+
+.convida p, .convida h5, .convida h4, .convida h1 {
+  font-family: "Avenir Next";
+}
+
+.convida h5 {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.workerCard {
+  width: 40%;
+  background-color: #fff;
+  margin-left: 200px;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px
+}
+
+.tituloCriticas header {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.tituloCriticas header button {
+  background-color: #219ebc;
+  color: #fff;
+  font-family: "Avenir Next";
+  font-weight: 500;
+}
+
+.tituloCriticas h5 {
+  margin-top: -10px;
+  color: #219ebc;
+  font-family: "Avenir Next";
+
+}
+
+.local {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 500;
+}

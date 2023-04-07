@@ -1,4 +1,5 @@
 import { differenceInMonths } from "date-fns";
+import styles from "../../css/inviteWorkers.module.css"
 
 const WorkerCard = (props) => {
     const createdAt = props.value.trades_member_since.toDate();
@@ -13,14 +14,22 @@ const WorkerCard = (props) => {
     
     return (
       <div>
-        <p>=================</p>
-       <h3>{props.value.workName}</h3>
-       <h5>24 críticas - 100% postivas</h5>
-       <button>Convide para orçamentar</button>
-       <p>{props.value.tradesSelected[0]} -- {props.value.location[0]} </p>
-       <p>{formattedString}</p>
-       <p>{props.value.description}</p>
-       <p>=================</p>
+        <div className={styles.tituloCriticas}>
+          <header>
+            <h3>{props.value.workName}</h3>
+            <button>Convide para orçamentar</button>
+          </header>
+        <h5>24 críticas - 100% positivas</h5>
+
+        </div>
+
+        <hr></hr>
+        <div className={styles.local}>
+          <p>{props.value.tradesSelected[0]} - {props.value.location[0]} </p>
+          <p>{formattedString}</p>
+        </div>
+
+        <p>{props.value.description}</p>
      </div>
     )
 }
