@@ -10,6 +10,7 @@ import {
   serverTimestamp,
   setDoc,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -168,6 +169,20 @@ function JobPage(props) {
       });
   }
 
+  function RemoveInterest(jobId, userId) {
+    // Remove user's interest from the job document
+    const jobRef = doc(db, "jobs", job.id);
+    updateDoc(jobRef, {
+      interestedUsers: arrayRemove(user.uid),
+    });
+
+    // Remove job id from user's interestedJobs array
+    const userRef = doc(db, "users", user.uid);
+    updateDoc(userRef, {
+      interestedJobs: arrayRemove(job.id),
+    });
+  }
+
   if (loading) {
     return <div>Carregando...</div>;
   }
@@ -209,9 +224,7 @@ function JobPage(props) {
                   <p>Interessado</p>
                   <button
                     style={{ marginTop: -10, marginBottom: 20 }}
-                    onClick={() =>
-                      alert("Yo yo yo ainda não fiz isso. Calma aí brada")
-                    }
+                    onClick={() => RemoveInterest()}
                   >
                     Remover interesse
                   </button>
