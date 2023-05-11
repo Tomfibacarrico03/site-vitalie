@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "../css/workerPage.module.css";
 
@@ -8,8 +8,12 @@ const WorkerPage = () => {
   const location = useLocation();
   const { user, job } = location.state;
 
-  const [isUserRejected, setIsUserRejected] = useState(job.rejectedUsers.includes(user.id));
-  const [isUserShortlisted, setIsUserShortlisted] = useState(job.shortlistedUsers.includes(user.id));
+  const [isUserRejected, setIsUserRejected] = useState(
+    job.rejectedUsers.includes(user.id)
+  );
+  const [isUserShortlisted, setIsUserShortlisted] = useState(
+    job.shortlistedUsers.includes(user.id)
+  );
 
   const handleReject = async () => {
     const jobRef = doc(db, "jobs", job.id);
@@ -37,21 +41,27 @@ const WorkerPage = () => {
     }
   };
 
+  const [shortlistPopUp, setShortlistPopUp] = useState(false);
+
   const handleShorlist = async () => {
     const jobRef = doc(db, "jobs", job.id);
     const userRef = doc(db, "users", user.id);
+
     try {
       // Update the job document and add the user to the shortlistedUsers array
       await updateDoc(jobRef, {
-        shortlistedUsers: [...job.rejectedUsers, user.id],
+        shortlistedUsers: [...job.shortlistedUsers, user.id],
+        interestedUsers: arrayRemove(user.id),
       });
       setIsUserShortlisted(true);
       console.log("User added to shortlisted field");
-  
+
       // Update the user document and add the job ID to the shortlistedJobs array
       await updateDoc(userRef, {
         shortlistedJobs: [...user.shortlistedJobs, job.id],
+        interestedJobs: arrayRemove(job.id),
       });
+      setShortlistPopUp(true);
       console.log("Job added to user's shortlistedJobs field");
     } catch (error) {
       console.error("Error adding user to shortlisted field", error);
@@ -66,26 +76,61 @@ const WorkerPage = () => {
       </header>
       <p className={styles.feedback}>Ainda sem feedback</p>
 
-      <p className={styles.nome}>{user.firstName} {user.lastName}</p>
-      <p className={styles.adiciona}>Adiciona à shortlist para discutir o trabalho</p>
+      <p className={styles.nome}>
+        {user.firstName} {user.lastName}
+      </p>
+      <p className={styles.adiciona}>
+        Adiciona à shortlist para discutir o trabalho
+      </p>
 
       <div className={styles.agoraDepois}>
         <div className={styles.agora}>
-        <p>Agora</p>
+          <p>Agora</p>
           <hr />
 
           {/* <p>{user.id}</p> */}
           {isUserRejected ? (
             <button onClick={handleUndoReject}>Desfazer recusa</button>
-          ) : 
-          isUserShortlisted ? ( 
+          ) : isUserShortlisted ? (
             <>
-              <p>Adicionado</p>
+              {shortlistPopUp ? (
+                <>
+                  <p>{user.workName}</p>
+                  <p>foi adicionado à tua lista restrita</p>
+                  <p>
+                    Aguarde um telefonema do {user.firstName} {user.lastName}{" "}
+                    para discutir o emprego ou entre em contato diretamente com
+                    ele.
+                  </p>
+                  <p>{user.phone}</p>
+                  <button onClick={() => setShortlistPopUp(false)}>
+                    Fechar
+                  </button>
+                </>
+              ) : (
+                <button>Contrata / Deixa uma crítica</button>
+              )}
             </>
-          ):(
+          ) : (
             <>
-              <button className={styles.adicionarBtn} onClick={handleShorlist}>Adicionar à shortlist</button>
-              <button className={styles.recusarBtn} onClick={handleReject}>Recusar</button>
+              <>
+                {job.shortlistedUsers.lenght == 5 ? (
+                  <p>
+                    Não podes adicionar mais do que 5 pessoas à lista restrita
+                  </p>
+                ) : (
+                  <button
+                    className={styles.adicionarBtn}
+                    onClick={handleShorlist}
+                  >
+                    Adicionar à shortlist
+                  </button>
+                )}
+              </>
+
+              <button className={styles.recusarBtn} onClick={handleReject}>
+                Recusar
+              </button>
             </>
           )}
         </div>
@@ -93,13 +138,15 @@ const WorkerPage = () => {
           <p>Depois</p>
           <hr />
           <p>
-            Uma vez selecionado, você trocará detalhes de contato e poderá solicitar
-            cotações
+            Uma vez selecionado, você trocará detalhes de contato e poderá
+            solicitar cotações
           </p>
         </div>
       </div>
 
-      <h3>Perfil de {user.firstName}</h3>
+      <h3>
+        Perfil de {user.firstName} {user.lastName}
+      </h3>
       <p className={styles.descricao}>{user.description}</p>
       {user.location.map((location) => (
         <p>Trabalha nos distritos: {location}</p>

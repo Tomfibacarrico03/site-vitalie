@@ -169,7 +169,7 @@ function JobPage(props) {
       });
   }
 
-  function RemoveInterest(jobId, userId) {
+  function RemoveInterest() {
     // Remove user's interest from the job document
     const jobRef = doc(db, "jobs", job.id);
     updateDoc(jobRef, {
@@ -216,7 +216,10 @@ function JobPage(props) {
 
         <div className={styles.interessados}>
           {user.uid == job.userId ? (
-            <p>0 pré-selecionados de 4 interessados</p>
+            <p>
+              {job.shortlistedUsers.length} pré-selecionados de{" "}
+              {job.interestedUsers.length} interessados
+            </p>
           ) : (
             <>
               {user.interestedJobs.includes(job.id) ? (
@@ -230,9 +233,18 @@ function JobPage(props) {
                   </button>
                 </>
               ) : (
-                <button onClick={() => ShowInterest()}>
-                  Mostrar Interesse
-                </button>
+                <>
+                  {user.shortlistedJobs.includes(job.id) ? (
+                    <p>
+                      Foste adicionado a lista restrita. Liga para fechar o
+                      negócio - {usuario.phone}
+                    </p>
+                  ) : (
+                    <button onClick={() => ShowInterest()}>
+                      Mostrar Interesse
+                    </button>
+                  )}
+                </>
               )}
             </>
           )}
