@@ -2,10 +2,11 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 5%;
     margin-left: 15%;
     margin-right: 15%;
-    position: fixed;
-    bottom: 20px;
+    position: relative;
+    bottom: 0px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 70%;
     color: #219ebc;
