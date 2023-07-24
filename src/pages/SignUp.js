@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
-import {  db } from "../firebase";
+import { db } from "../firebase";
 import Select from "react-select";
 import styles from "../css/register.module.css";
-import { trades, distritos} from '../lib/SelectOptions'
+import { trades, distritos } from "../lib/SelectOptions";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -57,10 +57,10 @@ const SignUp = () => {
         location,
         interestedJobs: [],
         shortlistedJobs: [],
-        trades_member_since: serverTimestamp()
+        trades_member_since: serverTimestamp(),
       });
       setError(null);
-      navigate("/minha-conta");
+      navigate("/minha-conta/detalhes-de-contacto");
     } catch (error) {
       setError(error.message);
       console.log(error.message);
@@ -77,6 +77,7 @@ const SignUp = () => {
         workName,
         description,
         location,
+        trades_member_since: serverTimestamp(),
       });
     } catch (error) {
       console.log(error.message);
@@ -225,54 +226,37 @@ const SignUp = () => {
               />
             </div>
             <div>
-                  <label htmlFor="workName">Nome de trabalho</label>
-                  <input
-                    type="text"
-                    id="workName"
-                    placeholder="Ex.: Jorge Ferragens & Companhia"
-                    value={workName}
-                    onChange={(e) => setWorkName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="description">Descrição</label>
-                  <input
-                    type="text"
-                    id="description"
-                    placeholder="Inclua todos os detalhes que você acha que o profissional deve saber (local da alteração da parede, prazo, etc.)"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="location">Localização</label>
-                  <Select
-                    isMulti
-                    options={distritos}
-                    onChange={handleSelectedDistritosChange}
-                    placeholder="Selecionar"
-                  />
-                </div>
+              <label htmlFor="workName">Nome de trabalho</label>
+              <input
+                type="text"
+                id="workName"
+                placeholder="Ex.: Jorge Ferragens & Companhia"
+                value={workName}
+                onChange={(e) => setWorkName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="description">Descrição</label>
+              <input
+                type="text"
+                id="description"
+                placeholder="Inclua todos os detalhes que você acha que o profissional deve saber (local da alteração da parede, prazo, etc.)"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="location">Localização</label>
+              <Select
+                isMulti
+                options={distritos}
+                onChange={handleSelectedDistritosChange}
+                placeholder="Selecionar"
+              />
+            </div>
             <div className={styles.containerTudoCheckBoxes}>
-              <div>
-                <label
-                  className={styles.containerCheckBoxes}
-                  htmlFor="receiveTipsChecked"
-                >
-                  Eu gostaria de receber notícias, conselhos e dicas do
-                  MyBuilder
-                  <input
-                    type="checkbox"
-                    id="receiveTipsChecked"
-                    className={styles.checkBox}
-                    checked={receiveTipsChecked}
-                    onChange={(e) => setReceiveTipsChecked(e.target.checked)}
-                  />
-                  <span className={styles.checkmark}></span>
-                </label>
-              </div>
               <div>
                 <label
                   className={styles.containerCheckBoxes}

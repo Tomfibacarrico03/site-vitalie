@@ -10,6 +10,7 @@ import {
   serverTimestamp,
   setDoc,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -18,7 +19,6 @@ import InterestedUserCard from "../components/cards/InterestedUserCard";
 import styles from "../css/jobPage.module.css";
 
 function JobPage(props) {
-
   const { jobId } = useParams();
   const [job, setJob] = useState(null);
   const { user } = UserAuth();
@@ -57,7 +57,7 @@ function JobPage(props) {
   const fetchInterestedUsers = async () => {
     if (!job) return;
     const interestedUserIds = job.interestedUsers; // get the interested users' uids from the document
-    console.log(job.interestedUsers)
+    console.log(job.interestedUsers);
 
     const interestedUsersInfo = [];
 
@@ -95,25 +95,20 @@ function JobPage(props) {
     fetchJob();
     /* fetchUserData()
     fetchInterestedUsers() */
-    
   }, [jobId]);
 
   useEffect(() => {
-    
-    fetchUserData()
-    fetchInterestedUsers()
-    
+    fetchUserData();
+    fetchInterestedUsers();
   }, [job]);
 
   const fetchUserData = async () => {
     if (!job) return;
-    console.log("userid:" + job.userId)
+    console.log("userid:" + job.userId);
     const userDoc = await getDoc(doc(db, "users", job.userId));
     const userData = userDoc.data();
     setUsuario(userData);
   };
-
-  
 
   function createChat() {
     const chatDocId = `${user.uid}_${job.userId}`;
@@ -174,119 +169,170 @@ function JobPage(props) {
       });
   }
 
+  function RemoveInterest() {
+    // Remove user's interest from the job document
+    const jobRef = doc(db, "jobs", job.id);
+    updateDoc(jobRef, {
+      interestedUsers: arrayRemove(user.uid),
+    });
+
+    // Remove job id from user's interestedJobs array
+    const userRef = doc(db, "users", user.uid);
+    updateDoc(userRef, {
+      interestedJobs: arrayRemove(job.id),
+    });
+  }
+
   if (loading) {
     return <div>Carregando...</div>;
   }
-  
 
   return (
     <div className={styles.postTrabalho}>
-    <div>
-      <div className={styles.infoTrabalho}>
-        <header>
-          <div className={styles.infoTextos}>
-            <p>Localização</p>
-            <p>Trabalho</p>
-            <p>Postado</p>
-            <p>Postado por</p>
-          </div>
-          <div className={styles.infoInfo}>
-            <p>Lisboa</p>
-            <p>{job.tradeSelected}</p>
-            <p>{formatDistanceToNow(new Date(job.createdAt.seconds * 1000), {
-              addSuffix: true,
-              locale: pt,
-            })}</p>
-          {usuario && <p className={styles.infoNome}>{usuario.firstName}</p>}
-          </div>
-        </header>
-      </div>
-
-      <div className={styles.interessados}>
-      {user.uid == job.userId ? (
-        <p>0 pré-selecionados de 4 interessados</p>
-      ) : (
-        <>
-          {user.interestedJobs.includes(job.id) ? (
-            <>
-              <p>Interessado</p>
-              <button style={{marginTop: -10, marginBottom: 20}} onClick={() => alert("Yo yo yo ainda não fiz isso. Calma aí brada")}>Remover interesse</button>
-            </>
-          ) : (
-            <button onClick={() => ShowInterest()}>Mostrar Interesse</button>
-          )}
-        </>
-      )}
-      </div>
-
-      <div className={styles.descricoesTrabalho}>
-        <h3>Descrição do trabalho</h3>
-        <p>{job.selectedSubCategory}: {job.selectedCategory}</p>
-        <h3>Descrição do cliente</h3>
-        <p>Descrição</p>
-        <div>
-          <h3>Imagens</h3>
-          <div className={styles.postImagens}>
-          {/* {images.map((imageUrl, index) => (
-            <div key={index}>
-              {user.uid === job.userId && (
-                <input
-                  type="file"
-                  onChange={(event) => handleImageChange(event, index)}
-                />
+      <div>
+        <div className={styles.infoTrabalho}>
+          <header>
+            <div className={styles.infoTextos}>
+              <p>Localização</p>
+              <p>Trabalho</p>
+              <p>Postado</p>
+              <p>Postado por</p>
+            </div>
+            <div className={styles.infoInfo}>
+              <p>Lisboa</p>
+              <p>{job.tradeSelected}</p>
+              <p>
+                {formatDistanceToNow(new Date(job.createdAt.seconds * 1000), {
+                  addSuffix: true,
+                  locale: pt,
+                })}
+              </p>
+              {usuario && (
+                <p className={styles.infoNome}>{usuario.firstName}</p>
               )}
-              {imageUrl && <img src={imageUrl} alt="" />}
             </div>
-          ))} */}
-          <button>+</button>
-          <button>+</button>
-          <button>+</button>
-          <button>+</button>
-          <button>+</button>
-          <button>+</button>
+          </header>
+        </div>
+
+        <div className={styles.interessados}>
+          {user.uid == job.userId ? (
+            <p>
+              {job.shortlistedUsers.length} pré-selecionados de{" "}
+              {job.interestedUsers.length} interessados
+            </p>
+          ) : (
+            <>
+              {user.interestedJobs.includes(job.id) ? (
+                <>
+                  <p>Interessado</p>
+                  <button
+                    style={{ marginTop: -10, marginBottom: 20 }}
+                    onClick={() => RemoveInterest()}
+                  >
+                    Remover interesse
+                  </button>
+                </>
+              ) : (
+                <>
+                  {user.shortlistedJobs.includes(job.id) ? (
+                    <>
+                      {usuario && (
+                        <p className={styles.infoNome}>
+                          Foste adicionado a lista restrita. Liga para fechar o
+                          negócio - {usuario.phone}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <button onClick={() => ShowInterest()}>
+                      Mostrar Interesse
+                    </button>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </div>
+
+        <div className={styles.descricoesTrabalho}>
+          <h3>Descrição do trabalho</h3>
+          <p>
+            {job.selectedSubCategory}: {job.selectedCategory}
+          </p>
+          <h3>Descrição do cliente</h3>
+          <p>Descrição</p>
+          <div>
+            <h3>Imagens</h3>
+            <div className={styles.postImagens}>
+              {images.map((imageUrl, index) => (
+                <div key={index}>
+                  {user.uid === job.userId && (
+                    <button
+                      onClick={() => {
+                        document.getElementById(`input-${index}`).click();
+                      }}
+                    >
+                      +
+                    </button>
+                  )}
+                  <input
+                    id={`input-${index}`}
+                    type="file"
+                    onChange={(event) => handleImageChange(event, index)}
+                    style={{ display: "none" }}
+                  />
+                  {imageUrl && <img src={imageUrl} alt="" />}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      </div>
-      
       <div className={styles.criticasConvites}>
-      <div className={styles.criticas}>
-      {user.uid == job.userId ? (
-        <div>
-          <h3>Críticas</h3>
-          {interestedUsers.length > 0 ? (
-            <>
-            {interestedUsers.map((user) => (
-              <Link
-                style={{ textDecoration: "none" }}
-                to={`/trabalhador/${user.id}`}
-                state={{ user, job }}
-              >
-                <InterestedUserCard key={user.id} value={user} />
-              </Link>
-            ))}
-            </>
-          ):(
+        <div className={styles.criticas}>
+          {user.uid == job.userId ? (
             <div>
-              <p>Os trabalhadores interessados no seu trabalho aparecerão aqui.</p>
-              <h5>Esperando mais trabalhadores...</h5>
+              <h3>Trabalhadores interessados</h3>
+              {interestedUsers.length > 0 ? (
+                <>
+                  {interestedUsers.map((user) => (
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={`/trabalhador/${user.id}`}
+                      state={{ user, job }}
+                    >
+                      <InterestedUserCard key={user.id} value={user} />
+                    </Link>
+                  ))}
+                </>
+              ) : (
+                <div>
+                  <p>
+                    Os trabalhadores interessados no seu trabalho aparecerão
+                    aqui.
+                  </p>
+                  <h5>Esperando mais trabalhadores...</h5>
+                </div>
+              )}
             </div>
-          )}
-          
+          ) : null}
         </div>
-      ) : null}
-      </div>
-      <br></br>
-      <div className={styles.convites}>
-        <div className={styles.convitesTitle}>
-          <h3>Convites</h3>
-          <h5>({job.invitesLeft} restantes)</h5>
+        <br></br>
+        <div className={styles.convites}>
+          <div className={styles.convitesTitle}>
+            <h3>Convites</h3>
+            <h5>({job.invitesLeft} restantes)</h5>
+          </div>
+          <p style={{ marginTop: -5 }}>
+            Notificamos trabalhadores relevantes para o seu trabalho. Pode ter
+            respostas mais rápidas se convidar trabalhadores!
+          </p>
+          <Link to="/convidar-trabalhadores" className={styles.btnConvite}>
+            Convida trabalhadores
+          </Link>
         </div>
-        <p style={{marginTop: -5}}>Notificamos trabalhadores relevantes para o seu trabalho. Pode ter respostas mais rápidas se convidar trabalhadores!</p>
-        <Link to="/convidar-trabalhadores" className={styles.btnConvite}>Convida trabalhadores</Link>
       </div>
-    </div>
     </div>
   );
 }
