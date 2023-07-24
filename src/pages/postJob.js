@@ -450,7 +450,7 @@ const PostJob = () => {
                     />
                     <span className={styles.checkmark}></span>
                   </label>
-                </div>
+                </div>    
               </div>
               {error && <p>{error}</p>}
               <button id={styles.Continuarbtn} type="submit">
