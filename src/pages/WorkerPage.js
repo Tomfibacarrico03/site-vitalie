@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { updateDoc, doc, arrayRemove } from "firebase/firestore";
+import { updateDoc, doc, arrayRemove, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "../css/workerPage.module.css";
 
@@ -48,17 +48,15 @@ const WorkerPage = () => {
     const userRef = doc(db, "users", user.id);
 
     try {
-      // Update the job document and add the user to the shortlistedUsers array
       await updateDoc(jobRef, {
-        shortlistedUsers: [...job.shortlistedUsers, user.id],
+        shortlistedUsers: arrayUnion(user.id),
         interestedUsers: arrayRemove(user.id),
       });
       setIsUserShortlisted(true);
       console.log("User added to shortlisted field");
 
-      // Update the user document and add the job ID to the shortlistedJobs array
       await updateDoc(userRef, {
-        shortlistedJobs: [...user.shortlistedJobs, job.id],
+        shortlistedJobs: arrayUnion(job.id),
         interestedJobs: arrayRemove(job.id),
       });
       setShortlistPopUp(true);

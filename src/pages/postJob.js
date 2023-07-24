@@ -416,23 +416,6 @@ const PostJob = () => {
                 <div>
                   <label
                     className={styles.containerCheckBoxes}
-                    htmlFor="receiveTipsChecked"
-                  >
-                    Eu gostaria de receber notícias, conselhos e dicas do
-                    MyBuilder
-                    <input
-                      type="checkbox"
-                      id="receiveTipsChecked"
-                      className={styles.checkBox}
-                      checked={receiveTipsChecked}
-                      onChange={(e) => setReceiveTipsChecked(e.target.checked)}
-                    />
-                    <span className={styles.checkmark}></span>
-                  </label>
-                </div>
-                <div>
-                  <label
-                    className={styles.containerCheckBoxes}
                     htmlFor="termsChecked"
                   >
                     Eu concordo com os{" "}

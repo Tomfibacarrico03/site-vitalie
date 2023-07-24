@@ -235,10 +235,14 @@ function JobPage(props) {
               ) : (
                 <>
                   {user.shortlistedJobs.includes(job.id) ? (
-                    <p>
-                      Foste adicionado a lista restrita. Liga para fechar o
-                      negócio - {usuario.phone}
-                    </p>
+                    <>
+                      {usuario && (
+                        <p className={styles.infoNome}>
+                          Foste adicionado a lista restrita. Liga para fechar o
+                          negócio - {usuario.phone}
+                        </p>
+                      )}
+                    </>
                   ) : (
                     <button onClick={() => ShowInterest()}>
                       Mostrar Interesse
