@@ -11,6 +11,7 @@ import {
   setDoc,
   arrayUnion,
   arrayRemove,
+  increment,
 } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -147,6 +148,7 @@ function JobPage(props) {
     const jobRef = doc(db, "jobs", job.id);
     updateDoc(jobRef, {
       interestedUsers: arrayUnion(user.uid),
+      totalInterestedUsers: increment(1),
     })
       .then(() => {
         console.log('User added to "interested" array');
@@ -174,6 +176,7 @@ function JobPage(props) {
     const jobRef = doc(db, "jobs", job.id);
     updateDoc(jobRef, {
       interestedUsers: arrayRemove(user.uid),
+      totalInterestedUsers: increment(-1),
     });
 
     // Remove job id from user's interestedJobs array
@@ -218,11 +221,12 @@ function JobPage(props) {
           {user.uid == job.userId ? (
             <p>
               {job.shortlistedUsers.length} pré-selecionados de{" "}
-              {job.interestedUsers.length} interessados
+              {job.totalInterestedUsers} interessados
             </p>
           ) : (
             <>
-              {user.interestedJobs.includes(job.id) ? (
+              {user.interestedJobs.includes(job.id) &&
+              !user.shortlistedJobs.includes(job.id) ? (
                 <>
                   <p>Interessado</p>
                   <button

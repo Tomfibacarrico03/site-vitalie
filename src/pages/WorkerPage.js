@@ -50,14 +50,12 @@ const WorkerPage = () => {
     try {
       await updateDoc(jobRef, {
         shortlistedUsers: arrayUnion(user.id),
-        interestedUsers: arrayRemove(user.id),
       });
       setIsUserShortlisted(true);
       console.log("User added to shortlisted field");
 
       await updateDoc(userRef, {
         shortlistedJobs: arrayUnion(job.id),
-        interestedJobs: arrayRemove(job.id),
       });
       setShortlistPopUp(true);
       console.log("Job added to user's shortlistedJobs field");

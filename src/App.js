@@ -26,10 +26,7 @@ import MyAccount from "./pages/account/MyAccount";
 import TradesProfile from "./pages/account/TradesProfile";
 import Settings from "./pages/account/Settings";
 
-
 import { AuthContextProvider } from "./context/AuthContext";
-
-
 
 function App() {
   return (
@@ -37,7 +34,7 @@ function App() {
       <AuthContextProvider>
         <NavBar />
         <SideBar />
-        <AccountSideBar/>
+        <AccountSideBar />
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -45,12 +42,15 @@ function App() {
           <Route path="/publicar-trabalho/publicado" element={<SendInvite />} />
           <Route path="/aplicativo-de-comerciante" element={<SignUp />} />
           <Route path="/entrar" element={<Login />} />
+          <Route path="/registrar-como-comerciante" element={<TradesPage />} />
           <Route
-            path="/registrar-como-comerciante"
-            element={<TradesPage />}
+            path="/minha-conta/detalhes-de-contacto"
+            element={<MyAccount />}
           />
-          <Route path="/minha-conta/detalhes-de-contacto" element={<MyAccount />} />
-          <Route path="/minha-conta/perfil-de-trabalhador" element={<TradesProfile />} />
+          <Route
+            path="/minha-conta/perfil-de-trabalhador"
+            element={<TradesProfile />}
+          />
           <Route path="/minha-conta/definições" element={<Settings />} />
           <Route path="/meustrabalhos" element={<MyPostedJobs />} />
           <Route path="/meustrabalhos/:jobId" element={<JobPage />} />
@@ -67,13 +67,13 @@ function App() {
             path="/dashboard-de-trabalhos/lista-restrita"
             element={<ShortlistedTrades />}
           />
-          <Route path="/dashboard-de-trabalhos/mensagens" element={<Inbox/>} />
+          <Route path="/dashboard-de-trabalhos/mensagens" element={<Inbox />} />
           <Route path="/inbox/chat/:id" element={<Chat />} />
 
           <Route path="/trabalhador/:id" element={<WorkerPage />} />
         </Routes>
 
-        <Footer />
+        {/*  <Footer /> */}
       </AuthContextProvider>
     </BrowserRouter>
   );
