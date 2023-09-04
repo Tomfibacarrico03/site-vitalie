@@ -54,6 +54,10 @@ function App() {
           <Route path="/minha-conta/definições" element={<Settings />} />
           <Route path="/meustrabalhos" element={<MyPostedJobs />} />
           <Route path="/meustrabalhos/:jobId" element={<JobPage />} />
+          <Route
+            path="/meustrabalhos/:jobId/trabalhador/:workerId"
+            element={<WorkerPage />}
+          />
           <Route path="/convidar-trabalhadores" element={<InviteWorkers />} />
           <Route
             path="/dashboard-de-trabalhos/trabalhos-proximos"
@@ -69,8 +73,6 @@ function App() {
           />
           <Route path="/dashboard-de-trabalhos/mensagens" element={<Inbox />} />
           <Route path="/inbox/chat/:id" element={<Chat />} />
-
-          <Route path="/trabalhador/:id" element={<WorkerPage />} />
         </Routes>
 
         {/*  <Footer /> */}

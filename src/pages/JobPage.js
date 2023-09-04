@@ -303,7 +303,7 @@ function JobPage(props) {
                   {interestedUsers.map((user) => (
                     <Link
                       style={{ textDecoration: "none" }}
-                      to={`/trabalhador/${user.id}`}
+                      to={`/meustrabalhos/${jobId}/trabalhador/${user.id}`}
                       state={{ user, job }}
                     >
                       <InterestedUserCard key={user.id} value={user} />
