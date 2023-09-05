@@ -6,6 +6,9 @@ import {
   arrayRemove,
   arrayUnion,
   getDoc,
+  collection,
+  addDoc,
+  increment,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "../css/leavereview.module.css";
@@ -54,11 +57,31 @@ const LeaveReview = () => {
 
   const sendReview = async () => {
     const jobDocRef = doc(db, "jobs", jobId);
+    const userRef = doc(db, "users", workerId);
 
     try {
       await updateDoc(jobDocRef, {
         feedback: true,
       });
+
+      await updateDoc(userRef, {
+        reviewCount: increment(1),
+      });
+
+      if (reviewOption == "positive") {
+        await updateDoc(userRef, {
+          positiveReviewCount: increment(1),
+        });
+      }
+
+      const reviewsCollectionRef = collection(userRef, "reviews");
+
+      // Add a new document to the "reviews" subcollection
+      await addDoc(reviewsCollectionRef, {
+        reviewText,
+        reviewOption,
+      });
+      navigate("/meustrabalhos?reviewSubmitted=true");
       console.log("Feedback updated successfully.");
     } catch (error) {
       console.error("Error updating feedback:", error);
@@ -66,12 +89,16 @@ const LeaveReview = () => {
   };
 
   if (loading) {
-    return <h2 style={{fontFamily: "Avenir Next", textAlign: "center"}}>A carregar...</h2>;
+    return (
+      <h2 style={{ fontFamily: "Avenir Next", textAlign: "center" }}>
+        A carregar...
+      </h2>
+    );
   }
 
   const reviewCard = (text, imageUrl, option) => {
     return (
-      <div style={{width: "97%", marginLeft: 17}}>
+      <div style={{ width: "97%", marginLeft: 17 }}>
         <input
           type="checkbox"
           id="reviewCheckbox"
@@ -79,19 +106,23 @@ const LeaveReview = () => {
           checked={reviewOption == option}
           onChange={() => setReviewOption(option)}
         />
-          <div className={styles.reviews}>
-          <p style={{marginLeft: -55}}>{text}</p>
+        <div className={styles.reviews}>
+          <p style={{ marginLeft: -55 }}>{text}</p>
           {imageUrl != "" && (
-            <img style={{ width: 15, height: 15, marginLeft: 5}} src={imageUrl} alt="Image" />
+            <img
+              style={{ width: 15, height: 15, marginLeft: 5 }}
+              src={imageUrl}
+              alt="Image"
+            />
           )}
-          </div>
+        </div>
       </div>
     );
   };
   return (
     <div className={styles.container}>
       <h2>Deixar Crítica</h2>
-      <h3 style={{fontWeight: 500}}>
+      <h3 style={{ fontWeight: 500 }}>
         {worker.firstName} {worker.lastName} de {worker.workName} "
         {job.headline}"
       </h3>

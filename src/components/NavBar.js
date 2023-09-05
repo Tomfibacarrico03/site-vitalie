@@ -8,11 +8,11 @@ const NavBar = () => {
   return (
     <nav>
       <div className={styles.logo}>
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <h3>Logotipo</h3>
-      </Link>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h3>MeuJob</h3>
+        </Link>
       </div>
-     
+
       <ul>
         <Link to="/publicar-trabalho" style={{ textDecoration: "none" }}>
           <li className={styles.btnEntrar}>Criar Trabalho</li>
@@ -23,24 +23,27 @@ const NavBar = () => {
               <li className={styles.btnPostJob}>Meus trabalhos publicados</li>
             </Link>
             {user.trade_member == false ? (
-            <Link
-              to="/registrar-como-comerciante"
-              style={{ textDecoration: "none" }}
-            >
-              <li className={styles.btnPostJob}>Tornar-se trabalhador</li>
-            </Link>
-            ):(
               <Link
-              to="/dashboard-de-trabalhos/trabalhos-proximos"
-              style={{ textDecoration: "none" }}
-            >
-              <li className={styles.btnPostJob}>Dashboard de trabalhador</li>
-            </Link>
+                to="/registrar-como-comerciante"
+                style={{ textDecoration: "none" }}
+              >
+                <li className={styles.btnPostJob}>Tornar-se trabalhador</li>
+              </Link>
+            ) : (
+              <Link
+                to="/dashboard-de-trabalhos/trabalhos-proximos"
+                style={{ textDecoration: "none" }}
+              >
+                <li className={styles.btnPostJob}>Dashboard de trabalhador</li>
+              </Link>
             )}
             <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
               <li className={styles.btnPostJob}>Ajuda</li>
             </Link>
-            <Link to="/minha-conta/detalhes-de-contacto" style={{ textDecoration: "none" }}>
+            <Link
+              to="/minha-conta/detalhes-de-contacto"
+              style={{ textDecoration: "none" }}
+            >
               <li className={styles.btnPostJob}>Minha Conta</li>
             </Link>
           </>

@@ -58,6 +58,8 @@ const SignUp = () => {
         interestedJobs: [],
         shortlistedJobs: [],
         trades_member_since: serverTimestamp(),
+        positiveReviewCount: 0,
+        reviewCount: 0,
       });
       setError(null);
       navigate("/minha-conta/detalhes-de-contacto");
@@ -78,6 +80,8 @@ const SignUp = () => {
         description,
         location,
         trades_member_since: serverTimestamp(),
+        positiveReviewCount: 0,
+        reviewCount: 0,
       });
     } catch (error) {
       console.log(error.message);

@@ -120,7 +120,7 @@ const WorkerPage = () => {
       });
       if (jobStatusOption == "done") {
         navigate(
-          `/meustrabalhos/odPpinbRetcnN7sOfkW6/deixar-critica/trabalhador/${workerId}`
+          `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
         );
       }
       setIsLeavingReview(!isLeavingReview);
@@ -198,7 +198,7 @@ const WorkerPage = () => {
                       <button
                         onClick={() =>
                           navigate(
-                            `/meustrabalhos/odPpinbRetcnN7sOfkW6/deixar-critica/trabalhador/${workerId}`
+                            `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
                           )
                         }
                       >

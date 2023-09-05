@@ -74,8 +74,11 @@ function JobPage(props) {
     setInterestedUsers(interestedUsersInfo); // set the interestedUsers state with the fetched data
   };
 
+  const [hiredUser, setHiredUser] = useState(null);
+
   const fetchJob = async () => {
     const jobDoc = await getDoc(doc(db, "jobs", jobId));
+
     if (jobDoc.exists()) {
       setJob({ ...jobDoc.data(), id: jobDoc.id });
       setImages([
@@ -86,9 +89,23 @@ function JobPage(props) {
         jobDoc.data().image5 || "",
         jobDoc.data().image6 || "",
       ]);
+
+      const userHired = jobDoc.data().userHired;
+
+      if (userHired !== "") {
+        // Check if userHired is not empty
+        const userHiredDoc = await getDoc(doc(db, "users", userHired));
+
+        if (userHiredDoc.exists()) {
+          setHiredUser(userHiredDoc.data());
+        } else {
+          console.log("UserHired not found");
+        }
+      }
     } else {
       console.log("No job found");
     }
+
     setLoading(false);
   };
 
@@ -216,47 +233,48 @@ function JobPage(props) {
             </div>
           </header>
         </div>
-
-        <div className={styles.interessados}>
-          {user.uid == job.userId ? (
-            <p>
-              {job.shortlistedUsers.length} pré-selecionados de{" "}
-              {job.totalInterestedUsers} interessados
-            </p>
-          ) : (
-            <>
-              {user.interestedJobs.includes(job.id) &&
-              !user.shortlistedJobs.includes(job.id) ? (
-                <>
-                  <p>Interessado</p>
-                  <button
-                    style={{ marginTop: -10, marginBottom: 20 }}
-                    onClick={() => RemoveInterest()}
-                  >
-                    Remover interesse
-                  </button>
-                </>
-              ) : (
-                <>
-                  {user.shortlistedJobs.includes(job.id) ? (
-                    <>
-                      {usuario && (
-                        <p className={styles.infoNome}>
-                          Foste adicionado a lista restrita. Liga para fechar o
-                          negócio - {usuario.phone}
-                        </p>
-                      )}
-                    </>
-                  ) : (
-                    <button onClick={() => ShowInterest()}>
-                      Mostrar Interesse
+        {job.userHired == "" && (
+          <div className={styles.interessados}>
+            {user.uid == job.userId ? (
+              <p>
+                {job.shortlistedUsers.length} pré-selecionados de{" "}
+                {job.totalInterestedUsers} interessados
+              </p>
+            ) : (
+              <>
+                {user.interestedJobs.includes(job.id) &&
+                !user.shortlistedJobs.includes(job.id) ? (
+                  <>
+                    <p>Interessado</p>
+                    <button
+                      style={{ marginTop: -10, marginBottom: 20 }}
+                      onClick={() => RemoveInterest()}
+                    >
+                      Remover interesse
                     </button>
-                  )}
-                </>
-              )}
-            </>
-          )}
-        </div>
+                  </>
+                ) : (
+                  <>
+                    {user.shortlistedJobs.includes(job.id) ? (
+                      <>
+                        {usuario && (
+                          <p className={styles.infoNome}>
+                            Foste adicionado a lista restrita. Liga para fechar
+                            o negócio - {usuario.phone}
+                          </p>
+                        )}
+                      </>
+                    ) : (
+                      <button onClick={() => ShowInterest()}>
+                        Mostrar Interesse
+                      </button>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        )}
 
         <div className={styles.descricoesTrabalho}>
           <h3>Descrição do trabalho</h3>
@@ -296,46 +314,70 @@ function JobPage(props) {
       <div className={styles.criticasConvites}>
         <div className={styles.criticas}>
           {user.uid == job.userId ? (
-            <div>
-              <h3>Trabalhadores interessados</h3>
-              {interestedUsers.length > 0 ? (
-                <>
-                  {interestedUsers.map((user) => (
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      to={`/meustrabalhos/${jobId}/trabalhador/${user.id}`}
-                      state={{ user, job }}
-                    >
-                      <InterestedUserCard key={user.id} value={user} />
-                    </Link>
-                  ))}
-                </>
+            <>
+              {job.userHired == "" ? (
+                <div>
+                  <h3>Trabalhadores interessados</h3>
+                  {interestedUsers.length > 0 ? (
+                    <>
+                      {interestedUsers.map((user) => (
+                        <Link
+                          style={{ textDecoration: "none" }}
+                          to={`/meustrabalhos/${jobId}/trabalhador/${user.id}`}
+                          state={{ user, job }}
+                        >
+                          <InterestedUserCard key={user.id} value={user} />
+                        </Link>
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <p>
+                        Os trabalhadores interessados no seu trabalho aparecerão
+                        aqui.
+                      </p>
+                      <h5>Esperando mais trabalhadores...</h5>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div>
+                  <h3>Trabalhador contratado</h3>
+                  <h5>{hiredUser.workName}</h5>
                   <p>
-                    Os trabalhadores interessados no seu trabalho aparecerão
-                    aqui.
+                    {hiredUser.reviewCount} crítica(s) 👍🏻{" "}
+                    {hiredUser.reviewCount !== 0 ? (
+                      <>
+                        {(hiredUser.positiveReviewCount /
+                          hiredUser.reviewCount) *
+                          100}{" "}
+                        %
+                      </>
+                    ) : (
+                      "Ainda sem críticas"
+                    )}
                   </p>
-                  <h5>Esperando mais trabalhadores...</h5>
                 </div>
               )}
-            </div>
+            </>
           ) : null}
         </div>
         <br></br>
-        <div className={styles.convites}>
-          <div className={styles.convitesTitle}>
-            <h3>Convites</h3>
-            <h5>({job.invitesLeft} restantes)</h5>
+        {job.userHired == "" && (
+          <div className={styles.convites}>
+            <div className={styles.convitesTitle}>
+              <h3>Convites</h3>
+              <h5>({job.invitesLeft} restantes)</h5>
+            </div>
+            <p style={{ marginTop: -5 }}>
+              Notificamos trabalhadores relevantes para o seu trabalho. Pode ter
+              respostas mais rápidas se convidar trabalhadores!
+            </p>
+            <Link to="/convidar-trabalhadores" className={styles.btnConvite}>
+              Convida trabalhadores
+            </Link>
           </div>
-          <p style={{ marginTop: -5 }}>
-            Notificamos trabalhadores relevantes para o seu trabalho. Pode ter
-            respostas mais rápidas se convidar trabalhadores!
-          </p>
-          <Link to="/convidar-trabalhadores" className={styles.btnConvite}>
-            Convida trabalhadores
-          </Link>
-        </div>
+        )}
       </div>
     </div>
   );
