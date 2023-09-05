@@ -8,6 +8,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import styles from "../css/leavereview.module.css";
 
 const LeaveReview = () => {
   const { jobId, workerId } = useParams();
@@ -65,12 +66,12 @@ const LeaveReview = () => {
   };
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return <h2 style={{fontFamily: "Avenir Next", textAlign: "center"}}>A carregar...</h2>;
   }
 
   const reviewCard = (text, imageUrl, option) => {
     return (
-      <div>
+      <div style={{width: "97%", marginLeft: 17}}>
         <input
           type="checkbox"
           id="reviewCheckbox"
@@ -78,23 +79,25 @@ const LeaveReview = () => {
           checked={reviewOption == option}
           onChange={() => setReviewOption(option)}
         />
-        <h3>{text}</h3>
-        {imageUrl != "" && (
-          <img style={{ width: 50 }} src={imageUrl} alt="Image" />
-        )}
+          <div className={styles.reviews}>
+          <p style={{marginLeft: -55}}>{text}</p>
+          {imageUrl != "" && (
+            <img style={{ width: 15, height: 15, marginLeft: 5}} src={imageUrl} alt="Image" />
+          )}
+          </div>
       </div>
     );
   };
   return (
-    <div>
-      <h1>Deixar Crítica</h1>
-      <h2>
+    <div className={styles.container}>
+      <h2>Deixar Crítica</h2>
+      <h3 style={{fontWeight: 500}}>
         {worker.firstName} {worker.lastName} de {worker.workName} "
         {job.headline}"
-      </h2>
-      <div>
+      </h3>
+      <div className={styles.containerSub}>
         <h3>Como é que foi a tua experiência?</h3>
-        <div>
+        <div className={styles.tabela}>
           {reviewCard(
             "Positivo",
             "https://icones.pro/wp-content/uploads/2021/04/icone-noire-noir.png",
