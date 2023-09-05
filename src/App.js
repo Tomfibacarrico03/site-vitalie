@@ -13,6 +13,7 @@ import MyPostedJobs from "./pages/MyPostedJobs";
 import JobPage from "./pages/JobPage";
 import WorkerPage from "./pages/WorkerPage";
 import InviteWorkers from "./pages/InviteWorkers";
+import LeaveReview from "./pages/LeaveReview";
 
 import SideBar from "./pages/dashboard/Sidebar";
 import NearTrades from "./pages/dashboard/NearTrades";
@@ -57,6 +58,10 @@ function App() {
           <Route
             path="/meustrabalhos/:jobId/trabalhador/:workerId"
             element={<WorkerPage />}
+          />
+          <Route
+            path="/meustrabalhos/:jobId/deixar-critica/trabalhador/:workerId"
+            element={<LeaveReview />}
           />
           <Route path="/convidar-trabalhadores" element={<InviteWorkers />} />
           <Route

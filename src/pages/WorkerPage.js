@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   updateDoc,
   doc,
@@ -17,6 +17,8 @@ const WorkerPage = () => {
   const [loading, setLoading] = useState(true);
   const [isUserRejected, setIsUserRejected] = useState(false);
   const [isUserShortlisted, setIsUserShortlisted] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJobAndWorkerData = async () => {
@@ -116,7 +118,10 @@ const WorkerPage = () => {
       await updateDoc(userRef, {
         hiredJobs: arrayUnion(jobId),
       });
-      if (jobStatusOption == "not_started" || jobStatusOption == "on_going") {
+      if (jobStatusOption == "done") {
+        navigate(
+          `/meustrabalhos/odPpinbRetcnN7sOfkW6/deixar-critica/trabalhador/${workerId}`
+        );
       }
       setIsLeavingReview(!isLeavingReview);
     } catch (error) {
@@ -190,7 +195,15 @@ const WorkerPage = () => {
                 ) : (
                   <>
                     {job.userHired != "" ? (
-                      <button>Deixar uma crítica </button>
+                      <button
+                        onClick={() =>
+                          navigate(
+                            `/meustrabalhos/odPpinbRetcnN7sOfkW6/deixar-critica/trabalhador/${workerId}`
+                          )
+                        }
+                      >
+                        Deixar uma crítica{" "}
+                      </button>
                     ) : (
                       <button
                         onClick={() => setIsLeavingReview(!isLeavingReview)}
