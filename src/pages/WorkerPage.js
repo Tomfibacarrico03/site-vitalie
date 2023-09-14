@@ -161,7 +161,8 @@ const WorkerPage = () => {
       <p className={styles.feedback}>Ainda sem feedback</p>
 
       <p className={styles.nome}>
-        {worker.firstName} {worker.lastName}
+        {worker.firstName} {worker.lastName} -{" "}
+        {shortlistPopUp == false && isUserShortlisted && worker.phone}
       </p>
       <p className={styles.adiciona}>
         Adiciona à shortlist para discutir o trabalho

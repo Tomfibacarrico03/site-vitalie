@@ -163,8 +163,8 @@ const PostJob = () => {
 
   const SaveJob = async (user) => {
     const newJob = {
-      headline: "Yest",
-      description: "desccoco",
+      headline,
+      description,
       userId: user.uid,
       createdAt: serverTimestamp(),
       tradeSelected,
@@ -176,6 +176,7 @@ const PostJob = () => {
       shortlistedUsers: [],
       invitesLeft: 5,
       userHired: "",
+      feedback: false,
     };
 
     try {
@@ -280,7 +281,10 @@ const PostJob = () => {
               )}
             </>
           ) : (
-            <textarea className={styles.textarea} />
+            <>
+              <p>ss</p>
+              <textarea className={styles.textarea} />
+            </>
           )}
         </div>
         <div
@@ -315,7 +319,12 @@ const PostJob = () => {
               )}
             </>
           ) : (
-            <textarea className={styles.textarea} />
+            <>
+              <textarea
+                className={styles.textarea}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </>
           )}
         </div>
         <div
@@ -324,7 +333,10 @@ const PostJob = () => {
           }
         >
           <h1>Qual é o título do seu trabalho?</h1>
-          <input className={styles.textareaSmall} />
+          <input
+            className={styles.textareaSmall}
+            onChange={(e) => setHeadline(e.target.value)}
+          />
         </div>
         <div
           className={

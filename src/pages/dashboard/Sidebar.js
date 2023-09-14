@@ -18,9 +18,7 @@ const SideBar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/dashboard-de-trabalhos/convidar-trabalhadores">
-                Convites
-              </Link>
+              <Link to="/dashboard-de-trabalhos/convites">Convites</Link>
             </li>
             <li>
               <Link to="/dashboard-de-trabalhos/interessado">Interessado</Link>
@@ -31,13 +29,13 @@ const SideBar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/dashboard-de-trabalhos/mensagens">
+              <Link to="/dashboard-de-trabalhos/trabalhos-ganhos">
                 Trabalhos conseguidos
               </Link>
             </li>
-            <li>
+            {/*  <li>
               <Link to="/dashboard-de-trabalhos/mensagens">Mensagens</Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       ) : null}

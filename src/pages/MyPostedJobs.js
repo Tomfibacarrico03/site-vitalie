@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import JobCard from "../components/cards/JobCard";
 import styles from "../css/meustrabalhos.module.css";
@@ -24,7 +30,12 @@ const MyPostedJobs = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const q = query(collection(db, "jobs"), where("userId", "==", user.uid));
+      const q = query(
+        collection(db, "jobs"),
+        where("userId", "==", user.uid),
+        orderBy("createdAt", "desc") // Add this line to order by createdAt in ascending order
+      );
+
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const jobsData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -32,8 +43,10 @@ const MyPostedJobs = () => {
         }));
         setJobs(jobsData);
       });
+
       return unsubscribe;
     };
+
     fetchJobs();
   }, [user.uid]);
 
@@ -41,37 +54,16 @@ const MyPostedJobs = () => {
     <div>
       {showPopup && (
         <div className="popup">
-          <p>Crítica enviado com sucesso!</p>
+          <p>Crítica enviada com sucesso!</p>
           <button onClick={closePopup}>Fechar</button>
         </div>
       )}
       <div className={styles.detalhesContainer}>
         <h1>Meus Trabalhos publicados</h1>
         <hr></hr>
-        {jobs.map((job) => (
-          <Link
-            key={job.id}
-            style={{ textDecoration: "none" }}
-            to={`/meustrabalhos/${job.id}`}
-            state={{ job }}
-          >
-            <JobCard value={job} />
-          </Link>
+        {jobs.map((job, index) => (
+          <JobCard key={job.id || index} value={{ job, user }} />
         ))}
-      </div>
-      <div className={styles.contrataPessoas}>
-        <header>
-          <p className={styles.tituloContrataPessoas}>Contrata trabalhadores</p>
-        </header>
-        <p>
-          Nós temos trabalhadores prontas para ajudarem-te. Publica um trabalho,
-          vê as reviews e contrata hoje!
-        </p>
-        <Select className={styles.Select} placeholder="Serviço Necessário" />
-        <br></br>
-        <a href="" className={styles.btnPostJob}>
-          Criar Trabalho
-        </a>
       </div>
     </div>
   );

@@ -19,6 +19,8 @@ import SideBar from "./pages/dashboard/Sidebar";
 import NearTrades from "./pages/dashboard/NearTrades";
 import InterestedTrades from "./pages/dashboard/InterestedTrades";
 import ShortlistedTrades from "./pages/dashboard/ShortlistedTrades";
+import InvitedTrades from "./pages/dashboard/InvitedTrades";
+import WonTrades from "./pages/dashboard/WonTrades";
 import Inbox from "./pages/dashboard/Inbox";
 import Chat from "./pages/dashboard/Chat";
 
@@ -75,6 +77,14 @@ function App() {
           <Route
             path="/dashboard-de-trabalhos/lista-restrita"
             element={<ShortlistedTrades />}
+          />
+          <Route
+            path="/dashboard-de-trabalhos/trabalhos-ganhos"
+            element={<WonTrades />}
+          />
+          <Route
+            path="/dashboard-de-trabalhos/convites"
+            element={<InvitedTrades />}
           />
           <Route path="/dashboard-de-trabalhos/mensagens" element={<Inbox />} />
           <Route path="/inbox/chat/:id" element={<Chat />} />

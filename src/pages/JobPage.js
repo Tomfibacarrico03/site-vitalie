@@ -282,7 +282,7 @@ function JobPage(props) {
             {job.selectedSubCategory}: {job.selectedCategory}
           </p>
           <h3>Descrição do cliente</h3>
-          <p>Descrição</p>
+          <p>{job.description}</p>
           <div>
             <h3>Imagens</h3>
             <div className={styles.postImagens}>

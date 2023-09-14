@@ -52,7 +52,7 @@ const ShortlistedTrades = () => {
           to={`/meustrabalhos/${job.id}`}
           state={{ job }}
         >
-          <JobCard key={job.id} value={job} />
+          <JobCard key={job.id} value={{ job, user }} />
         </Link>
       ))}
     </div>
