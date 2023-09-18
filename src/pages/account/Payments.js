@@ -11,7 +11,7 @@ const Payments = () => {
   return (
     <>
       <b>Pagamentos</b>
-      <button>requestCIT</button>
+      <button onClick={requestCIT}>requestCIT</button>
     </>
   );
 };
