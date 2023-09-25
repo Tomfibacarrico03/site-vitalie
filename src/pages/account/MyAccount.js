@@ -7,7 +7,7 @@ import styles from "../../css/minhaconta.module.css";
 
 const MyAccount = () => {
 
-  const {user, } = UserAuth()
+  const {user} = UserAuth()
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');

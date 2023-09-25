@@ -4,6 +4,7 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 const db = admin.firestore();
+const fetch = require("node-fetch");
 
 exports.SaveJob = functions.https.onCall(async (data, context) => {
   try {
@@ -95,64 +96,117 @@ exports.createUserAndSaveJob = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.requestCIT = functions.https.onCall(async (data, context) => {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  myHeaders.append(
-    "Authorization",
-    "Bearer 0276b80f950fb446c6addaccd121abfbbb.eyJlIjoiMjAwNDg2MTkxNjU0MCIsInJvbGVzIjoiU1BHX01BTkFHRVIiLCJ0b2tlbkFwcERhdGEiOiJ7XCJtY1wiOlwiNTA0OTM4XCIsXCJ0Y1wiOlwiNTkxNzJcIn0iLCJpIjoiMTY4OTI0MjcxNjU0MCIsImlzIjoiaHR0cHM6Ly9xbHkuc2l0ZTEuc3NvLnN5cy5zaWJzLnB0L2F1dGgvcmVhbG1zL1FMWS5NRVJDSC5QT1JUMSIsInR5cCI6IkJlYXJlciIsImlkIjoiN2RId1VHdDFjUGI1YTZiYzk1Y2I2MTQ0NzlhZGRiMjZhMTdlMmRkZDQyIn0=.d6aad399a9bf30c3153c541ae98b7c38d3707efdcbd2f8e830566f897d3aac7be8da5653512cde4cb87b425a08796022a0183c3bd536a91d3cd70f077baf308d"
-  );
+exports.requestCIT = functions.https.onRequest(async (req, res) => {
+  const userId = req.query.userId;
 
-  var raw = JSON.stringify({
-    merchant: {
-      terminalId: 59172,
-      channel: "web",
-      merchantTransactionId: "teste 12345",
-    },
-    transaction: {
-      transactionTimestamp: "",
-      description: "TesteUnicre",
-      moto: false,
-      paymentType: "AUTH",
-      amount: {
-        value: 0,
-        currency: "EUR",
-      },
-      paymentMethod: ["CARD"],
-    },
-    customer: {
-      customerInfo: {
-        customerName: "John Doe",
-        customerEmail: "john.doe@xptomail.com",
-        billingAddress: {
-          street1: "First street",
-          street2: "Menef Square",
-          city: "Lisbon",
-          postcode: "1700-123",
-          country: "PT",
+  if (!userId) {
+    console.error("Missing or invalid userId in query parameters");
+    res.status(400).send("Bad Request");
+    return;
+  }
+
+  console.log("Fetching user data for userId:", userId);
+
+  try {
+    const userSnapshot = await admin.firestore().collection("users").doc(userId).get();
+    if (!userSnapshot.exists) {
+      console.error("User document not found:", userId);
+      res.status(404).send("User Not Found");
+      return;
+    }
+    const userData = userSnapshot.data();
+
+    res.set("Access-Control-Allow-Origin", "*");
+    res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.set(
+      "Access-Control-Allow-Headers",
+      "Origin, Content-Type, Accept, Authorization"
+    ); // Allow the Authorization header
+
+    // Check if it's a preflight request and respond immediately
+    if (req.method === "OPTIONS") {
+      res.status(204).send("");
+      return;
+    }
+
+    try {
+      const apiUrl = "https://spg.qly.site1.sibs.pt/api/v2/payments"; // Replace with the API endpoint URL
+
+      const raw = JSON.stringify({
+        merchant: {
+          terminalId: 59172,
+          channel: "web",
+          merchantTransactionId: "teste 12345"
         },
-      },
-    },
-    merchantInitiatedTransaction: {
-      type: "UCOF",
-      amountQualifier: "ESTIMATED",
-    },
-    tokenisation: {
-      tokenisationRequest: {
-        tokeniseCard: true,
-      },
-    },
-  });
+        transaction: {
+          transactionTimestamp: new Date().toISOString(),
+          description: "TesteUnicre",
+          moto: false,
+          paymentType: "AUTH",
+          amount: {
+            value: 0,
+            currency: "EUR"
+          },
+          paymentMethod: ["CARD"]
+        },
+        customer: {
+          customerInfo: {
+            customerName: userData.firstName + " " + userData.lastName,
+            customerEmail: userData.email,
+            billingAddress: {
+              street1: userData.address1,
+              street2: userData.address2,
+              city: userData.city,
+              postcode: userData.postalCode,
+              country: "PT"
+            }
+          }
+        },
+        merchantInitiatedTransaction: {
+          type: "UCOF",
+          amountQualifier: "ESTIMATED"
+        },
+        tokenisation: {
+          tokenisationRequest: {
+            tokeniseCard: true
+          }
+        }
+      });
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-IBM-Client-Id": "ab802d80-cefe-4622-9a98-774118372d57",
+          Authorization:
+            "Bearer 0276b80f950fb446c6addaccd121abfbbb.eyJlIjoiMjAwNDg2MTkxNjU0MCIsInJvbGVzIjoiU1BHX01BTkFHRVIiLCJ0b2tlbkFwcERhdGEiOiJ7XCJtY1wiOlwiNTA0OTM4XCIsXCJ0Y1wiOlwiNTkxNzJcIn0iLCJpIjoiMTY4OTI0MjcxNjU0MCIsImlzIjoiaHR0cHM6Ly9xbHkuc2l0ZTEuc3NvLnN5cy5zaWJzLnB0L2F1dGgvcmVhbG1zL1FMWS5NRVJDSC5QT1JUMSIsInR5cCI6IkJlYXJlciIsImlkIjoiN2RId1VHdDFjUGI1YTZiYzk1Y2I2MTQ0NzlhZGRiMjZhMTdlMmRkZDQyIn0=.d6aad399a9bf30c3153c541ae98b7c38d3707efdcbd2f8e830566f897d3aac7be8da5653512cde4cb87b425a08796022a0183c3bd536a91d3cd70f077baf308d", // Replace with your actual access token
+        },
+        body: raw,
+        redirect: "follow",
+      };
+      // Add a try-catch block around the API response logging
+      try {
+        const response = await fetch(apiUrl, requestOptions);
+        const responseData = {
+          data: {
+            message: "POST done",
+            result: await response.text(),
+          },
+        };
+        console.log("API Response:", responseData);
+        res.status(200).json(responseData);
+      } catch (error) {
+        console.error("Error while handling API response:", error);
+        res.status(500).send("Internal Server Error");
+      }
 
-  fetch("https://spg.qly.site1.sibs.pt/api/v2/payments", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+
+    } catch (error) {
+      console.error("POST request error:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  } catch (error) {
+    console.error("Firestore error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
