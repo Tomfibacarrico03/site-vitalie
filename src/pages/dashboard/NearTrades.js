@@ -4,6 +4,7 @@ import { db } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
 import JobCard from "../../components/cards/JobCard";
 import { Link } from "react-router-dom";
+import styles from "../../css/minhaconta.module.css";
 const NearTrades = () => {
   const { user } = UserAuth();
   const [jobs, setJobs] = useState([]);
@@ -37,17 +38,9 @@ const NearTrades = () => {
 
   return (
     <div
-      style={{
-        backgroundColor: "#fff",
-        width: "40%",
-        padding: 20,
-        position: "absolute",
-        right: 200,
-        marginTop: 20,
-        borderRadius: 5,
-      }}
+    className={styles.detalhesContainer}
     >
-      <h2 style={{ fontFamily: "Avenir Next" }}>
+      <h2 style={{ fontFamily: "Raleway" }}>
         Trabalhos publicados na sua área para si
       </h2>
       {user.tradesSelected.map((trade) => (

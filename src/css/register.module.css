@@ -4,9 +4,10 @@
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
     width: 630px;
     padding: 20px;
-    margin-top: 20px;
+    margin-top: 120px;
+    margin-bottom: 50px;
     border-radius: 10px;
-    font-family: "Avenir Next";
+    font-family: "Raleway";
 }
 
 input {
@@ -21,7 +22,7 @@ input {
 
 form button {
     padding: 10px;
-    background-color: #219ebc;
+    background-color: #508ce4;
     border: 0;
     color: #fff;
     border-radius: 5px;
@@ -80,7 +81,7 @@ form button:hover {
   }
   
   .containerCheckBoxes input:checked ~ .checkmark {
-    background-color: #219ebc;
+    background-color: #508ce4;
   }
   
   .checkmark:after {

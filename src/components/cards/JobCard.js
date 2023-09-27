@@ -18,7 +18,7 @@ const JobCard = (props) => {
           >
             <p
               style={{
-                fontFamily: "Avenir Next",
+                fontFamily: "Raleway",
                 color: "#000",
                 fontSize: 19,
                 fontWeight: "bold",
@@ -30,7 +30,7 @@ const JobCard = (props) => {
               style={{
                 fontSize: 12,
                 color: "#8c8c8c",
-                fontFamily: "Avenir Next",
+                fontFamily: "Raleway",
                 fontWeight: 500,
               }}
             >
@@ -47,8 +47,9 @@ const JobCard = (props) => {
             style={{
               fontFamily: "Avenir Next",
               color: "#000",
-              fontSize: 16,
+              fontSize: 25,
               marginTop: 10,
+              marginBottom: 5,
               fontWeight: "600",
             }}
           >
@@ -62,20 +63,24 @@ const JobCard = (props) => {
           {job.userHired == "" ? (
             <>
               <div
-                style={{
-                  border: "2px solid #bfbfbf",
-                  padding: 10,
-                  borderRadius: 5,
-                }}
+                
               >
-                <p style={{ fontFamily: "Avenir Next", color: "#000" }}>
+                <p style={{ color: "#8c8c8c", fontFamily: "Raleway" }}>
                   Comerciantes locais adequados foram alertados sobre o seu
                   trabalho. Assim que houver interesse, informaremos.
                 </p>
               </div>
-              <div>
-                <p>Tem mais trabalhadores, rápido</p>
-                <Link>Convida Trabalhadores</Link> 10 convites restantes
+              <div 
+              style={{
+                background: "#f2f2f2",
+                paddingLeft: 15,
+                paddingTop: 15,
+                paddingBottom: 1,
+                borderRadius: 10,
+                marginTop: 25
+              }}>
+                <p style={{fontFamily: "Raleway", fontSize: 20, color: "#508ce4", marginBottom: 10}}>Tem mais trabalhadores, rápido</p>
+                <p style={{fontFamily: "Raleway", color: "#8c8c8c", fontSize: 14}}><Link style={{color: "#508ce4", fontFamily: "Avenir Next", textDecoration: "none", paddingRight: 5}}>Convida Trabalhadores</Link> 10 convites restantes</p>
               </div>
             </>
           ) : (
@@ -83,12 +88,12 @@ const JobCard = (props) => {
               {job.feedback == false ? (
                 <div
                   style={{
-                    border: "2px solid #bfbfbf",
+                    border: "2px solid #e8e8e9",
                     padding: 10,
                     borderRadius: 5,
                   }}
                 >
-                  <p style={{ fontFamily: "Avenir Next", color: "#000" }}>
+                  <p style={{ fontFamily: "Raleway", color: "#8c8c8c" }}>
                     Trabalhador contratado. Deixa a tua crítica após ele
                     completar o seu serviço
                   </p>
@@ -96,12 +101,12 @@ const JobCard = (props) => {
               ) : (
                 <div
                   style={{
-                    border: "2px solid #bfbfbf",
+                    border: "2px solid #e8e8e9",
                     padding: 10,
                     borderRadius: 5,
                   }}
                 >
-                  <p style={{ fontFamily: "Avenir Next", color: "#000" }}>
+                  <p style={{ fontFamily: "Raleway", color: "#8c8c8c" }}>
                     Crítica submetida
                   </p>
                 </div>
@@ -110,7 +115,7 @@ const JobCard = (props) => {
           )}
         </>
       )}
-      <hr style={{ border: "1px solid #e8e8e9", marginTop: 25 }}></hr>
+      <hr style={{ border: "3px solid #fff", marginTop: 25 }}></hr>
     </div>
   );
 };

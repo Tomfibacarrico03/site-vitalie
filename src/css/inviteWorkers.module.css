@@ -1,10 +1,18 @@
 .convida {
-  position: absolute;
-  right: 200px;
   background-color: #fff;
-  width: 20%;
-  padding: 20px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 120px;
+  padding: 5px;
   border-radius: 5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.convida div {
+  display: block;
+  margin: 15px;
 }
 
 .convida h1 {
@@ -22,12 +30,18 @@
 }
 
 .workerCard {
-  width: 40%;
-  background-color: #fff;
-  margin-left: 200px;
+  background-color: #fafafa;
   border-radius: 5px;
   padding: 20px;
-  margin-top: 20px
+  width: 100%;
+}
+
+.cardsLado {
+  background-color: #fff;
+  border-left: 2px solid #508ce4;
+  width: 50%;
+  padding: 10px;
+  border-radius: 0px;
 }
 
 .tituloCriticas header {
@@ -38,22 +52,24 @@
 }
 
 .tituloCriticas header button {
-  background-color: #219ebc;
+  background-color: #508ce4;
   color: #fff;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
   font-weight: 500;
 }
 
 .tituloCriticas h5 {
   margin-top: -10px;
-  color: #219ebc;
-  font-family: "Avenir Next";
+  color: #508ce4;
+  font-family: "Raleway";
 
 }
 
 .local {
-  display: inline-flex;
-  justify-content: space-between;
-  width: 100%;
   font-weight: 500;
+}
+
+.local p {
+  margin-left: -5px
+
 }

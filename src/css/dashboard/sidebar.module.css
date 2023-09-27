@@ -6,9 +6,10 @@
   left: 0;
   overflow-x: hidden;
   padding-top: 20px;
-  margin-top: 80px;
+  margin-top: 100px;
   border-radius: 0px 10px 10px 0px;
   margin-left: 200px;
+  background-color: #fff;
 }
 
 .sidebar ul {
@@ -19,10 +20,11 @@
 
 .sidebar li {
   margin-bottom: 10px;
-  background-color: #fff;
+  background-color: #fafafa;
   padding: 10px;
   border-radius: 5px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
+  border-left: 3px solid #508ce4
 }
 
 .sidebar li a {

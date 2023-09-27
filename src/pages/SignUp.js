@@ -267,7 +267,7 @@ const SignUp = () => {
                   htmlFor="termsChecked"
                 >
                   Eu concordo com os{" "}
-                  <a href="/terms" style={{ color: "#219ebc" }}>
+                  <a href="/terms" style={{ color: "#508ce4" }}>
                     Termos e Condições
                   </a>
                   .
@@ -284,7 +284,7 @@ const SignUp = () => {
               </div>
             </div>
             {error && <p>{error}</p>}
-            <button type="submit">Sign up</button>
+            <button type="submit">Registar</button>
           </form>
         </>
       )}

@@ -1,61 +1,76 @@
-.paper {
-  opacity: 0.35;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  top: 80px;
-  left: 0px;
-  width: 100%;
-}
-
-.paper img {
-  width: 100%;
-  height: 100vh;
-}
 
 .divCabecalho {
-  margin: 100px 200px 0px 200px;
+  margin: 0 200px 0px 200px;
+  background-color: #fff;
+  box-shadow: 0px -50px 25px rgba(0, 0, 0, 0.1);
+  padding-left: 50px;
+  padding-top: 70px;
   opacity: 1;
+  display: flex;
+  align-items: center;
 }
+
+.divCabecalho img {
+  border-bottom-right-radius: 0px;
+  height: 130%;
+}
+
+.workers_side {
+  background-image: url("../../src/imgs/workers.jpg");
+  background-size: 53%;
+  background-attachment: fixed;
+  height: 500px;
+  border-bottom-right-radius: 5px;
+  width: 60%;
+}
+
 
 .title {
   font-size: 240%;
-  font-family: "Avenir Next";
-  width: 40%;
+  font-family: "Raleway";
+  width: 80%;
   color: #000;
   font-weight: bold;
 }
 
 .subtitle {
-  font-size: 150%;
+  font-size: 120%;
   padding-bottom: 30px;
+  margin-top: -10px;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 61, 250, 0.05);
+  text-underline-offset: 12px;
+  text-decoration-thickness: 10px;
   /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
   font-family: "Avenir Next";
-  width: 30%;
-  color: #219ebc;
-  font-weight: 400;
+  width: 70%;
+  color: #508ce4;
+  font-weight: 500;
 }
 
 .botoes {
   display: inline-flex;
+  margin-top: 50px;
 }
 
 .btnPostJob {
-  background-color: #219ebc;
+  background-color: #508ce4;
   color: #fff;
-  border-radius: 5px;
-  box-shadow: 2px 2px 10px #219ebc;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px #508ce4;
   list-style-type: none;
-  padding: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   z-index: 10;
+  margin-left: 20px;
 }
 
 .btnPostJob h3 {
   font-size: 18px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
   text-align: center;
   justify-content: center;
   padding-left: 10px;
@@ -63,50 +78,176 @@
 }
 
 .btnRegister {
-  border: 1px solid #219ebc;
-  color: #219ebc;
-  border-radius: 5px;
-  box-shadow: 2px 2px 10px #219ebc;
+  color: #508ce4;
+  border-radius: 10px;
+  box-shadow: 0px 0px 120px #508ce4;
   list-style-type: none;
-  padding: 1px;
-  margin-left: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   z-index: 10;
 }
 
 .btnRegister h3 {
   font-size: 18px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.btnRegister,
+.btnRegister:hover,
 .btnPostJob:hover {
-  opacity: 0.75;
-  transition: 0.5s;
+  opacity: 0.5;
+  transition: 0.3s;
   cursor: pointer;
 }
 
 .divAboutUs {
-  background-color: #fff;
-  padding: 20px;
-  z-index: 10;
-  border-radius: 5px;
   margin-left: 200px;
   margin-right: 200px;
-  margin-top: 50px
+  padding: 50px;
+  z-index: 10;
+  border-radius: 5px;
+  margin-top: 50px;
+  text-align: end;
+  font-size: 18px;
+  font-family: "Raleway";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.divAboutUs {
+.divAboutUs div {
+  text-align: center;
+  width: 29%;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  padding-bottom: 50px;
+}
+
+.divAboutUs h1 {
+  font-size: 1.7rem;
+  margin-left: 15px;
+  color: #508ce4;
+  margin-right: 15px;
+}
+
+.divAboutUs p {
+  font-size: 1rem;
+  color: #000;
+  margin-top: -10px;
+}
+
+.titles {
+  align-self: center;
+  text-align: center;
+  color: #333;
+  font-family: "Raleway";
+  margin-top: 10px;
+  padding-top: 70px;
+  margin-bottom: -50px;
+}
+
+.zonaComecar {
+  background-color: #f2f2f2;
+}
+
+.verComoFuncionaBtn {
+  text-align: center;
+  background-color: #508ce4;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.verComoFuncionaBtn button {
+  background-color: #508ce4;
+  color: #fff;
   font-size: 18px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
+}
+
+.verComoFuncionaBtn button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .subtitleSemDots {
   font-size: 18px;
-  font-family: "Avenir Next";
-  color: #219ebc;
+  font-family: "Raleway";
+  color: #508ce4;
   font-weight: 400;
 }
 
+.zonaApply {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.zonaApplyEsq {
+  width: 50%;
+}
+
+.zonaApplyDir {
+  width: 50%;
+}
+
+.divCabecalho2 {
+  margin: 0 200px 0px 200px;
+  background-color: #fff;
+  padding-left: 50px;
+  padding-top: 10px;
+  border-bottom-right-radius: 15px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+
+}
+
+.divCabecalho2 img {
+  border-bottom-right-radius: 5px;
+}
+
+.workers_side2 {
+  background-image: url("../../src/imgs/handshake.png");
+  background-size: 15%;
+  height: 500px;
+  border-radius: 15px;
+  width: 60%;
+}
+
+.workers_side2 p {
+  color: #000
+}
+
+.btnApply {
+  background-color: #508ce4;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px #508ce4;
+  list-style-type: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 300px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  z-index: 10;
+}
+
+.btnApply:hover {
+  opacity: 0.7;
+  transform: 0.3s ease;
+}
+
+.btnApply h3 {
+  font-size: 18px;
+  font-family: "Raleway";
+  text-align: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}

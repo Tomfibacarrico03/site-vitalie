@@ -209,7 +209,7 @@ function JobPage(props) {
 
   return (
     <div className={styles.postTrabalho}>
-      <div>
+      <div className={styles.postTrabalhoEsq}>
         <div className={styles.infoTrabalho}>
           <header>
             <div className={styles.infoTextos}>
@@ -245,9 +245,9 @@ function JobPage(props) {
                 {user.interestedJobs.includes(job.id) &&
                 !user.shortlistedJobs.includes(job.id) ? (
                   <>
-                    <p>Interessado</p>
+                    <p style={{marginTop: 10, marginLeft:- 10, marginBottom: 10, fontFamily: "Raleway"}}>Interessado</p>
                     <button
-                      style={{ marginTop: -10, marginBottom: 20 }}
+                       style={{marginTop: 0, marginLeft: -15, padding: 15, fontFamily: "Raleway"}}
                       onClick={() => RemoveInterest()}
                     >
                       Remover interesse
@@ -265,7 +265,7 @@ function JobPage(props) {
                         )}
                       </>
                     ) : (
-                      <button onClick={() => ShowInterest()}>
+                      <button style={{marginTop: 0, marginLeft: -15, padding: 15, fontFamily: "Raleway"}} onClick={() => ShowInterest()}>
                         Mostrar Interesse
                       </button>
                     )}
@@ -332,11 +332,11 @@ function JobPage(props) {
                     </>
                   ) : (
                     <div>
-                      <p>
+                      <p style={{marginLeft: -5}}>
                         Os trabalhadores interessados no seu trabalho aparecerão
                         aqui.
                       </p>
-                      <h5>Esperando mais trabalhadores...</h5>
+                      <h5 style={{fontFamily: "Raleway"}}>Esperando mais trabalhadores...</h5>
                     </div>
                   )}
                 </div>

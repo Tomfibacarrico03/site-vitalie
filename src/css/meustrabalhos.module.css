@@ -1,21 +1,26 @@
+.trabalhosContainer {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 120px;
+    margin-left: 200px;
+    margin-right: 200px;
+    justify-content: space-between;
+}
+
 .detalhesContainer {
     background-color: #fafafa;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
-    width: 630px;
-    position: absolute;
-    margin-left: 200px;
     padding: 20px;
-    margin-top: 20px;
     border-radius: 10px;
+    flex: 50%;
 }
 
 .detalhesContainer h1 {
-    font-family: "Avenir Next";
+    font-family: "Raleway";
     color: #333
 }
 
 .detalhesContainer hr {
-    border: 3px solid #219ebc;
+    border: 2px solid #508ce4;
     align-self: left;
 }
 
@@ -30,7 +35,7 @@
 }
 
 .contrataPessoas header {
-    background-color: #219ebc;
+    background-color: #508ce4;
     padding: 1px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -53,8 +58,8 @@
 }
 
 .btnPostJob {
-    box-shadow: 2px 2px 10px #219ebc;
-    background-color:#219ebc;
+    box-shadow: 2px 2px 10px #508ce4;
+    background-color:#508ce4;
     font-family: "Avenir Next";
     color: #fff;
     padding: 10px;
@@ -66,4 +71,42 @@
 .Select {
     background-color: #fff;
     margin: 15px
+}
+
+.barDir {
+    background-color: #fafafa;
+    flex: 10%;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+.barDir header {
+    background-color: #508ce4;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.barDir header h1 {
+    padding: 10px;
+    color: #fff;
+    font-family: "Raleway";
+    padding-left: 15px;
+    margin-top: 0px;
+}
+
+.barDir p {
+    color: #000;
+    padding: 15px;
+
+}
+
+.barDir button {
+    border: 3px solid #508ce4;
+    background-color: #fff;
+    align-self: center;
+    border-radius: 35px;
+    margin: 15px;
+    font-family: "Raleway";
+    color: #508ce4;
+    width: 50%;
 }

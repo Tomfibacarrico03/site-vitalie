@@ -4,6 +4,7 @@ import { db } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
 import JobCard from "../../components/cards/JobCard";
 import { Link } from "react-router-dom";
+import styles from "../../css/minhaconta.module.css";
 const ShortlistedTrades = () => {
   const { user } = UserAuth();
   const [jobs, setJobs] = useState([]);
@@ -33,17 +34,9 @@ const ShortlistedTrades = () => {
 
   return (
     <div
-      style={{
-        backgroundColor: "#fff",
-        width: "40%",
-        padding: 20,
-        position: "absolute",
-        right: 200,
-        marginTop: 20,
-        borderRadius: 5,
-      }}
+    className={styles.detalhesContainer}
     >
-      <h2 style={{ fontFamily: "Avenir Next" }}>
+      <h2 style={{ fontFamily: "Raleway" }}>
         Trabalhos a que estou adicionado à lista restrita
       </h2>
       {jobs.map((job) => (

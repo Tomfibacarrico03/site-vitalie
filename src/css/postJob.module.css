@@ -1,73 +1,57 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-.paper {
-  opacity: 0.35;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  top: 80px;
-  left: 0px;
-  width: 100%;
-}
+
 .Select {
-  min-width: 3rem;
-  width: fit-content;
-}
-.textarea {
-  border-radius: 10px;
-  width: 100%;
-  height: 8rem;
-  border: none;
-  font-family: "Avenir Next";
-  font-size: 1.2rem;
-  resize: none;
-}
-.textareaSmall {
-  border-radius: 10px;
-  width: 70%;
-  height: 2rem;
-  border: none;
-  font-family: "Avenir Next";
-  font-size: 1.2rem;
-}
-.paper img {
-  width: 100%;
-  height: 100vh;
+  width: "100%";
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
+.Select2 {
+  width: 200px;
+  align-self: center;
+}
+
+
 .divCabecalho {
-  width: 40%;
   margin-left: 200px;
-  margin-top: 70px;
+  margin-right: 200px;
+  margin-top: 150px;
   opacity: 1;
 }
 
 .title {
   font-size: 240%;
-  font-family: "Avenir Next";
-  width: 40%;
-  color: #000;
+  font-family: "Raleway";
+  background-color: #508ce4;
+  margin-top: 100px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: #fff;
+  text-align: center;
   font-weight: bold;
 }
 
 .subtitle {
-  font-size: 150%;
-  padding-bottom: 30px;
+  font-size: 24px;
+  margin-top: -25px;
   /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
-  font-family: "Avenir Next";
-  width: 100%;
-  color: #219ebc;
+  font-family: "Raleway";
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+  background-color: #fafafa;
+  color: #333;
+  text-align: center;
+  font-size: 18px;
   font-weight: 400;
 }
 
 .botoes {
   display: inline-flex;
+  text-align: center;
 }
 
 .btnPostJob {
@@ -95,7 +79,6 @@
   list-style-type: none;
   width: 150px;
   padding: 1px;
-  margin-left: 20px;
   z-index: 10;
 }
 
@@ -113,15 +96,18 @@
 }
 
 .divQuestions {
-  width: 40%;
   position: relative;
-  background-color: #ffffff62;
+  text-align: center;
+  font-family: "Raleway";
+  background-color: #fff;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.05);
   z-index: 10;
-  margin-left: 180px;
-  margin-right: 180px;
-  padding: 5px 30px 30px 30px;
-  margin-top: 50px;
-  border-radius: 10px;
+  margin-left: 200px;
+  margin-right: 200px;
+  padding: 5px 50px 50px 20px;
+  margin-top: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .subtitleSemDots {
@@ -137,21 +123,34 @@
   width: 30%;
   height: 2rem;
   border: 2px solid black;
-  margin: 15px 0px 25px 0px;
+  margin: 5px;
   border-radius: 10px;
   font-size: 125%;
   font-family: "Avenir Next";
   font-weight: 200;
 }
 .continueButton {
-  background-color: #219ebc;
+  background-color: #508ce4;
   color: #fff;
   font-size: 125%;
-  font-family: "Avenir Next";
-  font-weight: 200;
+  font-family: "Raleway";
+  font-weight: bold;
   border: none;
-  border-radius: 10px;
-  padding: 5px 15px;
+  border-radius: 100px;
+  padding: 10px 25px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.anteriorBtn {
+  background-color: transparent;
+  color: #508ce4;
+  font-size: 125%;
+  font-family: "Raleway";
+  font-weight: bold;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 25px;
   margin: 5px;
   cursor: pointer;
 }
@@ -162,42 +161,69 @@
 .displayNone {
   display: none;
 }
+
+.botoesSelect {
+  margin-left: 100px;
+  margin-right: 100px;
+}
 .categoryLabel {
-  display: block;
-  width: fit-content;
+  display: flex;
   font-size: 125%;
-  font-family: "Avenir Next";
-  font-weight: 100;
-  color: #fff;
+  font-family: "Raleway";
+  color: #999;
   margin: 5px;
-  padding: 5px;
+  padding: 15px;
+  text-align: center;
   border-radius: 10px;
-  background-color: #535353a2;
+  background-color: #f2f2f2;
 }
 .categoryLabel h4,
 .categoryLabelSelected h4 {
   margin: 0;
 }
+
+.categoryLabel:hover {
+  opacity: 0.7;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
 .categoryLabelSelected {
-  display: block;
-  width: fit-content;
+  display: flex;
   font-size: 125%;
-  font-family: "Avenir Next";
-  font-weight: 100;
+  font-family: "Raleway";
   color: #fff;
   margin: 5px;
-  padding: 5px;
+  padding: 15px;
+  text-align: center;
   border-radius: 10px;
-  border: 1px solid black;
-  background-color: #53535350;
+  background-color: #508ce4;
 }
 
-.postJobUm,
+textarea {
+  resize: none;
+  padding: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  font-family: "Raleway";
+  border-radius: 5px;
+  border: 1px solid #e8e8e9;
+}
+
+input {
+  font-family: "Raleway";
+}
+
+.postJobZero {
+  display: flex;
+  justify-content: center;
+  margin-left: 1f5px;
+}
+
+/* .postJobUm,
 .postJobZero,
 .postJobDois {
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
-  width: 97.5%;
   margin-top: 15px;
   margin-bottom: 10px;
 }
@@ -213,23 +239,30 @@
 .postJobDois div input {
   width: 100%;
   padding: 15px;
-  border: 1px solid #219ebc;
+  border: 1px solid #508ce4;
   border-radius: 5px;
+} */
+
+.postJobUm, .postJobDois {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.postJobUm input, .postJobDois input {
+  width: 300px;
 }
 
 #Continuarbtn {
-  padding: 10px;
-  background-color: #219ebc;
-  border: 0;
-  font-weight: bold;
-  font-family: "Avenir Next";
+  background-color: #508ce4;
   color: #fff;
-  border-radius: 5px;
-  width: 120px;
-  font-size: 12px;
-  justify-content: flex-end;
-  align-content: flex-end;
-  margin-top: 20px;
+  font-size: 125%;
+  font-family: "Raleway";
+  font-weight: bold;
+  border: none;
+  border-radius: 100px;
+  width: 150px;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .containerCheckBoxes {
@@ -257,18 +290,19 @@
   position: absolute;
   top: 0;
   left: 0;
+  margin-left: 100px;
   height: 25px;
   border-radius: 5px;
   width: 25px;
-  background-color: #ddd;
+  background-color: #8c8c8c;
 }
 
 .containerCheckBoxes:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: #8c8c8c;
 }
 
 .containerCheckBoxes input:checked ~ .checkmark {
-  background-color: #219ebc;
+  background-color: #508ce4;
 }
 
 .checkmark:after {

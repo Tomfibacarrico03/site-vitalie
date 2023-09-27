@@ -196,13 +196,10 @@ const PostJob = () => {
 
   return (
     <div className={styles.page}>
-      {/* <div className={styles.paper}>
-        <img src={paper} />
-      </div> */}
       <div className={styles.divCabecalho}>
         <h1 className={styles.title}>Criar Trabalho</h1>
         <h3 className={styles.subtitle}>
-          Publica o trabalho que necessitas e encontra o melhor trabalhador para
+          Publica o trabalho que necessitas <br></br>e encontra o melhor trabalhador para
           ti!
         </h3>
       </div>
@@ -227,7 +224,7 @@ const PostJob = () => {
           }
         >
           <h1>Qual é a categoria do seu trabalho?</h1>
-          <div>
+          <div className={styles.botoesSelect}>
             {serviceCategory.map((serviceCategory, index) => (
               <label
                 key={index}
@@ -347,12 +344,13 @@ const PostJob = () => {
             <form onSubmit={handleSubmit}>
               <div className={styles.postJobZero}>
                 <Select
-                  className={styles.Select}
+                  className={styles.Select2}
                   options={distritos}
                   onChange={setLocation}
                   placeholder="Localização"
                 />
               </div>
+              <br></br>
               <div className={styles.postJobUm}>
                 <div>
                   {/* <label htmlFor="email">Email</label> */}
@@ -460,11 +458,11 @@ const PostJob = () => {
         <br />
         <button
           className={
-            questionNumber > 1 ? styles.continueButton : styles.displayNone
+            questionNumber > 1 ? styles.anteriorBtn : styles.displayNone
           }
           onClick={questionDicrement}
         >
-          &#8592; Recuar
+          Anterior
         </button>
         {questionNumber > 4 ? (
           <>
@@ -473,7 +471,7 @@ const PostJob = () => {
                 className={styles.continueButton}
                 onClick={questionIncrement}
               >
-                Continuar &#8594;
+                Continuar
               </button>
             ) : (
               <button
@@ -486,7 +484,7 @@ const PostJob = () => {
           </>
         ) : (
           <button className={styles.continueButton} onClick={questionIncrement}>
-            Continuar &#8594;
+            Continuar
           </button>
         )}
       </div>

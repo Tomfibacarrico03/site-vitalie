@@ -55,6 +55,8 @@ const MyAccount = () => {
       <h1>Detalhes do contato</h1>
       <div>
         <label htmlFor="firstName">Primeiro Nome</label>
+        <br></br>
+
         <input
           id="firstName"
           type="text"
@@ -64,6 +66,8 @@ const MyAccount = () => {
       </div>
       <div>
         <label htmlFor="lastName">Segundo Nome</label>
+        <br></br>
+
         <input
           id="lastName"
           type="text"
@@ -73,6 +77,8 @@ const MyAccount = () => {
       </div>
       <div>
         <label htmlFor="email">Email</label>
+        <br></br>
+
         <input
           id="email"
           type="email"
@@ -83,6 +89,8 @@ const MyAccount = () => {
       </div>
       <div>
         <label htmlFor="phoneNumber">Número de telefone</label>
+        <br></br>
+
         <input
           id="phoneNumber"
           type="tel"
@@ -92,6 +100,8 @@ const MyAccount = () => {
       </div>
       <div>
         <label htmlFor="address1">Morada 1</label>
+        <br></br>
+
         <input
           id="address1"
           type="text"
@@ -101,6 +111,8 @@ const MyAccount = () => {
       </div>
       <div>
         <label htmlFor="address2">Morada 2</label>
+        <br></br>
+
         <input
           id="address2"
           type="text"
@@ -110,6 +122,8 @@ const MyAccount = () => {
       </div>
       <div>
         <label htmlFor="city">Cidade</label>
+        <br></br>
+
         <input
           id="city"
           type="text"
@@ -119,6 +133,7 @@ const MyAccount = () => {
       </div>
       <div>
         <label htmlFor="postalCode">Código Postal</label>
+        <br></br>
         <input
           id="postalCode"
           type="text"

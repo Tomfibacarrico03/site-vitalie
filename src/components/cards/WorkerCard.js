@@ -13,7 +13,7 @@ const WorkerCard = (props) => {
     }
     
     return (
-      <div>
+      <div style={{backgroundColor: "#fff", boxShadow: "0 0 10px rgba(0, 0, 0, 0.05)", padding: 15}}>
         <div className={styles.tituloCriticas}>
           <header>
             <h3>{props.value.workName}</h3>
@@ -23,13 +23,12 @@ const WorkerCard = (props) => {
 
         </div>
 
-        <hr></hr>
         <div className={styles.local}>
-          <p>{props.value.tradesSelected[0]} - {props.value.location[0]} </p>
+          <p style={{color: "#000", fontFamily: "Raleway", marginBottom: -5}}>{props.value.tradesSelected[0]} - {props.value.location[0]} </p>
           <p>{formattedString}</p>
         </div>
 
-        <p>{props.value.description}</p>
+        <p style={{marginLeft: 11, borderRadius: 0, paddingBottom: 10, top: 4, alignItems: "center", borderBottom: "1px solid #508ce4", fontFamily: "Raleway"}}>{props.value.description}</p>
      </div>
     )
 }

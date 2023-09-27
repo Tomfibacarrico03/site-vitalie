@@ -3,6 +3,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
 import JobCard from "../../components/cards/JobCard";
+import styles from "../../css/minhaconta.module.css";
 import { Link } from "react-router-dom";
 const WonTrades = () => {
   const { user } = UserAuth();
@@ -33,17 +34,9 @@ const WonTrades = () => {
 
   return (
     <div
-      style={{
-        backgroundColor: "#fff",
-        width: "40%",
-        padding: 20,
-        position: "absolute",
-        right: 200,
-        marginTop: 20,
-        borderRadius: 5,
-      }}
+      className={styles.detalhesContainer}
     >
-      <h2 style={{ fontFamily: "Avenir Next" }}>
+      <h2 style={{ fontFamily: "Raleway" }}>
         Trabalhos a que estou adicionado à lista restrita
       </h2>
       {jobs.map((job) => (

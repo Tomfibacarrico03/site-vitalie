@@ -3,15 +3,39 @@
     background-color: #fafafa;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
     width: 630px;
+    font-family: "Raleway";
+    margin-bottom: 50px;
     padding: 20px;
-    margin-top: 20px;
+    margin-top: 150px;
     border-radius: 10px;
+}
+
+h2 {
+    font-size: 200%;
+    padding-left: 5px;
+}
+
+li {
+    padding-left: 5px;
+    font-family: "Raleway";
+    color: #508ce4;
+    list-style: square;
+}
+
+p {
+    font-size: 100%;
+    font-family: "Raleway";
+    padding-left: 5px;
+    margin-top: 10px;
+    color: #8c8c8c;
+    margin-bottom: 35px;
 }
 
 input {
     background-color: #f2f2f2;
     border: 0;
     border-radius: 10px;
+    font-family: "Raleway";
     width: 600px;
     margin-top: 5px;
     margin-bottom: 15px;
@@ -20,12 +44,13 @@ input {
 
 form button {
     padding: 10px;
-    background-color: #219ebc;
+    background-color: #508ce4;
     border: 0;
     color: #fff;
     border-radius: 5px;
     width: 120px;
     font-size: 14px;
+    font-family: "Raleway";
     justify-content: flex-end;
     align-content: flex-end;
     margin-top: 10px;

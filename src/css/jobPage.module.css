@@ -2,36 +2,41 @@
   background-color: #fff;
   margin-left: 200px;
   margin-right: 200px;
-  margin-top: 20px;
-  width: 40%;
+  margin-top: 120px;
   padding: 5px;
   border-radius: 5px;
+  display: flex;
+}
+
+.postTrabalhoEsq {
+  width: 70%;
 }
 
 .infoTrabalho {
   background-color: #f2f2f2;
   padding: 10px;
+  padding-top: 30px;
   border-radius: 5px;
   margin: 5px;
 }
 
 .infoTrabalho header {
-  display: inline-flex;
+  display: flex;
 }
 
 .infoTextos {
   margin-left: 10px;
   font-weight: 600;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
 }
 
 .infoInfo {
   margin-left: 50px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
 }
 
 .infoNome {
-  color: #219ebc;
+  color: #508ce4;
   font-weight: 500;
 }
 
@@ -41,17 +46,20 @@
   margin-right: 10px;
   padding: 7px;
   padding-left: 25px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
   font-weight: 400;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .descricoesTrabalho {
-  margin: 25px;
+  margin: 10px;
+  padding-top: 30px;
+  border-left: 3px solid #508ce4;
+  padding: 25px;
 }
 
 h3, p {
-  font-family: "Avenir Next";
+  font-family: "Raleway";
 }
 
 .postImagens {
@@ -59,12 +67,13 @@ h3, p {
 }
 
 .postImagens img, .postImagens input {
-  width: 100%
+  width: 100px;
+  height: 100px;
 }
 
 .postImagens button {
   background-color: #f2f2f2;
-  color: #219ebc;
+  color: #508ce4;
   font-size: 40px;
   font-family: "Avenir Next";
   width: 100px;
@@ -74,16 +83,15 @@ h3, p {
 }
 
 .criticasConvites {
-  position: absolute;
-  right: 200px;
-  width: 20%;
-  top: 100px
+  width: 30%;
+  margin-left: 20px;
+  margin-top: 5px
 }
 
 .criticas, .convites {
-  background-color: #fff;
+  background-color: #f2f2f2;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .convites {
@@ -92,12 +100,13 @@ h3, p {
 
 .convites p {
   padding-bottom: 20px;
+  margin-left: -5px
 }
 
 .btnConvite {
-  box-shadow: 2px 2px 10px #219ebc;
-  background-color:#219ebc;
-  font-family: "Avenir Next";
+  box-shadow: 2px 2px 10px #508ce4;
+  background-color:#508ce4;
+  font-family: "Raleway";
   color: #fff;
   border-radius: 5px;
   padding: 10px;
@@ -107,7 +116,7 @@ h3, p {
 .convitesTitle {
   display: inline-flex;
   align-items: center;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
 }
 
 .convitesTitle h5 {

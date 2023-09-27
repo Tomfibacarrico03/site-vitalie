@@ -51,7 +51,7 @@ const MyPostedJobs = () => {
   }, [user.uid]);
 
   return (
-    <div>
+    <div className={styles.trabalhosContainer}>
       {showPopup && (
         <div className="popup">
           <p>Crítica enviada com sucesso!</p>
@@ -64,6 +64,13 @@ const MyPostedJobs = () => {
         {jobs.map((job, index) => (
           <JobCard key={job.id || index} value={{ job, user }} />
         ))}
+      </div>
+      <div className={styles.barDir}>
+        <header>
+          <h1>Contratar pessoas</h1>
+        </header>
+        <p>We have tradespeople ready to help you. Post a job, read reviews and hire today.</p>
+        <button>Publicar Trabalho</button>
       </div>
     </div>
   );
