@@ -177,18 +177,14 @@ const PostJob = () => {
       invitesLeft: 5,
       userHired: "",
       feedback: false,
+      totalInterestedUsers: 0,
     };
 
     try {
       const docRef = await addDoc(collection(db, "jobs"), newJob);
       const docId = docRef.id;
 
-      navigate("/publicar-trabalho/publicado", {
-        state: {
-          ...newJob,
-          id: docId,
-        },
-      });
+      navigate(`/publicar-trabalho/${docId}/publicado`);
     } catch (error) {
       console.error(error);
     }
@@ -199,8 +195,8 @@ const PostJob = () => {
       <div className={styles.divCabecalho}>
         <h1 className={styles.title}>Criar Trabalho</h1>
         <h3 className={styles.subtitle}>
-          Publica o trabalho que necessitas <br></br>e encontra o melhor trabalhador para
-          ti!
+          Publica o trabalho que necessitas <br></br>e encontra o melhor
+          trabalhador para ti!
         </h3>
       </div>
 

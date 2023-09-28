@@ -4,9 +4,9 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
-import PostJob from "./pages/postJob";
+import PostJob from "./pages/PostJob";
 import SignUp from "./pages/SignUp";
-import SendInvite from "./pages/SendInvite";
+import PostedJob from "./pages/PostedJob";
 import TradesPage from "./pages/TradesPage";
 import Login from "./pages/Login";
 import MyPostedJobs from "./pages/MyPostedJobs";
@@ -43,7 +43,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/publicar-trabalho" element={<PostJob />} />
-          <Route path="/publicar-trabalho/publicado" element={<SendInvite />} />
+          <Route
+            path="/publicar-trabalho/:jobId/publicado"
+            element={<PostedJob />}
+          />
           <Route path="/aplicativo-de-comerciante" element={<SignUp />} />
           <Route path="/entrar" element={<Login />} />
           <Route path="/registrar-como-comerciante" element={<TradesPage />} />

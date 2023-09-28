@@ -245,9 +245,23 @@ function JobPage(props) {
                 {user.interestedJobs.includes(job.id) &&
                 !user.shortlistedJobs.includes(job.id) ? (
                   <>
-                    <p style={{marginTop: 10, marginLeft:- 10, marginBottom: 10, fontFamily: "Raleway"}}>Interessado</p>
+                    <p
+                      style={{
+                        marginTop: 10,
+                        marginLeft: -10,
+                        marginBottom: 10,
+                        fontFamily: "Raleway",
+                      }}
+                    >
+                      Interessado
+                    </p>
                     <button
-                       style={{marginTop: 0, marginLeft: -15, padding: 15, fontFamily: "Raleway"}}
+                      style={{
+                        marginTop: 0,
+                        marginLeft: -15,
+                        padding: 15,
+                        fontFamily: "Raleway",
+                      }}
                       onClick={() => RemoveInterest()}
                     >
                       Remover interesse
@@ -265,7 +279,15 @@ function JobPage(props) {
                         )}
                       </>
                     ) : (
-                      <button style={{marginTop: 0, marginLeft: -15, padding: 15, fontFamily: "Raleway"}} onClick={() => ShowInterest()}>
+                      <button
+                        style={{
+                          marginTop: 0,
+                          marginLeft: -15,
+                          padding: 15,
+                          fontFamily: "Raleway",
+                        }}
+                        onClick={() => ShowInterest()}
+                      >
                         Mostrar Interesse
                       </button>
                     )}
@@ -332,11 +354,13 @@ function JobPage(props) {
                     </>
                   ) : (
                     <div>
-                      <p style={{marginLeft: -5}}>
+                      <p style={{ marginLeft: -5 }}>
                         Os trabalhadores interessados no seu trabalho aparecerão
                         aqui.
                       </p>
-                      <h5 style={{fontFamily: "Raleway"}}>Esperando mais trabalhadores...</h5>
+                      <h5 style={{ fontFamily: "Raleway" }}>
+                        Esperando mais trabalhadores...
+                      </h5>
                     </div>
                   )}
                 </div>
