@@ -105,16 +105,20 @@ const LeaveReview = () => {
           name="reviewCheckbox"
           checked={reviewOption == option}
           onChange={() => setReviewOption(option)}
+          style={{
+            width: 15,
+            height: 15,
+          }}
         />
         <div className={styles.reviews}>
-          <p style={{ marginLeft: -55 }}>{text}</p>
-          {imageUrl != "" && (
+          <p style={{ marginRight: 62, marginTop: 15 }}>{text}</p>
+          {/* {imageUrl != "" && (
             <img
               style={{ width: 15, height: 15, marginLeft: 5 }}
               src={imageUrl}
               alt="Image"
             />
-          )}
+          )} */}
         </div>
       </div>
     );

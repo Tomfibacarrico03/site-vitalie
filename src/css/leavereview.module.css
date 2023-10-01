@@ -3,12 +3,14 @@
     position: absolute;
     left: 0;
     right: 0;
+    margin-top: 120px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     padding: 20px;
     font-family: "Avenir Next";
 }
+
 
 .containerSub {
     background-color: #fff;
@@ -27,14 +29,14 @@ textarea {
 }
 
 .tabela {
-    width: 200px;
     display: flex;
+    padding-left: 35px
 }
 
 .reviews {
-    display: flex;
     align-items: center;
     justify-content: center;
     margin-top: -47px;
+    margin-right: 35px;
 }
 

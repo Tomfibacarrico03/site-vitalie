@@ -1,43 +1,81 @@
 .workerPage {
   margin-left: 200px;
   margin-right: 200px;
-  background-color: #fff;
-  padding: 10px;
+  margin-top: 120px;
   border-radius: 5px;
   padding-left: 20px;
-  padding-right: 20px;
-  width: 40%;
-  font-family: "Avenir Next";
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-radius: 20px;
+  font-family: "Raleway";
+  box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
 }
 
 .workerPage header {
   display: inline-flex;
   align-items: center;
+  background-color: #f2f2f2;
   justify-content: space-between;
   width: 100%;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
+.workerPage header h1 {
+  margin-left: 25px;
+}
+
+.estruturaPerfil {
+  display: flex;
+  justify-content: space-between;
+}
+
+.perfilDoMan {
+  padding-right: 25px;
+  margin-left: 15px;
+  text-align: end;
+  margin-top: -60px;
+  margin-bottom: 10px;
+  border-right: 3px solid #508ce4
+}
+
+.perfilDoMan h3, .perfilDoMan h4, .perfilDoMan p {
+  font-family: "Raleway";
+}
+
+.perfilDoMan h3 {
+}
+
+
 .workerPage header b {
-  background-color: #bfbfbf;
+  background-color: #508ce4;
   border-radius: 5px;
   padding: 7px;
+  margin-right: 25px;
   font-size: 14px;
   color: #fff
 }
 
 .feedback {
-  color: #219ebc;
+  color: #508ce4;
   font-weight: bold;
-  margin-top: -15px;
+  margin-top: -45px;
+  margin-left: 20px;
+  font-family: "Raleway";
 }
 
-.nome, .adiciona {
+.nome {
   font-size: 14px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
+  color: #000;
+  padding-top: 20px;
+  margin-bottom: -5px
 }
 
 .adiciona {
-  color: #8c8c8c
+  font-size: 14px;
+  font-family: "Raleway";
+  color: #508ce4;
 }
 
 .agoraDepois {
@@ -55,7 +93,7 @@
 }
 
 hr {
-  background-color: #e8e8e9
+  background-color: #000
 }
 
 button {
@@ -64,12 +102,12 @@ button {
   border-radius: 5px;
   font-size: 14px;
   margin-right: 5px;
-  font-family: "Avenir Next";
+  font-family: "Raleway";
   margin-top: 10px;
 }
 
 .adicionarBtn {
-  background-color: #219ebc;
+  background-color: #508ce4;
   color: #fff
 }
 
@@ -80,7 +118,7 @@ button {
 }
 
 p, h3 {
-  font-family: "Avenir Next";
+  font-family: "Raleway";
 }
 
 .descricao {

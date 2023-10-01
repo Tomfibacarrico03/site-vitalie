@@ -68,6 +68,8 @@ const WorkerCard = ({ worker, jobId }) => {
         backgroundColor: "#fff",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.05)",
         padding: 15,
+        marginBottom: 15,
+        width: "45%"
       }}
     >
       <div className={styles.tituloCriticas}>
