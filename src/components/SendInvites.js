@@ -3,7 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import WorkerCard from "./cards/WorkerCard";
 
-const SendInvites = (props) => {
+const SendInvites = ({ jobId }) => {
   const [workers, setWorkers] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,6 @@ const SendInvites = (props) => {
 
     const fetchData = async () => {
       try {
-        // Add a where clause to filter documents with trades_member == true
         const querySnapshot = await getDocs(
           query(collectionRef, where("trade_member", "==", true))
         );
@@ -31,9 +30,8 @@ const SendInvites = (props) => {
   return (
     <div>
       <h3>Trabalhadores recomendados</h3>
-      {/* Map through the workers and display WorkerCard for each user */}
       {workers.map((worker) => (
-        <WorkerCard key={worker.id} worker={worker} />
+        <WorkerCard key={worker.id} worker={worker} jobId={jobId} />
       ))}
     </div>
   );

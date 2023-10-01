@@ -334,8 +334,8 @@ function JobPage(props) {
       </div>
 
       <div className={styles.criticasConvites}>
-        <div className={styles.criticas}>
-          {user.uid == job.userId ? (
+        {user.uid == job.userId ? (
+          <div className={styles.criticas}>
             <>
               {job.userHired == "" ? (
                 <div>
@@ -384,10 +384,10 @@ function JobPage(props) {
                 </div>
               )}
             </>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
         <br></br>
-        {job.userHired == "" && (
+        {job.userHired == "" && job.userId == user.uid && (
           <div className={styles.convites}>
             <div className={styles.convitesTitle}>
               <h3>Convites</h3>
@@ -397,7 +397,10 @@ function JobPage(props) {
               Notificamos trabalhadores relevantes para o seu trabalho. Pode ter
               respostas mais rápidas se convidar trabalhadores!
             </p>
-            <Link to="/convidar-trabalhadores" className={styles.btnConvite}>
+            <Link
+              to={`/convidar-trabalhadores/${jobId}`}
+              className={styles.btnConvite}
+            >
               Convida trabalhadores
             </Link>
           </div>

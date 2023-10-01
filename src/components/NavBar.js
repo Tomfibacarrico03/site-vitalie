@@ -37,9 +37,7 @@ const NavBar = () => {
                 <li className={styles.btnPostJob}>Dashboard de trabalhador</li>
               </Link>
             )}
-            <Link to="/meustrabalhos" style={{ textDecoration: "none" }}>
-              <li className={styles.btnPostJob}>Ajuda</li>
-            </Link>
+
             <Link
               to="/minha-conta/detalhes-de-contacto"
               style={{ textDecoration: "none" }}

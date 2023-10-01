@@ -70,7 +70,10 @@ function App() {
             path="/meustrabalhos/:jobId/deixar-critica/trabalhador/:workerId"
             element={<LeaveReview />}
           />
-          <Route path="/convidar-trabalhadores" element={<InviteWorkers />} />
+          <Route
+            path="/convidar-trabalhadores/:jobId"
+            element={<InviteWorkers />}
+          />
           <Route
             path="/dashboard-de-trabalhos/trabalhos-proximos"
             element={<NearTrades />}
