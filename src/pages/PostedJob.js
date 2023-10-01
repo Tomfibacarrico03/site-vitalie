@@ -32,22 +32,24 @@ const PostedJob = () => {
 
   return (
     <div className={styles.divTotal}>
-      <h1>Vamos encontrar os melhores trabalhadores perto de você</h1>
+      <h1 className={styles.tituloDivTotal}>Vamos encontrar os melhores trabalhadores perto de você</h1>
 
       <Link to={`/meustrabalhos/${jobId}`}>
         <button className={styles.btnVer}>Ver trabalho publicado</button>
       </Link>
       <br></br>
 
-      <p>
+      
+      <ul className={styles.passos}>
+        <li className={styles.passo}>Convida</li>
+        <li className={styles.passo}>Obtem respostas</li>
+        <li className={styles.passo}>Adciona à lista restrita</li>
+      </ul>
+
+      <p className={styles.subtituloDivTotal}>
         Convida {job && job.invitesLeft} trabalhadores para te darem um
         orçamento. É a melhor maneira para começar uma converça!
       </p>
-      <ul>
-        <li>Convida</li>
-        <li>Obtem respostas</li>
-        <li>Adciona à lista restrita</li>
-      </ul>
 
       <SendInvites />
     </div>

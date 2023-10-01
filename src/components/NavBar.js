@@ -9,7 +9,7 @@ const NavBar = () => {
     <nav>
       <div className={styles.logo}>
         <Link to="/" style={{ textDecoration: "none" }}>
-          <h3>MeuJob</h3>
+          <h3>meuJob</h3>
         </Link>
       </div>
 

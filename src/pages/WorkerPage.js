@@ -168,6 +168,7 @@ const WorkerPage = () => {
         Adiciona à shortlist para discutir o trabalho
       </p>
 
+      <div className={styles.estruturaPerfil}>
       {!isLeavingReview && (
         <div className={styles.agoraDepois}>
           <div className={styles.agora}>
@@ -249,7 +250,7 @@ const WorkerPage = () => {
         </div>
       )}
       {!isLeavingReview ? (
-        <div>
+        <div className={styles.perfilDoMan}>
           <h3>
             Perfil de {worker.firstName} {worker.lastName}
           </h3>
@@ -298,6 +299,7 @@ const WorkerPage = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

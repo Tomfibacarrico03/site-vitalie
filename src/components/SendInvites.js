@@ -30,7 +30,7 @@ const SendInvites = (props) => {
 
   return (
     <div>
-      <h3>Trabalhadores recomendados</h3>
+      <h3 style={{fontFamily: "Raleway", fontSize: 25, marginTop: 35}}>Trabalhadores recomendados</h3>
       {/* Map through the workers and display WorkerCard for each user */}
       {workers.map((worker) => (
         <WorkerCard key={worker.id} worker={worker} />
