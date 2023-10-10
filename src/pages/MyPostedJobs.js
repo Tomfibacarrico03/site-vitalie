@@ -61,16 +61,27 @@ const MyPostedJobs = () => {
       <div className={styles.detalhesContainer}>
         <h1>Meus Trabalhos publicados</h1>
         <hr></hr>
-        {jobs.map((job, index) => (
-          <JobCard key={job.id || index} value={{ job, user }} />
-        ))}
+        {jobs.length === 0 ? (
+          <p>
+            Ainda não tens nenhum trabalho publicado. Clica em criar trabalho
+            para adicionares um.
+          </p>
+        ) : (
+          jobs.map((job, index) => (
+            <JobCard key={job.id || index} value={{ job, user }} />
+          ))
+        )}
       </div>
+
       <div className={styles.barDir}>
         <header>
           <h1>Contratar pessoas</h1>
         </header>
-        <p>We have tradespeople ready to help you. Post a job, read reviews and hire today.</p>
-        <button>Publicar Trabalho</button>
+        <p>
+          We have tradespeople ready to help you. Post a job, read reviews and
+          hire today.
+        </p>
+        <Link to={"/publicar-trabalho"}>Criar Trabalho</Link>
       </div>
     </div>
   );

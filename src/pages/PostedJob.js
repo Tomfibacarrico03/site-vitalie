@@ -32,14 +32,15 @@ const PostedJob = () => {
 
   return (
     <div className={styles.divTotal}>
-      <h1 className={styles.tituloDivTotal}>Vamos encontrar os melhores trabalhadores perto de você</h1>
+      <h1 className={styles.tituloDivTotal}>
+        Vamos encontrar os melhores trabalhadores perto de você
+      </h1>
 
       <Link to={`/meustrabalhos/${jobId}`}>
         <button className={styles.btnVer}>Ver trabalho publicado</button>
       </Link>
       <br></br>
 
-      
       <ul className={styles.passos}>
         <li className={styles.passo}>Convida</li>
         <li className={styles.passo}>Obtem respostas</li>
@@ -51,7 +52,7 @@ const PostedJob = () => {
         orçamento. É a melhor maneira para começar uma converça!
       </p>
 
-      <SendInvites />
+      <SendInvites jobId={jobId} />
     </div>
   );
 };

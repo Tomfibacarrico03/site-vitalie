@@ -57,6 +57,7 @@ const SignUp = () => {
         location,
         interestedJobs: [],
         shortlistedJobs: [],
+        invitedJobs: [],
         trades_member_since: serverTimestamp(),
         positiveReviewCount: 0,
         reviewCount: 0,
