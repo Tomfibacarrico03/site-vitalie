@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
-import styles from "../../css/navbar.module.css";
 import { httpsCallable } from "firebase/functions";
 import { db, functions } from "../../firebase";
+import styles from "../../css/minhaconta.module.css";
 
 const Payments = () => {
   const requestCIT = httpsCallable(functions, "requestCIT");
@@ -70,7 +70,7 @@ const Payments = () => {
   }, [transactionID]);
 
   return (
-    <>
+    <div className={styles.detalhesContainer}>
       {spgContext ? (
         <>
           <form
@@ -87,7 +87,7 @@ const Payments = () => {
       <button className={styles.btnPostJob} onClick={requestForm}>
         Adicionar Cartão
       </button>
-    </>
+    </div>
   );
 };
 
