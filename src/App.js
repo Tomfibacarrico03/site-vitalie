@@ -58,7 +58,7 @@ function App() {
             path="/minha-conta/perfil-de-trabalhador"
             element={<TradesProfile />}
           />
-          <Route path="/user/pagamentos" element={<Payments />} />
+          <Route path="/minha-conta/pagamentos" element={<Payments />} />
           <Route path="/minha-conta/definições" element={<Settings />} />
           <Route path="/meustrabalhos" element={<MyPostedJobs />} />
           <Route path="/meustrabalhos/:jobId" element={<JobPage />} />

@@ -29,7 +29,7 @@ const   AccountSideBar = () => {
               <Link to="/minha-conta/definições">Definições</Link>
             </li>
             <li>
-              <Link to="/user/pagamentos">Pagamentos</Link>
+              <Link to="/minha-conta/pagamentos">Pagamentos</Link>
             </li>
           </ul>
         </div>
