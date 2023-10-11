@@ -133,6 +133,7 @@ const PostJob = () => {
         description: "Some description",
         location,
         trade_member: false,
+        
       });
       SaveJob(user);
       setError(null);

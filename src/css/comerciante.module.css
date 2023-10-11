@@ -1,3 +1,10 @@
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+  /* You can include other font weights and styles as well if needed */
+}
+
 .divTotal {
   margin-left: 200px;
   margin-right: 200px;

@@ -1,7 +1,14 @@
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+    /* You can include other font weights and styles as well if needed */
+  }
+
 .trabalhosContainer {
     display: flex;
     align-items: flex-start;
-    margin-top: 120px;
+    margin-top: 20px;
     margin-left: 200px;
     margin-right: 200px;
     justify-content: space-between;
@@ -78,6 +85,7 @@
     flex: 10%;
     margin-left: 20px;
     border-radius: 10px;
+    padding-bottom: 10px;
 }
 
 .barDir header {
@@ -109,4 +117,46 @@
     font-family: "Raleway";
     color: #508ce4;
     width: 50%;
+}
+
+.popup {
+    left: 0;
+    right: 0;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 120px;
+    background-color: #508ce4;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.criticaText {
+    color: #fff;
+    text-align: center;
+    font-size: 21px;
+    padding-top: 25px;
+}
+
+.fecharBtn {
+    background-color: transparent;
+    color: #fff;
+    font-size: 18px;
+    margin-top: -70px;
+    padding-bottom: 30px;
+    padding-right: 15px;
+    display: block;
+    margin-left: auto;
+}
+
+.CriarTrabalho {
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #508ce4;
+    padding: 10px;
+    font-family: "Raleway";
+    display: block;
+    margin: 10px;
+    text-align: center;
 }

@@ -1,3 +1,10 @@
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+  /* You can include other font weights and styles as well if needed */
+}
+
 .workerPage {
   margin-left: 200px;
   margin-right: 200px;
@@ -31,6 +38,7 @@
 }
 
 .perfilDoMan {
+  width: 50%;
   padding-right: 25px;
   margin-left: 15px;
   text-align: end;
@@ -124,4 +132,8 @@ p, h3 {
 .descricao {
   text-transform: uppercase;
   
+}
+
+.form {
+  background-color: #f2f2f2;
 }

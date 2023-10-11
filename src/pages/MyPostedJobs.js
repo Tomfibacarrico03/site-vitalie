@@ -51,13 +51,24 @@ const MyPostedJobs = () => {
   }, [user.uid]);
 
   return (
-    <div className={styles.trabalhosContainer}>
+    <div>
+    <div>
       {showPopup && (
-        <div className="popup">
-          <p>Crítica enviada com sucesso!</p>
-          <button onClick={closePopup}>Fechar</button>
+        <div className={styles.popup}>
+          <p className={styles.criticaText} >Crítica enviada com sucesso!</p>
+          <button className={styles.fecharBtn} onClick={closePopup}>x</button>
         </div>
       )}
+
+      {showPopup == false && (
+        <div className={styles.popup} style={{height: 0}}>
+          <p className={styles.criticaText} >Crítica enviada com sucesso!</p>
+          <button className={styles.fecharBtn} onClick={closePopup}>x</button>
+        </div>
+      )}
+      </div>
+    <div className={styles.trabalhosContainer}>
+      
       <div className={styles.detalhesContainer}>
         <h1>Meus Trabalhos publicados</h1>
         <hr></hr>
@@ -81,8 +92,9 @@ const MyPostedJobs = () => {
           We have tradespeople ready to help you. Post a job, read reviews and
           hire today.
         </p>
-        <Link to={"/publicar-trabalho"}>Criar Trabalho</Link>
+        <Link className={styles.CriarTrabalho} to={"/publicar-trabalho"}>Criar Trabalho</Link>
       </div>
+    </div>
     </div>
   );
 };

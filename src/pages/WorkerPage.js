@@ -134,9 +134,11 @@ const WorkerPage = () => {
 
   const reviewCard = (head, body, status) => {
     return (
-      <div>
+      <div className={styles.form}>
+        <div>
         <h3>{head}</h3>
         <p>{body}</p>
+        </div>
         <input
           type="checkbox"
           id="reviewCheckbox"
@@ -182,8 +184,8 @@ const WorkerPage = () => {
               <>
                 {shortlistPopUp == true ? (
                   <>
-                    <p>{worker.workName}</p>
-                    <p>foi adicionado à tua lista restrita</p>
+                    <p >{worker.workName}</p>
+                    <p style={{backgroundColor: "#333", textAlign: "center", paddingTop: 10, paddingBottom: 10, marginBottom: 5, borderRadius: 5, color: "#fff", fontWeight: "400"}}>Foi adicionado à tua lista restrita</p>
                     <p>
                       Aguarde um telefonema do {worker.firstName}{" "}
                       {worker.lastName} para discutir o emprego ou entre em
