@@ -136,9 +136,10 @@ const WorkerPage = () => {
     return (
       <div className={styles.form}>
         <div>
-        <h3>{head}</h3>
-        <p>{body}</p>
+          <h3>{head}</h3>
+          <p>{body}</p>
         </div>
+        <div className={styles.inputs}>
         <input
           type="checkbox"
           id="reviewCheckbox"
@@ -146,6 +147,7 @@ const WorkerPage = () => {
           checked={jobStatusOption == status}
           onChange={() => setJobStatusOption(status)}
         />
+        </div>
       </div>
     );
   };
@@ -271,7 +273,7 @@ const WorkerPage = () => {
       ) : (
         <div>
           <h2>Contrata {worker.workName}</h2>
-          <p>
+          <p style={{marginRight: 10}}>
             Conte-nos sobre o status do seu trabalho. Avisaremos a outros
             comerciantes que seu trabalho não é mais disponível. Você também
             pode deixar comentários quando o trabalho for concluído
