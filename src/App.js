@@ -43,6 +43,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/publicar-trabalho" element={<PostJob />} />
+
           <Route
             path="/publicar-trabalho/:jobId/publicado"
             element={<PostedJob />}
