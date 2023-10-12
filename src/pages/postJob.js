@@ -220,7 +220,7 @@ const PostJob = () => {
           }
         >
           <h1>Qual é a categoria do seu trabalho?</h1>
-          <div className={styles.botoesSelect}>
+          <div>
             {serviceCategory.map((serviceCategory, index) => (
               <label
                 key={index}
@@ -338,16 +338,169 @@ const PostJob = () => {
         >
           {!user ? (
             <form onSubmit={handleSubmit}>
-              <div className={styles.postJobZero}>
-                <Select
-                  className={styles.Select2}
-                  options={distritos}
-                  onChange={setLocation}
-                  placeholder="Localização"
-                />
+              <div className={styles.formDesktop}>
+                <div className={styles.postJobZero}>
+                  <Select
+                    className={styles.Select2}
+                    options={distritos}
+                    onChange={setLocation}
+                    placeholder="Localização"
+                  />
+                </div>
+                <br></br>
+                <div className={styles.postJobUm}>
+                  <div>
+                    {/* <label htmlFor="email">Email</label> */}
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    {/* <label htmlFor="firstName">Primeiro Nome</label> */}
+                    <input
+                      type="text"
+                      id="firstName"
+                      placeholder="Primeiro Nome"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    {/* <label htmlFor="lastName">Último Nome</label> */}
+                    <input
+                      type="text"
+                      id="lastName"
+                      placeholder="Último Nome"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className={styles.postJobDois}>
+                  <div>
+                    {/* <label htmlFor="phone">Número de Telemóvel</label> */}
+                    <input
+                      type="text"
+                      id="phone"
+                      placeholder="Número de Telemóvel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    {/* <label htmlFor="username">Nome de Usuário Público</label> */}
+                    <input
+                      type="text"
+                      id="username"
+                      placeholder="Nome de Usuário Público"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    {/* <label htmlFor="password">Palavra-passe</label> */}
+                    <input
+                      type="password"
+                      id="password"
+                      placeholder="Palavra-passe"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className={styles.containerTudoCheckBoxes}>
+                  <div>
+                    <label
+                      className={styles.containerCheckBoxes}
+                      htmlFor="termsChecked"
+                    >
+                      Eu concordo com os{" "}
+                      <a href="/terms" style={{ color: "#219ebc" }}>
+                        Termos e Condições
+                      </a>
+                      .
+                      <input
+                        type="checkbox"
+                        id="termsChecked"
+                        checked={termsChecked}
+                        className={styles.checkBox}
+                        onChange={(e) => setTermsChecked(e.target.checked)}
+                        required
+                      />
+                      <span className={styles.checkmark}></span>
+                    </label>
+                  </div>
+                </div>
+                {error && <p>{error}</p>}
+                <button id={styles.Continuarbtn} type="submit">
+                  Continuar
+                </button>
               </div>
-              <br></br>
-              <div className={styles.postJobUm}>
+              <div className={styles.formMobile}>
+                <div>
+                  <Select
+                    options={distritos}
+                    onChange={setLocation}
+                    placeholder="Localização"
+                  />
+                </div>
+
+                <div>
+              {/* <label htmlFor="firstName">First Name</label> */}
+                  <input
+                    type="text"
+                    id="firstName"
+                    placeholder="Primeiro Nome"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  {/* <label htmlFor="lastName">Last Name</label> */}
+                  <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Último Nome"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                    {/* <label htmlFor="username">Nome de Usuário Público</label> */}
+                    <input
+                      type="text"
+                      id="username"
+                      placeholder="Nome de Usuário Público"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                </div>
+                <div>
+                  {/* <label htmlFor="phone">Phone Number</label> */}
+                  <input
+                    type="text"
+                    id="phone"
+                    placeholder="Número de Telemóvel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                </div>
                 <div>
                   {/* <label htmlFor="email">Email</label> */}
                   <input
@@ -359,56 +512,8 @@ const PostJob = () => {
                     required
                   />
                 </div>
-
                 <div>
-                  {/* <label htmlFor="firstName">Primeiro Nome</label> */}
-                  <input
-                    type="text"
-                    id="firstName"
-                    placeholder="Primeiro Nome"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  {/* <label htmlFor="lastName">Último Nome</label> */}
-                  <input
-                    type="text"
-                    id="lastName"
-                    placeholder="Último Nome"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-              <div className={styles.postJobDois}>
-                <div>
-                  {/* <label htmlFor="phone">Número de Telemóvel</label> */}
-                  <input
-                    type="text"
-                    id="phone"
-                    placeholder="Número de Telemóvel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  {/* <label htmlFor="username">Nome de Usuário Público</label> */}
-                  <input
-                    type="text"
-                    id="username"
-                    placeholder="Nome de Usuário Público"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div>
-                  {/* <label htmlFor="password">Palavra-passe</label> */}
+                  {/* <label htmlFor="password">Password</label> */}
                   <input
                     type="password"
                     id="password"
@@ -418,34 +523,38 @@ const PostJob = () => {
                     required
                   />
                 </div>
-              </div>
-              <div className={styles.containerTudoCheckBoxes}>
-                <div>
-                  <label
-                    className={styles.containerCheckBoxes}
-                    htmlFor="termsChecked"
-                  >
-                    Eu concordo com os{" "}
-                    <a href="/terms" style={{ color: "#219ebc" }}>
-                      Termos e Condições
-                    </a>
-                    .
-                    <input
-                      type="checkbox"
-                      id="termsChecked"
-                      checked={termsChecked}
-                      className={styles.checkBox}
-                      onChange={(e) => setTermsChecked(e.target.checked)}
-                      required
-                    />
-                    <span className={styles.checkmark}></span>
-                  </label>
+              
+                
+                <div className={styles.containerTudoCheckBoxes}>
+                  <div>
+                    <label
+                      className={styles.containerCheckBoxes}
+                      htmlFor="termsChecked"
+                    >
+                      Eu concordo com os{" "}
+                      <a href="/terms" style={{ color: "#219ebc" }}>
+                        Termos e Condições
+                      </a>
+                      .
+                      <input
+                        type="checkbox"
+                        id="termsChecked"
+                        checked={termsChecked}
+                        className={styles.checkBox}
+                        onChange={(e) => setTermsChecked(e.target.checked)}
+                        required
+                      />
+                      <span className={styles.checkmark}></span>
+                    </label>
+                  </div>
                 </div>
-              </div>
-              {error && <p>{error}</p>}
-              <button id={styles.Continuarbtn} type="submit">
-                Continuar
-              </button>
+                {error && <p>{error}</p>}
+                <button id={styles.Continuarbtn} type="submit">
+                  Continuar
+                </button>
+            </div>
+
+
             </form>
           ) : (
             <button onClick={() => SaveJob(user)}>Continuar</button>

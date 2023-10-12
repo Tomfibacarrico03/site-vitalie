@@ -1,76 +1,150 @@
+@media only screen and (max-width: 10000px) {
 
-@font-face {
-    font-family: 'Raleway';
-    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-    /* You can include other font weights and styles as well if needed */
-  }
-.detalhesContainer {
-    background-color: #fafafa;
-    margin-left: 35%;
-    padding: 20px;
-    margin-top: 120px;
-    margin-right: 200px;
-    border-radius: 10px;
+    @font-face {
+        font-family: 'Raleway';
+        src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+        /* You can include other font weights and styles as well if needed */
+    }
+    .detalhesContainer {
+        background-color: #fafafa;
+        margin-left: 35%;
+        padding: 20px;
+        margin-top: 120px;
+        margin-right: 200px;
+        border-radius: 10px;
+    }
+
+    .detalhesContainer h1 {
+        font-family: "Raleway";
+    }
+
+    input {
+        background-color: transparent;
+        border-bottom: 1px solid #508ce4;
+        border-radius: 0px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        padding: 0px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        width: 100%;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .botoes {
+        display: inline-block;
+    }
+
+    label {
+        font-size: 14px;
+        font-family: "Avenir Next";
+        color: #8c8c8c;
+    }
+
+    .guardar {
+        padding: 10px;
+        background-color: #508ce4;
+        border: 0;
+        color: #fff;
+        border-radius: 5px;
+        width: 120px;
+        font-size: 14px;
+        justify-content: flex-end;
+        align-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .guardar:hover, .terminarSessao:hover {
+        cursor: pointer;
+        opacity: 0.7;
+        transition: 0.5s ease;
+    }
+
+    .terminarSessao {
+        padding: 10px;
+        background-color: #f00;
+        border: 0;
+        color: #fff;
+        border-radius: 5px;
+        width: 160px;
+        font-size: 14px;
+        justify-content: flex-start;
+        align-content: flex-start;
+        margin-top: 10px;
+    }
+
+    .headerDateTitle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    
 }
 
-.detalhesContainer h1 {
-    font-family: "Raleway";
+@media only screen and (max-width: 1400px) {
+    .detalhesContainer {
+        background-color: #fafafa;
+        padding: 20px;
+        margin-top: 20px;
+        margin-left: 200px;
+        margin-right: 200px;
+        border-radius: 10px;
+    }
 }
 
-input {
-    background-color: transparent;
-    border-bottom: 1px solid #508ce4;
-    border-radius: 0px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    padding: 0px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    width: 100%;
+@media only screen and (max-width: 1250px) {
+    .detalhesContainer {
+        background-color: #fafafa;
+        padding: 20px;
+        margin-top: 20px;
+        margin-left: 25px;
+        margin-right: 25px;
+        border-radius: 10px;
+    }
+
+    .botoes {
+        display: block;
+    }
+
+    .guardar {
+        padding: 10px;
+        background-color: #508ce4;
+        border: 0;
+        position: relative;
+        color: #fff;
+        border-radius: 5px;
+        display: block;
+        width: 100%;
+        margin: auto;
+        font-size: 14px;
+        justify-content: flex-end;
+        align-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .terminarSessao {
+        padding: 10px;
+        background-color: #f00;
+        border: 0;
+        color: #fff;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 14px;
+        justify-content: flex-start;
+        align-content: flex-start;
+        margin-top: 10px;
+    }
 }
 
-input:focus {
-    outline: none;
-}
-
-.botoes {
-    display: inline-block;
-}
-
-label {
-    font-size: 14px;
-    font-family: "Avenir Next";
-    color: #8c8c8c;
-}
-
-.guardar {
-    padding: 10px;
-    background-color: #508ce4;
-    border: 0;
-    color: #fff;
-    border-radius: 5px;
-    width: 120px;
-    font-size: 14px;
-    justify-content: flex-end;
-    align-content: flex-end;
-    margin-top: 10px;
-}
-
-.guardar:hover, .terminarSessao:hover {
-    cursor: pointer;
-    opacity: 0.7;
-    transition: 0.5s ease;
-}
-
-.terminarSessao {
-    padding: 10px;
-    background-color: #f00;
-    border: 0;
-    color: #fff;
-    border-radius: 5px;
-    width: 160px;
-    font-size: 14px;
-    justify-content: flex-start;
-    align-content: flex-start;
-    margin-top: 10px;
+@media only screen and (max-width: 450px) {
+    .headerDateTitle {
+        display: block;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
 }
