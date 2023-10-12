@@ -1,140 +1,291 @@
+@media only screen and (max-width: 10000px) {
 
-@font-face {
-  font-family: 'Raleway';
-  src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-  /* You can include other font weights and styles as well if needed */
+  @font-face {
+    font-family: 'Raleway';
+    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+    /* You can include other font weights and styles as well if needed */
+  }
+
+  .workerPage {
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 120px;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 20px;
+    font-family: "Raleway";
+    box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
+  }
+
+  .workerPage header {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .workerPage header h1 {
+    margin-left: 25px;
+  }
+
+  .estruturaPerfil {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .perfilDoMan {
+    width: 50%;
+    padding-right: 25px;
+    margin-left: 15px;
+    text-align: end;
+    margin-top: -60px;
+    margin-bottom: 10px;
+    border-right: 3px solid #508ce4
+  }
+
+  .perfilDoMan h3, .perfilDoMan h4, .perfilDoMan p {
+    font-family: "Raleway";
+  }
+
+  .perfilDoMan h3 {
+  }
+
+
+  .workerPage header b {
+    background-color: #508ce4;
+    border-radius: 5px;
+    padding: 7px;
+    margin-right: 25px;
+    font-size: 14px;
+    color: #fff
+  }
+
+  .feedback {
+    color: #508ce4;
+    font-weight: bold;
+    margin-top: -45px;
+    margin-left: 20px;
+    font-family: "Raleway";
+  }
+
+  .nome {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: #000;
+    padding-top: 20px;
+    margin-bottom: -5px
+  }
+
+  .adiciona {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: #508ce4;
+  }
+
+  .agoraDepois {
+    display: inline-flex;
+  }
+
+  .agora, .depois {
+    display: block;
+    width: 50%;
+    margin: 5px
+  }
+
+  .depois p {
+    color: #8c8c8c
+  }
+
+  hr {
+    background-color: #000
+  }
+
+  button {
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+    font-family: "Raleway";
+    margin-top: 10px;
+  }
+
+  .adicionarBtn {
+    background-color: #508ce4;
+    color: #fff
+  }
+
+  .recusarBtn {
+    border: 1px solid #8c8c8c;
+    background-color: transparent;
+    color: #8c8c8c;
+  }
+
+  p, h3 {
+    font-family: "Raleway";
+  }
+
+  .descricao {
+    text-transform: uppercase;
+    
+  }
+
+  .inputs {
+    margin-top: -80px;
+    padding-bottom: 30px;
+  }
+
 }
 
-.workerPage {
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-top: 120px;
-  border-radius: 5px;
-  padding-left: 20px;
-  padding-bottom: 20px;
-  padding-top: 20px;
-  border-radius: 20px;
-  font-family: "Raleway";
-  box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
-}
+@media only screen and (max-width: 1250px) {
 
-.workerPage header {
-  display: inline-flex;
-  align-items: center;
-  background-color: #f2f2f2;
-  justify-content: space-between;
-  width: 100%;
-  padding-top: 25px;
-  padding-bottom: 25px;
-}
+  .workerPage {
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 120px;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 20px;
+    font-family: "Raleway";
+    box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
+  }
 
-.workerPage header h1 {
-  margin-left: 25px;
-}
 
-.estruturaPerfil {
-  display: flex;
-  justify-content: space-between;
-}
-
-.perfilDoMan {
-  width: 50%;
-  padding-right: 25px;
-  margin-left: 15px;
-  text-align: end;
-  margin-top: -60px;
-  margin-bottom: 10px;
-  border-right: 3px solid #508ce4
-}
-
-.perfilDoMan h3, .perfilDoMan h4, .perfilDoMan p {
-  font-family: "Raleway";
-}
-
-.perfilDoMan h3 {
 }
 
 
-.workerPage header b {
-  background-color: #508ce4;
-  border-radius: 5px;
-  padding: 7px;
-  margin-right: 25px;
-  font-size: 14px;
-  color: #fff
+@media only screen and (max-width: 950px) {
+
+  .workerPage header {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    justify-content: space-between;
+    width: 95%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .estruturaPerfil {
+    display: block;
+    padding-right: 15px;
+    justify-content: space-between;
+  }
+
+  .perfilDoMan {
+    padding-right: 25px;
+    margin: auto;
+    width: 95%;
+    display: block;
+    text-align: start;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-top: 3px solid #508ce4;
+    border-right: 0px
+  }
+
+  .workerPage {
+    margin-top: 90px;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 20px;
+    font-family: "Raleway";
+    box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
+  }
+
+  .form {
+    display: flex;
+    align-items: center;
+  }
+
+  .inputs {
+    margin-bottom: -30px;
+    padding-bottom: 0;
+  }
+
+
 }
 
-.feedback {
-  color: #508ce4;
-  font-weight: bold;
-  margin-top: -45px;
-  margin-left: 20px;
-  font-family: "Raleway";
-}
+@media only screen and (max-width: 500px) {
 
-.nome {
-  font-size: 14px;
-  font-family: "Raleway";
-  color: #000;
-  padding-top: 20px;
-  margin-bottom: -5px
-}
+  .workerPage header {
+    display: block;
+    background-color: #f2f2f2;
+    justify-content: space-between;
+    width: 95%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
 
-.adiciona {
-  font-size: 14px;
-  font-family: "Raleway";
-  color: #508ce4;
-}
+  .workerPage header b {
+    background-color: #508ce4;
+    border-radius: 5px;
+    padding: 7px;
+    margin-left: 25px;
+    margin-top: 100px;
+    font-size: 14px;
+    margin-top: 25px;
+    color: #fff
+  }
 
-.agoraDepois {
-  display: inline-flex;
-}
+  .workerPage header h1 {
+    margin-left: 25px;
+    margin-top: -5px;
+    margin-bottom: 35px;
+  }
 
-.agora, .depois {
-  display: block;
-  width: 50%;
-  margin: 5px
-}
+  .feedback {
+    color: #508ce4;
+    font-weight: bold;
+    margin-top: -78px;
+    font-size: 13px;
+    margin-left: 20px;
+    font-family: "Raleway";
+  }
 
-.depois p {
-  color: #8c8c8c
-}
+  .nome {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: #000;
+    padding-top: 50px;
+    margin-bottom: -5px
+  }
 
-hr {
-  background-color: #000
-}
+  .estruturaPerfil {
+    display: block;
+    padding-right: 15px;
+    justify-content: space-between;
+  }
 
-button {
-  padding: 10px;
-  border: 0;
-  border-radius: 5px;
-  font-size: 14px;
-  margin-right: 5px;
-  font-family: "Raleway";
-  margin-top: 10px;
-}
+  .perfilDoMan {
+    padding-right: 25px;
+    margin: auto;
+    width: 95%;
+    display: block;
+    text-align: start;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-top: 3px solid #508ce4;
+    border-right: 0px
+  }
 
-.adicionarBtn {
-  background-color: #508ce4;
-  color: #fff
-}
-
-.recusarBtn {
-  border: 1px solid #8c8c8c;
-  background-color: transparent;
-  color: #8c8c8c;
-}
-
-p, h3 {
-  font-family: "Raleway";
-}
-
-.descricao {
-  text-transform: uppercase;
+  .agoraDepois {
+    font-size: 12px;
+  }
   
-}
+  .btnFechar {
+    font-size: 9px;
+    margin-top: -15px;
+  }
 
-.inputs {
-  margin-top: -80px;
-  padding-bottom: 30px;
+
 }

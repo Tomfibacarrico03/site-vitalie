@@ -163,7 +163,6 @@ const WorkerPage = () => {
         <b>Interessado no teu trabalho</b>
       </header>
       <p className={styles.feedback}>Ainda sem feedback</p>
-
       <p className={styles.nome}>
         {worker.firstName} {worker.lastName} -{" "}
         {shortlistPopUp == false && isUserShortlisted && worker.phone}
@@ -187,14 +186,14 @@ const WorkerPage = () => {
                 {shortlistPopUp == true ? (
                   <>
                     <p >{worker.workName}</p>
-                    <p style={{backgroundColor: "#333", textAlign: "center", paddingTop: 10, paddingBottom: 10, marginBottom: 5, borderRadius: 5, color: "#fff", fontWeight: "400"}}>Foi adicionado à tua lista restrita</p>
+                    <p style={{backgroundColor: "#333", textAlign: "center", paddingTop: 10, paddingBottom: 10, marginBottom: 5, borderRadius: 5, fontSize: 12, color: "#fff", fontWeight: "400"}}>Foi adicionado à tua lista restrita</p>
                     <p>
                       Aguarde um telefonema do {worker.firstName}{" "}
                       {worker.lastName} para discutir o emprego ou entre em
                       contato diretamente com ele.
                     </p>
                     <p>{worker.phone}</p>
-                    <button onClick={() => setShortlistPopUp(false)}>
+                    <button className={styles.btnFechar} onClick={() => setShortlistPopUp(false)}>
                       Fechar
                     </button>
                   </>
