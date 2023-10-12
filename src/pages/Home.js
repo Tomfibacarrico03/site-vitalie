@@ -33,6 +33,10 @@ const Home = () => {
         <div className={styles.workers_side}>
           {/* <img src={workers} /> */}
         </div>
+        <div className={styles.backGroundTheme}>
+          {/* <img src={workers} /> */}
+          TESTE
+        </div>
       </div>
       <div className={styles.zonaComecar}>
         <h1 className={styles.titles}>Como posso começar?</h1>
