@@ -1,45 +1,83 @@
+@media only screen and (max-width: 10000px) {
 
-@font-face {
-  font-family: 'Raleway';
-  src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-  /* You can include other font weights and styles as well if needed */
-}
-.sidebar {
-  width: 20%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-  margin-top: 100px;
-  border-radius: 0px 10px 10px 0px;
-  margin-left: 200px;
-  background-color: #fff;
+  @font-face {
+    font-family: 'Raleway';
+    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+    /* You can include other font weights and styles as well if needed */
+  }
+  .sidebar {
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    margin-top: 100px;
+    border-radius: 0px 10px 10px 0px;
+    margin-left: 200px;
+    background-color: #fff;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar li {
+    margin-bottom: 10px;
+    background-color: #fafafa;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: "Raleway";
+    border-left: 3px solid #508ce4
+  }
+
+  .sidebar li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+
+  .sidebar li:hover {
+    background-color: #ddd;
+  }
+
 }
 
-.sidebar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+@media only screen and (max-width: 1400px) {
+  .sidebar {
+    margin-left: 200px;
+    margin-right: 200px;
+    width: auto;
+    height: auto;
+    position: relative;
+    margin-top: 120px;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: transparent;
+  }
 }
 
-.sidebar li {
-  margin-bottom: 10px;
-  background-color: #fafafa;
-  padding: 10px;
-  border-radius: 5px;
-  font-family: "Raleway";
-  border-left: 3px solid #508ce4
-}
+@media only screen and (max-width: 1250px) {
+  .sidebar {
+    margin-left: 25px;
+    margin-right: 25px;
+    width: auto;
+    height: auto;
+    position: relative;
+    margin-top: 120px;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: transparent;
 
-.sidebar li a {
-  display: block;
-  color: #000;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-.sidebar li:hover {
-  background-color: #ddd;
+  }
 }
