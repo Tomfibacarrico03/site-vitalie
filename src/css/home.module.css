@@ -1,9 +1,9 @@
-
 @font-face {
   font-family: 'Raleway';
   src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
   /* You can include other font weights and styles as well if needed */
 }
+
 .divCabecalho {
   margin: 0 200px 0px 200px;
   background-color: #fff;
@@ -22,8 +22,8 @@
 
 .workers_side {
   background-image: url("../../src/imgs/workers.jpg");
-  background-size: 53%;
-  background-attachment: fixed;
+  background-size: contain;
+  background-repeat: no-repeat;
   height: 500px;
   border-bottom-right-radius: 5px;
   width: 60%;
@@ -210,7 +210,6 @@
   display: flex;
   align-items: center;
   margin-bottom: 50px;
-
 }
 
 .divCabecalho2 img {
@@ -219,6 +218,7 @@
 
 .workers_side2 {
   background-image: url("../../src/imgs/handshake.png");
+  background-attachment: fixed;
   background-size: 15%;
   height: 500px;
   border-radius: 15px;
@@ -256,9 +256,123 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-@media screen and (max-width: 1024px) {
-  .titles{
-    display: none;
+
+.backGroundTheme {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .title {
+    padding-top: 90px;
+    margin-left: 20px;
+    z-index: 4;
+    position: relative;
   }
 
+  .subtitle {
+    margin-left: 20px;
+    z-index: 4;
+    position: relative;
+  }
+
+  .titles {
+    margin-top: 0px;
+  }
+
+  .divCabecalho {
+    margin: 0px;
+    display: block;
+    padding-left: 0;
+    padding-top: 39px;
+    height: 90vh;
+    background-color: #f2f2f2;
+  }
+
+  .divCabecalho2 {
+    margin: 0px;
+    padding: 0px;
+    flex-direction: column;
+  }
+
+  .workers_side {
+    display: none;
+
+  }
+
+  .workers_side2 {
+    background-repeat: no-repeat;
+    background-size:auto;
+  }
+  .backGroundTheme {
+    display: none;
+    position: absolute;
+    z-index: 200;
+    top: 10%;
+    right: 10%;
+    width: 100vw;
+    height: 100vh;
+    color: black;
+  }
+
+  .divCabecalho div:first-child {
+    position: relative;
+    background-image: url("/src/imgs/workers.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: fit-content;
+  }
+
+  .divCabecalho2 div:nth-child(1) {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .divCabecalho2 div:nth-child(1) .title {
+    margin: 0px 0px 20px 0px;
+    width: 100%;
+  }
+
+  .divCabecalho2 div:nth-child(1) .subtitle {
+    margin: 0px 0px 20px 0px;
+    width: 80%;
+
+  }
+
+  .divCabecalho div:first-child::before {
+    content: "";
+    z-index: 3;
+    position: absolute;
+    background-color: #dadada57;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .divAboutUs {
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .divAboutUs div {
+    margin-bottom: 10%;
+    width: 90%;
+  }
+
+  .botoes {
+    padding-left: 25px;
+  }
+
+  .btnRegister {
+    background-color: #ffffffe8;
+  }
+
+  .btnApply {
+    margin: 0px 0px 20px 0px;
+  }
 }
