@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import styles from "../../css/minhaconta.module.css"
 
 const JobCard = (props) => {
   console.log(props.value);
@@ -9,12 +10,7 @@ const JobCard = (props) => {
       <Link style={{ textDecoration: "none" }} to={`/meustrabalhos/${job.id}`}>
         <>
           <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
+            className={styles.headerDateTitle}
           >
             <p
               style={{

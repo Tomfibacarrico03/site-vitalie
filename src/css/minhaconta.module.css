@@ -75,6 +75,13 @@
         align-content: flex-start;
         margin-top: 10px;
     }
+
+    .headerDateTitle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
     
 }
 
@@ -130,5 +137,14 @@
         justify-content: flex-start;
         align-content: flex-start;
         margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .headerDateTitle {
+        display: block;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
     }
 }
