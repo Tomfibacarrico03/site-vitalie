@@ -285,7 +285,7 @@ const SignUp = () => {
               </div>
             </div>
             {error && <p>{error}</p>}
-            <button type="submit">Registar</button>
+            <button className={styles.btnRegistar} type="submit">Registar</button>
           </form>
         </>
       )}
