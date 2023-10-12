@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import styles from "../css/login.module.css";
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Entrar</button>
+        <button className={styles.btnEntrar} type="submit">Entrar</button>
       </form>
       {errorMessage && <p>{errorMessage}</p>}
       <div>
@@ -63,7 +65,13 @@ const Login = () => {
           Inscreva-se como comerciante Ajudamos os comerciantes a obter o tipo
           certo de trabalho, da maneira mais acessível.
         </p>
-        <p>Tornar-se trabalhador</p>
+        <Link
+          className={styles.trabalhadorBtn}
+          to={`/registrar-como-comerciante`}
+        >
+          <p>Tornar-se trabalhador</p>
+        </Link>
+        
       </div>
     </div>
   );

@@ -1,71 +1,142 @@
+@media only screen and (max-width: 10000px) {
 
-@font-face {
-    font-family: 'Raleway';
-    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-    /* You can include other font weights and styles as well if needed */
-  }
+    @font-face {
+        font-family: 'Raleway';
+        src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+        /* You can include other font weights and styles as well if needed */
+    }
 
-.login {
-    margin-left: 200px;
-    background-color: #fafafa;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
-    width: 630px;
-    font-family: "Raleway";
-    margin-bottom: 50px;
-    padding: 20px;
-    margin-top: 150px;
-    border-radius: 10px;
+    .login {
+        margin-left: 200px;
+        background-color: #fafafa;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+        width: 630px;
+        font-family: "Raleway";
+        margin-bottom: 50px;
+        padding: 20px;
+        margin-top: 150px;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 200%;
+        padding-left: 5px;
+    }
+
+    li {
+        padding-left: 5px;
+        font-family: "Raleway";
+        color: #508ce4;
+        list-style: square;
+    }
+
+    p {
+        font-size: 100%;
+        font-family: "Raleway";
+        padding-left: 5px;
+        margin-top: 10px;
+        color: #8c8c8c;
+        margin-bottom: 35px;
+    }
+
+    input {
+        background-color: #f2f2f2;
+        border: 0;
+        border-radius: 10px;
+        font-family: "Raleway";
+        width: 600px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        padding: 15px;
+    }
+
+    form button {
+        padding: 10px;
+        background-color: #508ce4;
+        border: 0;
+        color: #fff;
+        border-radius: 5px;
+        width: 120px;
+        font-size: 14px;
+        font-family: "Raleway";
+        justify-content: flex-end;
+        align-content: flex-end;
+        margin-top: 10px;
+        margin-left: 510px;
+    }
+
+    form button:hover {
+        cursor: pointer;
+        opacity: 0.7;
+        transition: 0.5s ease;
+    }
+
+    .btnEntrar {
+        background-color: #508ce4;
+    }
+
+    .trabalhadorBtn {
+        text-decoration: none;
+       
+      }
+
+      .trabalhadorBtn p {
+        color: #508ce4;
+        background-color: #e8e8e9;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        text-align: center;
+        border-radius: 5px;
+      }
+
 }
 
-h2 {
-    font-size: 200%;
-    padding-left: 5px;
-}
+@media only screen and (max-width: 1050px) {
 
-li {
-    padding-left: 5px;
-    font-family: "Raleway";
-    color: #508ce4;
-    list-style: square;
-}
+    .login {
+        margin-left: 25px;
+        margin-right: 25px;
+        background-color: #fafafa;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+        width: auto;
+        padding: 20px;
+        margin-top: 90px;
+        margin-bottom: 50px;
+        border-radius: 10px;
+        font-family: "Raleway";
+      }
+    
+      input {
+          background-color: #f2f2f2;
+          border: 0;
+          border-radius: 10px;
+          width: 100%;
+          margin-top: 5px;
+          margin-bottom: 15px;
+          padding: 15px;
+      }
+    
+      .btnEntrar {
+        background-color: #508ce4;
+        margin: auto;
+        width: 100%;
+        margin-bottom: 25px;
+      }
 
-p {
-    font-size: 100%;
-    font-family: "Raleway";
-    padding-left: 5px;
-    margin-top: 10px;
-    color: #8c8c8c;
-    margin-bottom: 35px;
-}
+      .trabalhadorBtn {
+        text-decoration: none;
+       
+      }
 
-input {
-    background-color: #f2f2f2;
-    border: 0;
-    border-radius: 10px;
-    font-family: "Raleway";
-    width: 600px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    padding: 15px;
-}
-
-form button {
-    padding: 10px;
-    background-color: #508ce4;
-    border: 0;
-    color: #fff;
-    border-radius: 5px;
-    width: 120px;
-    font-size: 14px;
-    font-family: "Raleway";
-    justify-content: flex-end;
-    align-content: flex-end;
-    margin-top: 10px;
-    margin-left: 510px;
-}
-
-form button:hover {
-    cursor: pointer;
-    opacity: 0.7;
-    transition: 0.5s ease;
+      .trabalhadorBtn p {
+        color: #508ce4;
+        background-color: #e8e8e9;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        text-align: center;
+        border-radius: 5px;
+      }
+      
 }
