@@ -31,3 +31,91 @@ nav ul li {
     font-family: "Raleway";
     font-weight: lighter;
 }
+
+.displayNone {
+    display: none;
+}
+@media screen and (max-width: 1190px) {
+    nav h3 {
+        padding-left: 25px;
+    }
+    nav ul{
+        padding-right: 25px;
+    }
+    
+}
+@media screen and (max-width: 900px) {
+    nav {
+        z-index: 200;
+    }
+
+
+
+    .HamMenu {
+        padding-right: 25px;
+    }
+
+    .navOpen {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        color: #fff;
+        background-color: #508ce4;
+        z-index: 150;
+        overflow: hidden;
+        animation-name: slideDown;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .navOpen ul, .navClose ul{
+        margin: 0;
+        padding: 0;
+    }
+    .navOpen ul a li, .navOpen ul li,.navClose ul a li, .navClose ul li{
+        font-size: 18px;
+        margin: 30px 0px;
+        padding: 0;
+        color: #fff;
+        list-style: none;
+    }
+
+    @keyframes slideDown {
+        0% {
+            height: 0;
+        }
+
+        100% {
+            height: 100vh;
+        }
+    }
+    .navClose {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background-color: #508ce4;
+        z-index: 150;
+        overflow: hidden;
+        animation-name: slideUp;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    @keyframes slideUp {
+        0% {
+            height: 100vh;
+        }
+
+        100% {
+            height: 0;
+        }
+    }
+}
