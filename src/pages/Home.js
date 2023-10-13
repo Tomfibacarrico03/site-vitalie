@@ -31,8 +31,9 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.workers_side}>
-          {/* <img src={workers} /> */}
+          <img className={styles.imgWorkers} src={workers} />
         </div>
+        
       </div>
       <div className={styles.zonaComecar}>
         <h1 className={styles.titles}>Como posso começar?</h1>
@@ -57,9 +58,9 @@ const Home = () => {
           <button>Ver como funciona</button>
         </div>
       </div>
-      <div className={styles.divCabecalho2}>
+      <div className={styles.divCabecalho}>
         <div>
-          <h1 className={styles.title}>Vamos espreitar?</h1>
+          <h1 className={styles.title} style={{marginTop: -50}}>Vamos espreitar?</h1>
           <h3 className={[styles.subtitle]}>Ajudamos donos de casas a encontrar o trabalhador ideal, e bons trabalhadores a ter sucesso.</h3>
 
           <div>
