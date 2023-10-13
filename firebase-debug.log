@@ -1,0 +1,55 @@
+[debug] [2023-10-13T15:43:54.822Z] ----------------------------------------------------------------------
+[debug] [2023-10-13T15:43:54.824Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2023-10-13T15:43:54.825Z] CLI Version:   12.6.2
+[debug] [2023-10-13T15:43:54.825Z] Platform:      darwin
+[debug] [2023-10-13T15:43:54.825Z] Node Version:  v16.15.0
+[debug] [2023-10-13T15:43:54.831Z] Time:          Fri Oct 13 2023 16:43:54 GMT+0100 (Western European Summer Time)
+[debug] [2023-10-13T15:43:54.831Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-10-13T15:43:54.835Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-10-13T15:43:54.938Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-10-13T15:43:54.939Z] > authorizing via signed-in user (afonsoresendes03@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/afonsoresendes/Desktop/clientes/site-vitalie
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[debug] [2023-10-13T15:43:55.262Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-10-13T15:43:55.262Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-10-13T15:44:07.022Z] Using project from CLI flag: site-vitalie
+[debug] [2023-10-13T15:44:07.023Z] > refreshing access token with scopes: []
+[debug] [2023-10-13T15:44:07.024Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-10-13T15:44:07.024Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-13T15:44:07.189Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-10-13T15:44:07.189Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-13T15:44:07.234Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/site-vitalie [none]
+[debug] [2023-10-13T15:44:07.686Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/site-vitalie 200
+[debug] [2023-10-13T15:44:07.686Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/site-vitalie {"projectId":"site-vitalie","projectNumber":"819295218409","displayName":"site-vitalie","name":"projects/site-vitalie","resources":{"hostingSite":"site-vitalie","storageBucket":"site-vitalie.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_d74fe7b7-4cf5-4d4b-8f55-5727eba9dc84"}
+[info] i  Using project site-vitalie (site-vitalie) 
+[info] 
+=== Hosting:github Setup
+[info] 
+[info] i  Detected a .git folder at /Users/afonsoresendes/Desktop/clientes/site-vitalie 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=939388817&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
