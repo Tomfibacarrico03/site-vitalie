@@ -308,6 +308,7 @@ function JobPage(props) {
           <div>
             <h3>Imagens</h3>
             <div className={styles.postImagens}>
+              <div className={styles.postImagesScroll}>
               {images.map((imageUrl, index) => (
                 <div key={index}>
                   {user.uid === job.userId && (
@@ -328,6 +329,7 @@ function JobPage(props) {
                   {imageUrl && <img src={imageUrl} alt="" />}
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>

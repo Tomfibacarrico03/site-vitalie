@@ -1,134 +1,186 @@
+@media only screen and (max-width: 10000px) {
 
-@font-face {
-  font-family: 'Raleway';
-  src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-  /* You can include other font weights and styles as well if needed */
+  @font-face {
+    font-family: 'Raleway';
+    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+    /* You can include other font weights and styles as well if needed */
+  }
+
+  .postTrabalho {
+    background-color: #fff;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 120px;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+  }
+
+  .postTrabalhoEsq {
+    width: 70%;
+  }
+
+  .infoTrabalho {
+    background-color: #f2f2f2;
+    padding: 10px;
+    padding-top: 30px;
+    border-radius: 5px;
+    margin: 5px;
+  }
+
+  .infoTrabalho header {
+    display: flex;
+  }
+
+  .infoTextos {
+    margin-left: 10px;
+    font-weight: 600;
+    font-family: "Raleway";
+  }
+
+  .infoInfo {
+    margin-left: 50px;
+    font-family: "Raleway";
+  }
+
+  .infoNome {
+    color: #508ce4;
+    font-weight: 500;
+  }
+
+  .interessados {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 7px;
+    padding-left: 25px;
+    font-family: "Raleway";
+    font-weight: 400;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .descricoesTrabalho {
+    margin: 10px;
+    padding-top: 30px;
+    border-left: 3px solid #508ce4;
+    padding: 25px;
+  }
+
+  h3, p {
+    font-family: "Raleway";
+  }
+
+  .postImagens {
+    display: inline-flex;
+  }
+
+  .postImagesScroll {
+    display: flex;
+    overflow: auto;
+    padding-bottom: 20px;
+  }
+
+  .postImagens img, .postImagens input {
+    width: 100px;
+    height: 100px;
+  }
+
+  .postImagens button {
+    background-color: #f2f2f2;
+    color: #508ce4;
+    font-size: 40px;
+    font-family: "Avenir Next";
+    width: 100px;
+    margin-right: 15px;
+    height: 100px;
+    border-radius: 5px;
+  }
+
+  .criticasConvites {
+    width: 30%;
+    margin-left: 20px;
+    margin-top: 5px
+  }
+
+  .criticas, .convites {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .convites {
+    padding-bottom: 40px;
+  }
+
+  .convites p {
+    padding-bottom: 20px;
+    margin-left: -5px
+  }
+
+  .btnConvite {
+    box-shadow: 2px 2px 10px #508ce4;
+    background-color:#508ce4;
+    font-family: "Raleway";
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+  }
+
+  .convitesTitle {
+    display: inline-flex;
+    align-items: center;
+    font-family: "Raleway";
+  }
+
+  .convitesTitle h5 {
+    margin-left: 10px;
+    font-family: "Avenir Next";
+    color: #8c8c8c;
+  }
+
 }
 
-.postTrabalho {
-  background-color: #fff;
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-top: 120px;
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
+@media only screen and (max-width: 1400px) {
+
+  .postTrabalho {
+    display: block;
+  }
+
+  .postTrabalhoEsq {
+    width: 100%;
+  }
+  
 }
 
-.postTrabalhoEsq {
-  width: 70%;
+@media only screen and (max-width: 1200px) {
+  .criticasConvites {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-top: 5px
+  }
+
+  .postTrabalho {
+    margin-left: 15px;
+    margin-right: 15px;
+
+  }
+
+  
 }
 
-.infoTrabalho {
-  background-color: #f2f2f2;
-  padding: 10px;
-  padding-top: 30px;
-  border-radius: 5px;
-  margin: 5px;
-}
+@media only screen and (max-width: 800px) {
 
-.infoTrabalho header {
-  display: flex;
-}
+  .postImagens {
+    width: 100%;
+    overflow: hidden;
+  }
 
-.infoTextos {
-  margin-left: 10px;
-  font-weight: 600;
-  font-family: "Raleway";
-}
+  .postImagesScroll {
+    display: flex;
+    overflow: auto;
+    padding-bottom: 20px;
+  }
 
-.infoInfo {
-  margin-left: 50px;
-  font-family: "Raleway";
 }
-
-.infoNome {
-  color: #508ce4;
-  font-weight: 500;
-}
-
-.interessados {
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 7px;
-  padding-left: 25px;
-  font-family: "Raleway";
-  font-weight: 400;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.descricoesTrabalho {
-  margin: 10px;
-  padding-top: 30px;
-  border-left: 3px solid #508ce4;
-  padding: 25px;
-}
-
-h3, p {
-  font-family: "Raleway";
-}
-
-.postImagens {
-  display: inline-flex;
-}
-
-.postImagens img, .postImagens input {
-  width: 100px;
-  height: 100px;
-}
-
-.postImagens button {
-  background-color: #f2f2f2;
-  color: #508ce4;
-  font-size: 40px;
-  font-family: "Avenir Next";
-  width: 100px;
-  margin-right: 15px;
-  height: 100px;
-  border-radius: 5px;
-}
-
-.criticasConvites {
-  width: 30%;
-  margin-left: 20px;
-  margin-top: 5px
-}
-
-.criticas, .convites {
-  background-color: #f2f2f2;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.convites {
-  padding-bottom: 40px;
-}
-
-.convites p {
-  padding-bottom: 20px;
-  margin-left: -5px
-}
-
-.btnConvite {
-  box-shadow: 2px 2px 10px #508ce4;
-  background-color:#508ce4;
-  font-family: "Raleway";
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-  text-decoration: none;
-}
-
-.convitesTitle {
-  display: inline-flex;
-  align-items: center;
-  font-family: "Raleway";
-}
-
-.convitesTitle h5 {
-  margin-left: 10px;
-  font-family: "Avenir Next";
-  color: #8c8c8c;
-}
-
