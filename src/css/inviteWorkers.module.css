@@ -1,81 +1,141 @@
+@media only screen and (max-width: 10000px) {
 
-@font-face {
-  font-family: 'Raleway';
-  src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-  /* You can include other font weights and styles as well if needed */
+  @font-face {
+    font-family: 'Raleway';
+    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+    /* You can include other font weights and styles as well if needed */
+  }
+
+  .categoriaConvitesDuplos {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .categoriaConvitesDuplos2 {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 50vw;
+  }
+
+  .convida {
+    background-color: #fff;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 120px;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .convida div {
+    display: block;
+    margin-right: 15px;
+  }
+
+  .convida h1 {
+    font-family: "Avenir Next";
+    font-size: 20px
+  }
+
+  .convida p, .convida h5, .convida h4, .convida h1 {
+    font-family: "Avenir Next";
+  }
+
+  .convida h5 {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .workerCard {
+    background-color: #fafafa;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .cardsLado {
+    background-color: #fff;
+    border-left: 2px solid #508ce4;
+    margin-left: 45px;
+    padding-left: 25px;
+    border-radius: 0px;
+  }
+
+  .tituloCriticas header {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .tituloCriticas header button {
+    background-color: #508ce4;
+    color: #fff;
+    font-family: "Raleway";
+    margin-left: 25px;
+    font-weight: 500;
+  }
+
+  .tituloCriticas h5 {
+    color: #508ce4;
+    font-family: "Raleway";
+
+  }
+
+  .local {
+    font-weight: 500;
+  }
+
+  .local p {
+    margin-left: -5px
+
+  }
 }
-.convida {
-  background-color: #fff;
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-top: 120px;
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+
+@media only screen and (max-width: 1550px) {
+  .categoriaConvitesDuplos2 {
+    width: 40vw;
+  }
 }
 
-.convida div {
-  display: block;
-  margin: 15px;
+@media only screen and (max-width: 1200px) {
+  .categoriaConvitesDuplos2 {
+    width: 60vw;
+    margin-left: 15px
+  }
+
+  .convida {
+    margin-left: 5px;
+    margin-right: 25px;
+  }
+
+  .cardsLado {
+    margin-left: 0
+  }
 }
 
-.convida h1 {
-  font-family: "Avenir Next";
-  font-size: 20px
-}
+@media only screen and (max-width: 900px) {
+  .categoriaConvitesDuplos2 {
+    width: auto;
+    margin-left: 15px
+  }
 
-.convida p, .convida h5, .convida h4, .convida h1 {
-  font-family: "Avenir Next";
-}
+  .convida {
+    margin-left: 25px;
+    margin-right: 25px;
+    display: block;
+  }
 
-.convida h5 {
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.workerCard {
-  background-color: #fafafa;
-  border-radius: 5px;
-  padding: 20px;
-  width: 100%;
-}
-
-.cardsLado {
-  background-color: #fff;
-  border-left: 2px solid #508ce4;
-  width: 50%;
-  padding: 10px;
-  border-radius: 0px;
-}
-
-.tituloCriticas header {
-  display: inline-flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.tituloCriticas header button {
-  background-color: #508ce4;
-  color: #fff;
-  font-family: "Raleway";
-  font-weight: 500;
-}
-
-.tituloCriticas h5 {
-  margin-top: -10px;
-  color: #508ce4;
-  font-family: "Raleway";
-
-}
-
-.local {
-  font-weight: 500;
-}
-
-.local p {
-  margin-left: -5px
-
+  .cardsLado {
+    margin-left: 0;
+    margin-top: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }

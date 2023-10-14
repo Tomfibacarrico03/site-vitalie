@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
-import WorkerCard from "./cards/WorkerCard";
+import WorkerCard2 from "./cards/WorkerCard2";
 
 const SendInvites = ({ job }) => {
   const [workers, setWorkers] = useState([]);
@@ -30,12 +30,12 @@ const SendInvites = ({ job }) => {
 
   return (
     <div>
-      <h3 style={{ fontFamily: "Raleway", fontSize: 25, marginTop: 35 }}>
+      <h3 style={{ fontFamily: "Raleway", fontSize: 25, marginTop: 35, marginLeft: 15 }}>
         Trabalhadores recomendados
       </h3>
       {/* Map through pairs of workers and display WorkerCards in pairs */}
       {workers.map((worker, index) => (
-          <WorkerCard key={worker.id} worker={worker} job={job} />
+          <WorkerCard2 key={worker.id} worker={worker} job={job} />
       ))}
     </div>
   );

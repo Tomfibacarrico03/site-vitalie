@@ -275,7 +275,6 @@ const PostJob = () => {
             </>
           ) : (
             <>
-              <p>ss</p>
               <textarea className={styles.textarea} />
             </>
           )}
@@ -388,14 +387,12 @@ const PostJob = () => {
                       required
                     />
                   </div>
-                  <div className={styles.postJobZero}>
                     <Select
                       className={styles.Select2}
                       options={distritos}
                       onChange={setLocation}
                       placeholder="Localização"
                     />
-                  </div>
 
                   <div>
                     {/* <label htmlFor="password">Palavra-passe</label> */}
@@ -438,6 +435,11 @@ const PostJob = () => {
                 </button>
               </div>
               <div className={styles.formMobile}>
+              <Select
+                      options={distritos}
+                      onChange={setLocation}
+                      placeholder="Localização"
+                    />
                 <div>
                   {/* <label htmlFor="firstName">First Name</label> */}
                   <input
@@ -483,6 +485,7 @@ const PostJob = () => {
                     required
                   />
                 </div>
+                    
                 <div>
                   {/* <label htmlFor="password">Password</label> */}
                   <input
@@ -494,6 +497,7 @@ const PostJob = () => {
                     required
                   />
                 </div>
+                
 
                 <div className={styles.containerTudoCheckBoxes}>
                   <div>

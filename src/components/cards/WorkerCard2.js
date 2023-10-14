@@ -83,7 +83,7 @@ const WorkerCard = ({ worker, job }) => {
 
   return (
     <div
-      className={styles.categoriaConvitesDuplos}
+      className={styles.categoriaConvitesDuplos2}
     >
       <div className={styles.tituloCriticas}>
         <header>
@@ -111,25 +111,28 @@ const WorkerCard = ({ worker, job }) => {
         </h5>
       </div>
 
-      <div className={styles.local}>
-        <p style={{ color: "#000", fontFamily: "Raleway", marginBottom: -5 }}>
-          {worker.tradesSelected[0]} - {worker.location[0]}{" "}
-        </p>
-        <p>{formattedString}</p>
-      </div>
+      <div>
 
-      <p
-        style={{
-          borderRadius: 0,
-          paddingBottom: 10,
-          top: 4,
-          alignItems: "center",
-          borderBottom: "1px solid #508ce4",
-          fontFamily: "Raleway",
-        }}
-      >
-        {worker.description}
-      </p>
+        <div className={styles.local}>
+            <p style={{ color: "#000", fontFamily: "Raleway", marginBottom: -5 }}>
+            {worker.tradesSelected[0]} - {worker.location[0]}{" "}
+            </p>
+            <p>{formattedString}</p>
+        </div>
+
+        <p
+            style={{
+            borderRadius: 0,
+            paddingBottom: 10,
+            top: 4,
+            alignItems: "center",
+            borderBottom: "1px solid #508ce4",
+            fontFamily: "Raleway",
+            }}
+        >
+            {worker.description}
+        </p>
+      </div>
     </div>
   );
 };

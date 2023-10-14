@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import WorkerCard from "../components/cards/WorkerCard";
 import styles from "../css/inviteWorkers.module.css";
 import { UserAuth } from "../context/AuthContext";
-import SendInvites from "../components/SendInvites";
+import SendInvites2 from "../components/SendInvites2";
 import { useParams } from "react-router-dom";
 
 const InviteWorkers = () => {
@@ -41,10 +41,10 @@ const InviteWorkers = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <SendInvites job={job} />
+          <SendInvites2 job={job} />
           <div className={styles.cardsLado}>
             <div>
-              <h1 style={{ fontFamily: "Raleway" }}>
+              <h1 style={{ fontFamily: "Raleway"}}>
                 Convide trabalhadores para entrar em contato mais rapidamente
               </h1>
               <h5 style={{ fontFamily: "Avenir Next", color: "#8c8c8c" }}>
