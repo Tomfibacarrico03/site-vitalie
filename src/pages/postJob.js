@@ -548,7 +548,7 @@ const PostJob = () => {
                   className={styles.continueButton}
                   onClick={questionIncrement}
                 >
-                  Continuar1
+                  Continuar
                 </button>
               )
             ) : (
@@ -556,13 +556,13 @@ const PostJob = () => {
                 onClick={() => SaveJob(user)}
                 className={styles.continueButton}
               >
-                Continuar2
+                Continuar
               </button>
             )}
           </>
         ) : (
           <button className={styles.continueButton} onClick={questionIncrement}>
-            Continuar3
+            Continuar
           </button>
         )}
       </div>
