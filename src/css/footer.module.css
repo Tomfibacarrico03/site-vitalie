@@ -1,12 +1,15 @@
+  @media only screen and (max-width: 10000px) {
+  
   .footer {
     position: absolute;
     padding-bottom: 50px;
     width: 100%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     background-color: #508ce4;
+    margin-top: 150px;
   }
 
-  .footer p {
+  .footer_p {
     color: #fff;
     margin-left: 9rem;
     font-family: "Raleway";
@@ -19,7 +22,7 @@
     z-index: 10;
   }
 
-  .footerBelow header {
+  .footerBelow_header {
     display: flex;
     color: #fff;
     gap: 5rem;
@@ -28,32 +31,85 @@
     justify-content: flex-start;
   }
 
-  .footerBelow header h1 {
+  .footerBelow_header_h1 {
     margin-bottom: 1.6rem;
     font-family: "Raleway";
     font-size: 19.2px;
   }
 
-  .footerBelow header a {
+  .footerBelow_header_a {
     margin-bottom: 1rem;
     font-family: "Raleway";
     font-size: 14px;
     display: block;
     text-decoration: none;
     color: #fff;
-    font-weight: 300;
+    font-weight: thin;
   }
 
-  .footerBelow header a:hover {
+  .footerBelow_header_a:hover {
     margin-bottom: 1rem;
-    font-family: "Poppins";
+    font-family: "Raleway";
     font-size: 14px;
     text-decoration: underline;
   }
 
 
-@font-face {
-    font-family: 'Raleway';
-    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-    /* You can include other font weights and styles as well if needed */
-  }
+
+}
+
+
+@media only screen and (max-width: 1250px) {
+    .footer {
+        position: absolute;
+        padding-bottom: 50px;
+        padding-top: 50px;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    
+      .footer_p {
+        font-family: "Raleway";
+        color: #fff;
+        margin-left: 4rem;
+      }
+    
+      .footerBelow {
+        width: 100%;
+        padding-top: 70px;
+        padding-bottom: 0px;
+        z-index: 10;
+      }
+    
+      .footerBelow_header {
+        display: flex;
+        color: #fff;
+        gap: 5rem;
+        margin-left: 4rem;
+        margin-right: 4rem;
+        justify-content: flex-start;
+      }
+}
+
+@media only screen and (max-width: 800px) {
+    .footer_p {
+        font-family: "Raleway";
+        color: #fff;
+        text-align: center;
+        margin-left: 0;
+      }
+    
+      .footerBelow_header {
+        display: block;
+        text-align: center;
+        color: #fff;
+        margin-left: 3rem;
+        margin-right: 3rem;
+        justify-content: flex-start;
+        margin-top: -3rem;
+      }
+    
+      #footerBelow_header_h1 {
+        margin-top: 3rem;
+      }
+}

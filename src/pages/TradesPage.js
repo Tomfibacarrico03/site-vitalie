@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import styles from "../css/comerciante.module.css";
+import workers from ".././imgs/workers.jpg";
+import styles from "../css/home.module.css";
 
 const TradesPage = () => {
   return (
@@ -9,17 +10,22 @@ const TradesPage = () => {
         <div className={styles.workers_side}>
           {/* <img src={workers} /> */}
         </div>
+     
         <div>
-          <h1 className={styles.title}>Seu próximo trabalho é apenas ao virar da esquina</h1>
-          <h3 className={styles.subtitle}> Há muito trabalho local, mas encontrá-lo é mais fácil dizer do que fazer. No MyBuilder, você define uma área de trabalho personalizada para que cada lead recebido esteja exatamente onde deseja trabalhar.</h3>
+          <h1 className={styles.title}>A melhor forma de encontrar trabalhadores, Simples.</h1>
+          <h3 className={styles.subtitle}>Ajudamos donos de casas a encontrar o trabalhador ideal, e bons trabalhadores a ter sucesso.</h3>
 
-          <div>
-          <Link to="/aplicativo-de-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
+          <div className={styles.botoes}>
+          <Link to="/registrar-como-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
             <li className={styles.btnRegister}>
-              <h3>Registar agora</h3>
+              <h3>Registar como Trabalhador</h3>
             </li>
-          </Link>
+            </Link>
+             
           </div>
+        </div>
+        <div className={styles.workers_side}>
+          <img className={styles.imgWorkers} src={workers} />
         </div>
         
       </div>
