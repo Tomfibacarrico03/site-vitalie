@@ -387,12 +387,12 @@ const PostJob = () => {
                       required
                     />
                   </div>
-                    <Select
-                      className={styles.Select2}
-                      options={distritos}
-                      onChange={setLocation}
-                      placeholder="Localização"
-                    />
+                  <Select
+                    className={styles.Select2}
+                    options={distritos}
+                    onChange={setLocation}
+                    placeholder="Localização"
+                  />
 
                   <div>
                     {/* <label htmlFor="password">Palavra-passe</label> */}
@@ -435,11 +435,11 @@ const PostJob = () => {
                 </button>
               </div>
               <div className={styles.formMobile}>
-              <Select
-                      options={distritos}
-                      onChange={setLocation}
-                      placeholder="Localização"
-                    />
+                <Select
+                  options={distritos}
+                  onChange={setLocation}
+                  placeholder="Localização"
+                />
                 <div>
                   {/* <label htmlFor="firstName">First Name</label> */}
                   <input
@@ -485,7 +485,7 @@ const PostJob = () => {
                     required
                   />
                 </div>
-                    
+
                 <div>
                   {/* <label htmlFor="password">Password</label> */}
                   <input
@@ -497,7 +497,6 @@ const PostJob = () => {
                     required
                   />
                 </div>
-                
 
                 <div className={styles.containerTudoCheckBoxes}>
                   <div>
@@ -544,24 +543,26 @@ const PostJob = () => {
         {questionNumber > 4 ? (
           <>
             {!user ? (
-              <button
-                className={styles.continueButton}
-                onClick={questionIncrement}
-              >
-                Continuar
-              </button>
+              questionNumber === 6 ? null : (
+                <button
+                  className={styles.continueButton}
+                  onClick={questionIncrement}
+                >
+                  Continuar1
+                </button>
+              )
             ) : (
               <button
                 onClick={() => SaveJob(user)}
                 className={styles.continueButton}
               >
-                Continuar
+                Continuar2
               </button>
             )}
           </>
         ) : (
           <button className={styles.continueButton} onClick={questionIncrement}>
-            Continuar
+            Continuar3
           </button>
         )}
       </div>
