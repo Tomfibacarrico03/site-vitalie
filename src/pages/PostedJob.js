@@ -3,7 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import styles from "../css/comerciante.module.css";
 import SendInvites from "../components/SendInvites";
 import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  getDocs,
+  arrayRemove,
+  increment,
+} from "firebase/firestore";
 
 const PostedJob = () => {
   const { jobId } = useParams();
@@ -13,12 +21,14 @@ const PostedJob = () => {
   useEffect(() => {
     const documentRef = doc(db, "jobs", jobId);
 
+    console.log("ola");
+
     const fetchData = async () => {
       try {
         const docSnapshot = await getDoc(documentRef);
 
         if (docSnapshot.exists()) {
-          setJob(docSnapshot.data());
+          setJob({ ...docSnapshot.data(), id: docSnapshot.id });
         } else {
           console.log("Document does not exist");
         }
@@ -29,6 +39,34 @@ const PostedJob = () => {
 
     fetchData();
   }, [jobId]);
+
+  const inviteWorker = async (workerId) => {
+    try {
+      if (job.invitesLeft < 1) {
+        alert("Esgotaste o teu número de convites");
+        return;
+      }
+      const userDocRef = doc(db, "users", workerId);
+      const jobDocRef = doc(db, "jobs", job.id);
+
+      await updateDoc(userDocRef, {
+        invitedJobs: arrayUnion(job.id),
+      });
+
+      await updateDoc(jobDocRef, {
+        invitedUsers: arrayUnion(workerId),
+        invitesLeft: increment(-1),
+      });
+
+      console.log(
+        `Job ${job.id} has been added to the invitedJobs array for user ${workerId}`
+      );
+
+      // Update the local state to reflect that the worker has been invited
+    } catch (error) {
+      console.error("Error inviting worker:", error);
+    }
+  };
 
   return (
     <div className={styles.divTotal}>
@@ -52,7 +90,7 @@ const PostedJob = () => {
         orçamento. É a melhor maneira para começar uma converça!
       </p>
 
-      <SendInvites jobId={jobId} />
+      <SendInvites job={job} />
     </div>
   );
 };

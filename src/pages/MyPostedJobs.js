@@ -52,49 +52,54 @@ const MyPostedJobs = () => {
 
   return (
     <div>
-    <div>
-      {showPopup && (
-        <div className={styles.popup}>
-          <p className={styles.criticaText} >Crítica enviada com sucesso!</p>
-          <button className={styles.fecharBtn} onClick={closePopup}>x</button>
-        </div>
-      )}
+      <div>
+        {showPopup && (
+          <div className={styles.popup}>
+            <p className={styles.criticaText}>Crítica enviada com sucesso!</p>
+            <button className={styles.fecharBtn} onClick={closePopup}>
+              x
+            </button>
+          </div>
+        )}
 
-      {showPopup == false && (
-        <div className={styles.popup} style={{height: 0}}>
-          <p className={styles.criticaText} >Crítica enviada com sucesso!</p>
-          <button className={styles.fecharBtn} onClick={closePopup}>x</button>
-        </div>
-      )}
-      </div>
-    <div className={styles.trabalhosContainer}>
-      
-      <div className={styles.detalhesContainer}>
-        <h1>Meus Trabalhos publicados</h1>
-        <hr></hr>
-        {jobs.length === 0 ? (
-          <p>
-            Ainda não tens nenhum trabalho publicado. Clica em criar trabalho
-            para adicionares um.
-          </p>
-        ) : (
-          jobs.map((job, index) => (
-            <JobCard key={job.id || index} value={{ job, user }} />
-          ))
+        {showPopup == false && (
+          <div className={styles.popup} style={{ height: 0 }}>
+            <p className={styles.criticaText}>Crítica enviada com sucesso!</p>
+            <button className={styles.fecharBtn} onClick={closePopup}>
+              x
+            </button>
+          </div>
         )}
       </div>
+      <div className={styles.trabalhosContainer}>
+        <div className={styles.detalhesContainer}>
+          <h1>Meus Trabalhos publicados</h1>
+          <hr></hr>
+          {jobs.length === 0 ? (
+            <p>
+              Ainda não tens nenhum trabalho publicado. Clica em criar trabalho
+              para adicionares um.
+            </p>
+          ) : (
+            jobs.map((job, index) => (
+              <JobCard key={job.id || index} value={{ job, user }} />
+            ))
+          )}
+        </div>
 
-      <div className={styles.barDir}>
-        <header>
-          <h1>Contratar pessoas</h1>
-        </header>
-        <p>
-          We have tradespeople ready to help you. Post a job, read reviews and
-          hire today.
-        </p>
-        <Link className={styles.CriarTrabalho} to={"/publicar-trabalho"}>Criar Trabalho</Link>
+        <div className={styles.barDir}>
+          <header>
+            <h1>Contratar pessoas</h1>
+          </header>
+          <p>
+            Estamos prontos para ajudar com os trabalhadores qualificados.
+            Publique um trabalho, leia avaliações e contrate hoje.
+          </p>
+          <Link className={styles.CriarTrabalho} to={"/publicar-trabalho"}>
+            Criar Trabalho
+          </Link>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

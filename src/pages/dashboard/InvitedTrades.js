@@ -11,45 +11,51 @@ const InvitedTrades = () => {
 
   const { user } = UserAuth();
 
+  const jobCollection = collection(db, "jobs");
   useEffect(() => {
-    // Create a function to fetch job documents for each jobId
     const fetchJobs = async () => {
-      try {
-        const jobPromises = user.invitedJobs.map(async (jobId) => {
-          const docRef = doc(collection(db, "jobs"), jobId); // Create a reference to the document
-          const docSnapshot = await getDoc(docRef);
+      const jobsData = [];
 
-          if (docSnapshot.exists()) {
-            const jobData = { ...docSnapshot.data(), id: docSnapshot.id };
-            setJobs((prevJobs) => [...prevJobs, jobData]);
-          } else {
-            console.log(`Job with ID ${jobId} not found.`);
+      const userShortlistedJobs = user.shortlistedJobs || [];
+      const userHiredJobs = user.hiredJobs || [];
+
+      for (const jobId of user.invitedJobs) {
+        if (
+          !userShortlistedJobs.includes(jobId) &&
+          !userHiredJobs.includes(jobId)
+        ) {
+          const jobRef = doc(jobCollection, jobId);
+          const jobSnapshot = await getDoc(jobRef);
+
+          if (jobSnapshot.exists()) {
+            jobsData.push({ ...jobSnapshot.data(), id: jobSnapshot.id });
           }
-        });
-
-        await Promise.all(jobPromises);
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
+        }
       }
+
+      setJobs(jobsData);
     };
 
-    // Fetch job documents when the component mounts
     fetchJobs();
-  }, [user.invitedJobs]);
+  }, [user.invitedJobs, user.shortlistedJobs, user.hiredJobs, jobCollection]);
 
   return (
     <div className={styles.detalhesContainer}>
       <h2 style={{ fontFamily: "Raleway" }}>Trabalhos a que fui convidado</h2>
-      {jobs.map((job) => (
-        <Link
-          key={job.id} // Add key prop here
-          style={{ textDecoration: "none" }}
-          to={`/meustrabalhos/${job.id}`}
-          state={{ job }}
-        >
-          <JobCard value={{ job, user }} />
-        </Link>
-      ))}
+      {jobs.length === 0 ? (
+        <p>Ainda sem atividade</p>
+      ) : (
+        jobs.map((job) => (
+          <Link
+            key={job.id}
+            style={{ textDecoration: "none" }}
+            to={`/meustrabalhos/${job.id}`}
+            state={{ job }}
+          >
+            <JobCard value={{ job, user }} />
+          </Link>
+        ))
+      )}
     </div>
   );
 };

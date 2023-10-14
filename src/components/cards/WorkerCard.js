@@ -6,14 +6,17 @@ import {
   arrayUnion,
   getDocs,
   arrayRemove,
+  increment,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import React, { useState } from "react";
 
-const WorkerCard = ({ worker, jobId }) => {
+const WorkerCard = ({ worker, job }) => {
   console.log(worker);
 
-  const [invited, setInvited] = useState(worker.invitedJobs.includes(jobId));
+  const [invited, setInvited] = useState(
+    job && worker && worker.invitedJobs.includes(job.id)
+  );
   const createdAt = worker.trades_member_since.toDate();
   const monthsSinceCreation = differenceInMonths(new Date(), createdAt);
 
@@ -26,14 +29,24 @@ const WorkerCard = ({ worker, jobId }) => {
 
   const inviteWorker = async (workerId) => {
     try {
+      if (job.invitesLeft < 1) {
+        alert("Esgotaste o teu número de convites");
+        return;
+      }
       const userDocRef = doc(db, "users", workerId);
+      const jobDocRef = doc(db, "jobs", job.id);
 
       await updateDoc(userDocRef, {
-        invitedJobs: arrayUnion(jobId),
+        invitedJobs: arrayUnion(job.id),
+      });
+
+      await updateDoc(jobDocRef, {
+        invitedUsers: arrayUnion(workerId),
+        invitesLeft: increment(-1),
       });
 
       console.log(
-        `Job ${jobId} has been added to the invitedJobs array for user ${workerId}`
+        `Job ${job.id} has been added to the invitedJobs array for user ${workerId}`
       );
 
       // Update the local state to reflect that the worker has been invited
@@ -46,13 +59,19 @@ const WorkerCard = ({ worker, jobId }) => {
   const removeInviteWorker = async (workerId) => {
     try {
       const userDocRef = doc(db, "users", workerId);
+      const jobDocRef = doc(db, "jobs", job.id);
 
       await updateDoc(userDocRef, {
-        invitedJobs: arrayRemove(jobId),
+        invitedJobs: arrayRemove(job.id),
+      });
+
+      await updateDoc(jobDocRef, {
+        invitedUsers: arrayUnion(workerId),
+        invitesLeft: increment(1),
       });
 
       console.log(
-        `Job ${jobId} has been removed from the invitedJobs array for user ${workerId}`
+        `Job ${job.id} has been removed from the invitedJobs array for user ${workerId}`
       );
 
       // Update the local state to reflect that the worker is no longer invited
@@ -69,7 +88,7 @@ const WorkerCard = ({ worker, jobId }) => {
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.05)",
         padding: 15,
         marginBottom: 15,
-        width: "45%"
+        width: "45%",
       }}
     >
       <div className={styles.tituloCriticas}>

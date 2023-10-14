@@ -309,26 +309,26 @@ function JobPage(props) {
             <h3>Imagens</h3>
             <div className={styles.postImagens}>
               <div className={styles.postImagesScroll}>
-              {images.map((imageUrl, index) => (
-                <div key={index}>
-                  {user.uid === job.userId && (
-                    <button
-                      onClick={() => {
-                        document.getElementById(`input-${index}`).click();
-                      }}
-                    >
-                      +
-                    </button>
-                  )}
-                  <input
-                    id={`input-${index}`}
-                    type="file"
-                    onChange={(event) => handleImageChange(event, index)}
-                    style={{ display: "none" }}
-                  />
-                  {imageUrl && <img src={imageUrl} alt="" />}
-                </div>
-              ))}
+                {images.map((imageUrl, index) => (
+                  <div key={index}>
+                    {user.uid === job.userId && (
+                      <button
+                        onClick={() => {
+                          document.getElementById(`input-${index}`).click();
+                        }}
+                      >
+                        +
+                      </button>
+                    )}
+                    <input
+                      id={`input-${index}`}
+                      type="file"
+                      onChange={(event) => handleImageChange(event, index)}
+                      style={{ display: "none" }}
+                    />
+                    {imageUrl && <img src={imageUrl} alt="" />}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

@@ -37,24 +37,26 @@ const NearTrades = () => {
   }, []);
 
   return (
-    <div
-    className={styles.detalhesContainer}
-    >
+    <div className={styles.detalhesContainer}>
       <h2 style={{ fontFamily: "Raleway" }}>
         Trabalhos publicados na sua área para si
       </h2>
       {user.tradesSelected.map((trade) => (
         <p>{trade}</p>
       ))}
-      {jobs.map((job) => (
-        <Link
-          style={{ textDecoration: "none" }}
-          to={`/meustrabalhos/${job.id}`}
-          state={{ job }}
-        >
-          <JobCard key={job.id} value={{ job, user }} />
-        </Link>
-      ))}
+      {jobs.length === 0 ? (
+        <p>Ainda sem atividade</p>
+      ) : (
+        jobs.map((job) => (
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`/meustrabalhos/${job.id}`}
+            state={{ job }}
+          >
+            <JobCard key={job.id} value={{ job, user }} />
+          </Link>
+        ))
+      )}
     </div>
   );
 };

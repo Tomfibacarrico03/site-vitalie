@@ -4,7 +4,6 @@ import { UserAuth } from "../context/AuthContext";
 import styles from "../css/login.module.css";
 import { Link } from "react-router-dom";
 
-
 const Login = () => {
   const navigate = useNavigate();
 
@@ -27,9 +26,7 @@ const Login = () => {
 
   return (
     <div className={styles.login}>
-      <h2>
-        Bem-vindo de Volta!
-      </h2>
+      <h2>Bem-vindo de Volta!</h2>
       <form onSubmit={handleLogin}>
         <div>
           <input
@@ -51,16 +48,22 @@ const Login = () => {
             required
           />
         </div>
-        <button className={styles.btnEntrar} type="submit">Entrar</button>
+        <button className={styles.btnEntrar} type="submit">
+          Entrar
+        </button>
       </form>
       {errorMessage && <p>{errorMessage}</p>}
       <div>
-        <li>Novo?</li>
+        <Link to="/publicar-trabalho" style={{ textDecoration: "none" }}>
+          <li>Novo?</li>
+        </Link>
         <p>
           Procurando um construtor ou comerciante? Publique seu trabalho aqui e
           obtenha respostas rápidas de comerciantes locais de boa reputação.
         </p>
-        <li>Criar trabalho</li>
+        <Link to="/publicar-trabalho" style={{ textDecoration: "none" }}>
+          <li>Criar trabalho</li>
+        </Link>
         <p>
           Inscreva-se como comerciante Ajudamos os comerciantes a obter o tipo
           certo de trabalho, da maneira mais acessível.
@@ -71,7 +74,6 @@ const Login = () => {
         >
           <p>Tornar-se trabalhador</p>
         </Link>
-        
       </div>
     </div>
   );

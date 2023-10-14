@@ -339,14 +339,6 @@ const PostJob = () => {
           {!user ? (
             <form onSubmit={handleSubmit}>
               <div className={styles.formDesktop}>
-                <div className={styles.postJobZero}>
-                  <Select
-                    className={styles.Select2}
-                    options={distritos}
-                    onChange={setLocation}
-                    placeholder="Localização"
-                  />
-                </div>
                 <br></br>
                 <div className={styles.postJobUm}>
                   <div>
@@ -396,15 +388,12 @@ const PostJob = () => {
                       required
                     />
                   </div>
-                  <div>
-                    {/* <label htmlFor="username">Nome de Usuário Público</label> */}
-                    <input
-                      type="text"
-                      id="username"
-                      placeholder="Nome de Usuário Público"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      required
+                  <div className={styles.postJobZero}>
+                    <Select
+                      className={styles.Select2}
+                      options={distritos}
+                      onChange={setLocation}
+                      placeholder="Localização"
                     />
                   </div>
 
@@ -450,15 +439,7 @@ const PostJob = () => {
               </div>
               <div className={styles.formMobile}>
                 <div>
-                  <Select
-                    options={distritos}
-                    onChange={setLocation}
-                    placeholder="Localização"
-                  />
-                </div>
-
-                <div>
-              {/* <label htmlFor="firstName">First Name</label> */}
+                  {/* <label htmlFor="firstName">First Name</label> */}
                   <input
                     type="text"
                     id="firstName"
@@ -479,17 +460,7 @@ const PostJob = () => {
                     required
                   />
                 </div>
-                <div>
-                    {/* <label htmlFor="username">Nome de Usuário Público</label> */}
-                    <input
-                      type="text"
-                      id="username"
-                      placeholder="Nome de Usuário Público"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      required
-                    />
-                </div>
+
                 <div>
                   {/* <label htmlFor="phone">Phone Number</label> */}
                   <input
@@ -523,8 +494,7 @@ const PostJob = () => {
                     required
                   />
                 </div>
-              
-                
+
                 <div className={styles.containerTudoCheckBoxes}>
                   <div>
                     <label
@@ -552,9 +522,7 @@ const PostJob = () => {
                 <button id={styles.Continuarbtn} type="submit">
                   Continuar
                 </button>
-            </div>
-
-
+              </div>
             </form>
           ) : (
             <button onClick={() => SaveJob(user)}>Continuar</button>

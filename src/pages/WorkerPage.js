@@ -140,13 +140,13 @@ const WorkerPage = () => {
           <p>{body}</p>
         </div>
         <div className={styles.inputs}>
-        <input
-          type="checkbox"
-          id="reviewCheckbox"
-          name="reviewCheckbox"
-          checked={jobStatusOption == status}
-          onChange={() => setJobStatusOption(status)}
-        />
+          <input
+            type="checkbox"
+            id="reviewCheckbox"
+            name="reviewCheckbox"
+            checked={jobStatusOption == status}
+            onChange={() => setJobStatusOption(status)}
+          />
         </div>
       </div>
     );
@@ -167,141 +167,161 @@ const WorkerPage = () => {
         {worker.firstName} {worker.lastName} -{" "}
         {shortlistPopUp == false && isUserShortlisted && worker.phone}
       </p>
-      <p className={styles.adiciona}>
-        Adiciona à shortlist para discutir o trabalho
-      </p>
+      {!isUserShortlisted && (
+        <p className={styles.adiciona}>
+          Adiciona à shortlist para discutir o trabalho
+        </p>
+      )}
 
       <div className={styles.estruturaPerfil}>
-      {!isLeavingReview && (
-        <div className={styles.agoraDepois}>
-          <div className={styles.agora}>
-            <p>Agora</p>
-            <hr />
+        {!isLeavingReview && (
+          <div className={styles.agoraDepois}>
+            <div className={styles.agora}>
+              <p>Agora</p>
+              <hr />
 
-            {/* <p>{workerId}</p> */}
-            {isUserRejected ? (
-              <button onClick={handleUndoReject}>Desfazer recusa</button>
-            ) : isUserShortlisted ? (
-              <>
-                {shortlistPopUp == true ? (
-                  <>
-                    <p >{worker.workName}</p>
-                    <p style={{backgroundColor: "#333", textAlign: "center", paddingTop: 10, paddingBottom: 10, marginBottom: 5, borderRadius: 5, fontSize: 12, color: "#fff", fontWeight: "400"}}>Foi adicionado à tua lista restrita</p>
-                    <p>
-                      Aguarde um telefonema do {worker.firstName}{" "}
-                      {worker.lastName} para discutir o emprego ou entre em
-                      contato diretamente com ele.
-                    </p>
-                    <p>{worker.phone}</p>
-                    <button className={styles.btnFechar} onClick={() => setShortlistPopUp(false)}>
-                      Fechar
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    {job.userHired != "" ? (
-                      <button
-                        onClick={() =>
-                          navigate(
-                            `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
-                          )
-                        }
+              {/* <p>{workerId}</p> */}
+              {isUserRejected ? (
+                <button onClick={handleUndoReject}>Desfazer recusa</button>
+              ) : isUserShortlisted ? (
+                <>
+                  {shortlistPopUp == true ? (
+                    <>
+                      <p>{worker.workName}</p>
+                      <p
+                        style={{
+                          backgroundColor: "#333",
+                          textAlign: "center",
+                          paddingTop: 10,
+                          paddingBottom: 10,
+                          marginBottom: 5,
+                          borderRadius: 5,
+                          fontSize: 12,
+                          color: "#fff",
+                          fontWeight: "400",
+                        }}
                       >
-                        Deixar uma crítica{" "}
+                        Foi adicionado à tua lista restrita
+                      </p>
+                      <p>
+                        Aguarde um telefonema do {worker.firstName}{" "}
+                        {worker.lastName} para discutir o emprego ou entre em
+                        contato diretamente com ele.
+                      </p>
+                      <p>{worker.phone}</p>
+                      <button
+                        className={styles.btnFechar}
+                        onClick={() => setShortlistPopUp(false)}
+                      >
+                        Fechar
                       </button>
+                    </>
+                  ) : (
+                    <>
+                      {job.userHired != "" ? (
+                        <button
+                          onClick={() =>
+                            navigate(
+                              `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
+                            )
+                          }
+                        >
+                          Deixar uma crítica{" "}
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => setIsLeavingReview(!isLeavingReview)}
+                        >
+                          Contrata / Deixar uma crítica
+                        </button>
+                      )}
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <>
+                    {job.shortlistedUsers.lenght == 5 ? (
+                      <p>
+                        Não podes adicionar mais do que 5 pessoas à lista
+                        restrita
+                      </p>
                     ) : (
                       <button
-                        onClick={() => setIsLeavingReview(!isLeavingReview)}
+                        className={styles.adicionarBtn}
+                        onClick={handleShorlist}
                       >
-                        Contrata / Deixar uma crítica
+                        Adicionar à shortlist
                       </button>
                     )}
                   </>
-                )}
-              </>
-            ) : (
-              <>
-                <>
-                  {job.shortlistedUsers.lenght == 5 ? (
-                    <p>
-                      Não podes adicionar mais do que 5 pessoas à lista restrita
-                    </p>
-                  ) : (
-                    <button
-                      className={styles.adicionarBtn}
-                      onClick={handleShorlist}
-                    >
-                      Adicionar à shortlist
-                    </button>
-                  )}
-                </>
 
-                <button className={styles.recusarBtn} onClick={handleReject}>
-                  Recusar
-                </button>
-              </>
-            )}
+                  <button className={styles.recusarBtn} onClick={handleReject}>
+                    Recusar
+                  </button>
+                </>
+              )}
+            </div>
+            <div className={styles.depois}>
+              <p>Depois</p>
+              <hr />
+              <p>
+                Uma vez selecionado, você trocará detalhes de contato e poderá
+                solicitar cotações
+              </p>
+            </div>
           </div>
-          <div className={styles.depois}>
-            <p>Depois</p>
-            <hr />
-            <p>
-              Uma vez selecionado, você trocará detalhes de contato e poderá
-              solicitar cotações
-            </p>
+        )}
+        {!isLeavingReview ? (
+          <div className={styles.perfilDoMan}>
+            <h3>
+              Perfil de {worker.firstName} {worker.lastName}
+            </h3>
+            <p className={styles.descricao}>{worker.description}</p>
+            {worker.location.map((location) => (
+              <p>Trabalha nos distritos: {location}</p>
+            ))}
+            <p>Membro desde: 23 de março</p>
+            <h4>Serviços</h4>
+            {worker.tradesSelected.map((trade, index) => (
+              <p>
+                {index + 1}. {trade}
+              </p>
+            ))}
           </div>
-        </div>
-      )}
-      {!isLeavingReview ? (
-        <div className={styles.perfilDoMan}>
-          <h3>
-            Perfil de {worker.firstName} {worker.lastName}
-          </h3>
-          <p className={styles.descricao}>{worker.description}</p>
-          {worker.location.map((location) => (
-            <p>Trabalha nos distritos: {location}</p>
-          ))}
-          <p>Membro desde: 23 de março</p>
-          <h4>Serviços</h4>
-          {worker.tradesSelected.map((trade, index) => (
-            <p>
-              {index + 1}. {trade}
-            </p>
-          ))}
-        </div>
-      ) : (
-        <div>
-          <h2>Contrata {worker.workName}</h2>
-          <p style={{marginRight: 10}}>
-            Conte-nos sobre o status do seu trabalho. Avisaremos a outros
-            comerciantes que seu trabalho não é mais disponível. Você também
-            pode deixar comentários quando o trabalho for concluído
-          </p>
+        ) : (
           <div>
-            {reviewCard(
-              "Trabalho ainda não começou",
-              "Eu já acordei num preço e contratei este trabalhador",
-              "not_started"
-            )}
-            {reviewCard(
-              "Trabalho em progresso",
-              "Trabalho em andamente neste momento",
-              "on_going"
-            )}
-            {reviewCard(
-              "Trabalho concluído",
-              "Deves deixar um feedback quando estiveres pronto",
-              "done"
-            )}
+            <h2>Contrata {worker.workName}</h2>
+            <p style={{ marginRight: 10 }}>
+              Conte-nos sobre o status do seu trabalho. Avisaremos a outros
+              comerciantes que seu trabalho não é mais disponível. Você também
+              pode deixar comentários quando o trabalho for concluído
+            </p>
+            <div>
+              {reviewCard(
+                "Trabalho ainda não começou",
+                "Eu já acordei num preço e contratei este trabalhador",
+                "not_started"
+              )}
+              {reviewCard(
+                "Trabalho em progresso",
+                "Trabalho em andamente neste momento",
+                "on_going"
+              )}
+              {reviewCard(
+                "Trabalho concluído",
+                "Deves deixar um feedback quando estiveres pronto",
+                "done"
+              )}
+            </div>
+            <div>
+              <button onClick={() => setIsLeavingReview(!isLeavingReview)}>
+                Cancelar
+              </button>
+              <button onClick={() => hireWorker()}>Continuar</button>
+            </div>
           </div>
-          <div>
-            <button onClick={() => setIsLeavingReview(!isLeavingReview)}>
-              Cancelar
-            </button>
-            <button onClick={() => hireWorker()}>Continuar</button>
-          </div>
-        </div>
-      )}
+        )}
       </div>
     </div>
   );

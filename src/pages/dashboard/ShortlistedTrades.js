@@ -20,7 +20,10 @@ const ShortlistedTrades = () => {
       const jobs = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.userId !== user.uid) {
+        if (
+          data.userId !== user.uid &&
+          user.hiredJobs.includes(doc.id) == false
+        ) {
           jobs.push({ id: doc.id, ...data });
         }
       });
@@ -33,21 +36,23 @@ const ShortlistedTrades = () => {
   }, []);
 
   return (
-    <div
-    className={styles.detalhesContainer}
-    >
+    <div className={styles.detalhesContainer}>
       <h2 style={{ fontFamily: "Raleway" }}>
         Trabalhos a que estou adicionado à lista restrita
       </h2>
-      {jobs.map((job) => (
-        <Link
-          style={{ textDecoration: "none" }}
-          to={`/meustrabalhos/${job.id}`}
-          state={{ job }}
-        >
-          <JobCard key={job.id} value={{ job, user }} />
-        </Link>
-      ))}
+      {jobs.length === 0 ? (
+        <p>Ainda sem atividade</p>
+      ) : (
+        jobs.map((job) => (
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`/meustrabalhos/${job.id}`}
+            state={{ job }}
+          >
+            <JobCard key={job.id} value={{ job, user }} />
+          </Link>
+        ))
+      )}
     </div>
   );
 };
