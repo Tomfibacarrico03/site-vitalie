@@ -5,15 +5,31 @@ const Footer = () => {
   
   return (
    
-    <footer className={styles.Footer}>
-        <h4>© Copyright 2023</h4>
+    <div className={styles.footer}>
+      <div className={styles.footerBelow}>
+        <header>
         <div>
-          <a href='https://www.livroreclamacoes.pt/Inicio/'>Livro de reclamações</a>
-          <p>Vitalie Puscas</p>
-          <p>517635763</p>
-          <p></p>
+          <h1>Websites</h1>
+          <a href="#how_we_work" id="opcao">SaaS</a>
+          <a>Informative</a>
+          <a>Social Media</a>
         </div>
-    </footer>
+        <div>
+          <h1>Apps</h1>
+          <a>Social Media</a>
+          <a>Integration with SaaS</a>
+        </div>
+        <div>
+          <h1>Single Services</h1>
+          <a>Soundtracks</a>
+        </div>
+        <div>
+          <h1>Single Services</h1>
+          <a>Soundtracks</a>
+        </div>
+        </header>
+      </div>
+    </div>
   )
 }
 

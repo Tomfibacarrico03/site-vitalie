@@ -1,16 +1,55 @@
-footer {
+  .footer {
+    position: absolute;
+    padding-bottom: 50px;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #508ce4;
+  }
+
+  .footer p {
+    color: #fff;
+    margin-left: 9rem;
+    font-family: "Raleway";
+  }
+
+  .footerBelow {
+    width: 100%;
+    padding-top: 70px;
+    padding-bottom: 0px;
+    z-index: 10;
+  }
+
+  .footerBelow header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 5%;
-    margin-left: 15%;
-    margin-right: 15%;
-    position: relative;
-    bottom: 0px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    width: 70%;
-    color: #219ebc;
-}
+    color: #fff;
+    gap: 5rem;
+    margin-left: 9rem;
+    margin-right: 9rem;
+    justify-content: flex-start;
+  }
+
+  .footerBelow header h1 {
+    margin-bottom: 1.6rem;
+    font-family: "Raleway";
+    font-size: 19.2px;
+  }
+
+  .footerBelow header a {
+    margin-bottom: 1rem;
+    font-family: "Raleway";
+    font-size: 14px;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+  }
+
+  .footerBelow header a:hover {
+    margin-bottom: 1rem;
+    font-family: "Poppins";
+    font-size: 14px;
+    text-decoration: underline;
+  }
 
 
 @font-face {

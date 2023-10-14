@@ -99,7 +99,7 @@ function App() {
           <Route path="/inbox/chat/:id" element={<Chat />} />
         </Routes>
 
-        {/*  <Footer /> */}
+         <Footer />
       </AuthContextProvider>
     </BrowserRouter>
   );
