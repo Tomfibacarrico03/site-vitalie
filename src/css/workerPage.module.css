@@ -43,7 +43,6 @@
     padding-right: 25px;
     margin-left: 15px;
     text-align: end;
-    margin-top: -60px;
     margin-bottom: 10px;
     border-right: 3px solid #508ce4
   }
@@ -94,7 +93,7 @@
   .agora, .depois {
     display: block;
     width: 50%;
-    margin: 5px
+    margin-top: 15px;
   }
 
   .depois p {
@@ -203,7 +202,7 @@
   }
 
   .form {
-    display: flex;
+    display: inline-flex;
     align-items: center;
   }
 

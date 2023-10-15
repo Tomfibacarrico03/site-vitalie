@@ -16,9 +16,9 @@ const TradesPage = () => {
           <h3 className={styles.subtitle}>Ajudamos donos de casas a encontrar o trabalhador ideal, e bons trabalhadores a ter sucesso.</h3>
 
           <div className={styles.botoes}>
-          <Link to="/registrar-como-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
-            <li className={styles.btnRegister}>
-              <h3>Registar como Trabalhador</h3>
+          <Link to="/aplicativo-de-comerciante" style={{ textDecoration: "none", zIndex: 120 }}>
+            <li className={styles.btnApply}>
+              <h3>Registar agora</h3>
             </li>
             </Link>
              

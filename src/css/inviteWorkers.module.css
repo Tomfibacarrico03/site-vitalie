@@ -6,6 +6,12 @@
     /* You can include other font weights and styles as well if needed */
   }
 
+  .title {
+    margin-left: 12px;
+    margin-right: 10px;
+    font-size: 25px;
+  }
+
   .categoriaConvitesDuplos {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -63,6 +69,7 @@
     background-color: #fff;
     border-left: 2px solid #508ce4;
     margin-left: 45px;
+    margin-top: 25px;
     padding-left: 25px;
     border-radius: 0px;
   }
@@ -127,8 +134,8 @@
   }
 
   .convida {
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 10px;
+    margin-right: 0px;
     display: block;
   }
 
@@ -137,5 +144,11 @@
     margin-top: 50px;
     margin-left: 5px;
     margin-right: 5px;
+  }
+
+  .title {
+    margin-left: 12px;
+    margin-right: 10px;
+    font-size: 18px;
   }
 }

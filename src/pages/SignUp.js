@@ -107,7 +107,7 @@ const SignUp = () => {
         <>
           {user.trade_member == false ? (
             <div>
-              <h2>
+              <h2 style={{marginLeft: -5}}>
                 Bem vindo, {user.firstName} {user.lastName}
               </h2>
               <h3>Inscreva-se para ser um membro comercial</h3>
@@ -122,7 +122,6 @@ const SignUp = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="workName">Nome de trabalho</label>
                   <input
                     type="text"
                     id="workName"
@@ -133,7 +132,6 @@ const SignUp = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="description">Descrição</label>
                   <input
                     type="text"
                     id="description"
@@ -153,7 +151,8 @@ const SignUp = () => {
                   />
                 </div>
                 {error && <p>{error}</p>}
-                <button type="submit">Registar como trabalhador</button>
+                <br></br>
+                <button className={styles.btnRegistar} type="submit">Registar como trabalhador</button>
               </form>
             </div>
           ) : (

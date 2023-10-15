@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from "../css/footer.module.css";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   
@@ -14,7 +15,7 @@ const Footer = () => {
         </div>
         <div>
           <h1 className={styles.footerBelow_header_h1}>Trabalhadores</h1>
-          <a className={styles.footerBelow_header_a}>Registe-se</a>
+          <Link to="aplicativo-de-comerciante" style={{textDecoration: "none"}}><a className={styles.footerBelow_header_a}>Registe-se</a></Link>
         </div>
         <div>
           <h1 className={styles.footerBelow_header_h1}>Empresa</h1>
