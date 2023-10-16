@@ -326,7 +326,7 @@ function JobPage(props) {
                       onChange={(event) => handleImageChange(event, index)}
                       style={{ display: "none" }}
                     />
-                    {imageUrl && <img src={imageUrl} style={{marginTop: -100, borderRadius: 5, width: "fit-content", marginLeft: 15, marginRight: 15, paddingTop: -50}} alt="" />}
+                    {imageUrl && <img src={imageUrl} style={{marginTop: -100, borderRadius: 5, width: 100, marginLeft: 15, marginRight: 15,}} alt="" />}
                   </div>
                 ))}
               </div>

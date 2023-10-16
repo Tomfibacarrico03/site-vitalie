@@ -102,6 +102,14 @@
     margin-top: 5px
   }
 
+  .criticas {
+    box-shadow: 0 0 50px rgba(80, 140, 228, 0.6);
+  }
+
+  .criticas h3, .convites h3 {
+    color: #508ce4
+  }
+
   .criticas, .convites {
     background-color: #f2f2f2;
     padding: 20px;

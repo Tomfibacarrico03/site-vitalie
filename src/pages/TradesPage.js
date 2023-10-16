@@ -30,22 +30,22 @@ const TradesPage = () => {
         
       </div>
       <div className={styles.zonaComecar}>
-        <h1 className={styles.titles}>Pay as you go simplicity</h1>
+        <h1 className={styles.titles}>Simples pagamento durante o uso</h1>
         <div className={styles.divAboutUs}>
           <div>
             <h1 style={{color: "rgba(0, 0, 0, 0.2)"}}>1</h1>
-            <h1>Pick the jobs you want</h1>
-            <p>We’ll only send you leads where you want them. You choose which leads you’re interested in.</p>
+            <h1>Escolhe os teus trabalhos</h1>
+            <p>Enviaremos leads apenas para onde você quiser. Escolhe em quais leads está interessado.</p>
           </div>
           <div>
             <h1 style={{color: "rgba(0, 0, 0, 0.2)"}}>2</h1>
-            <h1>Homeowners shortlist</h1>
-            <p>Homeowners make their choice based on the profiles and feedback of interested trades.</p>
+            <h1>Lista Restrita</h1>
+            <p>Os proprietários fazem sua escolha com base nos perfis e feedback dos negócios interessados.</p>
           </div>
           <div>
             <h1 style={{color: "rgba(0, 0, 0, 0.2)"}}>3</h1>
-            <h1>Call to arrange a quote</h1>
-            <p>Once shortlisted, we’ll charge a small fee and put you in touch with the homeowner.</p>
+            <h1>Liga para negociar</h1>
+            <p>Depois de selecionados, cobraremos uma pequena taxa e colocaremos você em contato com o proprietário.</p>
           </div>
         </div>
         <div className={styles.verComoFuncionaBtn}>
