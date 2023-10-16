@@ -115,7 +115,10 @@ const NavBar = () => {
               />
             </div>
           </nav>
-          <div className={isOpen ? styles.navOpen : styles.navClose}>
+          <div
+            className={styles.navOpen}
+            style={isOpen ? { height: "100vh" } : { height: "0vh" }}
+          >
             <ul>
               <Link
                 to="/publicar-trabalho"
