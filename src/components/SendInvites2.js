@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import WorkerCard2 from "./cards/WorkerCard2";
+import styles from "../css/inviteWorkers.module.css";
 
 const SendInvites = ({ job }) => {
   const [workers, setWorkers] = useState([]);
@@ -30,7 +31,7 @@ const SendInvites = ({ job }) => {
 
   return (
     <div>
-      <h3 style={{ fontFamily: "Raleway", fontSize: 25, marginTop: 35, marginLeft: 15 }}>
+      <h3 style={{ fontFamily: "Raleway", marginTop: 35,}} className={styles.title}>
         Trabalhadores recomendados
       </h3>
       {/* Map through pairs of workers and display WorkerCards in pairs */}

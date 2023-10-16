@@ -142,6 +142,7 @@
 
   .divAboutUs p {
     font-size: 1rem;
+    font-weight: lighter;
     color: #000;
     margin-top: -10px;
   }
@@ -296,6 +297,7 @@
   
   .divAboutUs p {
     font-size: 1rem;
+    font-weight: lighter;
     color: #000;
     margin-top: -10px;
   }
@@ -686,6 +688,7 @@
   }
 
   .divAboutUs p {
+    font-weight: lighter;
     font-size: 0.75rem;
     color: #000;
     margin-top: -10px;
@@ -862,15 +865,53 @@
 
   .divAboutUs p {
     font-size: 0.75rem;
+    font-weight: lighter;
     color: #000;
     margin-top: -10px;
     margin-left: 10px;
     margin-right: 10px
   }
 
+  .verComoFuncionaBtn {
+    text-align: center;
+    background-color: #508ce4;
+    padding: 10px;
+    padding-bottom: 15px;
+  }
+  
+  .verComoFuncionaBtn h1 {
+    background-color: #508ce4;
+    color: #fff;
+    font-size: 90%;
+    padding-top: 30px;
+    font-family: "Raleway";
+  }
+
+  .verComoFuncionaBtn p {
+    background-color: #508ce4;
+    color: #fff;
+    font-size: 13px;
+    font-family: "Avenir Next";
+    margin-left: 25px;
+    padding-bottom: 30px;
+    margin-right: 25px;
+  }
+
 }
 
 @media screen and (max-width: 600px) {
+
+  .title {
+    font-size: 160%;
+    font-family: "Raleway";
+    width: 80%;
+    color: #000;
+    font-weight: bold;
+  }
+
+  .subtitle {
+    font-size: 85%;
+  }
 
   .divCabecalho {
     padding-right: 30px;
@@ -933,6 +974,20 @@
     border-radius: 15px;
     padding: 5px;
     padding-bottom: 50px;
+  }
+
+  .divAboutUs h1 {
+    font-size: 18px;
+    margin-left: 15px;
+    color: #508ce4;
+    margin-right: 15px;
+  }
+
+  .divAboutUs p {
+    font-size: 13px;
+    color: #000;
+    font-weight: lighter;
+    margin-top: -10px;
   }
 
   .btnRegister {

@@ -1,7 +1,8 @@
   @media only screen and (max-width: 10000px) {
   
   .footer {
-    position: absolute;
+    position: relative;
+    bottom: 0px;
     padding-bottom: 50px;
     width: 100%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -11,7 +12,7 @@
 
   .footer_p {
     color: #fff;
-    margin-left: 9rem;
+    margin-left: 200px;
     font-family: "Raleway";
   }
 
@@ -26,8 +27,8 @@
     display: flex;
     color: #fff;
     gap: 5rem;
-    margin-left: 9rem;
-    margin-right: 9rem;
+    margin-left: 200px;
+    margin-right: 200px;
     justify-content: flex-start;
   }
 
@@ -44,7 +45,7 @@
     display: block;
     text-decoration: none;
     color: #fff;
-    font-weight: thin;
+    font-weight: lighter;
   }
 
   .footerBelow_header_a:hover {
@@ -59,11 +60,12 @@
 }
 
 
-@media only screen and (max-width: 1250px) {
+@media only screen and (max-width: 1300px) {
     .footer {
-        position: absolute;
+        position: relative;
         padding-bottom: 50px;
         padding-top: 50px;
+        margin-top: 150px;
         width: 100%;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
@@ -97,6 +99,7 @@
         color: #fff;
         text-align: center;
         margin-left: 0;
+        margin-bottom: 50px
       }
     
       .footerBelow_header {
@@ -106,10 +109,11 @@
         margin-left: 3rem;
         margin-right: 3rem;
         justify-content: flex-start;
-        margin-top: -3rem;
+        margin-top: -5rem;
       }
     
-      #footerBelow_header_h1 {
+      .footerBelow_header_h1 {
         margin-top: 3rem;
+        margin-bottom: 1rem
       }
 }

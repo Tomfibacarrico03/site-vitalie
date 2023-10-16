@@ -9,13 +9,20 @@ const InterestedUserCard = (props) => {
           alignItems: "center",
         }}
       >
-        <p style={{ fontFamily: "Avenir Next", color: "#000" }}>
+        <p style={{ marginBottom: 0, fontSize: 13, marginTop: 5, marginBottom: 5, textAlign: "left", color: "#333", borderRadius: 5}}>
           {props.value.firstName} {props.value.lastName}
         </p>
+        <br></br>
         <p
           style={{
-            fontFamily: "Avenir Next",
+            fontFamily: "Raleway",
+            fontSize: 14,
             marginLeft: 10,
+            marginTop: -10,
+            paddingLeft: 5,
+            padding: 5,
+            marginTop: 5,
+            marginBottom: 5,
             color: "#8c8c8c",
           }}
         >

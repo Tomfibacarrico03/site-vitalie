@@ -326,7 +326,7 @@ function JobPage(props) {
                       onChange={(event) => handleImageChange(event, index)}
                       style={{ display: "none" }}
                     />
-                    {imageUrl && <img src={imageUrl} alt="" />}
+                    {imageUrl && <img src={imageUrl} style={{marginTop: -100, borderRadius: 5, width: "fit-content", marginLeft: 15, marginRight: 15, paddingTop: -50}} alt="" />}
                   </div>
                 ))}
               </div>
@@ -346,7 +346,6 @@ function JobPage(props) {
                     <>
                       {interestedUsers.map((user) => (
                         <Link
-                          style={{ textDecoration: "none" }}
                           to={`/meustrabalhos/${jobId}/trabalhador/${user.id}`}
                           state={{ user, job }}
                         >
@@ -369,8 +368,8 @@ function JobPage(props) {
               ) : (
                 <div>
                   <h3>Trabalhador contratado</h3>
-                  <h5>{hiredUser.workName}</h5>
-                  <p>
+                  <h5 style={{marginLeft: 3, backgroundColor: "#333", padding: 5, textAlign: "left", color: "#fff", borderRadius: 5}}>{hiredUser.workName}</h5>
+                  <p style={{fontSize: 14, marginTop: -15}}>
                     {hiredUser.reviewCount} crítica(s) 👍🏻{" "}
                     {hiredUser.reviewCount !== 0 ? (
                       <>

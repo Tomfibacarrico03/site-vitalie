@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "../css/workerPage.module.css";
+import {phoneVitalie} from "../imgs/phoneVitalie.png"
 
 const WorkerPage = () => {
   const { jobId, workerId } = useParams();
@@ -164,8 +165,13 @@ const WorkerPage = () => {
       </header>
       <p className={styles.feedback}>Ainda sem feedback</p>
       <p className={styles.nome}>
-        {worker.firstName} {worker.lastName} -{" "}
-        {shortlistPopUp == false && isUserShortlisted && worker.phone}
+        <b style={{fontSize: 19}}>{worker.firstName} {worker.lastName} </b>
+        <br></br>{" "}
+        <div style={{display: "inline-flex", alignItems: "center", marginTop: 5}}>
+          <img style={{width: 13, height: 13, marginRight: 5}} src={require("../imgs/phoneVitalie.png")} />
+          <b style={{color: "#508ce4"}}>{shortlistPopUp == false && isUserShortlisted && worker.phone}</b>
+
+        </div>
       </p>
       {!isUserShortlisted && (
         <p className={styles.adiciona}>
@@ -291,7 +297,7 @@ const WorkerPage = () => {
           </div>
         ) : (
           <div>
-            <h2>Contrata {worker.workName}</h2>
+            <h2 style={{fontSize: 25, paddingTop: 35}}>Contrata {worker.workName}</h2>
             <p style={{ marginRight: 10 }}>
               Conte-nos sobre o status do seu trabalho. Avisaremos a outros
               comerciantes que seu trabalho não é mais disponível. Você também

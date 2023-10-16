@@ -70,7 +70,7 @@ const Login = () => {
         </p>
         <Link
           className={styles.trabalhadorBtn}
-          to={`/registrar-como-comerciante`}
+          to={`/aplicativo-de-comerciante`}
         >
           <p>Tornar-se trabalhador</p>
         </Link>

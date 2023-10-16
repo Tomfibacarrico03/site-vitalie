@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html, input {
+  touch-action: manipulation; /* For some mobile browsers */
+  user-scalable: no; /* For some Android browsers */
+  max-zoom: 1; /* For some iOS browsers */
+  touch-zooming: none; /* For some Windows Phone browsers */
+  -ms-content-zooming: none; /* For Internet Explorer */
+  -ms-text-size-adjust: none; /* For Internet Explorer */
+  -ms-touch-action: none; /* For Internet Explorer */
+}
