@@ -35,7 +35,7 @@ const NavBar = () => {
         <nav>
           <div className={styles.logo}>
             <Link to="/" style={{ textDecoration: "none" }}>
-              <h3>meuJob</h3>
+              <h3>meuJob.pt</h3>
             </Link>
           </div>
 
