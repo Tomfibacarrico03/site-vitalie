@@ -77,7 +77,6 @@ const NavBar = () => {
               </>
             ) : (
               <>
-                <li className={styles.btnPostJob}>Homeowners</li>
                 <Link
                   to="/registrar-como-comerciante"
                   style={{ textDecoration: "none" }}
@@ -170,7 +169,6 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <li className={styles.btnPostJob}>Homeowners</li>
                   <Link
                     onClick={closeMobileMenu}
                     to="/registrar-como-comerciante"
