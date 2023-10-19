@@ -272,10 +272,16 @@ function JobPage(props) {
                     {user.shortlistedJobs.includes(job.id) ? (
                       <>
                         {usuario && (
+                          <>
                           <p className={styles.infoNome}>
                             Foste adicionado a lista restrita. Liga para fechar
-                            o negócio - {usuario.phone}
+                            o negócio
                           </p>
+                          <div style={{display: "flex", alignItems: "center", marginBottom: -15, marginTop: -25}}>
+                            <img style={{width: 13, height: 13, marginRight: 5, marginTop: -20}} src={require("../imgs/phoneVitalie.png")} />
+                            <p style={{color: "#508ce4",}}>{usuario.phone}</p>
+                          </div>
+                          </>
                         )}
                       </>
                     ) : (
@@ -285,6 +291,10 @@ function JobPage(props) {
                           marginLeft: -15,
                           padding: 15,
                           fontFamily: "Raleway",
+                          boxShadow: "0 0 50px 3px #508ce4",
+                          backgroundColor: "#fff",
+                          color: "#508ce4",
+                          marginBottom: 7
                         }}
                         onClick={() => ShowInterest()}
                       >

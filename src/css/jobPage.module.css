@@ -40,6 +40,7 @@
 
   .infoInfo {
     margin-left: 50px;
+    margin-right: 50px;
     font-family: "Raleway";
   }
 
@@ -97,7 +98,7 @@
   }
 
   .criticasConvites {
-    width: 30%;
+    width: auto;
     margin-left: 20px;
     margin-top: 5px
   }
@@ -112,6 +113,7 @@
 
   .criticas, .convites {
     background-color: #f2f2f2;
+    width: 270px;
     padding: 20px;
     border-radius: 10px;
   }
@@ -165,6 +167,10 @@
     margin-top: 5px;
     width: auto;
 
+  }
+
+  .criticas, .convites {
+    width: auto;
   }
   
 }

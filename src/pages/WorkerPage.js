@@ -168,7 +168,7 @@ const WorkerPage = () => {
         <b style={{fontSize: 19}}>{worker.firstName} {worker.lastName} </b>
         <br></br>{" "}
         <div style={{display: "inline-flex", alignItems: "center", marginTop: 5}}>
-          <img style={{width: 13, height: 13, marginRight: 5}} src={require("../imgs/phoneVitalie.png")} />
+          {shortlistPopUp == false && isUserShortlisted && <img style={{width: 13, height: 13, marginRight: 5}} src={require("../imgs/phoneVitalie.png")} />}
           <b style={{color: "#508ce4"}}>{shortlistPopUp == false && isUserShortlisted && worker.phone}</b>
 
         </div>
@@ -214,7 +214,11 @@ const WorkerPage = () => {
                         {worker.lastName} para discutir o emprego ou entre em
                         contato diretamente com ele.
                       </p>
-                      <p>{worker.phone}</p>
+                      <div style={{display: "flex", alignItems: "center", marginTop: 5}}>
+                        <img style={{width: 13, height: 13, marginRight: 5, marginBottom: -20}} src={require("../imgs/phoneVitalie.png")} />
+                         <p style={{color: "#508ce4", marginBottom: -10}}>{worker.phone}</p>
+                      </div>
+                      <br></br>
                       <button
                         className={styles.btnFechar}
                         onClick={() => setShortlistPopUp(false)}
