@@ -97,7 +97,7 @@ function JobPage(props) {
         const userHiredDoc = await getDoc(doc(db, "users", userHired));
 
         if (userHiredDoc.exists()) {
-          setHiredUser(userHiredDoc.data());
+          setHiredUser({ ...userHiredDoc.data(), id: userHiredDoc.id });
         } else {
           console.log("UserHired not found");
         }
@@ -128,38 +128,16 @@ function JobPage(props) {
     setUsuario(userData);
   };
 
-  function createChat() {
-    const chatDocId = `${user.uid}_${job.userId}`;
-    const chatDocRef = doc(collection(db, "chats"), "2");
-    const messagesCollectionRef = collection(chatDocRef, "messages");
+  const removeImage = (index) => {
+    // Create a copy of the images array
+    const updatedImages = [...images];
 
-    const newChatDocData = {
-      users: [user.uid, job.userId],
-    };
+    // Set the image at the specified index to null
+    updatedImages[index] = null;
 
-    setDoc(chatDocRef, newChatDocData)
-      .then(() => {
-        console.log("Chat document created successfully!");
-
-        const newMessageDocData = {
-          text: "Hello!",
-          senderId: user.uid,
-          timestamp: serverTimestamp(),
-        };
-
-        setDoc(doc(messagesCollectionRef), newMessageDocData)
-          .then(() => {
-            console.log("Message document created successfully!");
-            navigate("/inbox");
-          })
-          .catch((error) => {
-            console.error("Error creating message document:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error creating chat document:", error);
-      });
-  }
+    // Update the images state with the modified array
+    setImages(updatedImages); // Assuming you're using React and have a state variable named 'images'
+  };
 
   function ShowInterest() {
     const jobRef = doc(db, "jobs", job.id);
@@ -316,6 +294,7 @@ function JobPage(props) {
                         onClick={() => {
                           document.getElementById(`input-${index}`).click();
                         }}
+                        style={{ display: imageUrl ? "none" : "block" }}
                       >
                         +
                       </button>
@@ -326,7 +305,21 @@ function JobPage(props) {
                       onChange={(event) => handleImageChange(event, index)}
                       style={{ display: "none" }}
                     />
-                    {imageUrl && <img src={imageUrl} style={{marginTop: -100, borderRadius: 5, width: 100, marginLeft: 15, marginRight: 15,}} alt="" />}
+                    {imageUrl && (
+                      <img
+                        src={imageUrl}
+                        style={{
+                          marginTop: -100,
+                          borderRadius: 5,
+                          width: 100,
+                          marginLeft: 15,
+                          marginRight: 15,
+                          cursor: "pointer", // Add a pointer cursor to indicate it's clickable
+                        }}
+                        alt=""
+                        onClick={() => removeImage(index)}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -368,8 +361,23 @@ function JobPage(props) {
               ) : (
                 <div>
                   <h3>Trabalhador contratado</h3>
-                  <h5 style={{marginLeft: 3, backgroundColor: "#333", padding: 5, textAlign: "left", color: "#fff", borderRadius: 5}}>{hiredUser.workName}</h5>
-                  <p style={{fontSize: 14, marginTop: -15}}>
+                  <Link
+                    to={`/meustrabalhos/${jobId}/trabalhador/${hiredUser.id}`}
+                  >
+                    <h5
+                      style={{
+                        marginLeft: 3,
+                        backgroundColor: "#333",
+                        padding: 5,
+                        textAlign: "left",
+                        color: "#fff",
+                        borderRadius: 5,
+                      }}
+                    >
+                      {hiredUser.workName}
+                    </h5>
+                  </Link>
+                  <p style={{ fontSize: 14, marginTop: -15 }}>
                     {hiredUser.reviewCount} crítica(s) 👍🏻{" "}
                     {hiredUser.reviewCount !== 0 ? (
                       <>
