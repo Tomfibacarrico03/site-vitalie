@@ -35,7 +35,7 @@ const NavBar = () => {
         <nav>
           <div className={styles.logo}>
             <Link to="/" style={{ textDecoration: "none" }}>
-              <h3>meuJob</h3>
+              <h3>meuJob.pt</h3>
             </Link>
           </div>
 
@@ -77,7 +77,6 @@ const NavBar = () => {
               </>
             ) : (
               <>
-                <li className={styles.btnPostJob}>Homeowners</li>
                 <Link
                   to="/registrar-como-comerciante"
                   style={{ textDecoration: "none" }}
@@ -170,7 +169,6 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <li className={styles.btnPostJob}>Homeowners</li>
                   <Link
                     onClick={closeMobileMenu}
                     to="/registrar-como-comerciante"
