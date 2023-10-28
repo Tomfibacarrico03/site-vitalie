@@ -1,10 +1,22 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
 
 admin.initializeApp();
 
 const db = admin.firestore();
 const fetch = require("node-fetch");
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+
+  auth: {
+    user: "afonsoresendes03@gmail.com",
+    pass: "awhvwwkxiaqlduyd",
+  },
+});
 
 exports.SaveJob = functions.https.onCall(async (data, context) => {
   try {
@@ -42,6 +54,25 @@ exports.SaveJob = functions.https.onCall(async (data, context) => {
     console.error(error);
     throw new functions.https.HttpsError("unknown", error.message);
   }
+});
+
+exports.sendEmail = functions.https.onCall((req, res) => {
+  const mailOptions = {
+    from: "afonsoresendes03@gmail.com",
+    to: "afonsoresendes@gmail.com",
+    subject: "Subject of the Email",
+    text: "Email Content",
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send("Error sending email");
+    } else {
+      console.log("Email sent: " + info.response);
+      res.status(200).send("Email sent successfully");
+    }
+  });
 });
 
 exports.createUserAndSaveJob = functions.https.onCall(async (data, context) => {
@@ -108,7 +139,11 @@ exports.requestCIT = functions.https.onRequest(async (req, res) => {
   console.log("Fetching user data for userId:", userId);
 
   try {
-    const userSnapshot = await admin.firestore().collection("users").doc(userId).get();
+    const userSnapshot = await admin
+      .firestore()
+      .collection("users")
+      .doc(userId)
+      .get();
     if (!userSnapshot.exists) {
       console.error("User document not found:", userId);
       res.status(404).send("User Not Found");
@@ -136,7 +171,7 @@ exports.requestCIT = functions.https.onRequest(async (req, res) => {
         merchant: {
           terminalId: 59172,
           channel: "web",
-          merchantTransactionId: "teste 12345"
+          merchantTransactionId: "teste 12345",
         },
         transaction: {
           transactionTimestamp: new Date().toISOString(),
@@ -145,9 +180,9 @@ exports.requestCIT = functions.https.onRequest(async (req, res) => {
           paymentType: "AUTH",
           amount: {
             value: 0,
-            currency: "EUR"
+            currency: "EUR",
           },
-          paymentMethod: ["CARD"]
+          paymentMethod: ["CARD"],
         },
         customer: {
           customerInfo: {
@@ -158,19 +193,19 @@ exports.requestCIT = functions.https.onRequest(async (req, res) => {
               street2: userData.address2,
               city: userData.city,
               postcode: userData.postalCode,
-              country: "PT"
-            }
-          }
+              country: "PT",
+            },
+          },
         },
         merchantInitiatedTransaction: {
           type: "UCOF",
-          amountQualifier: "ESTIMATED"
+          amountQualifier: "ESTIMATED",
         },
         tokenisation: {
           tokenisationRequest: {
-            tokeniseCard: true
-          }
-        }
+            tokeniseCard: true,
+          },
+        },
       });
 
       const requestOptions = {
@@ -199,8 +234,6 @@ exports.requestCIT = functions.https.onRequest(async (req, res) => {
         console.error("Error while handling API response:", error);
         res.status(500).send("Internal Server Error");
       }
-
-
     } catch (error) {
       console.error("POST request error:", error);
       res.status(500).send("Internal Server Error");

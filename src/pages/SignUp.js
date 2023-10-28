@@ -107,7 +107,7 @@ const SignUp = () => {
         <>
           {user.trade_member == false ? (
             <div>
-              <h2 style={{marginLeft: -5}}>
+              <h2 style={{ marginLeft: -5 }}>
                 Bem vindo, {user.firstName} {user.lastName}
               </h2>
               <h3>Inscreva-se para ser um membro comercial</h3>
@@ -120,6 +120,10 @@ const SignUp = () => {
                     onChange={handleSelectedOptionsChange}
                     placeholder="Selecionar"
                   />
+
+                  <label htmlFor="trade">
+                    Pode adicionar mais que um trabalho
+                  </label>
                 </div>
                 <div>
                   <input
@@ -149,10 +153,15 @@ const SignUp = () => {
                     onChange={handleSelectedDistritosChange}
                     placeholder="Selecionar"
                   />
+                  <label htmlFor="trade">
+                    Pode adicionar mais que uma localização
+                  </label>
                 </div>
                 {error && <p>{error}</p>}
                 <br></br>
-                <button className={styles.btnRegistar} type="submit">Registar como trabalhador</button>
+                <button className={styles.btnRegistar} type="submit">
+                  Registar como trabalhador
+                </button>
               </form>
             </div>
           ) : (
@@ -228,6 +237,7 @@ const SignUp = () => {
                 onChange={handleSelectedOptionsChange}
                 placeholder="Selecionar"
               />
+              <label htmlFor="trade">Pode adicionar mais que um trabalho</label>
             </div>
             <div>
               <label htmlFor="workName">Nome de trabalho</label>
@@ -259,6 +269,9 @@ const SignUp = () => {
                 onChange={handleSelectedDistritosChange}
                 placeholder="Selecionar"
               />
+              <label htmlFor="location">
+                Pode adicionar mais que uma localização
+              </label>
             </div>
             <div className={styles.containerTudoCheckBoxes}>
               <div>
@@ -284,7 +297,9 @@ const SignUp = () => {
               </div>
             </div>
             {error && <p>{error}</p>}
-            <button className={styles.btnRegistar} type="submit">Registar</button>
+            <button className={styles.btnRegistar} type="submit">
+              Registar
+            </button>
           </form>
         </>
       )}
