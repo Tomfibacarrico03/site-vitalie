@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
-import { db } from "../firebase";
+import { db, functions } from "../firebase";
 import Select from "react-select";
 import styles from "../css/register.module.css";
 import { trades, distritos } from "../lib/SelectOptions";
+import { httpsCallable } from "firebase/functions";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const sendEmail = httpsCallable(functions, "sendEmail");
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -68,6 +70,10 @@ const SignUp = () => {
       setError(error.message);
       console.log(error.message);
     }
+  };
+
+  const sendEmaill = async () => {
+    await sendEmail({ email: "afonsoresendes03@gmail.com" });
   };
 
   const becomeTradesPerson = async (e) => {
@@ -301,6 +307,7 @@ const SignUp = () => {
               Registar
             </button>
           </form>
+          <button onClick={() => sendEmaill()}>sss</button>
         </>
       )}
     </div>

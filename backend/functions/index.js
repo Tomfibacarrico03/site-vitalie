@@ -56,22 +56,26 @@ exports.SaveJob = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.sendEmail = functions.https.onCall((req, res) => {
+exports.sendEmail = functions.https.onCall((data, context) => {
+  const { email } = data;
+
   const mailOptions = {
-    from: "afonsoresendes03@gmail.com",
-    to: "afonsoresendes@gmail.com",
+    from: "your_email@gmail.com", // This should match the email used in the transporter
+    to: email,
     subject: "Subject of the Email",
     text: "Email Content",
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error(error);
-      res.status(500).send("Error sending email");
-    } else {
-      console.log("Email sent: " + info.response);
-      res.status(200).send("Email sent successfully");
-    }
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        reject("Error sending email");
+      } else {
+        console.log("Email sent: " + info.response);
+        resolve("Email sent successfully");
+      }
+    });
   });
 });
 
