@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "../css/workerPage.module.css";
-import {phoneVitalie} from "../imgs/phoneVitalie.png"
+import { phoneVitalie } from "../imgs/phoneVitalie.png"
 
 const WorkerPage = () => {
   const { jobId, workerId } = useParams();
@@ -135,21 +135,23 @@ const WorkerPage = () => {
 
   const reviewCard = (head, body, status) => {
     return (
-      <div className={styles.form}>
-        <div>
-          <h3>{head}</h3>
-          <p>{body}</p>
+      <>
+        <div className={styles.reviewCard}>
+          <div>
+            <h3>{head}</h3>
+            <p>{body}</p>
+          </div>
+          <div className={styles.inputs}>
+            <input
+              type="checkbox"
+              id="reviewCheckbox"
+              name="reviewCheckbox"
+              checked={jobStatusOption == status}
+              onChange={() => setJobStatusOption(status)}
+            />
+          </div>
         </div>
-        <div className={styles.inputs}>
-          <input
-            type="checkbox"
-            id="reviewCheckbox"
-            name="reviewCheckbox"
-            checked={jobStatusOption == status}
-            onChange={() => setJobStatusOption(status)}
-          />
-        </div>
-      </div>
+      </>
     );
   };
 
@@ -165,11 +167,11 @@ const WorkerPage = () => {
       </header>
       <p className={styles.feedback}>Ainda sem feedback</p>
       <p className={styles.nome}>
-        <b style={{fontSize: 19}}>{worker.firstName} {worker.lastName} </b>
+        <b style={{ fontSize: 19 }}>{worker.firstName} {worker.lastName} </b>
         <br></br>{" "}
-        <div style={{display: "inline-flex", alignItems: "center", marginTop: 5}}>
-          {shortlistPopUp == false && isUserShortlisted && <img style={{width: 13, height: 13, marginRight: 5}} src={require("../imgs/phoneVitalie.png")} />}
-          <b style={{color: "#508ce4"}}>{shortlistPopUp == false && isUserShortlisted && worker.phone}</b>
+        <div style={{ display: "inline-flex", alignItems: "center", marginTop: 5 }}>
+          {shortlistPopUp == false && isUserShortlisted && <img style={{ width: 13, height: 13, marginRight: 5 }} src={require("../imgs/phoneVitalie.png")} />}
+          <b style={{ color: "#508ce4" }}>{shortlistPopUp == false && isUserShortlisted && worker.phone}</b>
 
         </div>
       </p>
@@ -214,9 +216,9 @@ const WorkerPage = () => {
                         {worker.lastName} para discutir o emprego ou entre em
                         contato diretamente com ele.
                       </p>
-                      <div style={{display: "flex", alignItems: "center", marginTop: 5}}>
-                        <img style={{width: 13, height: 13, marginRight: 5, marginBottom: -20}} src={require("../imgs/phoneVitalie.png")} />
-                         <p style={{color: "#508ce4", marginBottom: -10}}>{worker.phone}</p>
+                      <div style={{ display: "flex", alignItems: "center", marginTop: 5 }}>
+                        <img style={{ width: 13, height: 13, marginRight: 5, marginBottom: -20 }} src={require("../imgs/phoneVitalie.png")} />
+                        <p style={{ color: "#508ce4", marginBottom: -10 }}>{worker.phone}</p>
                       </div>
                       <br></br>
                       <button
@@ -301,7 +303,7 @@ const WorkerPage = () => {
           </div>
         ) : (
           <div>
-            <h2 style={{fontSize: 25, paddingTop: 35}}>Contrata {worker.workName}</h2>
+            <h2 style={{ fontSize: 25, paddingTop: 35 }}>Contrata {worker.workName}</h2>
             <p style={{ marginRight: 10 }}>
               Conte-nos sobre o status do seu trabalho. Avisaremos a outros
               comerciantes que seu trabalho não é mais disponível. Você também
