@@ -1,0 +1,44 @@
+@media only screen and (max-width: 10000px) {
+  .inputa {
+    margin-left: 200px;
+    width: 200px;
+  }
+
+  .btn {
+    margin-left: 20px;
+    margin-right: 200px;
+    background-color: #508ce4;
+    color: #fff;
+  }
+
+  .title {
+    margin-left: 190px;
+    margin-right: 200px;
+    margin-top: 150px;
+    font-family: "Raleway";
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .inputa {
+    margin-left: 25px;
+    width: 200px;
+  }
+
+  .title {
+    margin-left: 20px;
+    margin-right: 200px;
+    margin-top: 150px;
+    font-family: "Raleway";
+  }
+
+  .btn {
+    margin-left: 20px;
+    margin-right: 200px;
+    background-color: #508ce4;
+    color: #fff;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+}

@@ -29,6 +29,7 @@ import MyAccount from "./pages/account/MyAccount";
 import TradesProfile from "./pages/account/TradesProfile";
 import Settings from "./pages/account/Settings";
 import Payments from "./pages/account/Payments";
+import ForgotPassword from "./pages/dashboard/ForgotPassword";
 
 import { AuthContextProvider } from "./context/AuthContext";
 
@@ -42,6 +43,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/recuperar-palavra-passe" element={<ForgotPassword />} />
           <Route path="/publicar-trabalho" element={<PostJob />} />
 
           <Route
@@ -99,7 +101,7 @@ function App() {
           <Route path="/inbox/chat/:id" element={<Chat />} />
         </Routes>
 
-         <Footer />
+        <Footer />
       </AuthContextProvider>
     </BrowserRouter>
   );

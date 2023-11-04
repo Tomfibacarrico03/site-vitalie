@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { UserAuth } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
-import { db } from '../../firebase'
-import { doc, updateDoc} from 'firebase/firestore';
+import React, { useState, useEffect } from "react";
+import { UserAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { db } from "../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
 import styles from "../../css/minhaconta.module.css";
 import Select from "react-select";
-import { trades, distritos} from '../../lib/SelectOptions'
-
+import { trades, distritos } from "../../lib/SelectOptions";
 
 const TradesProfile = () => {
-
-  const { user } = UserAuth()
+  const { user } = UserAuth();
 
   const [tradesSelected, setTradesSelected] = useState([]);
   const [workName, setWorkName] = useState("");
@@ -19,23 +17,22 @@ const TradesProfile = () => {
 
   useEffect(() => {
     if (user) {
-        setTradesSelected(user.tradesSelected || '');
-        setWorkName(user.workName || '');
-        setDescription(user.description || '');
-        setLocation(user.location || '');
+      setTradesSelected(user.tradesSelected || "");
+      setWorkName(user.workName || "");
+      setDescription(user.description || "");
+      setLocation(user.location || "");
     }
   }, [user]);
 
-
   const handleSave = async () => {
-    const userRef = doc(db, 'users', user.uid);
-    await updateDoc(userRef, { 
-        tradesSelected,
-        workName,
-        description,
-        location
-   });
-    console.log('Updated user information saved!');
+    const userRef = doc(db, "users", user.uid);
+    await updateDoc(userRef, {
+      tradesSelected,
+      workName,
+      description,
+      location,
+    });
+    console.log("Updated user information saved!");
   };
 
   const handleSelectedOptionsChange = (set) => {
@@ -45,57 +42,59 @@ const TradesProfile = () => {
     };
   };
 
-  
-
   return (
     <div className={styles.detalhesContainer}>
-        <h1>Perfil de trabalhador</h1>
-        <div>
-            <label htmlFor="trade">Que trabalhos deseja realizar</label>
-            <Select
-            isMulti
-            options={trades}
-            value={tradesSelected.map((item) => ({ label: item, value: item }))}
-            onChange={handleSelectedOptionsChange(setTradesSelected)}
-            placeholder="Selecionar"
-            />
-        </div>
-        <div>
-          <br></br>
-            <label htmlFor="workName">Nome de trabalho</label>
-            <input
-            type="text"
-            id="workName"
-            placeholder="Nome de trabalho"
-            value={workName}
-            onChange={(e) => setWorkName(e.target.value)}
-            required
-            />
-        </div>
-        <div>
-            <label htmlFor="description">Descrição</label>
-            <input
-            type="text"
-            id="description"
-            placeholder="Descrição"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            />
-        </div>
-        <div>
-            <label htmlFor="location">Localização</label>
-            <Select
-            isMulti
-            options={distritos}
-            value={location.map((item) => ({ label: item, value: item }))}
-            onChange={handleSelectedOptionsChange(setLocation)}
-            placeholder="Selecionar"
-            />
-        </div>
-        <div className={styles.botoes}> 
-            <button className={styles.guardar} onClick={handleSave}>Guardar</button>
-        </div>
+      <h1>Perfil de trabalhador</h1>
+      <div>
+        <label htmlFor="trade">Que trabalhos deseja realizar</label>
+        <Select
+          isMulti
+          options={trades}
+          value={tradesSelected.map((item) => ({ label: item, value: item }))}
+          onChange={handleSelectedOptionsChange(setTradesSelected)}
+          placeholder="Selecionar"
+        />
+        <label htmlFor="trade">Pode adicionar mais que um trabalho</label>
+      </div>
+      <div>
+        <br></br>
+        <label htmlFor="workName">Nome de trabalho</label>
+        <input
+          type="text"
+          id="workName"
+          placeholder="Nome de trabalho"
+          value={workName}
+          onChange={(e) => setWorkName(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="description">Descrição</label>
+        <input
+          type="text"
+          id="description"
+          placeholder="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="location">Localização</label>
+        <Select
+          isMulti
+          options={distritos}
+          value={location.map((item) => ({ label: item, value: item }))}
+          onChange={handleSelectedOptionsChange(setLocation)}
+          placeholder="Selecionar"
+        />
+        <label htmlFor="trade">Pode adicionar mais que uma localização</label>
+      </div>
+      <div className={styles.botoes}>
+        <button className={styles.guardar} onClick={handleSave}>
+          Guardar
+        </button>
+      </div>
     </div>
   );
 };

@@ -52,7 +52,11 @@ const Login = () => {
           Entrar
         </button>
       </form>
+
       {errorMessage && <p>{errorMessage}</p>}
+      <Link className={styles.trabalhadorBtn} to={`/recuperar-palavra-passe`}>
+        <p>Esqueci-me da palavra-passe</p>
+      </Link>
       <div>
         <Link to="/publicar-trabalho" style={{ textDecoration: "none" }}>
           <li>Novo?</li>

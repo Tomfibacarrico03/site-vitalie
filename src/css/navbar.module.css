@@ -12,7 +12,7 @@ nav {
   justify-content: space-between;
 }
 
-nav h3 {
+nav img {
   color: #fff;
   font-family: "Avenir Next";
   padding-left: 200px;
@@ -36,7 +36,7 @@ nav ul li {
   display: none;
 }
 @media screen and (max-width: 1300px) {
-  nav h3 {
+  nav img {
     padding-left: 25px;
   }
   nav ul {

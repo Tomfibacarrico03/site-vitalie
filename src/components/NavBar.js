@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "../css/navbar.module.css";
 import { UserAuth } from "../context/AuthContext";
 import Hamburger from "hamburger-react";
+import logoa from "../imgs/logoa.png";
 
 const NavBar = () => {
   const { user } = UserAuth();
@@ -35,7 +36,15 @@ const NavBar = () => {
         <nav>
           <div className={styles.logo}>
             <Link to="/" style={{ textDecoration: "none" }}>
-              <h3>meuJob.pt</h3>
+              <img
+                style={{
+                  width: 75,
+                  height: 53,
+                  paddingTop: 15,
+                  paddingBottom: 15,
+                }}
+                src={logoa}
+              />
             </Link>
           </div>
 
