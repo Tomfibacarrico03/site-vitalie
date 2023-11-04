@@ -135,23 +135,21 @@ const WorkerPage = () => {
 
   const reviewCard = (head, body, status) => {
     return (
-      <>
-        <div className={styles.reviewCard}>
-          <div>
-            <h3>{head}</h3>
-            <p>{body}</p>
-          </div>
-          <div className={styles.inputs}>
-            <input
-              type="checkbox"
-              id="reviewCheckbox"
-              name="reviewCheckbox"
-              checked={jobStatusOption == status}
-              onChange={() => setJobStatusOption(status)}
-            />
-          </div>
+      <div className={styles.form}>
+        <div>
+          <h3>{head}</h3>
+          <p>{body}</p>
         </div>
-      </>
+        <div className={styles.inputs}>
+          <input
+            type="checkbox"
+            id="reviewCheckbox"
+            name="reviewCheckbox"
+            checked={jobStatusOption == status}
+            onChange={() => setJobStatusOption(status)}
+          />
+        </div>
+      </div>
     );
   };
 
