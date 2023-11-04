@@ -113,7 +113,7 @@ const PostJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (termsChecked==false) {
+    if (termsChecked == false) {
       setError("Por favor aceite os termos e condições");
       console.log("Por favor aceite os termos e condições");
       return;

@@ -60,6 +60,7 @@ const SignUp = () => {
         interestedJobs: [],
         shortlistedJobs: [],
         invitedJobs: [],
+        hiredJobs: [],
         trades_member_since: serverTimestamp(),
         positiveReviewCount: 0,
         reviewCount: 0,
