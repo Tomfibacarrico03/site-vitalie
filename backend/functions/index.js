@@ -57,13 +57,15 @@ exports.SaveJob = functions.https.onCall(async (data, context) => {
 });
 
 exports.sendEmail = functions.https.onCall((data, context) => {
-  const { email } = data;
+  const { email, type } = data;
 
   const mailOptions = {
-    from: "your_email@gmail.com", // This should match the email used in the transporter
+    from: "afonsoresendes03@gmail.com", // This should match the email used in the transporter
     to: email,
-    subject: "Subject of the Email",
-    text: "Email Content",
+    subject: "MeuJob.pt",
+    text: `Registo de ${
+      type == "homeowner" ? "contratante" : "trabalhador"
+    } feito com sucesso`,
   };
 
   return new Promise((resolve, reject) => {
