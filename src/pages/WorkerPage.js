@@ -133,23 +133,20 @@ const WorkerPage = () => {
   const [isLeavingReview, setIsLeavingReview] = useState(false);
   const [jobStatusOption, setJobStatusOption] = useState("");
 
-  const reviewCard = (head, body, status) => {
+  const reviewCard = (head, body, status, Number) => {
     return (
-      <div className={styles.form}>
-        <div>
+      <label htmlFor={"reviewCheckbox"+Number} className={jobStatusOption === status?styles.optionSelected:styles.option}>
           <h3>{head}</h3>
           <p>{body}</p>
-        </div>
-        <div className={styles.inputs}>
           <input
+          style={{display:"none"}}
             type="checkbox"
-            id="reviewCheckbox"
+            id={"reviewCheckbox"+Number}
             name="reviewCheckbox"
-            checked={jobStatusOption == status}
+            checked={jobStatusOption === status}
             onChange={() => setJobStatusOption(status)}
           />
-        </div>
-      </div>
+      </label>
     );
   };
 
@@ -352,17 +349,17 @@ const WorkerPage = () => {
                 {reviewCard(
                   "Trabalho ainda não começou",
                   "Eu já acordei num preço e contratei este trabalhador",
-                  "not_started"
+                  "not_started",0
                 )}
                 {reviewCard(
                   "Trabalho em progresso",
                   "Trabalho em andamente neste momento",
-                  "on_going"
+                  "on_going",1
                 )}
                 {reviewCard(
                   "Trabalho concluído",
                   "Deves deixar um feedback quando estiveres pronto",
-                  "done"
+                  "done",2
                 )}
               </div>
               <div>

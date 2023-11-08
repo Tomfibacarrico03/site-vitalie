@@ -3,15 +3,26 @@ import { Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { httpsCallable } from "firebase/functions";
 import { db, functions } from "../../firebase";
+import {
+  serverTimestamp,
+  setDoc,
+  doc,
+  getDocs,
+  query,
+  where,
+  addDoc,
+  collection,
+} from "firebase/firestore";
 import styles from "../../css/minhaconta.module.css";
 
 const Payments = () => {
-  const requestCIT = httpsCallable(functions, "requestCIT");
+  const searchParams = new URLSearchParams(document.location.search)
   const { user } = UserAuth();
   const [spgContext, setSpgContext] = useState("");
   const [transactionID, setTransactionID] = useState("");
   const [spgSignature, setSpgSignature] = useState("");
   const [spgConfig, setSpgConfig] = useState({});
+
   const spgStyle = {
     layout: "default",
     theme: "--light",
@@ -33,14 +44,13 @@ const Payments = () => {
   };
 
   const requestForm = () => {
+    console.log("in RequestForm");
     const url = `https://us-central1-site-vitalie.cloudfunctions.net/requestCIT?userId=${user.uid}`;
 
     fetch(url)
       .then((response) => response.json())
       .then((res) => {
         const responseData = JSON.parse(res.data.result)
-        console.log("Successful Response", responseData);
-        console.log("(Temp)transactionID: " + responseData.transactionID);
         setSpgContext(responseData.formContext);
         setTransactionID(responseData.transactionID);
         setSpgSignature(responseData.transactionSignature);
@@ -48,7 +58,7 @@ const Payments = () => {
           paymentMethodList: [],
           amount: { value: responseData.amount.value, currency: responseData.amount.currency },
           language: "pt",
-          redirectUrl: "http://localhost:3000/user/pagamentos",
+          redirectUrl: "http://localhost:3000/minha-conta/pagamentos",
           customerData: null,
         })
       })
@@ -64,17 +74,38 @@ const Payments = () => {
       script.async = true;
       document.body.appendChild(script);
     }
-    console.log("Spg Config: "+JSON.stringify(  spgConfig));
-    console.log("Spg Style: "+JSON.stringify(spgStyle));
-    console.log("Spg context; "+ spgContext);
   }, [transactionID]);
+
+  useEffect(() => {
+    const paymentId = searchParams.get('id');
+    async function checkAndSavePayment() {
+      if (paymentId) {
+        console.log("paymentId: " + paymentId);
+        const url = `https://us-central1-site-vitalie.cloudfunctions.net/statusTransaction?userId=${user.uid}&transactionId=${paymentId}`;
+        
+        fetch(url)
+        .then((response) => response.json())
+        .then((res) => {
+          const responseData = JSON.parse(res)
+          console.log(responseData);
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
+        });
+      }
+    }
+
+    if (user.uid !== undefined){
+      checkAndSavePayment();
+    }
+  }, [searchParams]);
 
   return (
     <div className={styles.detalhesContainer}>
       {spgContext ? (
         <>
           <form
-          className="paymentSPG"
+            className="paymentSPG"
             spg-signature={spgSignature}
             spg-context={spgContext}
             spg-config={JSON.stringify(spgConfig)}
@@ -87,6 +118,7 @@ const Payments = () => {
       <button className={styles.btnPostJob} onClick={requestForm}>
         Adicionar Cartão
       </button>
+      <div>paymentId: {searchParams.get('id')}</div>
     </div>
   );
 };
