@@ -63,9 +63,8 @@ exports.sendEmail = functions.https.onCall((data, context) => {
     from: "afonsoresendes03@gmail.com", // This should match the email used in the transporter
     to: email,
     subject: "MeuJob.pt",
-    text: `Registo de ${
-      type == "homeowner" ? "contratante" : "trabalhador"
-    } feito com sucesso`,
+    text: `Registo de ${type == "homeowner" ? "contratante" : "trabalhador"
+      } feito com sucesso`,
   };
 
   return new Promise((resolve, reject) => {
@@ -323,6 +322,98 @@ exports.statusTransaction = functions.https.onRequest(async (req, res) => {
 
     } catch (error) {
       console.error("GET request error:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  } catch (error) {
+    console.error("Firestore error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+exports.executePayment = functions.https.onRequest(async (req, res) => {
+
+  const userId = req.query.userId;
+  const tradeSelected = req.query.tradeSelected;
+  const selectedCategory = req.query.selectedCategory;
+
+  if (!userId) {
+    console.error("Missing or invalid userId in query parameters");
+    res.status(400).send("Bad Request");
+    return;
+  }
+
+  try {
+    res.set("Access-Control-Allow-Origin", "*");
+    res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.set(
+      "Access-Control-Allow-Headers",
+      "Origin, Content-Type, Accept, Authorization"
+    );
+
+    // Check if it's a preflight request and respond immediately
+    if (req.method === "OPTIONS") {
+      res.status(204).send("");
+      return;
+    }
+
+    try {
+      const querySnapshotValue = await db.collection('taxas').get();
+      var dataVal = null;
+      const docVal = querySnapshotValue.forEach((doc) => { dataVal = doc.data() });
+      const value = dataVal[tradeSelected][selectedCategory];
+      const querySnapshot = await db.collection('payments').where('userId', '==', userId).get();
+      var transactionId = null;
+      querySnapshot.forEach((doc) => {
+        if (doc.data().active) {
+          transactionId = doc.id;
+        }
+      });
+      console.log("transactionId: "+transactionId);
+      var raw = JSON.stringify({
+        "merchant": {
+          "terminalId": 59172,
+          "channel": "web",
+          "merchantTransactionId": "5351136"
+        },
+        "transaction": {
+          "transactionTimestamp": new Date().toISOString(),
+          "description": "Transaction short description",
+          "amount": {
+            "value": value,
+            "currency": "EUR"
+          },
+          "originalTransaction": {
+            "id": transactionId,
+            "datetime": "2023-08-22T15:09:16.102Z"
+          }
+        }
+      });
+
+      const apiUrl = "https://spg.qly.site1.sibs.pt/api/v2/payments/";
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-IBM-Client-Id": "ab802d80-cefe-4622-9a98-774118372d57",
+          Authorization:
+            "Bearer 0276b80f950fb446c6addaccd121abfbbb.eyJlIjoiMjAwNDg2MTkxNjU0MCIsInJvbGVzIjoiU1BHX01BTkFHRVIiLCJ0b2tlbkFwcERhdGEiOiJ7XCJtY1wiOlwiNTA0OTM4XCIsXCJ0Y1wiOlwiNTkxNzJcIn0iLCJpIjoiMTY4OTI0MjcxNjU0MCIsImlzIjoiaHR0cHM6Ly9xbHkuc2l0ZTEuc3NvLnN5cy5zaWJzLnB0L2F1dGgvcmVhbG1zL1FMWS5NRVJDSC5QT1JUMSIsInR5cCI6IkJlYXJlciIsImlkIjoiN2RId1VHdDFjUGI1YTZiYzk1Y2I2MTQ0NzlhZGRiMjZhMTdlMmRkZDQyIn0=.d6aad399a9bf30c3153c541ae98b7c38d3707efdcbd2f8e830566f897d3aac7be8da5653512cde4cb87b425a08796022a0183c3bd536a91d3cd70f077baf308d", // Replace with your actual access token
+        },
+        body: raw,
+        redirect: "follow",
+      };
+      const response = await fetch("https://spg.qly.site1.sibs.pt/api/v2/payments/" + transactionId + "/mit", requestOptions)
+      const fetchResponse = JSON.parse(await response.text());
+      const responseData = {
+        userId: userId,
+        result: fetchResponse,
+      };
+
+      res.status(200).json(responseData);
+
+
+    } catch (error) {
+      console.error("POST request error:", error);
       res.status(500).send("Internal Server Error");
     }
   } catch (error) {
