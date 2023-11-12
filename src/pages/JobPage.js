@@ -12,6 +12,9 @@ import {
   arrayUnion,
   arrayRemove,
   increment,
+  getDocs,
+  query,
+  where,
 } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -138,32 +141,61 @@ function JobPage(props) {
     // Update the images state with the modified array
     setImages(updatedImages); // Assuming you're using React and have a state variable named 'images'
   };
+  async function checkPayments() {
+    try {
+      console.log("checking payments");
+      const paymentsRef = collection(db, "payments");
+      const q = query(paymentsRef, where("userId", "==", user.uid));
+      const querySnapshot = await getDocs(q);
 
-  function ShowInterest() {
-    const jobRef = doc(db, "jobs", job.id);
-    updateDoc(jobRef, {
-      interestedUsers: arrayUnion(user.uid),
-      totalInterestedUsers: increment(1),
-    })
-      .then(() => {
-        console.log('User added to "interested" array');
-        const userJobRef = doc(db, "users", user.uid);
-        updateDoc(userJobRef, {
-          interestedJobs: arrayUnion(job.id),
-        })
-          .then(() => {
-            console.log('Job added to "interested" field in user doc');
-          })
-          .catch((error) => {
-            console.error(
-              'Error adding job to "interested" field in user doc:',
-              error
-            );
-          });
-      })
-      .catch((error) => {
-        console.error('Error adding user to "interested" array:', error);
+      const paymentsData = [];
+      querySnapshot.forEach((doc) => {
+        const paymentData = doc.data();
+
+        if (paymentData.active) {
+          return true;
+        }
       });
+      return false;
+    } catch (error) {
+      console.error("Error fetching payments:", error);
+      return false;
+    }
+  }
+  function ShowInterest() {
+    const paymentCheck = checkPayments();
+    if (paymentCheck) {
+      navigate(
+        `/minha-conta/pagamentos`
+      );
+    } else {
+
+      const jobRef = doc(db, "jobs", job.id);
+
+      updateDoc(jobRef, {
+        interestedUsers: arrayUnion(user.uid),
+        totalInterestedUsers: increment(1),
+      })
+        .then(() => {
+          console.log('User added to "interested" array');
+          const userJobRef = doc(db, "users", user.uid);
+          updateDoc(userJobRef, {
+            interestedJobs: arrayUnion(job.id),
+          })
+            .then(() => {
+              console.log('Job added to "interested" field in user doc');
+            })
+            .catch((error) => {
+              console.error(
+                'Error adding job to "interested" field in user doc:',
+                error
+              );
+            });
+        })
+        .catch((error) => {
+          console.error('Error adding user to "interested" array:', error);
+        });
+    }
   }
 
   function RemoveInterest() {
@@ -221,7 +253,7 @@ function JobPage(props) {
             ) : (
               <>
                 {user.interestedJobs.includes(job.id) &&
-                !user.shortlistedJobs.includes(job.id) ? (
+                  !user.shortlistedJobs.includes(job.id) ? (
                   <>
                     <p
                       style={{

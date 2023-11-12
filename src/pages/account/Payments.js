@@ -363,13 +363,14 @@ const Payments = () => {
         </button>
       </div>
       <div className={styles.paymentsList}>
+        {payments.length == "0" ? <p>Não tem cartões associados</p> : null}
         {payments.map((payment) => (
           <div className={styles.listPay} key={payment.id}>
             {/* <p>Payment ID: {payment.id}</p> */}
             <div style={{}}>
               <p
                 style={{
-                  color: "#000",
+                  color: "#000",s
                   marginTop: -35,
                   marginBottom: 5,
                 }}
