@@ -83,6 +83,39 @@
     justify-content: space-between;
     width: 100%;
   }
+
+  .headerList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .addCardBtn {
+    background-color: #508ce4;
+    color: #fff;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  .eliCardBtn {
+    background-color: #f00;
+    color: #fff;
+  }
+
+  .listPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border-left: 3px solid #508ce4;
+    padding-top: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 70px;
+  }
 }
 
 @media only screen and (max-width: 1400px) {
@@ -137,6 +170,13 @@
     justify-content: flex-start;
     align-content: flex-start;
     margin-top: 10px;
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .headerList {
+    display: block;
+    margin-right: 75px;
   }
 }
 

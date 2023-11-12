@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { httpsCallable } from "firebase/functions";
 import { db, functions } from "../../firebase";
+
 import {
   serverTimestamp,
   setDoc,
@@ -16,7 +17,7 @@ import {
 import styles from "../../css/minhaconta.module.css";
 
 const Payments = () => {
-  const searchParams = new URLSearchParams(document.location.search)
+  const searchParams = new URLSearchParams(document.location.search);
   const { user } = UserAuth();
   const [spgContext, setSpgContext] = useState("");
   const [transactionID, setTransactionID] = useState("");
@@ -70,17 +71,20 @@ const Payments = () => {
     fetch(url)
       .then((response) => response.json())
       .then((res) => {
-        const responseData = JSON.parse(res.data.result)
+        const responseData = JSON.parse(res.data.result);
         setSpgContext(responseData.formContext);
         setTransactionID(responseData.transactionID);
         setSpgSignature(responseData.transactionSignature);
         setSpgConfig({
           paymentMethodList: [],
-          amount: { value: responseData.amount.value, currency: responseData.amount.currency },
+          amount: {
+            value: responseData.amount.value,
+            currency: responseData.amount.currency,
+          },
           language: "pt",
           redirectUrl: "http://localhost:3000/minha-conta/pagamentos",
           customerData: null,
-        })
+        });
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -97,7 +101,7 @@ const Payments = () => {
   }, [transactionID]);
 
   useEffect(() => {
-    const paymentId = searchParams.get('id');
+    const paymentId = searchParams.get("id");
     async function checkAndSavePayment() {
       if (paymentId) {
         console.log("paymentId: " + paymentId);
@@ -121,197 +125,197 @@ const Payments = () => {
 
   const servicesData = {
     "Serviços de Arquitetura": {
-      "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)": 8.00,
-      "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)": 8.00,
-      "Cálculos de estrutura de construção": 8.00,
+      "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)": 8.0,
+      "Plantas detalhadas em conformidade (para construtores e regulamentos de construção)": 8.0,
+      "Cálculos de estrutura de construção": 8.0,
     },
     "Instalação de Banheiros": {
-      "Renovação / instalação de banheiro": 6.00,
-      "Instalar ou substituir um dispositivo": 5.00,
-      "Reparar": 5.00,
-      "Azulejos": 6.00,
+      "Renovação / instalação de banheiro": 6.0,
+      "Instalar ou substituir um dispositivo": 5.0,
+      Reparar: 5.0,
+      Azulejos: 6.0,
     },
     "Alvenaria & Rejuntamento": {
-      "Construindo uma parede": 5.00,
-      "Construção de uma estrutura": 5.00,
-      "Trabalho de alvenaria personalizado": 5.00,
-      "Alterações na parede": 5.00,
-      "Reapontamento": 5.00,
-      "Trabalho na chaminé": 4.00,
-      "Reparos": 5.00,
+      "Construindo uma parede": 5.0,
+      "Construção de uma estrutura": 5.0,
+      "Trabalho de alvenaria personalizado": 5.0,
+      "Alterações na parede": 5.0,
+      Reapontamento: 5.0,
+      "Trabalho na chaminé": 4.0,
+      Reparos: 5.0,
     },
     "Carpintaria & Marcenaria": {
-      "Portas, janelas e pisos": 6.00,
-      "Fabricação, montagem e reparos de móveis": 5.00,
-      "Unidades de cozinha e bancadas": 6.00,
-      "Área coberta": 5.00,
+      "Portas, janelas e pisos": 6.0,
+      "Fabricação, montagem e reparos de móveis": 5.0,
+      "Unidades de cozinha e bancadas": 6.0,
+      "Área coberta": 5.0,
     },
     "Carpetes, Lino & Pisos": {
-      "Piso novo ou substituição": 5.00,
-      "Lixamento / restauração": 5.00,
-      "Reparo / ajuste": 5.00,
+      "Piso novo ou substituição": 5.0,
+      "Lixamento / restauração": 5.0,
+      "Reparo / ajuste": 5.0,
     },
     "Aquecimento Central": {
-      "Caldeira": 6.00,
-      "Tubulação / fornecimento": 6.00,
-      "Radiadores": 6.00,
-      "Termostato": 6.00,
-      "Aquecimento de piso": 6.00,
-      "Instalação completa do sistema": 7.00,
+      Caldeira: 6.0,
+      "Tubulação / fornecimento": 6.0,
+      Radiadores: 6.0,
+      Termostato: 6.0,
+      "Aquecimento de piso": 6.0,
+      "Instalação completa do sistema": 7.0,
     },
     "Chaminé & Lareira": {
-      "Chaminé": 5.00,
-      "Lareira": 5.00,
+      Chaminé: 5.0,
+      Lareira: 5.0,
     },
-    "Conversões": {
-      "Conversão de sotão": 5.00,
-      "Conversão de um espaço existente": 6.00,
-      "Alteração de paredes": 5.00,
-      "Restaurar ou melhorar um espaço existente": 5.00,
+    Conversões: {
+      "Conversão de sotão": 5.0,
+      "Conversão de um espaço existente": 6.0,
+      "Alteração de paredes": 5.0,
+      "Restaurar ou melhorar um espaço existente": 5.0,
     },
     "Prova de Humidade": {
-      "Não - Preciso de ajuda para investigar": 6.00,
-      "Sim - Preciso apenas de ajuda para resolver o problema": 6.00,
+      "Não - Preciso de ajuda para investigar": 6.0,
+      "Sim - Preciso apenas de ajuda para resolver o problema": 6.0,
     },
     "Demolição & Limpeza": {
-      "Remoção de lixo apenas": 5.00,
-      "Demolição de edifícios / estruturas": 8.00,
-      "Derrubar uma parede": 5.00,
+      "Remoção de lixo apenas": 5.0,
+      "Demolição de edifícios / estruturas": 8.0,
+      "Derrubar uma parede": 5.0,
     },
     "Entradas & Paving": {
-      "Instalar / Reparar uma entrada": 5.00,
-      "Limpar ou selar uma entrada": 5.00,
-      "Kerb suspenso (crossover)": 5.00,
-      "Pavimentação, pátios e caminhos": 5.00,
+      "Instalar / Reparar uma entrada": 5.0,
+      "Limpar ou selar uma entrada": 5.0,
+      "Kerb suspenso (crossover)": 5.0,
+      "Pavimentação, pátios e caminhos": 5.0,
     },
-    "Elétrica": {
-      "Refazer circuitos": 6.00,
-      "Caixas de fusíveis": 6.00,
-      "Fittings e aparelhos elétricos": 6.00,
-      "Verificação ou certificado de segurança": 6.00,
-      "Falhas e reparos elétricos": 6.00,
+    Elétrica: {
+      "Refazer circuitos": 6.0,
+      "Caixas de fusíveis": 6.0,
+      "Fittings e aparelhos elétricos": 6.0,
+      "Verificação ou certificado de segurança": 6.0,
+      "Falhas e reparos elétricos": 6.0,
     },
-    "Ampliações": {
-      "Extensão de propriedade": 6.00,
-      "Conversão de loft": 6.00,
-      "Uma varanda": 6.00,
-      "Edifício anexo": 6.00,
-      "Alterações internas": 6.00,
+    Ampliações: {
+      "Extensão de propriedade": 6.0,
+      "Conversão de loft": 6.0,
+      "Uma varanda": 6.0,
+      "Edifício anexo": 6.0,
+      "Alterações internas": 6.0,
     },
     "Fascias, Soffits & Calhas": {
-      "Somente calhas": 5.00,
-      "Somente beirais e / ou guarnições": 5.00,
-      "Ambos": 5.00,
+      "Somente calhas": 5.0,
+      "Somente beirais e / ou guarnições": 5.0,
+      Ambos: 5.0,
     },
-    "Cercas": {
-      "Esgrima": 5.00,
-      "Portões": 5.00,
-      "Esgrima e portões": 5.00,
-      "Reparar uma cerca ou portão": 4.00,
+    Cercas: {
+      Esgrima: 5.0,
+      Portões: 5.0,
+      "Esgrima e portões": 5.0,
+      "Reparar uma cerca ou portão": 4.0,
     },
     "Jardinagem & Paisagismo": {
-      "Jardinagem geral": 6.00,
-      "Paisagismo": 5.00,
-      "Cirurgia de árvores": 6.00,
+      "Jardinagem geral": 6.0,
+      Paisagismo: 5.0,
+      "Cirurgia de árvores": 6.0,
     },
-    "Gás": {
-      "Verificação de segurança de gás": 6.00,
-      "Serviço de caldeira ou aparelho": 5.00,
-      "Instalar ou substituir caldeira ou aparelho": 5.00,
-      "Mover ou remover caldeira ou aparelho": 5.00,
-      "Apenas tubulações": 5.00,
-      "Problema ou reparo": 5.00,
+    Gás: {
+      "Verificação de segurança de gás": 6.0,
+      "Serviço de caldeira ou aparelho": 5.0,
+      "Instalar ou substituir caldeira ou aparelho": 5.0,
+      "Mover ou remover caldeira ou aparelho": 5.0,
+      "Apenas tubulações": 5.0,
+      "Problema ou reparo": 5.0,
     },
     "Terraplenagem & Fundações": {
-      "Fundações para uma estrutura a ser construída": 6.00,
-      "Drenagem e tubulação": 6.00,
-      "Terraplanagem geral do jardim": 6.00,
+      "Fundações para uma estrutura a ser construída": 6.0,
+      "Drenagem e tubulação": 6.0,
+      "Terraplanagem geral do jardim": 6.0,
     },
     "Faz-tudo": {
-      "O trabalho inclui trabalho elétrico": 5.00,
-      "O trabalho não inclui trabalho elétrico": 5.00,
+      "O trabalho inclui trabalho elétrico": 5.0,
+      "O trabalho não inclui trabalho elétrico": 5.0,
     },
-    "Isolamento": {
-      "Isolamento de sótão / telhado": 5.00,
-      "Isolamento de parede": 5.00,
-      "Isolamento de piso": 5.00,
+    Isolamento: {
+      "Isolamento de sótão / telhado": 5.0,
+      "Isolamento de parede": 5.0,
+      "Isolamento de piso": 5.0,
     },
     "Instalação de Cozinhas": {
-      "Instalação de cozinha nova": 6.00,
-      "Instalação de bancada": 6.00,
-      "Reforma / substituição de portas de armário": 5.00,
-      "Instalar aparelho (pia, forno, lava-louças, etc.)": 5.00,
-      "Reparo menor": 5.00,
-      "Vários dos itens acima ou outro": 5.00,
+      "Instalação de cozinha nova": 6.0,
+      "Instalação de bancada": 6.0,
+      "Reforma / substituição de portas de armário": 5.0,
+      "Instalar aparelho (pia, forno, lava-louças, etc.)": 5.0,
+      "Reparo menor": 5.0,
+      "Vários dos itens acima ou outro": 5.0,
     },
-    "Chaveiro": {
-      "Instalar novas fechaduras": 4.00,
-      "Reparar fechaduras": 4.00,
-      "Outro (ex. trancado do lado de fora)": 5.00,
+    Chaveiro: {
+      "Instalar novas fechaduras": 4.0,
+      "Reparar fechaduras": 4.0,
+      "Outro (ex. trancado do lado de fora)": 5.0,
     },
     "Conversão de Sótão": {
-      "Conversão de sótão com alterações estruturais": 6.00,
-      "Conversão de sótão (sem alterações estruturais)": 6.00,
-      "Conversão de sótão para fins de armazenamento": 6.00,
-      "Instalar uma claraboia": 6.00,
+      "Conversão de sótão com alterações estruturais": 6.0,
+      "Conversão de sótão (sem alterações estruturais)": 6.0,
+      "Conversão de sótão para fins de armazenamento": 6.0,
+      "Instalar uma claraboia": 6.0,
     },
     "Nova Construção": {
-      "Eu possuo o terreno em que planejo construir": 6.00,
-      "Estou comprando o terreno em que planejo construir": 6.00,
-      "Não possuo o terreno em que planejo construir": 6.00,
+      "Eu possuo o terreno em que planejo construir": 6.0,
+      "Estou comprando o terreno em que planejo construir": 6.0,
+      "Não possuo o terreno em que planejo construir": 6.0,
     },
     "Pintura & Decoração": {
-      "Pintura interna": 5.00,
-      "Pintura externa": 5.00,
-      "Ambos": 5.00,
+      "Pintura interna": 5.0,
+      "Pintura externa": 5.0,
+      Ambos: 5.0,
     },
     "Gesso & Revestimento": {
-      "Reboco (interior)": 5.00,
-      "Texturização (exterior)": 5.00,
+      "Reboco (interior)": 5.0,
+      "Texturização (exterior)": 5.0,
     },
-    "Encanamento": {
-      "Radiador": 5.00,
-      "Caldeiras": 5.00,
-      "Aparelhos": 5.00,
-      "Fixações": 5.00,
-      "Tubulações, torneiras e drenagem": 5.00,
+    Encanamento: {
+      Radiador: 5.0,
+      Caldeiras: 5.0,
+      Aparelhos: 5.0,
+      Fixações: 5.0,
+      "Tubulações, torneiras e drenagem": 5.0,
     },
-    "Telhados": {
-      "Telhado novo ou de substituição": 5.00,
-      "Reparo ou avaliação de telhado": 5.00,
-      "Trabalho de chaminé": 5.00,
-      "Algo mais": 5.00,
+    Telhados: {
+      "Telhado novo ou de substituição": 5.0,
+      "Reparo ou avaliação de telhado": 5.0,
+      "Trabalho de chaminé": 5.0,
+      "Algo mais": 5.0,
     },
     "Sistemas de Segurança": {
-      "Sistema de alarme de segurança": 5.00,
-      "Câmera de segurança / inteligente": 5.00,
-      "Sistema de entrada": 5.00,
-      "Alarmes de fumaça": 5.00,
-      "Luzes de segurança": 5.00,
-      "Trancas": 5.00,
+      "Sistema de alarme de segurança": 5.0,
+      "Câmera de segurança / inteligente": 5.0,
+      "Sistema de entrada": 5.0,
+      "Alarmes de fumaça": 5.0,
+      "Luzes de segurança": 5.0,
+      Trancas: 5.0,
     },
-    "Pedreiro": {
-      "Construção": 5.00,
-      "Reparação": 5.00,
-      "Reapontamentos": 5.00,
+    Pedreiro: {
+      Construção: 5.0,
+      Reparação: 5.0,
+      Reapontamentos: 5.0,
     },
-    "Azulejista": {
-      "Telhas novas ou de substituição": 5.00,
-      "Reparação / rejuntes de azulejos": 5.00,
+    Azulejista: {
+      "Telhas novas ou de substituição": 5.0,
+      "Reparação / rejuntes de azulejos": 5.0,
     },
     "Cirurgia de Árvores": {
-      "Poda ou corte": 5.00,
-      "Corte (abate)": 5.00,
-      "Remoção apenas de toco": 5.00,
-      "Diagnóstico / Avaliação": 4.00,
-      "Arbustos ou outras tarefas de jardinagem": 5.00,
+      "Poda ou corte": 5.0,
+      "Corte (abate)": 5.0,
+      "Remoção apenas de toco": 5.0,
+      "Diagnóstico / Avaliação": 4.0,
+      "Arbustos ou outras tarefas de jardinagem": 5.0,
     },
     "Instalação de Janelas & Portas": {
-      "Janelas novas": 5.00,
-      "Portas novas (internas ou externas)": 5.00,
-      "Janelas e portas externas novas": 5.00,
-      "Substituição de vidro": 5.00,
-      "Reparações": 5.00,
+      "Janelas novas": 5.0,
+      "Portas novas (internas ou externas)": 5.0,
+      "Janelas e portas externas novas": 5.0,
+      "Substituição de vidro": 5.0,
+      Reparações: 5.0,
     },
   };
 
@@ -345,20 +349,42 @@ const Payments = () => {
           ></form>
         </>
       ) : null}
-      <b>Pagamentos</b>
-
-      <button className={styles.btnPostJob} onClick={requestForm}>
-        Adicionar Cartão
-      </button>
+      <div className={styles.headerList}>
+        <b
+          style={{
+            fontFamily: "Raleway",
+            fontSize: 32,
+          }}
+        >
+          Pagamentos
+        </b>
+        <button className={styles.addCardBtn} onClick={requestForm}>
+          Adicionar Cartão
+        </button>
+      </div>
       <div className={styles.paymentsList}>
         {payments.map((payment) => (
-          <div key={payment.id}>
-            <p>Payment ID: {payment.id}</p>
-            <p>Active: {payment.active ? "Yes" : "No"}</p>
-            <p>{payment.token.maskedPAN}</p>
+          <div className={styles.listPay} key={payment.id}>
+            {/* <p>Payment ID: {payment.id}</p> */}
+            <div style={{}}>
+              <p
+                style={{
+                  color: "#000",
+                  marginTop: -35,
+                  marginBottom: 5,
+                }}
+              >
+                {payment.token.maskedPAN}
+              </p>
+              <button className={styles.eliCardBtn}>Eliminar Cartão</button>
+            </div>
+            <p style={{ color: "#508ce4" }}>
+              Active: {payment.active ? "Yes" : "No"}
+            </p>
           </div>
         ))}
-      </div>    </div>
+      </div>
+    </div>
   );
 };
 

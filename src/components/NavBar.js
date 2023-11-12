@@ -103,12 +103,16 @@ const NavBar = () => {
         <>
           <nav>
             <div className={styles.logo}>
-              <Link
-                to="/"
-                onClick={closeMobileMenu}
-                style={{ textDecoration: "none" }}
-              >
-                <h3>meuJob</h3>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <img
+                  style={{
+                    width: 75,
+                    height: 53,
+                    paddingTop: 15,
+                    paddingBottom: 15,
+                  }}
+                  src={logoa}
+                />
               </Link>
             </div>
             <div className={styles.HamMenu}>
