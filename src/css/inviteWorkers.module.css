@@ -1,11 +1,9 @@
 @media only screen and (max-width: 10000px) {
-
   @font-face {
-    font-family: 'Raleway';
-    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+    font-family: "Raleway";
+    src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype"); /* Adjust the path accordingly */
     /* You can include other font weights and styles as well if needed */
   }
-
   .title {
     margin-left: 12px;
     margin-right: 10px;
@@ -46,10 +44,13 @@
 
   .convida h1 {
     font-family: "Avenir Next";
-    font-size: 20px
+    font-size: 20px;
   }
 
-  .convida p, .convida h5, .convida h4, .convida h1 {
+  .convida p,
+  .convida h5,
+  .convida h4,
+  .convida h1 {
     font-family: "Avenir Next";
   }
 
@@ -92,7 +93,6 @@
   .tituloCriticas h5 {
     color: #508ce4;
     font-family: "Raleway";
-
   }
 
   .local {
@@ -100,8 +100,7 @@
   }
 
   .local p {
-    margin-left: -5px
-
+    margin-left: -5px;
   }
 }
 
@@ -114,7 +113,7 @@
 @media only screen and (max-width: 1200px) {
   .categoriaConvitesDuplos2 {
     width: 60vw;
-    margin-left: 15px
+    margin-left: 15px;
   }
 
   .convida {
@@ -123,14 +122,14 @@
   }
 
   .cardsLado {
-    margin-left: 0
+    margin-left: 0;
   }
 }
 
 @media only screen and (max-width: 900px) {
   .categoriaConvitesDuplos2 {
     width: auto;
-    margin-left: 15px
+    margin-left: 15px;
   }
 
   .convida {

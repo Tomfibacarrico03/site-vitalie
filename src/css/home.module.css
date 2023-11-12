@@ -1,8 +1,9 @@
-  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap');
-
+@font-face {
+  font-family: "Raleway";
+  src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype"); /* Adjust the path accordingly */
+  /* You can include other font weights and styles as well if needed */
+}
 @media only screen and (max-width: 10000px) {
-
-
   .divCabecalho {
     margin: 0 200px 0px 200px;
     background-color: #fff;
@@ -28,7 +29,6 @@
   .imgWorkers {
     border-bottom-right-radius: 15px;
   }
-
 
   .title {
     font-size: 240%;
@@ -229,7 +229,7 @@
   }
 
   .workers_side2 p {
-    color: #000
+    color: #000;
   }
 
   .btnApply {
@@ -278,7 +278,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .divAboutUs div {
     text-align: center;
     width: 29%;
@@ -287,21 +287,21 @@
     padding: 15px;
     padding-bottom: 50px;
   }
-  
+
   .divAboutUs h1 {
     font-size: 1.7rem;
     margin-left: 15px;
     color: #508ce4;
     margin-right: 15px;
   }
-  
+
   .divAboutUs p {
     font-size: 1rem;
     font-weight: lighter;
     color: #000;
     margin-top: -10px;
   }
-  
+
   .titles {
     align-self: center;
     text-align: center;
@@ -311,18 +311,18 @@
     padding-top: 70px;
     margin-bottom: -50px;
   }
-  
+
   .zonaComecar {
     background-color: #f2f2f2;
   }
-  
+
   .verComoFuncionaBtn {
     text-align: center;
     background-color: #508ce4;
     padding: 10px;
     padding-bottom: 15px;
   }
-  
+
   .verComoFuncionaBtn h1 {
     background-color: #508ce4;
     color: #fff;
@@ -340,11 +340,9 @@
     padding-bottom: 30px;
     margin-right: 25rem;
   }
-
 }
 
 @media screen and (max-width: 1750px) {
-
   .workers_side {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -429,11 +427,9 @@
     transition: 0.3s;
     cursor: pointer;
   }
-
 }
 
 @media screen and (max-width: 1500px) {
-
   .workers_side {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -524,11 +520,9 @@
     margin-top: 10px;
     margin-bottom: 30px;
   }
-
 }
 
 @media screen and (max-width: 1370px) {
-
   .title {
     font-size: 160%;
     font-family: "Raleway";
@@ -552,11 +546,9 @@
     color: #508ce4;
     font-weight: 500;
   }
-
 }
 
 @media screen and (max-width: 1300px) {
-
   .divCabecalho {
     margin: 0 0px 0px 0px;
     background-color: #fff;
@@ -567,7 +559,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
   }
 
   .imgWorkers {
@@ -693,7 +684,6 @@
     color: #000;
     margin-top: -10px;
   }
-
 }
 
 @media only screen and (max-width: 1250px) {
@@ -708,22 +698,15 @@
   }
 }
 
-
 @media screen and (max-width: 1000px) {
-
   .imgWorkers {
     width: 400px;
   }
-
-  
 }
 
-
 @media screen and (max-width: 900px) {
-
   .divCabecalho {
     padding-bottom: 25px;
-
   }
 
   .imgWorkers {
@@ -813,12 +796,9 @@
   .workers_side2 {
     display: none;
   }
-  
-
 }
 
 @media only screen and (max-width: 800px) {
-
   .titles {
     align-self: center;
     text-align: center;
@@ -871,7 +851,7 @@
     color: #000;
     margin-top: -10px;
     margin-left: 10px;
-    margin-right: 10px
+    margin-right: 10px;
   }
 
   .verComoFuncionaBtn {
@@ -880,7 +860,7 @@
     padding: 10px;
     padding-bottom: 15px;
   }
-  
+
   .verComoFuncionaBtn h1 {
     background-color: #508ce4;
     color: #fff;
@@ -898,11 +878,9 @@
     padding-bottom: 30px;
     margin-right: 25px;
   }
-
 }
 
 @media screen and (max-width: 600px) {
-
   .title {
     font-size: 160%;
     font-family: "Raleway";
@@ -936,7 +914,6 @@
     z-index: 10;
     margin-left: 0px;
   }
-  
 
   .btnPostJob {
     background-color: #508ce4;
@@ -1016,7 +993,4 @@
   .btnApply {
     width: 85%;
   }
-
 }
-
-

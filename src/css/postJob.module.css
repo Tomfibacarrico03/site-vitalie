@@ -1,7 +1,7 @@
 @media only screen and (max-width: 10000px) {
   @font-face {
-    font-family: 'Raleway';
-    src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
+    font-family: "Raleway";
+    src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype"); /* Adjust the path accordingly */
     /* You can include other font weights and styles as well if needed */
   }
 
@@ -19,7 +19,6 @@
   .formDesktop {
     display: block;
   }
-
 
   .divCabecalho {
     margin-left: 200px;
@@ -165,7 +164,7 @@
   .question {
     display: block;
     margin: auto;
-    margin-left: 20px
+    margin-left: 20px;
   }
   .displayNone {
     display: none;
@@ -253,12 +252,14 @@
     border-radius: 5px;
   } */
 
-  .postJobUm, .postJobDois {
+  .postJobUm,
+  .postJobDois {
     display: flex;
     justify-content: space-evenly;
   }
 
-  .postJobUm input, .postJobDois input {
+  .postJobUm input,
+  .postJobDois input {
     width: 300px;
   }
 
@@ -274,7 +275,7 @@
     margin: 5px;
     cursor: pointer;
   }
-  .containerTudoCheckBoxes{
+  .containerTudoCheckBoxes {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -348,7 +349,6 @@
 }
 
 @media only screen and (max-width: 1400px) {
-
   .formDesktop {
     display: none;
   }
@@ -356,11 +356,9 @@
   .formMobile {
     display: block;
   }
-
 }
 
 @media only screen and (max-width: 1250px) {
-
   .divCabecalho {
     margin-left: 25px;
     margin-right: 25px;
@@ -388,7 +386,6 @@
     margin-left: 10px;
     margin-right: 10px;
   }
-
 }
 
 @media only screen and (max-width: 550px) {
@@ -447,7 +444,7 @@
 
   .question {
     width: 100%;
-    margin-left: 10px
+    margin-left: 10px;
   }
 
   .question h1 {
