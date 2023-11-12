@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { auth } from "../../firebase";
+import styles from "../../css/forgot.module.css";
 import { sendPasswordResetEmail } from "firebase/auth";
 
 const ForgotPassword = () => {
@@ -19,15 +20,18 @@ const ForgotPassword = () => {
     }
   };
   return (
-    <div>
-      <h2>Forgot Password</h2>
+    <div className={[styles.inputa, { marginTop: 200 }]}>
+      <h2 className={styles.title}>Forgot Password</h2>
       <input
         type="email"
+        className={styles.inputa}
         placeholder="Enter your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button onClick={handleResetPassword}>Reset Password</button>
+      <button className={styles.btn} onClick={handleResetPassword}>
+        Reset Password
+      </button>
       <p>{message}</p>
     </div>
   );

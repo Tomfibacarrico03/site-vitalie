@@ -251,14 +251,31 @@ function JobPage(props) {
                       <>
                         {usuario && (
                           <>
-                          <p className={styles.infoNome}>
-                            Foste adicionado a lista restrita. Liga para fechar
-                            o negócio
-                          </p>
-                          <div style={{display: "flex", alignItems: "center", marginBottom: -15, marginTop: -25}}>
-                            <img style={{width: 13, height: 13, marginRight: 5, marginTop: -20}} src={require("../imgs/phoneVitalie.png")} />
-                            <p style={{color: "#508ce4",}}>{usuario.phone}</p>
-                          </div>
+                            <p className={styles.infoNome}>
+                              Foste adicionado a lista restrita. Liga para
+                              fechar o negócio
+                            </p>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginBottom: -15,
+                                marginTop: -25,
+                              }}
+                            >
+                              <img
+                                style={{
+                                  width: 13,
+                                  height: 13,
+                                  marginRight: 5,
+                                  marginTop: -20,
+                                }}
+                                src={require("../imgs/phoneVitalie.png")}
+                              />
+                              <p style={{ color: "#508ce4" }}>
+                                {usuario.phone}
+                              </p>
+                            </div>
                           </>
                         )}
                       </>
@@ -272,7 +289,7 @@ function JobPage(props) {
                           boxShadow: "0 0 50px 3px #508ce4",
                           backgroundColor: "#fff",
                           color: "#508ce4",
-                          marginBottom: 7
+                          marginBottom: 7,
                         }}
                         onClick={() => ShowInterest()}
                       >
@@ -319,10 +336,9 @@ function JobPage(props) {
                       <img
                         src={imageUrl}
                         style={{
-                          marginTop: -100,
                           borderRadius: 5,
-                          width: 100,
-                          marginLeft: 15,
+                          marginTop: 10,
+                          width: "auto",
                           marginRight: 15,
                           cursor: "pointer", // Add a pointer cursor to indicate it's clickable
                         }}

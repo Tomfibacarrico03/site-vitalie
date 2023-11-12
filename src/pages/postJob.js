@@ -19,6 +19,7 @@ import Select from "react-select";
 import { httpsCallable } from "firebase/functions";
 const PostJob = () => {
   const saveJob = httpsCallable(functions, "SaveJob");
+  const sendEmail = httpsCallable(functions, "sendEmail");
   const createUserAndSaveJob = httpsCallable(functions, "createUserAndSaveJob");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -112,8 +113,9 @@ const PostJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!termsChecked) {
+    if (termsChecked == false) {
       setError("Por favor aceite os termos e condições");
+      console.log("Por favor aceite os termos e condições");
       return;
     }
 
@@ -137,6 +139,10 @@ const PostJob = () => {
       SaveJob(user);
       setError(null);
       navigate("/publicar-trabalho/publicado");
+      await sendEmail({
+        email: email,
+        type: "homeowner",
+      });
     } catch (error) {
       setError(error.message);
     }

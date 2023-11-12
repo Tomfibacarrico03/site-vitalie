@@ -10,9 +10,11 @@ import {
 import { db } from "../firebase";
 import styles from "../css/workerPage.module.css";
 import { phoneVitalie } from "../imgs/phoneVitalie.png";
+import { UserAuth } from "../context/AuthContext";
 
 const WorkerPage = () => {
   const { jobId, workerId } = useParams();
+  const { user } = UserAuth();
   const [job, setJob] = useState(null);
   const [worker, setWorker] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -85,8 +87,8 @@ const WorkerPage = () => {
   };
 
   const [shortlistPopUp, setShortlistPopUp] = useState(false);
-
-  const handleShorlist = async () => {
+  
+  async function addToShortList(){
     const jobRef = doc(db, "jobs", jobId);
     const userRef = doc(db, "users", workerId);
 
@@ -105,6 +107,24 @@ const WorkerPage = () => {
     } catch (error) {
       console.error("Error adding user to shortlisted field", error);
     }
+  }
+  
+  const handleShorlist = async () => {
+    console.log("in handle shortlist");
+    const url = `https://us-central1-site-vitalie.cloudfunctions.net/executePayment?userId=${workerId}&tradeSelected=${job.tradeSelected}&selectedCategory=${job.selectedCategory}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((res) => {
+        const responseData = res.result;
+        console.log("Payment: "+responseData.paymentStatus);
+        if(responseData.paymentStatus=="Success"){
+          addToShortList();
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
   };
 
   const hireWorker = async () => {
@@ -133,23 +153,20 @@ const WorkerPage = () => {
   const [isLeavingReview, setIsLeavingReview] = useState(false);
   const [jobStatusOption, setJobStatusOption] = useState("");
 
-  const reviewCard = (head, body, status) => {
+  const reviewCard = (head, body, status, Number) => {
     return (
-      <div className={styles.form}>
-        <div>
+      <label htmlFor={"reviewCheckbox"+Number} className={jobStatusOption === status?styles.optionSelected:styles.option}>
           <h3>{head}</h3>
           <p>{body}</p>
-        </div>
-        <div className={styles.inputs}>
           <input
+          style={{display:"none"}}
             type="checkbox"
-            id="reviewCheckbox"
+            id={"reviewCheckbox"+Number}
             name="reviewCheckbox"
-            checked={jobStatusOption == status}
+            checked={jobStatusOption === status}
             onChange={() => setJobStatusOption(status)}
           />
-        </div>
-      </div>
+      </label>
     );
   };
 
@@ -352,17 +369,17 @@ const WorkerPage = () => {
                 {reviewCard(
                   "Trabalho ainda não começou",
                   "Eu já acordei num preço e contratei este trabalhador",
-                  "not_started"
+                  "not_started",0
                 )}
                 {reviewCard(
                   "Trabalho em progresso",
                   "Trabalho em andamente neste momento",
-                  "on_going"
+                  "on_going",1
                 )}
                 {reviewCard(
                   "Trabalho concluído",
                   "Deves deixar um feedback quando estiveres pronto",
-                  "done"
+                  "done",2
                 )}
               </div>
               <div>

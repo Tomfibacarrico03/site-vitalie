@@ -274,9 +274,16 @@
     margin: 5px;
     cursor: pointer;
   }
+  .containerTudoCheckBoxes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .containerCheckBoxes {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     padding-left: 35px;
     margin-bottom: 20px;
@@ -298,9 +305,7 @@
 
   .checkmark {
     position: absolute;
-    top: 0;
     left: 0;
-    margin-left: 100px;
     height: 25px;
     border-radius: 5px;
     width: 25px;

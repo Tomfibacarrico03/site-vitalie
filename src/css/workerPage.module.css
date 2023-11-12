@@ -16,7 +16,7 @@
     padding-top: 20px;
     border-radius: 20px;
     font-family: "Raleway";
-    box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   }
 
   .workerPage header {
@@ -47,12 +47,13 @@
     border-right: 3px solid #508ce4
   }
 
-  .perfilDoMan h3, .perfilDoMan h4, .perfilDoMan p {
+  .perfilDoMan h3,
+  .perfilDoMan h4,
+  .perfilDoMan p {
     font-family: "Raleway";
   }
 
-  .perfilDoMan h3 {
-  }
+  .perfilDoMan h3 {}
 
 
   .workerPage header b {
@@ -90,7 +91,8 @@
     display: inline-flex;
   }
 
-  .agora, .depois {
+  .agora,
+  .depois {
     display: block;
     width: 50%;
     margin-top: 15px;
@@ -125,13 +127,14 @@
     color: #8c8c8c;
   }
 
-  p, h3 {
+  p,
+  h3 {
     font-family: "Raleway";
   }
 
   .descricao {
     text-transform: uppercase;
-    
+
   }
 
   .inputs {
@@ -139,6 +142,49 @@
     padding-bottom: 30px;
   }
 
+  .option {
+    display: flex;
+    flex-direction: column;
+    font-family: "Raleway";
+    min-width:2rem;
+    color: #858383;
+    margin: 5px;
+    border: 2px solid #508ce4;
+    padding: 5px 5px 5px 10px;
+    text-align: left;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+  }
+  .option:hover {
+    opacity: 0.7;
+    transition: 0.3s ease;
+    cursor: pointer;
+  }
+  .option h3{
+    margin-bottom: 5px;
+  }
+  .optionSelected h3{
+    color: #fff;
+    margin-bottom: 5px;
+  }
+  .option p{
+    margin-bottom: 5px;
+  }
+  .optionSelected p{
+    color: #fff;
+    margin-bottom: 5px;
+  }
+  .optionSelected {
+    display: flex;
+    flex-direction: column;
+    font-family: "Raleway";
+    color: #fff;
+    margin: 5px;
+    padding: 5px 5px 5px 10px;
+    text-align: left;
+    border-radius: 10px;
+    background-color: #508ce4;
+  }
 }
 
 @media only screen and (max-width: 1250px) {
@@ -153,7 +199,7 @@
     padding-top: 20px;
     border-radius: 20px;
     font-family: "Raleway";
-    box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   }
 
 
@@ -198,20 +244,15 @@
     padding-top: 20px;
     border-radius: 20px;
     font-family: "Raleway";
-    box-shadow: 0px 0px 10px rgba( 0, 0, 0, 0.05);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   }
 
-  .form {
+  .reviewCard {
     display: inline-flex;
     align-items: center;
+    border: #508ce4;
+
   }
-
-  .inputs {
-    margin-bottom: -30px;
-    padding-bottom: 0;
-  }
-
-
 }
 
 @media only screen and (max-width: 500px) {
@@ -280,7 +321,7 @@
   .agoraDepois {
     font-size: 12px;
   }
-  
+
   .btnFechar {
     font-size: 9px;
     margin-bottom: 15px;
