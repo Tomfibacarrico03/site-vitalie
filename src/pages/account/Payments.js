@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useNavigate,Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { httpsCallable } from "firebase/functions";
 import { db, functions } from "../../firebase";
-
+import { FaCreditCard, FaTrash } from 'react-icons/fa';
 import {
   serverTimestamp,
   setDoc,
@@ -13,6 +13,8 @@ import {
   where,
   addDoc,
   collection,
+  deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import styles from "../../css/minhaconta.module.css";
 
@@ -24,6 +26,7 @@ const Payments = () => {
   const [spgSignature, setSpgSignature] = useState("");
   const [spgConfig, setSpgConfig] = useState({});
   const [payments, setPayments] = useState([]);
+  const navigate = useNavigate();
 
   const spgStyle = {
     layout: "default",
@@ -39,12 +42,11 @@ const Payments = () => {
       },
       body: {
         text: "",
-        background: "white",
+        background: "blue",
       },
     },
     font: "Roboto",
   };
-
   const fetchPayments = async () => {
     if (user) {
       try {
@@ -63,7 +65,6 @@ const Payments = () => {
       }
     }
   };
-
   const requestForm = () => {
     console.log("in RequestForm");
     const url = `https://us-central1-site-vitalie.cloudfunctions.net/requestCIT?userId=${user.uid}`;
@@ -90,7 +91,6 @@ const Payments = () => {
         console.error("Fetch error:", error);
       });
   };
-
   useEffect(() => {
     if (transactionID) {
       const script = document.createElement("script");
@@ -99,7 +99,6 @@ const Payments = () => {
       document.body.appendChild(script);
     }
   }, [transactionID]);
-
   useEffect(() => {
     const paymentId = searchParams.get("id");
     async function checkAndSavePayment() {
@@ -110,7 +109,7 @@ const Payments = () => {
         fetch(url)
           .then((response) => null)
           .then((res) => {
-            fetchPayments();
+            navigate("/minha-conta/detalhes-de-contacto")
           })
           .catch((error) => {
             console.error("Fetch error:", error);
@@ -122,7 +121,6 @@ const Payments = () => {
       checkAndSavePayment();
     }
   }, [searchParams]);
-
   const servicesData = {
     "Serviços de Arquitetura": {
       "Conceitos fundamentais de design (para gerar orçamentos e apresentar pedidos de planejamento)": 8.0,
@@ -318,7 +316,6 @@ const Payments = () => {
       Reparações: 5.0,
     },
   };
-
   const storeServicesDataInFirestore = async () => {
     const taxasCollectionRef = collection(db, "taxas");
 
@@ -330,24 +327,63 @@ const Payments = () => {
       console.error("Error adding services data to Firestore: ", error);
     }
   };
-
   useEffect(() => {
     //storeServicesDataInFirestore();
     fetchPayments();
   }, [user]);
+  const deletePayment = async (paymentId) => {
+    try {
+      const paymentDocRef = doc(db, "payments", paymentId);
+      await deleteDoc(paymentDocRef);
+      fetchPayments();
+      console.log(`Payment with ID ${paymentId} deleted.`);
+    } catch (error) {
+      console.error("Error deleting payment:", error);
+    }
+  };
+  const updateActiveStatus = async (paymentId) => {
+    try {
+      const paymentsRef = collection(db, "payments");
+      const querySnapshot = await getDocs(paymentsRef);
 
+      await Promise.all(querySnapshot.docs.map(async (paymentDoc) => {
+        const docRef = doc(db, "payments", paymentDoc.id);
+        const isActive = paymentDoc.id === paymentId;
+
+        await updateDoc(docRef, { active: isActive });
+      }));
+      fetchPayments();
+    } catch (error) {
+      console.error("Error updating active status:", error);
+    }
+  };
+  useEffect(() => {
+    // This code will run after the component has mounted
+    console.log("in the function!!!");
+    // Find the element by class name
+    const elementToDelete = document.querySelector('.payment-value');
+
+    // Check if the element exists before attempting to delete it
+    if (elementToDelete) {
+      // Remove the element
+      elementToDelete.remove();
+    }
+  }, [spgContext]);
   return (
     <div className={styles.detalhesContainer}>
       {spgContext ? (
-        <>
-          <form
-            className="paymentSPG"
-            spg-signature={spgSignature}
-            spg-context={spgContext}
-            spg-config={JSON.stringify(spgConfig)}
-            spg-style={JSON.stringify(spgStyle)}
-          ></form>
-        </>
+        <div className={styles.addCardWindow} onClick={()=>{window.location.reload()}}>
+          <div className={styles.form}>
+            <form
+              className="paymentSPG"
+              spg-signature={spgSignature}
+              spg-context={spgContext}
+              spg-config={JSON.stringify(spgConfig)}
+              spg-style={JSON.stringify(spgStyle)}
+            ></form>
+          </div>
+          
+        </div>
       ) : null}
       <div className={styles.headerList}>
         <b
@@ -365,23 +401,24 @@ const Payments = () => {
       <div className={styles.paymentsList}>
         {payments.length == "0" ? <p>Não tem cartões associados</p> : null}
         {payments.map((payment) => (
-          <div className={styles.listPay} key={payment.id}>
-            {/* <p>Payment ID: {payment.id}</p> */}
-            <div style={{}}>
-              <p
-                style={{
-                  color: "#000",s
-                  marginTop: -35,
-                  marginBottom: 5,
-                }}
-              >
-                {payment.token.maskedPAN}
-              </p>
-              <button className={styles.eliCardBtn}>Eliminar Cartão</button>
+          <div className={payment.active ? styles.listPaySelected : styles.listPay}
+            onClick={() => updateActiveStatus(payment.id)}
+            key={payment.id}>
+            <div className={styles.cardNumber}>
+              {/* <p>Payment ID: {payment.id}</p> */}
+              <FaCreditCard style={{ fontSize: "1.5rem" }} />
+              {" "}
+              {payment.token.maskedPAN}
+              {" "}
+              {new Date(payment.token.expireDate).getUTCFullYear()}
+              {"/"}
+              {new Date(payment.token.expireDate).getUTCMonth()}
             </div>
-            <p style={{ color: "#508ce4" }}>
-              Active: {payment.active ? "Yes" : "No"}
-            </p>
+            <div>
+              <button className={styles.eliCardBtn} onClick={() => deletePayment(payment.id)}>
+                <FaTrash />
+              </button>
+            </div>
           </div>
         ))}
       </div>

@@ -99,10 +99,13 @@
   }
 
   .eliCardBtn {
-    background-color: #f00;
-    color: #fff;
+    color: black;
+    cursor: pointer;
   }
-
+  .eliCardBtn:hover{
+    color: #fff;
+    background-color: #508ce4;
+  }
   .listPay {
     display: flex;
     align-items: center;
@@ -110,12 +113,47 @@
     background-color: #fff;
     border-radius: 5px;
     margin-bottom: 15px;
-    border-left: 3px solid #508ce4;
-    padding-top: 35px;
+    border: 3px solid #ffffff;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .listPay:hover{
+    border: 3px solid #8b8b8b;
+  }
+  .listPaySelected {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 3px solid #508ce4;
     padding-left: 10px;
     padding-right: 10px;
-    height: 70px;
   }
+}
+.cardNumber{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.addCardWindow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 201;
+  background-color: #8b8b8b7f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addCardWindow .form{
+  width: 80vw;
+  max-height: 80vh;
 }
 
 @media only screen and (max-width: 1400px) {
