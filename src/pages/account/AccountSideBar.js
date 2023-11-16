@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import styles from "../../css/dashboard/sidebar.module.css";
 
-const   AccountSideBar = () => {
+const AccountSideBar = () => {
   const { user } = UserAuth();
   const location = useLocation();
   const isDashboardPage = location.pathname.startsWith("/minha-conta");
@@ -28,9 +28,14 @@ const   AccountSideBar = () => {
             <li>
               <Link to="/minha-conta/definições">Definições</Link>
             </li>
-            <li>
-              <Link to="/minha-conta/pagamentos">Pagamentos</Link>
-            </li>
+            {user.trade_member == true ? (
+              <li>
+                <Link to="/minha-conta/pagamentos">Pagamentos</Link>
+              </li>
+            ) : (
+              null
+            )}
+
           </ul>
         </div>
       ) : null}

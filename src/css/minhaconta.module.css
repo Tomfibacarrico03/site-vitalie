@@ -1,151 +1,228 @@
 @media only screen and (max-width: 10000px) {
+  @font-face {
+    font-family: "Raleway";
+    src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype"); /* Adjust the path accordingly */
+    /* You can include other font weights and styles as well if needed */
+  }
+  .detalhesContainer {
+    background-color: #fafafa;
+    margin-left: 35%;
+    padding: 20px;
+    margin-top: 120px;
+    margin-right: 200px;
+    border-radius: 10px;
+  }
 
-    @font-face {
-        font-family: 'Raleway';
-        src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap') format('truetype');
-        /* You can include other font weights and styles as well if needed */
-    }
-    .detalhesContainer {
-        background-color: #fafafa;
-        margin-left: 35%;
-        padding: 20px;
-        margin-top: 120px;
-        margin-right: 200px;
-        border-radius: 10px;
-    }
+  .detalhesContainer h1 {
+    font-family: "Raleway";
+  }
 
-    .detalhesContainer h1 {
-        font-family: "Raleway";
-    }
+  input {
+    background-color: transparent;
+    border: 1px solid #d6d4d4;
+    border-radius: 5px;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
 
-    input {
-        background-color: transparent;
-        border: 1px solid #d6d4d4;
-        border-radius: 5px;
-        padding: 0px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        width: 100%;
-        text-align: center;
-    }
+  input:focus {
+    outline: none;
+  }
 
-    input:focus {
-        outline: none;
-    }
+  .botoes {
+    display: inline-block;
+  }
 
-    .botoes {
-        display: inline-block;
-    }
+  label {
+    font-size: 14px;
+    font-family: "Avenir Next";
+    color: #8c8c8c;
+  }
 
-    label {
-        font-size: 14px;
-        font-family: "Avenir Next";
-        color: #8c8c8c;
-    }
+  .guardar {
+    padding: 10px;
+    background-color: #508ce4;
+    border: 0;
+    color: #fff;
+    border-radius: 5px;
+    width: 120px;
+    font-size: 14px;
+    justify-content: flex-end;
+    align-content: flex-end;
+    margin-top: 10px;
+  }
 
-    .guardar {
-        padding: 10px;
-        background-color: #508ce4;
-        border: 0;
-        color: #fff;
-        border-radius: 5px;
-        width: 120px;
-        font-size: 14px;
-        justify-content: flex-end;
-        align-content: flex-end;
-        margin-top: 10px;
-    }
+  .guardar:hover,
+  .terminarSessao:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.5s ease;
+  }
 
-    .guardar:hover, .terminarSessao:hover {
-        cursor: pointer;
-        opacity: 0.7;
-        transition: 0.5s ease;
-    }
+  .terminarSessao {
+    padding: 10px;
+    background-color: #f00;
+    border: 0;
+    color: #fff;
+    border-radius: 5px;
+    width: 160px;
+    font-size: 14px;
+    justify-content: flex-start;
+    align-content: flex-start;
+    margin-top: 10px;
+  }
 
-    .terminarSessao {
-        padding: 10px;
-        background-color: #f00;
-        border: 0;
-        color: #fff;
-        border-radius: 5px;
-        width: 160px;
-        font-size: 14px;
-        justify-content: flex-start;
-        align-content: flex-start;
-        margin-top: 10px;
-    }
+  .headerDateTitle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
 
-    .headerDateTitle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
-    
+  .headerList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .addCardBtn {
+    background-color: #508ce4;
+    color: #fff;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  .eliCardBtn {
+    color: black;
+    cursor: pointer;
+  }
+  .eliCardBtn:hover{
+    color: #fff;
+    background-color: #508ce4;
+  }
+  .listPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 3px solid #ffffff;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .listPay:hover{
+    border: 3px solid #8b8b8b;
+  }
+  .listPaySelected {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 3px solid #508ce4;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+.cardNumber{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.addCardWindow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 201;
+  background-color: #8b8b8b7f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addCardWindow .form{
+  width: 80vw;
+  max-height: 80vh;
 }
 
 @media only screen and (max-width: 1400px) {
-    .detalhesContainer {
-        background-color: #fafafa;
-        padding: 20px;
-        margin-top: 20px;
-        margin-left: 200px;
-        margin-right: 200px;
-        border-radius: 10px;
-    }
+  .detalhesContainer {
+    background-color: #fafafa;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 200px;
+    margin-right: 200px;
+    border-radius: 10px;
+  }
 }
 
 @media only screen and (max-width: 1250px) {
-    .detalhesContainer {
-        background-color: #fafafa;
-        padding: 20px;
-        margin-top: 20px;
-        margin-left: 25px;
-        margin-right: 25px;
-        border-radius: 10px;
-    }
+  .detalhesContainer {
+    background-color: #fafafa;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-radius: 10px;
+  }
 
-    .botoes {
-        display: block;
-    }
+  .botoes {
+    display: block;
+  }
 
-    .guardar {
-        padding: 10px;
-        background-color: #508ce4;
-        border: 0;
-        position: relative;
-        color: #fff;
-        border-radius: 5px;
-        display: block;
-        width: 100%;
-        margin: auto;
-        font-size: 14px;
-        justify-content: flex-end;
-        align-content: flex-end;
-        margin-top: 10px;
-    }
+  .guardar {
+    padding: 10px;
+    background-color: #508ce4;
+    border: 0;
+    position: relative;
+    color: #fff;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    margin: auto;
+    font-size: 14px;
+    justify-content: flex-end;
+    align-content: flex-end;
+    margin-top: 10px;
+  }
 
-    .terminarSessao {
-        padding: 10px;
-        background-color: #f00;
-        border: 0;
-        color: #fff;
-        border-radius: 5px;
-        width: 100%;
-        font-size: 14px;
-        justify-content: flex-start;
-        align-content: flex-start;
-        margin-top: 10px;
-    }
+  .terminarSessao {
+    padding: 10px;
+    background-color: #f00;
+    border: 0;
+    color: #fff;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 14px;
+    justify-content: flex-start;
+    align-content: flex-start;
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .headerList {
+    display: block;
+    margin-right: 75px;
+  }
 }
 
 @media only screen and (max-width: 450px) {
-    .headerDateTitle {
-        display: block;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
+  .headerDateTitle {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
 }

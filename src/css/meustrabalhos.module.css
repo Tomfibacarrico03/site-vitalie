@@ -1,299 +1,292 @@
 @media only screen and (max-width: 10000px) {
+  @font-face {
+    font-family: "Raleway";
+    src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype"); /* Adjust the path accordingly */
+    /* You can include other font weights and styles as well if needed */
+  }
+  .trabalhosContainer {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: 200px;
+    margin-right: 200px;
+    justify-content: space-between;
+  }
 
-    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600&display=swap');
+  .detalhesContainer {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 50%;
+  }
 
-    .trabalhosContainer {
-        display: flex;
-        align-items: flex-start;
-        margin-top: 20px;
-        margin-left: 200px;
-        margin-right: 200px;
-        justify-content: space-between;
-    }
+  .detalhesContainer h1 {
+    font-family: "Raleway";
+    color: #333;
+  }
 
-    .detalhesContainer {
-        background-color: #fafafa;
-        padding: 20px;
-        border-radius: 10px;
-        flex: 50%;
-    }
+  .detalhesContainer hr {
+    border: 2px solid #508ce4;
+    align-self: left;
+  }
 
-    .detalhesContainer h1 {
-        font-family: "Raleway";
-        color: #333
-    }
+  .contrataPessoas {
+    width: 300px;
+    background-color: #fff;
+    position: absolute;
+    right: 200px;
+    border-radius: 5px;
+    margin-top: 15px;
+    padding-bottom: 40px;
+  }
 
-    .detalhesContainer hr {
-        border: 2px solid #508ce4;
-        align-self: left;
-    }
+  .contrataPessoas header {
+    background-color: #508ce4;
+    padding: 1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
 
-    .contrataPessoas {
-        width: 300px;
-        background-color: #fff;
-        position: absolute;
-        right: 200px;
-        border-radius: 5px;
-        margin-top: 15px;
-        padding-bottom: 40px
-    }
+  .contrataPessoas p {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: "Avenir Next";
+  }
 
-    .contrataPessoas header {
-        background-color: #508ce4;
-        padding: 1px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        
-    }
+  .tituloContrataPessoas {
+    font-family: "Avenir Next";
+    color: #fff;
+    font-weight: bold;
+    padding-left: 15px;
+    font-size: 15px;
+    text-transform: uppercase;
+  }
 
-    .contrataPessoas p {
-        padding-left: 15px;
-        padding-right: 15px;
-        font-family: "Avenir Next";
-    }
+  .btnPostJob {
+    box-shadow: 2px 2px 10px #508ce4;
+    background-color: #508ce4;
+    font-family: "Avenir Next";
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 15px;
+  }
 
-    .tituloContrataPessoas {
-        font-family: "Avenir Next";
-        color: #fff;
-        font-weight: bold;
-        padding-left: 15px;
-        font-size: 15px;
-        text-transform: uppercase;
-    }
+  .Select {
+    background-color: #fff;
+    margin: 15px;
+  }
 
-    .btnPostJob {
-        box-shadow: 2px 2px 10px #508ce4;
-        background-color:#508ce4;
-        font-family: "Avenir Next";
-        color: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        text-decoration: none;
-        margin-left: 15px;
-    }
+  .barDir {
+    background-color: #fafafa;
+    flex: 10%;
+    margin-left: 20px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+  }
 
-    .Select {
-        background-color: #fff;
-        margin: 15px
-    }
+  .barDir header {
+    background-color: #508ce4;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
 
-    .barDir {
-        background-color: #fafafa;
-        flex: 10%;
-        margin-left: 20px;
-        border-radius: 10px;
-        padding-bottom: 10px;
-    }
+  .barDir header h1 {
+    padding: 10px;
+    color: #fff;
+    font-family: "Raleway";
+    padding-left: 15px;
+    margin-top: 0px;
+  }
 
-    .barDir header {
-        background-color: #508ce4;
-        border-top-right-radius: 15px;
-        border-top-left-radius: 15px;
-    }
+  .barDir p {
+    color: #000;
+    padding: 15px;
+  }
 
-    .barDir header h1 {
-        padding: 10px;
-        color: #fff;
-        font-family: "Raleway";
-        padding-left: 15px;
-        margin-top: 0px;
-    }
+  .barDir button {
+    border: 3px solid #508ce4;
+    background-color: #fff;
+    align-self: center;
+    border-radius: 35px;
+    margin: 15px;
+    font-family: "Raleway";
+    color: #508ce4;
+    width: 50%;
+  }
 
-    .barDir p {
-        color: #000;
-        padding: 15px;
+  .popup {
+    left: 0;
+    right: 0;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 120px;
+    background-color: #508ce4;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+  }
 
-    }
+  .criticaText {
+    color: #fff;
+    text-align: center;
+    font-size: 21px;
+    padding-top: 25px;
+  }
 
-    .barDir button {
-        border: 3px solid #508ce4;
-        background-color: #fff;
-        align-self: center;
-        border-radius: 35px;
-        margin: 15px;
-        font-family: "Raleway";
-        color: #508ce4;
-        width: 50%;
-    }
+  .fecharBtn {
+    background-color: transparent;
+    color: #fff;
+    font-size: 18px;
+    margin-top: -70px;
+    padding-bottom: 30px;
+    padding-right: 15px;
+    display: block;
+    margin-left: auto;
+  }
 
-    .popup {
-        left: 0;
-        right: 0;
-        margin-left: 200px;
-        margin-right: 200px;
-        margin-top: 120px;
-        background-color: #508ce4;
-        border-radius: 5px;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .criticaText {
-        color: #fff;
-        text-align: center;
-        font-size: 21px;
-        padding-top: 25px;
-    }
-
-    .fecharBtn {
-        background-color: transparent;
-        color: #fff;
-        font-size: 18px;
-        margin-top: -70px;
-        padding-bottom: 30px;
-        padding-right: 15px;
-        display: block;
-        margin-left: auto;
-    }
-
-    .CriarTrabalho {
-        text-decoration: none;
-        color: #fff;
-        border-radius: 5px;
-        background-color: #508ce4;
-        padding: 10px;
-        font-family: "Raleway";
-        display: block;
-        margin: 10px;
-        text-align: center;
-    }
-
+  .CriarTrabalho {
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #508ce4;
+    padding: 10px;
+    font-family: "Raleway";
+    display: block;
+    margin: 10px;
+    text-align: center;
+  }
 }
 
 @media only screen and (max-width: 1250px) {
+  .popup {
+    left: 0;
+    right: 0;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 120px;
+    background-color: #508ce4;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .popup {
-        left: 0;
-        right: 0;
-        margin-left: 25px;
-        margin-right: 25px;
-        margin-top: 120px;
-        background-color: #508ce4;
-        border-radius: 5px;
-        align-items: center;
-        justify-content: center;
-    }
+  .trabalhosContainer {
+    display: block;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    justify-content: space-between;
+  }
 
-    .trabalhosContainer {
-        display: block;
-        align-items: flex-start;
-        margin-top: 20px;
-        margin-left: 25px;
-        margin-right: 25px;
-        justify-content: space-between;
-    }
+  .barDir {
+    background-color: #fafafa;
+    flex: 10%;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+  }
 
-    .barDir {
-        background-color: #fafafa;
-        flex: 10%;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        padding-bottom: 10px;
-    }
-    
-    .barDir header {
-        background-color: #508ce4;
-        border-top-right-radius: 15px;
-        border-top-left-radius: 15px;
-    }
-    
-    .barDir header h1 {
-        padding: 10px;
-        color: #fff;
-        font-family: "Raleway";
-        padding-left: 15px;
-        margin-top: 0px;
-    }
-    
-    .barDir p {
-        color: #000;
-        padding: 15px;
-    
-    }
-    
-    .barDir button {
-        border: 3px solid #508ce4;
-        background-color: #fff;
-        align-self: center;
-        border-radius: 35px;
-        margin: 15px;
-        font-family: "Raleway";
-        color: #508ce4;
-        width: 50%;
-    }
-    
+  .barDir header {
+    background-color: #508ce4;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+
+  .barDir header h1 {
+    padding: 10px;
+    color: #fff;
+    font-family: "Raleway";
+    padding-left: 15px;
+    margin-top: 0px;
+  }
+
+  .barDir p {
+    color: #000;
+    padding: 15px;
+  }
+
+  .barDir button {
+    border: 3px solid #508ce4;
+    background-color: #fff;
+    align-self: center;
+    border-radius: 35px;
+    margin: 15px;
+    font-family: "Raleway";
+    color: #508ce4;
+    width: 50%;
+  }
 }
 
 @media only screen and (max-width: 450px) {
+  .popup {
+    left: 0;
+    right: 0;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 120px;
+    background-color: #508ce4;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .popup {
-        left: 0;
-        right: 0;
-        margin-left: 25px;
-        margin-right: 25px;
-        margin-top: 120px;
-        background-color: #508ce4;
-        border-radius: 5px;
-        align-items: center;
-        justify-content: center;
-    }
+  .popup p {
+    font-size: 17px;
+  }
 
-    .popup p {
-        font-size: 17px;
-    }
+  .popup button {
+    font-size: 12px;
+  }
 
-    .popup button {
-        font-size: 12px;
-    }
-    
-    .trabalhosContainer {
-        display: block;
-        align-items: flex-start;
-        margin-top: 20px;
-        margin-left: 25px;
-        margin-right: 25px;
-        justify-content: space-between;
-    }
+  .trabalhosContainer {
+    display: block;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    justify-content: space-between;
+  }
 
-    .barDir {
-        background-color: #fafafa;
-        flex: 10%;
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-        padding-bottom: 10px;
-    }
-    
-    .barDir header {
-        background-color: #508ce4;
-        border-top-right-radius: 15px;
-        border-top-left-radius: 15px;
-    }
-    
-    .barDir header h1 {
-        padding: 10px;
-        color: #fff;
-        font-family: "Raleway";
-        padding-left: 15px;
-        margin-top: 0px;
-    }
-    
-    .barDir p {
-        color: #000;
-        padding: 15px;
-    
-    }
-    
-    .barDir button {
-        border: 3px solid #508ce4;
-        background-color: #fff;
-        align-self: center;
-        border-radius: 35px;
-        margin: 15px;
-        font-family: "Raleway";
-        color: #508ce4;
-        width: 50%;
-    }
-    
+  .barDir {
+    background-color: #fafafa;
+    flex: 10%;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+  }
+
+  .barDir header {
+    background-color: #508ce4;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+
+  .barDir header h1 {
+    padding: 10px;
+    color: #fff;
+    font-family: "Raleway";
+    padding-left: 15px;
+    margin-top: 0px;
+  }
+
+  .barDir p {
+    color: #000;
+    padding: 15px;
+  }
+
+  .barDir button {
+    border: 3px solid #508ce4;
+    background-color: #fff;
+    align-self: center;
+    border-radius: 35px;
+    margin: 15px;
+    font-family: "Raleway";
+    color: #508ce4;
+    width: 50%;
+  }
 }
