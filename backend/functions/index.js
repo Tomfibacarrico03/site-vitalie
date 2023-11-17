@@ -222,7 +222,7 @@ exports.requestCIT = functions.https.onRequest(async (req, res) => {
             "Bearer 0276b80f950fb446c6addaccd121abfbbb.eyJlIjoiMjAwNDg2MTkxNjU0MCIsInJvbGVzIjoiU1BHX01BTkFHRVIiLCJ0b2tlbkFwcERhdGEiOiJ7XCJtY1wiOlwiNTA0OTM4XCIsXCJ0Y1wiOlwiNTkxNzJcIn0iLCJpIjoiMTY4OTI0MjcxNjU0MCIsImlzIjoiaHR0cHM6Ly9xbHkuc2l0ZTEuc3NvLnN5cy5zaWJzLnB0L2F1dGgvcmVhbG1zL1FMWS5NRVJDSC5QT1JUMSIsInR5cCI6IkJlYXJlciIsImlkIjoiN2RId1VHdDFjUGI1YTZiYzk1Y2I2MTQ0NzlhZGRiMjZhMTdlMmRkZDQyIn0=.d6aad399a9bf30c3153c541ae98b7c38d3707efdcbd2f8e830566f897d3aac7be8da5653512cde4cb87b425a08796022a0183c3bd536a91d3cd70f077baf308d", // Replace with your actual access token
         },
         body: raw,
-        redirect: "follow",
+        redirect: "follow", 
       };
       // Add a try-catch block around the API response logging
       try {

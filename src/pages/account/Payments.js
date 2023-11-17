@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate,Link, useLocation } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { httpsCallable } from "firebase/functions";
 import { db, functions } from "../../firebase";
@@ -26,6 +26,7 @@ const Payments = () => {
   const [spgSignature, setSpgSignature] = useState("");
   const [spgConfig, setSpgConfig] = useState({});
   const [payments, setPayments] = useState([]);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const spgStyle = {
@@ -66,30 +67,37 @@ const Payments = () => {
     }
   };
   const requestForm = () => {
-    console.log("in RequestForm");
-    const url = `https://us-central1-site-vitalie.cloudfunctions.net/requestCIT?userId=${user.uid}`;
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((res) => {
-        const responseData = JSON.parse(res.data.result);
-        setSpgContext(responseData.formContext);
-        setTransactionID(responseData.transactionID);
-        setSpgSignature(responseData.transactionSignature);
-        setSpgConfig({
-          paymentMethodList: [],
-          amount: {
-            value: responseData.amount.value,
-            currency: responseData.amount.currency,
-          },
-          language: "pt",
-          redirectUrl: "http://localhost:3000/minha-conta/pagamentos",
-          customerData: null,
+    console.log("in RequestForm");
+    if (user.address1 == "" && user.city == "" && user.postalCode == "") {
+      setError("Por favor, preencha os seus detalhes de contacto.")
+    } else {
+
+      const url = `https://us-central1-site-vitalie.cloudfunctions.net/requestCIT?userId=${user.uid}`;
+
+      fetch(url)
+        .then((response) => response.json())
+        .then((res) => {
+          const responseData = JSON.parse(res.data.result);
+          console.log(responseData);
+          setSpgContext(responseData.formContext);
+          setTransactionID(responseData.transactionID);
+          setSpgSignature(responseData.transactionSignature);
+          setSpgConfig({
+            paymentMethodList: [],
+            amount: {
+              value: responseData.amount.value,
+              currency: responseData.amount.currency,
+            },
+            language: "pt",
+            redirectUrl: "http://localhost:3000/minha-conta/pagamentos",
+            customerData: null,
+          });
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
         });
-      })
-      .catch((error) => {
-        console.error("Fetch error:", error);
-      });
+    }
   };
   useEffect(() => {
     if (transactionID) {
@@ -371,20 +379,14 @@ const Payments = () => {
   }, [spgContext]);
   return (
     <div className={styles.detalhesContainer}>
-      {spgContext ? (
-        <div className={styles.addCardWindow} onClick={()=>{window.location.reload()}}>
+
+      {error !== "" ?
+        <div className={styles.addCardWindow} onClick={() => { window.location.reload() }}>
           <div className={styles.form}>
-            <form
-              className="paymentSPG"
-              spg-signature={spgSignature}
-              spg-context={spgContext}
-              spg-config={JSON.stringify(spgConfig)}
-              spg-style={JSON.stringify(spgStyle)}
-            ></form>
+            <h4 style={{ padding: "10px" }}>{error}</h4>
           </div>
-          
         </div>
-      ) : null}
+        : null}
       <div className={styles.headerList}>
         <b
           style={{
@@ -394,10 +396,24 @@ const Payments = () => {
         >
           Pagamentos
         </b>
-        <button className={styles.addCardBtn} onClick={requestForm}>
+
+        {spgContext ? (
+          null
+        ) : <button className={styles.addCardBtn} onClick={requestForm}>
           Adicionar Cartão
-        </button>
+        </button>}
       </div>
+      {spgContext ? (
+        <div className={styles.form}>
+          <form
+            className="paymentSPG"
+            spg-signature={spgSignature}
+            spg-context={spgContext}
+            spg-config={JSON.stringify(spgConfig)}
+            spg-style={JSON.stringify(spgStyle)}
+          ></form>
+        </div>
+      ) : null}
       <div className={styles.paymentsList}>
         {payments.length == "0" ? <p>Não tem cartões associados</p> : null}
         {payments.map((payment) => (

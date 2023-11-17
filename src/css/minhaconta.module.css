@@ -96,6 +96,10 @@
     color: #fff;
     margin-top: 25px;
     margin-bottom: 25px;
+    cursor: pointer;
+  }
+  .addCardBtn:hover{
+    background-color: #508be49c;
   }
 
   .eliCardBtn {
@@ -152,9 +156,12 @@
   justify-content: center;
 }
 .addCardWindow .form{
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
   width: 80vw;
-  max-height: 80vh;
 }
+
 
 @media only screen and (max-width: 1400px) {
   .detalhesContainer {
