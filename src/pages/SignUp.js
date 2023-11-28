@@ -30,6 +30,26 @@ const SignUp = () => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState([]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Update the isMobile state based on the screen width
+      setIsMobile(window.innerWidth <= 768); // Adjust the width as needed
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Initial check for mobile device on component mount
+    handleResize();
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const { createUser, user } = UserAuth();
 
   const handleSubmit = async (e) => {
@@ -260,7 +280,11 @@ const SignUp = () => {
               <input
                 type="text"
                 id="description"
-                placeholder="Inclua todos os detalhes que você acha que o profissional deve saber (local da alteração da parede, prazo, etc.)"
+                placeholder={
+                  isMobile
+                    ? "Inclua todos os detalhes que você acha que o profissional deve saber"
+                    : "Inclua todos os detalhes que você acha que o profissional deve saber (local da alteração da parede, prazo, etc.)"
+                }
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required

@@ -32,7 +32,7 @@ const ForgotPassword = () => {
       <button className={styles.btn} onClick={handleResetPassword}>
         Reset Password
       </button>
-      <p>{message}</p>
+      <p> {message}</p>
     </div>
   );
 };
