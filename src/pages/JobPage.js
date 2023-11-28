@@ -153,18 +153,35 @@ function JobPage(props) {
         const paymentData = doc.data();
 
         if (paymentData.active) {
-          return true;
+          return paymentData;
         }
       });
-      return false;
+      return "";
     } catch (error) {
       console.error("Error fetching payments:", error);
-      return false;
+      return "";
     }
   }
+  const handlePaymentCapture = async () => {
+    console.log("in handle shortlist");
+    const url = `https://us-central1-site-vitalie.cloudfunctions.net/executePaymentCapture?userId=${workerId}&tradeSelected=${job.tradeSelected}&selectedCategory=${job.selectedCategory}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((res) => {
+        const responseData = res.result;
+        console.log("Payment: "+responseData.paymentStatus);
+        if(responseData.paymentStatus=="Success"){
+          addToShortList();
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  };
   function ShowInterest() {
     const paymentCheck = checkPayments();
-    if (paymentCheck) {
+    if (paymentCheck=="") {
       navigate(
         `/minha-conta/pagamentos`
       );

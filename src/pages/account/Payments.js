@@ -3,7 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { httpsCallable } from "firebase/functions";
 import { db, functions } from "../../firebase";
-import { FaCreditCard, FaTrash } from 'react-icons/fa';
+import { FaCreditCard, FaTrash, FaCheck } from 'react-icons/fa';
 import {
   serverTimestamp,
   setDoc,
@@ -15,6 +15,7 @@ import {
   collection,
   deleteDoc,
   updateDoc,
+  getDoc
 } from "firebase/firestore";
 import styles from "../../css/minhaconta.module.css";
 
@@ -27,6 +28,7 @@ const Payments = () => {
   const [spgConfig, setSpgConfig] = useState({});
   const [payments, setPayments] = useState([]);
   const [error, setError] = useState("");
+  const [paymentStatus, setPaymentStatus] = useState("");
   const navigate = useNavigate();
 
   const spgStyle = {
@@ -92,6 +94,8 @@ const Payments = () => {
             language: "pt",
             redirectUrl: "http://localhost:3000/minha-conta/pagamentos",
             customerData: null,
+            hideAmount:true,
+            labelPay:"Adicionar Cartão"
           });
         })
         .catch((error) => {
@@ -107,25 +111,36 @@ const Payments = () => {
       document.body.appendChild(script);
     }
   }, [transactionID]);
+  async function checkIfDocumentExists(paymentId) {
+    try {
+      const documentRef = doc(db, 'payments', paymentId); // Replace 'yourCollectionName' with the actual name of your collection
+      const documentSnapshot = await getDoc(documentRef);
+  
+      return documentSnapshot.exists();
+    } catch (error) {
+      console.error('Error checking document existence:', error);
+      return false; // Assume document doesn't exist in case of an error
+    }
+  }
   useEffect(() => {
     const paymentId = searchParams.get("id");
     async function checkAndSavePayment() {
       if (paymentId) {
-        console.log("paymentId: " + paymentId);
         const url = `https://us-central1-site-vitalie.cloudfunctions.net/statusTransaction?userId=${user.uid}&transactionId=${paymentId}`;
 
-        fetch(url)
-          .then((response) => null)
-          .then((res) => {
-            navigate("/minha-conta/detalhes-de-contacto")
-          })
-          .catch((error) => {
-            console.error("Fetch error:", error);
-          });
+        try {
+          const response = await fetch(url);
+          const data = await response.json(); // assuming the response is in JSON format
+  
+          setPaymentStatus(data.paymentStatus); // log the actual data received from the server
+          console.log(data.paymentStatus);
+        } catch (error) {
+          console.error("Fetch error:", error);
+        }
       }
     }
 
-    if (user.uid !== undefined) {
+    if (user.uid !== undefined && checkIfDocumentExists(paymentId)) {
       checkAndSavePayment();
     }
   }, [searchParams]);
@@ -367,7 +382,6 @@ const Payments = () => {
   };
   useEffect(() => {
     // This code will run after the component has mounted
-    console.log("in the function!!!");
     // Find the element by class name
     const elementToDelete = document.querySelector('.payment-value');
 
@@ -377,6 +391,7 @@ const Payments = () => {
       elementToDelete.remove();
     }
   }, [spgContext]);
+
   return (
     <div className={styles.detalhesContainer}>
 
@@ -384,6 +399,23 @@ const Payments = () => {
         <div className={styles.addCardWindow} onClick={() => { window.location.reload() }}>
           <div className={styles.form}>
             <h4 style={{ padding: "10px" }}>{error}</h4>
+          </div>
+        </div>
+        : null}
+
+      {paymentStatus == "Success" ?
+        <div className={styles.addCardWindow} onClick={() => { setPaymentStatus("")}}>
+          <div className={styles.form}>
+            <h4 style={{ padding: "10px" }}>Cartao Adicionado com sucesso <FaCheck /></h4>
+            <button onClick={() => { setPaymentStatus("")}} className={styles.button}>Avançar</button>
+          </div>
+        </div>
+        : null}
+      {paymentStatus == "Declined" ?
+        <div className={styles.addCardWindow} onClick={() => { setPaymentStatus("")}}>
+          <div className={styles.form}>
+            <h4 style={{ padding: "10px" }}>Erro ao adicionar cartão</h4>
+            <button onClick={() => { setPaymentStatus(""); navigate("/minha-conta/pagamentos")}} className={styles.button}>Voltar</button>
           </div>
         </div>
         : null}
