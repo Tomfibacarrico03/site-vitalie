@@ -162,7 +162,7 @@ function JobPage(props) {
       return "";
     }
   }
-  const handlePaymentCapture = async () => {
+  /*const handlePaymentCapture = async () => {
     console.log("in handle shortlist");
     const url = `https://us-central1-site-vitalie.cloudfunctions.net/executePaymentCapture?userId=${workerId}&tradeSelected=${job.tradeSelected}&selectedCategory=${job.selectedCategory}`;
 
@@ -178,7 +178,7 @@ function JobPage(props) {
       .catch((error) => {
         console.error("Fetch error:", error);
       });
-  };
+  };*/
   function ShowInterest() {
     const paymentCheck = checkPayments();
     if (paymentCheck=="") {
