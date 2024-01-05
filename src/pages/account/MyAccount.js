@@ -106,6 +106,7 @@ const MyAccount = () => {
           id="address1"
           type="text"
           value={address1}
+          maxLength={70}
           onChange={(e) => setAddress1(e.target.value)}
         />
       </div>
