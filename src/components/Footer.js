@@ -22,7 +22,14 @@ const Footer = () => {
           </div>
           <div>
             <h1 className={styles.footerBelow_header_h1}>Empresa</h1>
-            <a className={styles.footerBelow_header_a}>Termos e Condições</a>
+            <a
+              href="/termos.pdf"
+              className={styles.footerBelow_header_a}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Termos e Condições
+            </a>
             <a className={styles.footerBelow_header_a}>
               Política de Privacidade
             </a>
@@ -38,6 +45,7 @@ const Footer = () => {
               vitaliepuscas@outlook.com
             </a>
             <a className={styles.footerBelow_header_a}>+44 7478 825246</a>
+            <a className={styles.footerBelow_header_a}>NIF: 517635763</a>
           </div>
         </header>
       </div>
