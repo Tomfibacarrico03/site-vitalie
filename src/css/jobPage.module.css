@@ -4,7 +4,40 @@
     src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype"); /* Adjust the path accordingly */
     /* You can include other font weights and styles as well if needed */
   }
-
+  .confirmationbanner{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 300;
+    background-color: #8c8c8cab;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .confirmationcard{
+    background-color: white;
+    max-width: 500px;
+    text-align: center;
+    padding: 60px;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+  .confirmationbuttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .confirmationbuttons button{
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .confirmationyes{
+    background-color: #508ce4;
+    color: white;
+  }
   .postTrabalho {
     background-color: #fff;
     margin-left: 200px;

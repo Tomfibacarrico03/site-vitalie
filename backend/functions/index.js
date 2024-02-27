@@ -466,7 +466,7 @@ exports.executePaymentCapture = functions.https.onRequest(async (req, res) => {
         if (doc.data().active) {
           transactionId = doc.id;
         }
-      });
+      }); 
 
       var raw = JSON.stringify({
         "merchant": {
