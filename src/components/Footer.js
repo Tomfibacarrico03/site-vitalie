@@ -23,17 +23,28 @@ const Footer = () => {
           <div>
             <h1 className={styles.footerBelow_header_h1}>Empresa</h1>
             <a
-              href="/termos.pdf"
+              href="/Termos gerais, Politica privacidade e cookies.pdf"
               className={styles.footerBelow_header_a}
               target="_blank"
               rel="noopener noreferrer"
             >
               Termos e Condições
             </a>
-            <a className={styles.footerBelow_header_a}>
-              Política de Privacidade
+            <a
+              href="/Termos gerais, Politica privacidade e cookies.pdf"
+              className={styles.footerBelow_header_a}
+              target="_blank"
+              rel="noopener noreferrer"
+            >              Política de Privacidade
             </a>
-            <a className={styles.footerBelow_header_a}>Livro de Reclamações</a>
+            <a
+              href="/informaçao RAL.pdf"
+              className={styles.footerBelow_header_a}
+              target="_blank"
+              rel="noopener noreferrer"
+            >              Resolução alternativa de litigíos de consumo
+            </a>
+            <a href="https://www.livroreclamacoes.pt/Inicio/" className={styles.footerBelow_header_a}>Livro de Reclamações</a>
             <a className={styles.footerBelow_header_a}>
               © Copyright 2023 meuJob
             </a>
@@ -46,6 +57,7 @@ const Footer = () => {
             </a>
             <a className={styles.footerBelow_header_a}>+44 7478 825246</a>
             <a className={styles.footerBelow_header_a}>NIF: 517635763</a>
+            <p style={{ color: "white" }}>Rua São Sebastião, nº 66, 8500-617 Portimão</p>
           </div>
         </header>
       </div>
