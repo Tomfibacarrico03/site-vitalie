@@ -2,8 +2,8 @@
   @font-face {
     font-family: "Raleway";
     src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype"); /* Adjust the path accordingly */
-    /* You can include other font weights and styles as well if needed */
   }
+
   .detalhesContainer {
     background-color: #fafafa;
     margin-left: 35%;
@@ -21,7 +21,6 @@
     background-color: transparent;
     border: 1px solid #d6d4d4;
     border-radius: 5px;
-    padding: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-top: 10px;
@@ -53,7 +52,6 @@
     width: 120px;
     font-size: 14px;
     justify-content: flex-end;
-    align-content: flex-end;
     margin-top: 10px;
   }
 
@@ -72,8 +70,6 @@
     border-radius: 5px;
     width: 160px;
     font-size: 14px;
-    justify-content: flex-start;
-    align-content: flex-start;
     margin-top: 10px;
   }
 
@@ -98,7 +94,8 @@
     margin-bottom: 25px;
     cursor: pointer;
   }
-  .addCardBtn:hover{
+
+  .addCardBtn:hover {
     background-color: #508be49c;
   }
 
@@ -106,10 +103,12 @@
     color: black;
     cursor: pointer;
   }
-  .eliCardBtn:hover{
+
+  .eliCardBtn:hover {
     color: #fff;
     background-color: #508ce4;
   }
+
   .listPay {
     display: flex;
     align-items: center;
@@ -121,9 +120,11 @@
     padding: 10px;
     cursor: pointer;
   }
-  .listPay:hover{
+
+  .listPay:hover {
     border: 3px solid #8b8b8b;
   }
+
   .listPaySelected {
     display: flex;
     padding: 10px;
@@ -137,13 +138,15 @@
     padding-right: 10px;
   }
 }
-.cardNumber{
+
+.cardNumber {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
 }
-.addCardWindow{
+
+.addCardWindow {
   position: fixed;
   top: 0;
   left: 0;
@@ -155,11 +158,11 @@
   align-items: center;
   justify-content: center;
 }
-.addCardWindow .form{
+
+.addCardWindow .form {
   background-color: #fff;
   border-radius: 10px;
   text-align: center;
-  /* width: 80vw; */
   padding: 10px;
   display: flex;
   align-items: center;
@@ -167,7 +170,7 @@
   flex-direction: column;
 }
 
-
+/* Media Queries */
 @media only screen and (max-width: 1400px) {
   .detalhesContainer {
     background-color: #fafafa;
@@ -205,7 +208,6 @@
     margin: auto;
     font-size: 14px;
     justify-content: flex-end;
-    align-content: flex-end;
     margin-top: 10px;
   }
 
@@ -218,7 +220,6 @@
     width: 100%;
     font-size: 14px;
     justify-content: flex-start;
-    align-content: flex-start;
     margin-top: 10px;
   }
 }

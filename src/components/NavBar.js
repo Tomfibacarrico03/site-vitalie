@@ -83,6 +83,17 @@ const NavBar = () => {
                 >
                   <li className={styles.btnPostJob}>Minha Conta</li>
                 </Link>
+                {user.trade_member == true && (
+                  <Link
+                    to="/minha-conta/creditos"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <li className={styles.btnPostJob}>
+                      {" "}
+                      {user.credits ? user.credits + " créditos" : "0 créditos"}
+                    </li>
+                  </Link>
+                )}
               </>
             ) : (
               <>

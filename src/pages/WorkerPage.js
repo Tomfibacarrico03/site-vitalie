@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  updateDoc,
-  doc,
-  arrayRemove,
-  arrayUnion,
-  getDoc,
-} from "firebase/firestore";
+import { updateDoc, doc, arrayUnion, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "../css/workerPage.module.css";
-import { phoneVitalie } from "../imgs/phoneVitalie.png";
+
 import { UserAuth } from "../context/AuthContext";
+import { servicesData } from "../lib/taxes";
 
 const WorkerPage = () => {
   const { jobId, workerId } = useParams();
@@ -87,8 +82,8 @@ const WorkerPage = () => {
   };
 
   const [shortlistPopUp, setShortlistPopUp] = useState(false);
-  
-  async function addToShortList(){
+
+  async function addToShortList() {
     const jobRef = doc(db, "jobs", jobId);
     const userRef = doc(db, "users", workerId);
 
@@ -101,6 +96,9 @@ const WorkerPage = () => {
 
       await updateDoc(userRef, {
         shortlistedJobs: arrayUnion(jobId),
+        credits:
+          worker.credits -
+          servicesData[job.tradeSelected][job.selectedCategory],
       });
       setShortlistPopUp(true);
       console.log("Job added to user's shortlistedJobs field");
@@ -108,24 +106,6 @@ const WorkerPage = () => {
       console.error("Error adding user to shortlisted field", error);
     }
   }
-  
-  const handleShorlist = async () => {
-    console.log("in handle shortlist");
-    const url = `https://us-central1-site-vitalie.cloudfunctions.net/executePayment?userId=${workerId}&tradeSelected=${job.tradeSelected}&selectedCategory=${job.selectedCategory}`;
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((res) => {
-        const responseData = res.result;
-        console.log("Payment: "+responseData.paymentStatus);
-        if(responseData.paymentStatus=="Success"){
-          addToShortList();
-        }
-      })
-      .catch((error) => {
-        console.error("Fetch error:", error);
-      });
-  };
 
   const hireWorker = async () => {
     try {
@@ -155,17 +135,22 @@ const WorkerPage = () => {
 
   const reviewCard = (head, body, status, Number) => {
     return (
-      <label htmlFor={"reviewCheckbox"+Number} className={jobStatusOption === status?styles.optionSelected:styles.option}>
-          <h3>{head}</h3>
-          <p>{body}</p>
-          <input
-          style={{display:"none"}}
-            type="checkbox"
-            id={"reviewCheckbox"+Number}
-            name="reviewCheckbox"
-            checked={jobStatusOption === status}
-            onChange={() => setJobStatusOption(status)}
-          />
+      <label
+        htmlFor={"reviewCheckbox" + Number}
+        className={
+          jobStatusOption === status ? styles.optionSelected : styles.option
+        }
+      >
+        <h3>{head}</h3>
+        <p>{body}</p>
+        <input
+          style={{ display: "none" }}
+          type="checkbox"
+          id={"reviewCheckbox" + Number}
+          name="reviewCheckbox"
+          checked={jobStatusOption === status}
+          onChange={() => setJobStatusOption(status)}
+        />
       </label>
     );
   };
@@ -312,7 +297,7 @@ const WorkerPage = () => {
                       ) : (
                         <button
                           className={styles.adicionarBtn}
-                          onClick={handleShorlist}
+                          onClick={addToShortList}
                         >
                           Adicionar à shortlist
                         </button>
@@ -369,17 +354,20 @@ const WorkerPage = () => {
                 {reviewCard(
                   "Trabalho ainda não começou",
                   "Eu já acordei num preço e contratei este trabalhador",
-                  "not_started",0
+                  "not_started",
+                  0
                 )}
                 {reviewCard(
                   "Trabalho em progresso",
                   "Trabalho em andamente neste momento",
-                  "on_going",1
+                  "on_going",
+                  1
                 )}
                 {reviewCard(
                   "Trabalho concluído",
                   "Deves deixar um feedback quando estiveres pronto",
-                  "done",2
+                  "done",
+                  2
                 )}
               </div>
               <div>

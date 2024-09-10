@@ -30,6 +30,9 @@ import TradesProfile from "./pages/account/TradesProfile";
 import Settings from "./pages/account/Settings";
 import Payments from "./pages/account/Payments";
 import ForgotPassword from "./pages/dashboard/ForgotPassword";
+import Sucesso from "./pages/account/pagamentos/Sucesso";
+import Erro from "./pages/account/pagamentos/Erro";
+import Creditos from "./pages/account/Creditos";
 
 import { AuthContextProvider } from "./context/AuthContext";
 
@@ -61,7 +64,10 @@ function App() {
             path="/minha-conta/perfil-de-trabalhador"
             element={<TradesProfile />}
           />
+          <Route path="/minha-conta/creditos" element={<Creditos />} />
           <Route path="/minha-conta/pagamentos" element={<Payments />} />
+          <Route path="/minha-conta/pagamentos/sucesso" element={<Sucesso />} />
+          <Route path="/minha-conta/pagamentos/erro" element={<Erro />} />
           <Route path="/minha-conta/definições" element={<Settings />} />
           <Route path="/meustrabalhos" element={<MyPostedJobs />} />
           <Route path="/meustrabalhos/:jobId" element={<JobPage />} />

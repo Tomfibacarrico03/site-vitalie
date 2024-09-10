@@ -30,12 +30,14 @@ const AccountSideBar = () => {
             </li>
             {user.trade_member == true ? (
               <li>
+                <Link to="/minha-conta/creditos">Créditos</Link>
+              </li>
+            ) : null}
+            {user.trade_member == true ? (
+              <li>
                 <Link to="/minha-conta/pagamentos">Pagamentos</Link>
               </li>
-            ) : (
-              null
-            )}
-
+            ) : null}
           </ul>
         </div>
       ) : null}
