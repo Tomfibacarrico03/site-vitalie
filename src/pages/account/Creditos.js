@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "../../css/minhaconta.module.css";
 import { UserAuth } from "../../context/AuthContext";
 import {
@@ -15,12 +15,15 @@ const Creditos = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPack, setSelectedPack] = useState(null);
   const [showMBWAYForm, setShowMBWAYForm] = useState(false);
-  const [showCardForm, setShowCardForm] = useState(false); // Added state for card payment form
+  const [showCardForm, setShowCardForm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] =
     useState(false);
   const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false);
   const { user } = UserAuth();
+
+  // To reference the modal container
+  const modalRef = useRef(null);
 
   const creditPacks = [
     { credits: 10, price: "10.00€" },
@@ -38,7 +41,7 @@ const Creditos = () => {
     setShowModal(false);
     setSelectedPack(null);
     setShowMBWAYForm(false);
-    setShowCardForm(false); // Close the card form when modal is closed
+    setShowCardForm(false);
     setIsWaitingForConfirmation(false);
     setIsPaymentConfirmed(false);
   };
@@ -48,12 +51,12 @@ const Creditos = () => {
   };
 
   const showCardFields = () => {
-    setShowCardForm(true); // Show card confirmation form
+    setShowCardForm(true);
   };
 
   const goBackToPaymentOptions = () => {
     setShowMBWAYForm(false);
-    setShowCardForm(false); // Hide the card confirmation form
+    setShowCardForm(false);
     setIsWaitingForConfirmation(false);
     setIsPaymentConfirmed(false);
   };
@@ -136,7 +139,6 @@ const Creditos = () => {
       const data = await response.json();
 
       if (response.ok && data.transactionStatus === "Success") {
-        // Redirect to the payment form URL provided by the API
         window.location.href = data.redirectUrl;
       } else {
         alert(`Erro no pagamento: ${data.message}`);
@@ -146,6 +148,25 @@ const Creditos = () => {
       alert("Ocorreu um erro ao processar o pagamento.");
     }
   };
+
+  // Handle clicks outside of the modal to close it
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeModal();
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showModal]);
 
   return (
     <div className={styles.detalhesContainer}>
@@ -178,18 +199,26 @@ const Creditos = () => {
       {showModal && (
         <div className={styles.modalOverlay}>
           <header>
-            <div className={styles.modalContent}>
-              <h2>Escolha o método de pagamento</h2>
-              <p>
-                Você está comprando {selectedPack?.credits} Créditos por{" "}
-                {selectedPack?.price}
-              </p>
+            <div
+              className={styles.modalContent}
+              ref={modalRef}
+              style={{ paddingBottom: !isPaymentConfirmed ? 35 : -15 }}
+            >
+              {!isPaymentConfirmed && (
+                <>
+                  <h2>Escolha o método de pagamento</h2>
+                  <p>
+                    Você está comprando {selectedPack?.credits} Créditos por{" "}
+                    {selectedPack?.price}
+                  </p>
+                </>
+              )}
 
               {!showMBWAYForm && !showCardForm ? (
                 <div className={styles.paymentOptions}>
                   <button
                     className={styles.paymentButton}
-                    onClick={showCardFields} // Show card confirmation form when clicked
+                    onClick={showCardFields}
                   >
                     Cartão
                   </button>
@@ -206,7 +235,7 @@ const Creditos = () => {
                     <>
                       <button
                         className={styles.confirmButton}
-                        onClick={handleCardPayment} // Confirm card payment when clicked
+                        onClick={handleCardPayment}
                       >
                         Confirmar
                       </button>

@@ -13,7 +13,7 @@ import {
 const db = getFirestore();
 
 const Payments = () => {
-  const { user } = UserAuth(); // Assuming UserAuth provides the user object
+  const { user } = UserAuth();
   const [payments, setPayments] = useState([]);
 
   useEffect(() => {
@@ -45,7 +45,13 @@ const Payments = () => {
         }
       });
 
-      setPayments(paymentsData);
+      // Sort payments by date (most recent first)
+      const sortedPayments = paymentsData.sort(
+        (a, b) =>
+          new Date(b.date.seconds * 1000) - new Date(a.date.seconds * 1000)
+      );
+
+      setPayments(sortedPayments);
     });
 
     // Cleanup the subscription on unmount
