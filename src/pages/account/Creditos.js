@@ -235,6 +235,7 @@ const Creditos = () => {
                         type="text"
                         placeholder="Número de telefone"
                         className={styles.mbwayInput}
+                        style={{ color: "#fff", fontWeight: 600, fontSize: 18 }}
                         value={phoneNumber}
                         onChange={handlePhoneNumberChange}
                       />
