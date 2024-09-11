@@ -8,6 +8,9 @@ import styles from "../css/register.module.css";
 import { trades, distritos } from "../lib/SelectOptions";
 import { httpsCallable } from "firebase/functions";
 
+import hide from "../imgs/hideIcon.png";
+import show from "../imgs/viewIcon.png";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const sendEmail = httpsCallable(functions, "sendEmail");
@@ -31,6 +34,11 @@ const SignUp = () => {
   const [location, setLocation] = useState([]);
 
   const [isMobile, setIsMobile] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder a palavra-passe
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -245,13 +253,20 @@ const SignUp = () => {
             <div>
               {/* <label htmlFor="password">Password</label> */}
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
                 id="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className={styles.togglePasswordButton}
+              >
+                {showPassword ? <img src={show} /> : <img src={hide} />}
+              </button>
             </div>
             <div>
               <label htmlFor="trade">Que trabalhos deseja realizar</label>
