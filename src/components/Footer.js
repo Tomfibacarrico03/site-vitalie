@@ -61,9 +61,7 @@ const Footer = () => {
           <div>
             <h1 className={styles.footerBelow_header_h1}>Contactos</h1>
             <a className={styles.footerBelow_header_a}>Vitalie Puscas</a>
-            <a className={styles.footerBelow_header_a}>
-              vitaliepuscas@outlook.com
-            </a>
+            <a className={styles.footerBelow_header_a}>meujob.pt@hotmail.com</a>
             <a className={styles.footerBelow_header_a}>+44 7478 825246</a>
             <a className={styles.footerBelow_header_a}>NIF: 517635763</a>
             <p
