@@ -154,16 +154,17 @@ const Creditos = () => {
           style={{
             fontFamily: "Raleway",
             fontSize: 32,
+            paddingTop: 25,
           }}
         >
           Créditos
         </b>
       </div>
-      <div style={{ display: "flex", marginTop: 30, marginRight: 100 }}>
+      <header>
         {creditPacks.map((pack, index) => (
           <div key={index} className={styles.creditPack}>
             <b>{pack.credits} Créditos</b>
-            <p>{pack.price}</p>
+            <p className={styles.price}>{pack.price}</p>
             <button
               className={styles.buyButton}
               onClick={() => openModal(pack)}
@@ -172,87 +173,102 @@ const Creditos = () => {
             </button>
           </div>
         ))}
-      </div>
+      </header>
 
       {showModal && (
         <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <h2>Escolha o método de pagamento</h2>
-            <p>
-              Você está comprando {selectedPack?.credits} Créditos por{" "}
-              {selectedPack?.price}
-            </p>
+          <header>
+            <div className={styles.modalContent}>
+              <h2>Escolha o método de pagamento</h2>
+              <p>
+                Você está comprando {selectedPack?.credits} Créditos por{" "}
+                {selectedPack?.price}
+              </p>
 
-            {!showMBWAYForm && !showCardForm ? (
-              <div className={styles.paymentOptions}>
-                <button
-                  className={styles.paymentButton}
-                  onClick={showCardFields} // Show card confirmation form when clicked
-                >
-                  Cartão
-                </button>
-                <button
-                  className={styles.paymentButton}
-                  onClick={showMBWAYFields}
-                >
-                  MBWAY
-                </button>
-              </div>
-            ) : showCardForm ? (
-              <div className={styles.cardForm}>
-                {!isWaitingForConfirmation && !isPaymentConfirmed ? (
-                  <>
-                    <button
-                      className={styles.confirmButton}
-                      onClick={handleCardPayment} // Confirm card payment when clicked
-                    >
-                      Confirmar
-                    </button>
-                  </>
-                ) : isWaitingForConfirmation ? (
-                  <p>Aguardando confirmação do pagamento...</p>
-                ) : (
-                  <p>Pagamento confirmado com sucesso!</p>
-                )}
-              </div>
-            ) : (
-              <div className={styles.mbwayForm}>
-                {!isWaitingForConfirmation && !isPaymentConfirmed ? (
-                  <>
-                    <p>Só disponível para números portugueses</p>
-                    <input
-                      type="text"
-                      placeholder="Número de telefone"
-                      className={styles.mbwayInput}
-                      value={phoneNumber}
-                      onChange={handlePhoneNumberChange}
-                    />
-                    <button
-                      className={styles.confirmButton}
-                      onClick={handleMBWAYConfirmation}
-                    >
-                      Confirmar
-                    </button>
-                  </>
-                ) : isWaitingForConfirmation ? (
-                  <p>Aguardando confirmação do MB WAY...</p>
-                ) : (
-                  <p>Pagamento confirmado com sucesso!</p>
-                )}
-              </div>
-            )}
+              {!showMBWAYForm && !showCardForm ? (
+                <div className={styles.paymentOptions}>
+                  <button
+                    className={styles.paymentButton}
+                    onClick={showCardFields} // Show card confirmation form when clicked
+                  >
+                    Cartão
+                  </button>
+                  <button
+                    className={styles.paymentButton}
+                    onClick={showMBWAYFields}
+                  >
+                    MBWAY
+                  </button>
+                </div>
+              ) : showCardForm ? (
+                <div className={styles.cardForm}>
+                  {!isWaitingForConfirmation && !isPaymentConfirmed ? (
+                    <>
+                      <button
+                        className={styles.confirmButton}
+                        onClick={handleCardPayment} // Confirm card payment when clicked
+                      >
+                        Confirmar
+                      </button>
+                    </>
+                  ) : isWaitingForConfirmation ? (
+                    <p>Aguardando confirmação do pagamento...</p>
+                  ) : (
+                    <p>Pagamento confirmado com sucesso!</p>
+                  )}
+                </div>
+              ) : (
+                <div className={styles.mbwayForm}>
+                  {!isWaitingForConfirmation && !isPaymentConfirmed ? (
+                    <>
+                      <p
+                        style={{
+                          fontSize: 14,
+                          marginBottom: 0,
+                          marginTop: 25,
+                          fontWeight: 300,
+                        }}
+                      >
+                        *Só disponível para números portugueses
+                      </p>
+                      <input
+                        type="text"
+                        placeholder="Número de telefone"
+                        className={styles.mbwayInput}
+                        value={phoneNumber}
+                        onChange={handlePhoneNumberChange}
+                      />
+                      <button
+                        className={styles.confirmButton}
+                        onClick={handleMBWAYConfirmation}
+                      >
+                        Confirmar
+                      </button>
+                    </>
+                  ) : isWaitingForConfirmation ? (
+                    <p>Aguardando confirmação do MB WAY...</p>
+                  ) : (
+                    <p>Pagamento confirmado com sucesso!</p>
+                  )}
+                </div>
+              )}
 
-            <button
-              className={styles.closeButton}
-              onClick={
-                !showMBWAYForm && !showCardForm
-                  ? closeModal
-                  : goBackToPaymentOptions
-              }
-            >
-              {!showMBWAYForm && !showCardForm ? "Fechar" : "Voltar"}
-            </button>
-          </div>
+              <button
+                className={styles.closeButton}
+                onClick={
+                  !showMBWAYForm && !showCardForm
+                    ? closeModal
+                    : goBackToPaymentOptions
+                }
+              >
+                {!showMBWAYForm && !showCardForm ? (
+                  <p>&#10005;</p>
+                ) : (
+                  <p>&#8592;</p>
+                )}
+              </button>
+            </div>
+          </header>
         </div>
       )}
     </div>

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import styles from "../../css/minhaconta.module.css";
+
 import { UserAuth } from "../../context/AuthContext";
 import {
   getFirestore,
@@ -51,16 +53,8 @@ const Payments = () => {
   }, [user]);
 
   const tableStyle = {
-    width: "60%",
     borderCollapse: "collapse",
     marginTop: "20px",
-  };
-
-  const thStyle = {
-    border: "1px solid #ddd",
-    padding: "8px",
-    backgroundColor: "#f2f2f2",
-    textAlign: "left",
   };
 
   const tdStyle = {
@@ -76,34 +70,46 @@ const Payments = () => {
   };
 
   return (
-    <div style={{ marginLeft: 600, marginTop: 100 }}>
-      <h2 style={titleStyle}>Payment History</h2>
-      <table style={tableStyle}>
-        <thead>
-          <tr>
-            <th style={thStyle}>Estado</th>
-            <th style={thStyle}>Créditos</th>
-            <th style={thStyle}>Valor</th>
-            <th style={thStyle}>Data</th>
-            <th style={thStyle}>Método</th>
-          </tr>
-        </thead>
-        <tbody>
-          {payments.map((payment) => (
-            <tr key={payment.id}>
-              <td style={tdStyle}>{payment.status}</td>
-              <td style={tdStyle}>{payment.credits}</td>
-              <td style={tdStyle}>{payment.amount}€</td>
-              <td style={tdStyle}>
-                {new Date(payment.date?.seconds * 1000).toLocaleDateString()}
-              </td>
-              <td style={tdStyle}>
-                {payment.method == "MBWAY" ? payment.method : "Cartão"}
-              </td>
+    <div className={styles.detalhesContainer}>
+      <div className={styles.headerList}>
+        <b
+          style={{
+            fontFamily: "Raleway",
+            fontSize: 32,
+            paddingTop: 25,
+          }}
+        >
+          Histórico de Pagamento
+        </b>
+      </div>
+      <div className={styles.tableParent}>
+        <table className={styles.table} style={tableStyle}>
+          <thead>
+            <tr>
+              <th>Estado</th>
+              <th>Créditos</th>
+              <th>Valor</th>
+              <th>Data</th>
+              <th>Método</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {payments.map((payment) => (
+              <tr key={payment.id}>
+                <td style={tdStyle}>{payment.status}</td>
+                <td style={tdStyle}>{payment.credits}</td>
+                <td style={tdStyle}>{payment.amount}€</td>
+                <td style={tdStyle}>
+                  {new Date(payment.date?.seconds * 1000).toLocaleDateString()}
+                </td>
+                <td style={tdStyle}>
+                  {payment.method == "MBWAY" ? payment.method : "Cartão"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -35,16 +35,25 @@ const Footer = () => {
               className={styles.footerBelow_header_a}
               target="_blank"
               rel="noopener noreferrer"
-            >              Política de Privacidade
+            >
+              {" "}
+              Política de Privacidade
             </a>
             <a
               href="/informaçao RAL.pdf"
               className={styles.footerBelow_header_a}
               target="_blank"
               rel="noopener noreferrer"
-            >              Resolução alternativa de litigíos de consumo
+            >
+              {" "}
+              Resolução alternativa de litigíos de consumo
             </a>
-            <a href="https://www.livroreclamacoes.pt/Inicio/" className={styles.footerBelow_header_a}>Livro de Reclamações</a>
+            <a
+              href="https://www.livroreclamacoes.pt/Inicio/"
+              className={styles.footerBelow_header_a}
+            >
+              Livro de Reclamações
+            </a>
             <a className={styles.footerBelow_header_a}>
               © Copyright 2023 meuJob
             </a>
@@ -57,7 +66,12 @@ const Footer = () => {
             </a>
             <a className={styles.footerBelow_header_a}>+44 7478 825246</a>
             <a className={styles.footerBelow_header_a}>NIF: 517635763</a>
-            <p style={{ color: "white" }}>Rua São Sebastião, nº 66, 8500-617 Portimão</p>
+            <p
+              className={styles.footerBelow_header_a}
+              style={{ color: "white", marginLeft: -5 }}
+            >
+              Rua São Sebastião, nº 66, 8500-617 Portimão
+            </p>
           </div>
         </header>
       </div>

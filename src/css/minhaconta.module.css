@@ -17,6 +17,152 @@
     font-family: "Raleway";
   }
 
+  .detalhesContainer header {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .modalOverlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10000;
+  }
+
+  .modalOverlay header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+
+  .modalContent {
+    border: 1px solid #508ce4;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 35px;
+    border-radius: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .modalOverlay header h2 {
+    color: #fff;
+    font-size: 26px;
+    font-family: "Raleway";
+    letter-spacing: -0.8px;
+    font-weight: bold;
+  }
+
+  .modalOverlay header p {
+    color: #bfbfbf;
+    font-size: 16px;
+    margin-top: -10px;
+    font-family: "Raleway";
+    letter-spacing: -0.8px;
+    font-weight: bold;
+  }
+
+  .closeButton {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 45px;
+    padding-left: 25px;
+    padding-right: 15px;
+    background-color: transparent;
+    color: #fff;
+    scale: 1.25;
+  }
+
+  .closeButton p {
+    font-size: 26px;
+  }
+
+  .closeButton:hover,
+  .paymentButton:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  .paymentOptions {
+    display: flex;
+  }
+
+  .paymentButton,
+  .confirmButton {
+    background-color: #508ce4;
+    color: #fff;
+    font-size: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    font-weight: bold;
+  }
+
+  .table {
+    font-family: "Raleway";
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .table th {
+    padding: 10px;
+    background-color: #508be49c;
+    text-align: start;
+    color: #fff;
+  }
+
+  .creditPack {
+    background-color: #fff;
+    padding: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
+    min-width: 150px;
+  }
+
+  .creditPack b {
+    font-family: "Raleway";
+    letter-spacing: -0.8px;
+    font-size: 22px;
+  }
+
+  .price {
+    font-family: "Raleway";
+    letter-spacing: -0.8px;
+    font-weight: 300;
+    font-size: 16px;
+    margin-left: -5px;
+    margin-top: 0px;
+  }
+
+  .buyButton {
+    background-color: #508ce4;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    font-family: "Raleway";
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .buyButton:hover {
+    opacity: 0.8;
+  }
+
   input {
     background-color: transparent;
     border: 1px solid #d6d4d4;
@@ -26,6 +172,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
+    padding-left: 0;
+    padding-right: 0;
     text-align: center;
   }
 
@@ -180,6 +328,12 @@
     margin-right: 200px;
     border-radius: 10px;
   }
+
+  .table {
+    font-family: "Raleway";
+    margin-top: 10px;
+    overflow: auto;
+  }
 }
 
 @media only screen and (max-width: 1250px) {
@@ -221,6 +375,19 @@
     font-size: 14px;
     justify-content: flex-start;
     margin-top: 10px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .detalhesContainer header,
+  .tableParent {
+    overflow: auto;
+    width: 100%;
+  }
+
+  .detalhesContainer header::-webkit-scrollbar,
+  .tableParent::-webkit-scrollbar {
+    display: none;
   }
 }
 
