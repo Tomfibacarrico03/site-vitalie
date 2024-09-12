@@ -14,7 +14,7 @@ const TradesPage = () => {
             A melhor forma de encontrar trabalhadores, Simples.
           </h1>
           <h3 className={styles.subtitle}>
-            Ajudamos donos de casas a encontrar o trabalhador ideal, e bons
+            Ajudamos proprietários a encontrar o trabalhador ideal, e bons
             trabalhadores a ter sucesso.
           </h3>
 
@@ -64,10 +64,10 @@ const TradesPage = () => {
         <div className={styles.verComoFuncionaBtn}>
           <h1>A maneira mais eficaz e econômica de conquistar trabalho.</h1>
           <p>
-            No MyBuilder, é gratuito enviar uma mensagem de introdução a um
-            proprietário. Você só paga uma taxa quando o proprietário o
-            seleciona como finalista e detalhes de contato verificados são
-            trocados. Nossas taxas de finalista geralmente variam de £2 a £35,
+            No MeuJob, enviar uma mensagem de introdução a um proprietário é
+            gratuito. Só paga uma taxa quando o proprietário o seleciona como
+            finalista e os detalhes de contacto verificados são trocados. As
+            nossas taxas de finalista geralmente variam entre 4 € e 8 €,
             dependendo do tamanho do trabalho. Não há taxas de adesão, taxas de
             associação ou custos ocultos.
           </p>

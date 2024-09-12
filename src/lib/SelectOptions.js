@@ -43,6 +43,7 @@ const trades = [
   { value: "tree-surgeons", label: "Cirurgia de Árvores" },
   { value: "window-fitters", label: "Instalação de Janelas & Portas" },
 ];
+
 const distritos = [
   { value: "Aveiro", label: "Aveiro" },
   { value: "Beja", label: "Beja" },

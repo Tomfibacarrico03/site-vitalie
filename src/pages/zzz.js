@@ -115,15 +115,6 @@ const PostJob = () => {
       console.log("Por favor aceite os termos e condições");
       return;
     }
-    if (!selectedDistrito) {
-      setError("Por favor selecione um distrito");
-      return;
-    }
-
-    if (!selectedConcelho) {
-      setError("Por favor selecione um concelho");
-      return;
-    }
 
     try {
       const { user } = await createUser(email, password);

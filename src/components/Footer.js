@@ -6,6 +6,13 @@ import insta from "../imgs/insta.png";
 import face from "../imgs/facebook.png";
 
 const Footer = () => {
+  // Function to generate WhatsApp link
+  const getWhatsAppLink = (phoneNumber, message = "") => {
+    const formattedNumber = phoneNumber.replace(/\D/g, ""); // Remove non-numeric characters
+    const encodedMessage = encodeURIComponent(message); // Encode message for URL
+    return `https://wa.me/${formattedNumber}?text=${encodedMessage}`;
+  };
+
   return (
     <div className={styles.footer}>
       <div className={styles.footerBelow}>
@@ -43,7 +50,7 @@ const Footer = () => {
               Política de Privacidade
             </a>
             <a
-              href="/informaçao RAL.pdf"
+              href="/informaçao RAL.pdf"
               className={styles.footerBelow_header_a}
               target="_blank"
               rel="noopener noreferrer"
@@ -65,7 +72,20 @@ const Footer = () => {
             <h1 className={styles.footerBelow_header_h1}>Contactos</h1>
             <a className={styles.footerBelow_header_a}>Vitalie Puscas</a>
             <a className={styles.footerBelow_header_a}>meujob.pt@hotmail.com</a>
-            <a className={styles.footerBelow_header_a}>+44 7478 825246</a>
+
+            {/* WhatsApp link implementation */}
+            <a
+              href={getWhatsAppLink(
+                "+44 7478 825246",
+                "Boa tarde, tenho uma questão:"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.footerBelow_header_a}
+            >
+              +44 7478 825246
+            </a>
+
             <a className={styles.footerBelow_header_a}>NIF: 517635763</a>
             <p
               className={styles.footerBelow_header_a}
@@ -80,14 +100,14 @@ const Footer = () => {
                 target="_blank"
                 className={styles.footerBelow_header_a}
               >
-                <img src={insta} />
+                <img src={insta} alt="Instagram" />
               </a>
               <a
                 href="https://www.facebook.com/profile.php?id=100094885226816"
                 target="_blank"
                 className={styles.footerBelow_header_a}
               >
-                <img src={face} />
+                <img src={face} alt="Facebook" />
               </a>
             </div>
           </div>

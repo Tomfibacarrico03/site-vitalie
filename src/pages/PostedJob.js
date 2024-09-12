@@ -8,8 +8,6 @@ import {
   getDoc,
   updateDoc,
   arrayUnion,
-  getDocs,
-  arrayRemove,
   increment,
 } from "firebase/firestore";
 
