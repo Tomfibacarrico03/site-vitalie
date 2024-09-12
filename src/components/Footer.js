@@ -2,6 +2,9 @@ import React from "react";
 import styles from "../css/footer.module.css";
 import { Link } from "react-router-dom";
 
+import insta from "../imgs/insta.png";
+import face from "../imgs/facebook.png";
+
 const Footer = () => {
   return (
     <div className={styles.footer}>
@@ -70,6 +73,23 @@ const Footer = () => {
             >
               Rua São Sebastião, nº 66, 8500-617 Portimão
             </p>
+            <br></br>
+            <div className={styles.redes}>
+              <a
+                href="https://www.instagram.com/meujob.pt/"
+                target="_blank"
+                className={styles.footerBelow_header_a}
+              >
+                <img src={insta} />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=100094885226816"
+                target="_blank"
+                className={styles.footerBelow_header_a}
+              >
+                <img src={face} />
+              </a>
+            </div>
           </div>
         </header>
       </div>

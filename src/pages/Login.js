@@ -4,12 +4,16 @@ import { UserAuth } from "../context/AuthContext";
 import styles from "../css/login.module.css";
 import { Link } from "react-router-dom";
 
+import hide from "../imgs/hideIcon.png";
+import show from "../imgs/viewIcon.png";
+
 const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder a palavra-passe
 
   const { signIn } = UserAuth();
 
@@ -22,6 +26,10 @@ const Login = () => {
     } catch (error) {
       setErrorMessage(error.message);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
 
   return (
@@ -40,13 +48,20 @@ const Login = () => {
         </div>
         <div>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
             id="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className={styles.togglePasswordButton}
+          >
+            {showPassword ? <img src={show} /> : <img src={hide} />}
+          </button>
         </div>
         <button className={styles.btnEntrar} type="submit">
           Entrar

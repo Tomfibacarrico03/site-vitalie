@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom";
-import styles from "../../css/minhaconta.module.css"
+import styles from "../../css/minhaconta.module.css";
 
 const JobCard = (props) => {
   console.log(props.value);
   const job = props.value.job;
   const user = props.value.user;
   return (
-    <div>
+    <div className={styles.cardJob}>
       <Link style={{ textDecoration: "none" }} to={`/meustrabalhos/${job.id}`}>
         <>
-          <div
-            className={styles.headerDateTitle}
-          >
+          <div className={styles.headerDateTitle}>
             <p
               style={{
                 fontFamily: "Raleway",
@@ -58,25 +56,51 @@ const JobCard = (props) => {
         <>
           {job.userHired == "" ? (
             <>
-              <div
-                
-              >
+              <div>
                 <p style={{ color: "#8c8c8c", fontFamily: "Raleway" }}>
                   Comerciantes locais adequados foram alertados sobre o seu
                   trabalho. Assim que houver interesse, informaremos.
                 </p>
               </div>
-              <div 
-              style={{
-                background: "#f2f2f2",
-                paddingLeft: 15,
-                paddingTop: 15,
-                paddingBottom: 1,
-                borderRadius: 10,
-                marginTop: 25
-              }}>
-                <p style={{fontFamily: "Raleway", fontSize: 20, color: "#508ce4", marginBottom: 10}}>Tem mais trabalhadores, rápido</p>
-                <p style={{fontFamily: "Raleway", color: "#8c8c8c", fontSize: 14}}><Link style={{color: "#508ce4", fontFamily: "Avenir Next", textDecoration: "none", paddingRight: 5}}>Convida Trabalhadores</Link> 10 convites restantes</p>
+              <div
+                style={{
+                  background: "#f2f2f2",
+                  paddingLeft: 15,
+                  paddingTop: 15,
+                  paddingBottom: 1,
+                  borderRadius: 10,
+                  marginTop: 25,
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "Raleway",
+                    fontSize: 20,
+                    color: "#508ce4",
+                    marginBottom: 10,
+                  }}
+                >
+                  Tem mais trabalhadores, rápido
+                </p>
+                <p
+                  style={{
+                    fontFamily: "Raleway",
+                    color: "#8c8c8c",
+                    fontSize: 14,
+                  }}
+                >
+                  <Link
+                    style={{
+                      color: "#508ce4",
+                      fontFamily: "Avenir Next",
+                      textDecoration: "none",
+                      paddingRight: 5,
+                    }}
+                  >
+                    Convida Trabalhadores
+                  </Link>{" "}
+                  10 convites restantes
+                </p>
               </div>
             </>
           ) : (

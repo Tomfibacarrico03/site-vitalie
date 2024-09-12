@@ -13,6 +13,15 @@
     border-radius: 10px;
   }
 
+  .cardJob {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+  }
+
   .detalhesContainer h1 {
     font-family: "Raleway";
   }

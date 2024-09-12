@@ -52,6 +52,18 @@
     font-family: "Raleway";
     text-decoration: underline;
   }
+
+  .footerBelow_header_a img {
+    filter: invert(1);
+    width: 25px;
+    height: 25px;
+  }
+
+  .redes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 }
 
 @media only screen and (max-width: 1300px) {
