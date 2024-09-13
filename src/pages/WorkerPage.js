@@ -344,13 +344,20 @@ const WorkerPage = () => {
                   )
                 )
                 .map((distrito) => (
-                  <li key={distrito} className={styles.distritoItem}>
+                  <li
+                    style={{ listStyle: "none", fontWeight: 600 }}
+                    key={distrito}
+                    className={styles.distritoItem}
+                  >
                     <div
                       className={styles.distritoHeader}
                       onClick={() => toggleDropdown(distrito)}
                     >
                       <span>{distrito}</span>
-                      <span className={styles.dropdownArrow}>
+                      <span
+                        style={{ marginLeft: 10, fontSize: 12 }}
+                        className={styles.dropdownArrow}
+                      >
                         {openDropdown[distrito] ? "▼" : "►"}
                       </span>
                     </div>
@@ -361,7 +368,12 @@ const WorkerPage = () => {
                             concelhos[distrito].includes(concelho)
                           )
                           .map((concelho) => (
-                            <li key={concelho}>{concelho}</li>
+                            <li
+                              style={{ listStyle: "none", fontWeight: 500 }}
+                              key={concelho}
+                            >
+                              {concelho}
+                            </li>
                           ))}
                       </ul>
                     )}

@@ -159,16 +159,19 @@ const TradesProfile = () => {
           closeMenuOnSelect={false}
           placeholder="Selecionar distrito(s)"
         />
-        {selectedDistritos.length > 0 &&
-          selectedDistritos.map((distrito) => (
-            <button
-              key={distrito.value}
-              type="button"
-              onClick={() => handleSelectAllConcelhos(distrito)}
-            >
-              Selecionar todos de {distrito.label}
-            </button>
-          ))}
+        <div className={styles.distritosZone}>
+          {selectedDistritos.length > 0 &&
+            selectedDistritos.map((distrito) => (
+              <a
+                key={distrito.value}
+                type="button"
+                onClick={() => handleSelectAllConcelhos(distrito)}
+              >
+                Selecionar todos de {distrito.label}
+              </a>
+            ))}
+        </div>
+
         {selectedDistritos.length > 0 && (
           <Select
             id="concelho-select"
