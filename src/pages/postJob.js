@@ -99,7 +99,10 @@ const PostJob = () => {
     console.log(val);
   };
   function questionIncrement() {
-    if (selectedConcelho == null || selectedDistrito == null) {
+    if (
+      questionNumber == 7 &&
+      (selectedConcelho == null || selectedDistrito == null)
+    ) {
       return;
     }
     setQuestionNumber(questionNumber + 1);
@@ -205,7 +208,7 @@ const PostJob = () => {
   return (
     <div className={styles.page}>
       <div className={styles.divCabecalho}>
-        <h1 className={styles.title}>Criar Trabalho</h1>
+        <h1 className={styles.title}>Criar Trabalho {questionNumber}</h1>
         <h3 className={styles.subtitle}>
           Publica o trabalho que necessitas <br></br>e encontra o melhor
           trabalhador para ti!
@@ -580,7 +583,7 @@ const PostJob = () => {
         >
           Anterior
         </button>
-        {questionNumber > 4 ? (
+        {questionNumber > 5 ? (
           <>
             {!user ? (
               questionNumber === 7 ? null : (
@@ -596,7 +599,7 @@ const PostJob = () => {
                 onClick={() => SaveJob(user)}
                 className={styles.continueButton}
               >
-                Continuar
+                Concluir
               </button>
             )}
           </>
