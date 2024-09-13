@@ -6,12 +6,13 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { doc, setDoc, collection, onSnapshot } from "firebase/firestore";
+import { doc, collection, onSnapshot } from "firebase/firestore";
 
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null); // Start with null to differentiate when loading
+  const [loading, setLoading] = useState(true); // Loading state
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -27,24 +28,29 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
       if (currentUser) {
         const { uid } = currentUser;
         const userRef = doc(collection(db, "users"), uid);
-        const unsubscribe = onSnapshot(userRef, (doc) => {
-          const data = doc.data();
-          setUser((prevState) => ({ ...prevState, ...data }));
+
+        // Listen to updates to user document
+        const unsubscribeUser = onSnapshot(userRef, (docSnapshot) => {
+          const userData = docSnapshot.data();
+          setUser({ ...currentUser, ...userData });
+          setLoading(false); // Data is loaded
         });
-        return () => unsubscribe();
+
+        return () => unsubscribeUser();
+      } else {
+        setUser(null);
+        setLoading(false); // No user signed in, loading is done
       }
     });
-    return () => {
-      unsubscribe();
-    };
+
+    return () => unsubscribe();
   }, []);
 
   return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn }}>
+    <UserContext.Provider value={{ createUser, user, logout, signIn, loading }}>
       {children}
     </UserContext.Provider>
   );

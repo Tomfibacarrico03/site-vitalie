@@ -1,452 +1,387 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { useParams, useNavigate } from "react-router-dom";
+import { updateDoc, doc, arrayUnion, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import styles from "../css/workerPage.module.css";
+
 import { UserAuth } from "../context/AuthContext";
-import { db, functions } from "../firebase";
-import Select from "react-select";
-import styles from "../css/register.module.css";
-import { trades, distritos } from "../lib/SelectOptions";
-import { httpsCallable } from "firebase/functions";
-import concelhos from "../lib/concelhos";
-import hide from "../imgs/hideIcon.png";
-import show from "../imgs/viewIcon.png";
+import { servicesData } from "../lib/taxes";
 
-const SignUp = () => {
+const WorkerPage = () => {
+  const { jobId, workerId } = useParams();
+  const { user } = UserAuth();
+  const [job, setJob] = useState(null);
+  const [worker, setWorker] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isUserRejected, setIsUserRejected] = useState(false);
+  const [isUserShortlisted, setIsUserShortlisted] = useState(false);
+
   const navigate = useNavigate();
-  const sendEmail = httpsCallable(functions, "sendEmail");
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [termsChecked, setTermsChecked] = useState(false);
-
-  const [error, setError] = useState(null);
-
-  const [tradesSelected, setTradesSelected] = useState([]);
-  const [workName, setWorkName] = useState("");
-  const [description, setDescription] = useState("");
-
-  const [isMobile, setIsMobile] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder a palavra-passe
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
-  };
 
   useEffect(() => {
-    const handleResize = () => {
-      // Update the isMobile state based on the screen width
-      setIsMobile(window.innerWidth <= 768); // Adjust the width as needed
+    const fetchJobAndWorkerData = async () => {
+      // Fetch job data by jobId
+      const jobDocRef = doc(db, "jobs", jobId);
+      const jobSnapshot = await getDoc(jobDocRef);
+
+      if (jobSnapshot.exists()) {
+        const jobData = jobSnapshot.data();
+        setJob({ ...jobData, id: jobSnapshot.id });
+
+        // Check if the worker is rejected or shortlisted
+        setIsUserRejected(jobData.rejectedUsers.includes(workerId));
+        setIsUserShortlisted(jobData.shortlistedUsers.includes(workerId));
+      } else {
+        console.log(`Job with ID ${jobId} not found.`);
+      }
+
+      // Fetch worker data by workerId
+      const workerDocRef = doc(db, "users", workerId);
+      const workerSnapshot = await getDoc(workerDocRef);
+
+      if (workerSnapshot.exists()) {
+        const workerData = workerSnapshot.data();
+        setWorker(workerData);
+      } else {
+        console.log(`Worker with ID ${workerId} not found.`);
+      }
+
+      // Data fetching is complete, set loading to false
+      setLoading(false);
     };
 
-    // Add event listener for window resize
-    window.addEventListener("resize", handleResize);
+    fetchJobAndWorkerData();
+  }, [jobId, workerId, job]);
 
-    // Initial check for mobile device on component mount
-    handleResize();
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const { createUser, user } = UserAuth();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!termsChecked) {
-      setError("Please accept the terms and conditions");
-      return;
+  const handleReject = async () => {
+    const jobRef = doc(db, "jobs", jobId);
+    try {
+      await updateDoc(jobRef, {
+        rejectedUsers: [...job.rejectedUsers, workerId],
+      });
+      setIsUserRejected(true);
+      console.log("User added to rejectedUsers field");
+    } catch (error) {
+      console.error("Error adding user to rejectedUsers field", error);
     }
+  };
+
+  const handleUndoReject = async () => {
+    const jobRef = doc(db, "jobs", jobId);
+    try {
+      await updateDoc(jobRef, {
+        rejectedUsers: job.rejectedUsers.filter(
+          (userId) => userId !== workerId
+        ),
+      });
+      setIsUserRejected(false);
+      console.log("User removed from rejectedUsers field");
+    } catch (error) {
+      console.error("Error removing user from rejectedUsers field", error);
+    }
+  };
+
+  const [shortlistPopUp, setShortlistPopUp] = useState(false);
+
+  async function addToShortList() {
+    const jobRef = doc(db, "jobs", jobId);
+    const userRef = doc(db, "users", workerId);
 
     try {
-      const { user } = await createUser(email, password);
-      await setDoc(doc(db, "users", user.uid), {
-        firstName,
-        lastName,
-        email,
-        phone,
-
-        trade_member: true,
-        tradesSelected,
-        interestedJobs: [],
-        workName,
-        description,
-        distritos,
-        concelhos,
-        interestedJobs: [],
-        shortlistedJobs: [],
-        invitedJobs: [],
-        hiredJobs: [],
-        trades_member_since: serverTimestamp(),
-        positiveReviewCount: 0,
-        reviewCount: 0,
+      await updateDoc(jobRef, {
+        shortlistedUsers: arrayUnion(workerId),
       });
-      setError(null);
+      setIsUserShortlisted(true);
+      console.log("User added to shortlisted field");
 
-      navigate("/minha-conta/detalhes-de-contacto");
-      await sendEmail({ email: email, type: "tradesperson" });
+      await updateDoc(userRef, {
+        shortlistedJobs: arrayUnion(jobId),
+        credits:
+          worker.credits -
+          servicesData[job.tradeSelected][job.selectedCategory],
+      });
+      setShortlistPopUp(true);
+      console.log("Job added to user's shortlistedJobs field");
     } catch (error) {
-      setError(error.message);
-      console.log(error.message);
+      console.error("Error adding user to shortlisted field", error);
     }
-  };
+  }
 
-  const becomeTradesPerson = async (e) => {
-    e.preventDefault();
+  const hireWorker = async () => {
     try {
-      await updateDoc(doc(db, "users", user.uid), {
-        tradesSelected,
-        trade_member: true,
-        interestedJobs: [],
-        workName,
-        description,
-        distritos,
-        concelhos,
-        trades_member_since: serverTimestamp(),
-        positiveReviewCount: 0,
-        reviewCount: 0,
+      const jobRef = doc(db, "jobs", jobId);
+      const userRef = doc(db, "users", workerId);
+
+      await updateDoc(jobRef, {
+        userHired: workerId,
       });
+
+      await updateDoc(userRef, {
+        hiredJobs: arrayUnion(jobId),
+      });
+      if (jobStatusOption == "done") {
+        navigate(
+          `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
+        );
+      }
+      setIsLeavingReview(!isLeavingReview);
     } catch (error) {
-      console.log(error.message);
+      console.error("Error adding user to shortlisted field", error);
     }
   };
 
-  useEffect(() => {}, [user]);
+  const [isLeavingReview, setIsLeavingReview] = useState(false);
+  const [jobStatusOption, setJobStatusOption] = useState("");
 
-  const handleSelectedOptionsChange = (selectedOptions) => {
-    const values = selectedOptions.map((option) => option.label);
-    setTradesSelected(values);
+  const reviewCard = (head, body, status, Number) => {
+    return (
+      <label
+        htmlFor={"reviewCheckbox" + Number}
+        className={
+          jobStatusOption === status ? styles.optionSelected : styles.option
+        }
+      >
+        <h3>{head}</h3>
+        <p>{body}</p>
+        <input
+          style={{ display: "none" }}
+          type="checkbox"
+          id={"reviewCheckbox" + Number}
+          name="reviewCheckbox"
+          checked={jobStatusOption === status}
+          onChange={() => setJobStatusOption(status)}
+        />
+      </label>
+    );
   };
 
-  const [selectedDistritos, setSelectedDistritos] = useState([]);
-  const [selectedConcelhos, setSelectedConcelhos] = useState([]);
-
-  const getConcelhoOptions = () => {
-    // Combine the concelhos for all selected distritos
-    return selectedDistritos.map((distrito) => ({
-      label: distrito.label,
-      options:
-        concelhos[distrito.value]?.map((concelho) => ({
-          value: concelho,
-          label: concelho,
-        })) || [],
-    }));
-  };
-
-  const handleDistritoChange = (selectedOptions) => {
-    // Update the distritos
-    setSelectedDistritos(selectedOptions);
-
-    // Maintain the selected concelhos that belong to the new selected distritos
-    const updatedConcelhos = selectedConcelhos.filter((concelho) => {
-      return selectedOptions.some((distrito) =>
-        concelhos[distrito.value]?.includes(concelho.value)
-      );
-    });
-
-    setSelectedConcelhos(updatedConcelhos);
-  };
-
-  const handleConcelhoChange = (selectedOptions) => {
-    setSelectedConcelhos(selectedOptions);
-  };
-
-  const handleSelectAllConcelhos = (distrito) => {
-    // Check if the distrito value exists in concelhos
-    if (!concelhos[distrito.value]) {
-      return; // If not, exit early
-    }
-
-    const allConcelhos = concelhos[distrito.value].map((concelho) => ({
-      value: concelho,
-      label: concelho,
-    }));
-
-    setSelectedConcelhos((prevSelectedConcelhos) => {
-      const existingConcelhos = new Set(
-        prevSelectedConcelhos.map((c) => c.value)
-      );
-      const newSelections = allConcelhos.filter(
-        (concelho) => !existingConcelhos.has(concelho.value)
-      );
-      return [...prevSelectedConcelhos, ...newSelections];
-    });
-  };
+  if (loading == true) {
+    return <h1>Loading</h1>;
+  }
 
   return (
-    <div className={styles.register}>
-      {user && user.email ? (
-        <>
-          {user.trade_member == false ? (
-            <div>
-              <h2 style={{ marginLeft: -5 }}>
-                Bem vindo, {user.firstName} {user.lastName}
-              </h2>
-              <h3>Inscreva-se para ser um membro comercial</h3>
-              <form onSubmit={becomeTradesPerson}>
-                <div>
-                  <label htmlFor="trade">Que trabalhos deseja realizar</label>
-                  <Select
-                    isMulti
-                    options={trades}
-                    onChange={handleSelectedOptionsChange}
-                    placeholder="Selecionar"
-                  />
-
-                  <label htmlFor="trade">
-                    Pode adicionar mais que um trabalho
-                  </label>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    id="workName"
-                    placeholder="Nome de trabalho"
-                    value={workName}
-                    onChange={(e) => setWorkName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    id="description"
-                    placeholder="Descrição"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="location">Localização</label>
-
-                  <Select
-                    id="distrito-select"
-                    isMulti
-                    options={distritos}
-                    value={selectedDistritos}
-                    onChange={handleDistritoChange}
-                    closeMenuOnSelect={false}
-                    placeholder="Selecionar distrito(s)"
-                  />
-                  {selectedDistritos.length > 0 &&
-                    selectedDistritos.map((distrito) => (
-                      <button
-                        key={distrito.value}
-                        type="button"
-                        onClick={() => handleSelectAllConcelhos(distrito)}
-                      >
-                        Selecionar todos de {distrito.label}
-                      </button>
-                    ))}
-
-                  {selectedDistritos.length > 0 && (
-                    <div style={{ marginBottom: "1em" }}>
-                      <Select
-                        id="concelho-select"
-                        isMulti
-                        options={getConcelhoOptions()}
-                        value={selectedConcelhos}
-                        onChange={handleConcelhoChange}
-                        placeholder="Selecionar concelho(s)"
-                        closeMenuOnSelect={false} // Prevents closing the menu on item select
-                        hideSelectedOptions={true} // Shows selected options in the dropdown
-                      />
-                    </div>
-                  )}
-                </div>
-                {error && <p>{error}</p>}
-                <br></br>
-                <button className={styles.btnRegistar} type="submit">
-                  Registar como trabalhador
-                </button>
-              </form>
-            </div>
-          ) : (
-            <h3>Já se inscreveu</h3>
+    <div className={styles.workerPage}>
+      <header>
+        <h1>{worker.workName}</h1>
+        <b>
+          {worker.hiredJobs.includes(job.id)
+            ? "Trabalhador Contratado"
+            : "Interessado no teu trabalho"}
+        </b>
+      </header>
+      <p className={styles.feedback}>
+        {" "}
+        {worker.hiredJobs.includes(job.id)
+          ? "Crítica submetida"
+          : "Ainda sem feedback"}
+      </p>
+      <p className={styles.nome}>
+        <b style={{ fontSize: 19 }}>
+          {worker.firstName} {worker.lastName}
+        </b>
+        <br></br>
+        <div
+          style={{ display: "inline-flex", alignItems: "center", marginTop: 5 }}
+        >
+          {shortlistPopUp == false && isUserShortlisted && (
+            <img
+              style={{ width: 13, height: 13, marginRight: 5 }}
+              src={require("../imgs/phoneVitalie.png")}
+            />
           )}
-        </>
-      ) : (
-        <>
-          <h2>Inscreva-se para ser um membro comercial</h2>
-          <p></p>
-          <form onSubmit={handleSubmit}>
-            <div>
-              {/* <label htmlFor="firstName">First Name</label> */}
-              <input
-                type="text"
-                id="firstName"
-                placeholder="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              {/* <label htmlFor="lastName">Last Name</label> */}
-              <input
-                type="text"
-                id="lastName"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              {/* <label htmlFor="phone">Phone Number</label> */}
-              <input
-                type="text"
-                id="phone"
-                placeholder="Phone Number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              {/* <label htmlFor="email">Email</label> */}
-              <input
-                type="email"
-                id="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              {/* <label htmlFor="password">Password</label> */}
-              <input
-                type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className={styles.togglePasswordButton}
-              >
-                {showPassword ? <img src={show} /> : <img src={hide} />}
-              </button>
-            </div>
-            <div>
-              <label htmlFor="trade">Que trabalhos deseja realizar</label>
-              <Select
-                className={styles.select}
-                isMulti
-                options={trades}
-                onChange={handleSelectedOptionsChange}
-                placeholder="Selecionar"
-              />
-              <label htmlFor="trade">Pode adicionar mais que um trabalho</label>
-            </div>
-            <div>
-              <label htmlFor="workName">Nome de trabalho</label>
-              <input
-                type="text"
-                id="workName"
-                placeholder="Ex.: Jorge Ferragens & Companhia"
-                value={workName}
-                onChange={(e) => setWorkName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="description">Descrição</label>
-              <input
-                type="text"
-                id="description"
-                placeholder={
-                  isMobile
-                    ? "Inclua todos os detalhes que você acha que o profissional deve saber"
-                    : "Inclua todos os detalhes que você acha que o profissional deve saber (local da alteração da parede, prazo, etc.)"
-                }
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="location">Localização</label>
+          <b style={{ color: "#508ce4" }}>
+            {shortlistPopUp == false && isUserShortlisted && worker.phone}
+          </b>
+        </div>
+      </p>
+      {!isUserShortlisted && (
+        <p className={styles.adiciona}>
+          Adiciona à shortlist para discutir o trabalho
+        </p>
+      )}
 
-              <Select
-                id="distrito-select"
-                isMulti
-                options={distritos}
-                value={selectedDistritos}
-                onChange={handleDistritoChange}
-                closeMenuOnSelect={false}
-                placeholder="Selecionar distrito(s)"
-              />
-              {selectedDistritos.length > 0 &&
-                selectedDistritos.map((distrito) => (
-                  <button
-                    key={distrito.value}
-                    type="button"
-                    onClick={() => handleSelectAllConcelhos(distrito)}
-                  >
-                    Selecionar todos de {distrito.label}
-                  </button>
-                ))}
+      {worker.hiredJobs.includes(job.id) ? null : (
+        <div className={styles.estruturaPerfil}>
+          {!isLeavingReview && (
+            <div className={styles.agoraDepois}>
+              <div className={styles.agora}>
+                <p>Agora</p>
+                <hr />
 
-              {selectedDistritos.length > 0 && (
-                <div style={{ marginBottom: "1em" }}>
-                  <label htmlFor="concelho-select">Concelho(s):</label>
-                  <Select
-                    id="concelho-select"
-                    isMulti
-                    options={getConcelhoOptions()}
-                    value={selectedConcelhos}
-                    onChange={handleConcelhoChange}
-                    placeholder="Selecionar concelho(s)"
-                    closeMenuOnSelect={false} // Prevents closing the menu on item select
-                    hideSelectedOptions={true} // Shows selected options in the dropdown
-                  />
-                </div>
-              )}
-            </div>
-            <div className={styles.containerTudoCheckBoxes}>
-              <div>
-                <label
-                  className={styles.containerCheckBoxes}
-                  htmlFor="termsChecked"
-                >
-                  Eu concordo com os{" "}
-                  <a href="/terms" style={{ color: "#508ce4" }}>
-                    Termos e Condições
-                  </a>
-                  .
-                  <input
-                    type="checkbox"
-                    id="termsChecked"
-                    checked={termsChecked}
-                    className={styles.checkBox}
-                    onChange={(e) => setTermsChecked(e.target.checked)}
-                    required
-                  />
-                  <span className={styles.checkmark}></span>
-                </label>
+                {/* <p>{workerId}</p> */}
+                {isUserRejected ? (
+                  <button onClick={handleUndoReject}>Desfazer recusa</button>
+                ) : isUserShortlisted ? (
+                  <>
+                    {shortlistPopUp == true ? (
+                      <>
+                        <p>{worker.workName}</p>
+                        <p
+                          style={{
+                            backgroundColor: "#333",
+                            textAlign: "center",
+                            paddingTop: 10,
+                            paddingBottom: 10,
+                            marginBottom: 5,
+                            borderRadius: 5,
+                            fontSize: 12,
+                            color: "#fff",
+                            fontWeight: "400",
+                          }}
+                        >
+                          Foi adicionado à tua lista restrita
+                        </p>
+                        <p>
+                          Aguarde um telefonema do {worker.firstName}{" "}
+                          {worker.lastName} para discutir o emprego ou entre em
+                          contato diretamente com ele.
+                        </p>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginTop: 5,
+                          }}
+                        >
+                          <img
+                            style={{
+                              width: 13,
+                              height: 13,
+                              marginRight: 5,
+                              marginBottom: -20,
+                            }}
+                            src={require("../imgs/phoneVitalie.png")}
+                          />
+                          <p style={{ color: "#508ce4", marginBottom: -10 }}>
+                            {worker.phone}
+                          </p>
+                        </div>
+                        <br></br>
+                        <button
+                          className={styles.btnFechar}
+                          onClick={() => setShortlistPopUp(false)}
+                        >
+                          Fechar
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {job.userHired != "" ? (
+                          <button
+                            onClick={() =>
+                              navigate(
+                                `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
+                              )
+                            }
+                          >
+                            Deixar uma crítica{" "}
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => setIsLeavingReview(!isLeavingReview)}
+                          >
+                            Contrata / Deixar uma crítica
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <>
+                      {job.shortlistedUsers.lenght == 5 ? (
+                        <p>
+                          Não podes adicionar mais do que 5 pessoas à lista
+                          restrita
+                        </p>
+                      ) : (
+                        <button
+                          className={styles.adicionarBtn}
+                          onClick={addToShortList}
+                        >
+                          Adicionar à shortlist
+                        </button>
+                      )}
+                    </>
+
+                    <button
+                      className={styles.recusarBtn}
+                      onClick={handleReject}
+                    >
+                      Recusar
+                    </button>
+                  </>
+                )}
+              </div>
+              <div className={styles.depois}>
+                <p>Depois</p>
+                <hr />
+                <p>
+                  Uma vez selecionado, você trocará detalhes de contato e poderá
+                  solicitar cotações
+                </p>
               </div>
             </div>
-            {error && <p>{error}</p>}
-            <button className={styles.btnRegistar} type="submit">
-              Registar
-            </button>
-          </form>
-        </>
+          )}
+          {!isLeavingReview ? (
+            <div className={styles.perfilDoMan}>
+              <h3>
+                Perfil de {worker.firstName} {worker.lastName}
+              </h3>
+              <p className={styles.descricao}>{worker.description}</p>
+              {worker.location.map((location) => (
+                <p>Trabalha nos distritos: {location}</p>
+              ))}
+              <p>Membro desde: 23 de março</p>
+              <h4>Serviços</h4>
+              {worker.tradesSelected.map((trade, index) => (
+                <p>
+                  {index + 1}. {trade}
+                </p>
+              ))}
+            </div>
+          ) : (
+            <div>
+              <h2 style={{ fontSize: 25, paddingTop: 35 }}>
+                Contrata {worker.workName}
+              </h2>
+              <p style={{ marginRight: 10 }}>
+                Conte-nos sobre o status do seu trabalho. Avisaremos a outros
+                comerciantes que seu trabalho não é mais disponível. Você também
+                pode deixar comentários quando o trabalho for concluído
+              </p>
+              <div>
+                {reviewCard(
+                  "Trabalho ainda não começou",
+                  "Eu já acordei num preço e contratei este trabalhador",
+                  "not_started",
+                  0
+                )}
+                {reviewCard(
+                  "Trabalho em progresso",
+                  "Trabalho em andamente neste momento",
+                  "on_going",
+                  1
+                )}
+                {reviewCard(
+                  "Trabalho concluído",
+                  "Deves deixar um feedback quando estiveres pronto",
+                  "done",
+                  2
+                )}
+              </div>
+              <div>
+                <button onClick={() => setIsLeavingReview(!isLeavingReview)}>
+                  Cancelar
+                </button>
+                <button onClick={() => hireWorker()}>Continuar</button>
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
 };
 
-export default SignUp;
+export default WorkerPage;

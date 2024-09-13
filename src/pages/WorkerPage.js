@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { updateDoc, doc, arrayUnion, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "../css/workerPage.module.css";
+import concelhos from "../lib/concelhos";
 
 import { UserAuth } from "../context/AuthContext";
 import { servicesData } from "../lib/taxes";
@@ -15,6 +16,7 @@ const WorkerPage = () => {
   const [loading, setLoading] = useState(true);
   const [isUserRejected, setIsUserRejected] = useState(false);
   const [isUserShortlisted, setIsUserShortlisted] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState({});
 
   const navigate = useNavigate();
 
@@ -153,6 +155,12 @@ const WorkerPage = () => {
         />
       </label>
     );
+  };
+  const toggleDropdown = (distrito) => {
+    setOpenDropdown((prevState) => ({
+      ...prevState,
+      [distrito]: !prevState[distrito],
+    }));
   };
 
   if (loading == true) {
@@ -329,9 +337,36 @@ const WorkerPage = () => {
                 Perfil de {worker.firstName} {worker.lastName}
               </h3>
               <p className={styles.descricao}>{worker.description}</p>
-              {worker.location.map((location) => (
-                <p>Trabalha nos distritos: {location}</p>
-              ))}
+              {worker.distritos
+                .filter((distrito) =>
+                  worker.concelhos.some((concelho) =>
+                    concelhos[distrito].includes(concelho)
+                  )
+                )
+                .map((distrito) => (
+                  <li key={distrito} className={styles.distritoItem}>
+                    <div
+                      className={styles.distritoHeader}
+                      onClick={() => toggleDropdown(distrito)}
+                    >
+                      <span>{distrito}</span>
+                      <span className={styles.dropdownArrow}>
+                        {openDropdown[distrito] ? "▼" : "►"}
+                      </span>
+                    </div>
+                    {openDropdown[distrito] && (
+                      <ul className={styles.concelhosList}>
+                        {worker.concelhos
+                          .filter((concelho) =>
+                            concelhos[distrito].includes(concelho)
+                          )
+                          .map((concelho) => (
+                            <li key={concelho}>{concelho}</li>
+                          ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
               <p>Membro desde: 23 de março</p>
               <h4>Serviços</h4>
               {worker.tradesSelected.map((trade, index) => (

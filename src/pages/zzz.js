@@ -1,593 +1,104 @@
 import React, { useState, useEffect } from "react";
-import styles from "../css/postJob.module.css";
-import { trades, distritos } from "../lib/SelectOptions";
-import serviceCategories from "../lib/ServiceCategories";
-import serviceSubCategories from "../lib/ServiceSubCategories";
-import serviceSubSubCategories from "../lib/ServiceSubCategories2";
-import { useNavigate } from "react-router-dom";
-import { db, functions } from "../firebase";
-import {
-  serverTimestamp,
-  setDoc,
-  doc,
-  addDoc,
-  collection,
-} from "firebase/firestore";
-import { UserAuth } from "../context/AuthContext";
-import Select from "react-select";
-import { httpsCallable } from "firebase/functions";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import styles from "../css/workerPage.module.css";
+
 import concelhos from "../lib/concelhos";
-const PostJob = () => {
-  const sendEmail = httpsCallable(functions, "sendEmail");
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [selectedDistrito, setSelectedDistrito] = useState(null);
-  const [filteredConcelhos, setFilteredConcelhos] = useState([]);
-  const [selectedConcelho, setSelectedConcelho] = useState(null);
+const WorkerPage = () => {
+  const { jobId, workerId } = useParams();
 
-  const [termsChecked, setTermsChecked] = useState(false);
-
-  const { createUser, user } = UserAuth();
-  const [headline, setHeadline] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState([]);
-  const [error, setError] = useState(null);
-  const [questionNumber, setQuestionNumber] = useState(1);
-  const [tradeSelected, setTradeSelected] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
-  const [selectedSubSubCategory, setSelectedSubSubCategory] = useState("");
-  const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
-  const [subSubCategoryQuestion, setSubSubCategoryQuestion] = useState("");
-  const [serviceCategory, setServiceCategory] = useState(["..."]);
-  const [serviceSubCategory, setServiceSubCategory] = useState(["..."]);
-  const [serviceSubSubCategory, setServiceSubSubCategory] = useState(["..."]);
+  const [job, setJob] = useState(null);
+  const [worker, setWorker] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isUserRejected, setIsUserRejected] = useState(false);
+  const [isUserShortlisted, setIsUserShortlisted] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState({});
 
   useEffect(() => {
-    if (serviceSubCategory === "description") {
-      setSubCategoryQuestion(
-        "Coloque aqui uma descrição do trabalho que necessita."
-      );
-    } else {
-      setSubCategoryQuestion(serviceSubCategory[0]);
-    }
-  }, [serviceSubCategory]);
-  useEffect(() => {
-    if (serviceSubSubCategory === "description") {
-      setSubSubCategoryQuestion(
-        "Coloque aqui uma descrição do trabalho que necessita."
-      );
-    } else {
-      setSubSubCategoryQuestion(serviceSubSubCategory[0]);
-    }
-  }, [serviceSubSubCategory]);
-  const handleChange = (selectedOption) => {
-    setTradeSelected(selectedOption.label);
-    if (serviceCategories[selectedOption.value]) {
-      setServiceCategory(serviceCategories[selectedOption.value]);
-    }
-  };
+    const fetchJobAndWorkerData = async () => {
+      // Fetch job data by jobId
+      const jobDocRef = doc(db, "jobs", jobId);
+      const jobSnapshot = await getDoc(jobDocRef);
 
-  const handleCatergory1Change = (event) => {
-    const val = event.target.value;
-    setSelectedCategory(val);
-    if (serviceSubCategories[val]) {
-      setServiceSubCategory(serviceSubCategories[val]);
-    } else {
-      setServiceSubCategory("description");
-      console.log("description 1");
-    }
-  };
-  const handleSubCatergoryChange = (event) => {
-    const val = event.target.value;
-    setSelectedSubCategory(val);
-    if (serviceSubSubCategories[val]) {
-      setServiceSubSubCategory(serviceSubSubCategories[val]);
-      console.log(val);
-    } else {
-      setServiceSubSubCategory("description");
-      console.log("description 2");
-    }
-  };
-  const handleSubSubCatergoryChange = (event) => {
-    const val = event.target.value;
-    setSelectedSubSubCategory(val);
-    console.log(val);
-  };
-  function questionIncrement() {
-    setQuestionNumber(questionNumber + 1);
-  }
-  async function questionDicrement() {
-    setQuestionNumber(questionNumber - 1);
-  }
+      if (jobSnapshot.exists()) {
+        const jobData = jobSnapshot.data();
+        setJob({ ...jobData, id: jobSnapshot.id });
 
-  const navigate = useNavigate();
+        // Check if the worker is rejected or shortlisted
+        setIsUserRejected(jobData.rejectedUsers.includes(workerId));
+        setIsUserShortlisted(jobData.shortlistedUsers.includes(workerId));
+      } else {
+        console.log(`Job with ID ${jobId} not found.`);
+      }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+      // Fetch worker data by workerId
+      const workerDocRef = doc(db, "users", workerId);
+      const workerSnapshot = await getDoc(workerDocRef);
 
-    if (termsChecked == false) {
-      setError("Por favor aceite os termos e condições");
-      console.log("Por favor aceite os termos e condições");
-      return;
-    }
+      if (workerSnapshot.exists()) {
+        const workerData = workerSnapshot.data();
+        setWorker(workerData);
+      } else {
+        console.log(`Worker with ID ${workerId} not found.`);
+      }
 
-    try {
-      const { user } = await createUser(email, password);
-      await setDoc(doc(db, "users", user.uid), {
-        firstName,
-        lastName,
-        email,
-        phone,
-        address1: "",
-        address2: "",
-        city: "",
-        postalCode: "",
-        headline: "Some headline",
-        description: "Some description",
-        location,
-        trade_member: false,
-      });
-      SaveJob(user);
-      setError(null);
-      navigate("/publicar-trabalho/publicado");
-      await sendEmail({
-        email: email,
-        type: "homeowner",
-      });
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const SaveJob = async (user) => {
-    const newJob = {
-      headline,
-      description,
-      userId: user.uid,
-      createdAt: serverTimestamp(),
-      tradeSelected,
-      selectedCategory,
-      selectedSubCategory,
-      interestedUsers: [],
-      rejectedUsers: [],
-      shortlistedUsers: [],
-      invitesLeft: 5,
-      userHired: "",
-      feedback: false,
-      totalInterestedUsers: 0,
+      // Data fetching is complete, set loading to false
+      setLoading(false);
     };
 
-    try {
-      const docRef = await addDoc(collection(db, "jobs"), newJob);
-      const docId = docRef.id;
+    fetchJobAndWorkerData();
+  }, [jobId, workerId]);
 
-      navigate(`/publicar-trabalho/${docId}/publicado`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const handleDistritoChange = (selectedOption) => {
-    setSelectedDistrito(selectedOption);
-
-    // Reset concelho when distrito changes
-    setSelectedConcelho(null);
-
-    // Filter concelhos based on selected distrito
-    if (selectedOption) {
-      setFilteredConcelhos(concelhos[selectedOption.value] || []);
-    } else {
-      setFilteredConcelhos([]);
-    }
+  const toggleDropdown = (distrito) => {
+    setOpenDropdown((prevState) => ({
+      ...prevState,
+      [distrito]: !prevState[distrito],
+    }));
   };
 
-  const handleConcelhoChange = (selectedOption) => {
-    setSelectedConcelho(selectedOption);
-  };
+  if (loading) {
+    return <h1>Loading</h1>;
+  }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.divCabecalho}>
-        <h1 className={styles.title}>Criar Trabalho</h1>
-        <h3 className={styles.subtitle}>
-          Publica o trabalho que necessitas <br></br>e encontra o melhor
-          trabalhador para ti!
-        </h3>
-      </div>
-
-      <div className={styles.divQuestions}>
-        <div
-          className={
-            questionNumber === 1 ? styles.question : styles.displayNone
-          }
-        >
-          <h1>O que precisas no teu trabalhador?</h1>
-          <Select
-            className={styles.Select}
-            options={trades}
-            onChange={(option) => handleChange(option)}
-            placeholder="Serviço Necessário"
-          />
-        </div>
-        <div
-          className={
-            questionNumber === 2 ? styles.question : styles.displayNone
-          }
-        >
-          <h1>Qual é a categoria do seu trabalho?</h1>
-          <div>
-            {serviceCategory.map((serviceCategory, index) => (
-              <label
-                key={index}
-                className={
-                  selectedCategory === serviceCategory
-                    ? styles.categoryLabelSelected
-                    : styles.categoryLabel
-                }
+    <div className={styles.workerPage}>
+      <h2>Worker's Selected Distritos and Concelhos</h2>
+      <ul>
+        {worker.distritos
+          .filter((distrito) =>
+            worker.concelhos.some((concelho) =>
+              concelhos[distrito].includes(concelho)
+            )
+          )
+          .map((distrito) => (
+            <li key={distrito} className={styles.distritoItem}>
+              <div
+                className={styles.distritoHeader}
+                onClick={() => toggleDropdown(distrito)}
               >
-                <input
-                  onChange={handleCatergory1Change}
-                  checked={selectedCategory === serviceCategory}
-                  type="checkbox"
-                  value={serviceCategory}
-                  className={styles.displayNone}
-                />
-                <h4>{serviceCategory}</h4>
-              </label>
-            ))}
-          </div>
-        </div>
-        <div
-          className={
-            questionNumber === 3 ? styles.question : styles.displayNone
-          }
-        >
-          <h1>{subCategoryQuestion}</h1>
-          {serviceSubCategory !== "description" ? (
-            <>
-              {" "}
-              {serviceSubCategory.map((serviceSubCategory, index) =>
-                index === 0 ? null : (
-                  <label
-                    key={index}
-                    className={
-                      selectedSubCategory === serviceSubCategory
-                        ? styles.categoryLabelSelected
-                        : styles.categoryLabel
-                    }
-                  >
-                    <input
-                      onChange={handleSubCatergoryChange}
-                      checked={selectedSubCategory === serviceSubCategory}
-                      type="checkbox"
-                      value={serviceSubCategory}
-                      className={styles.displayNone}
-                    />
-                    <h4>{serviceSubCategory}</h4>
-                  </label>
-                )
-              )}
-            </>
-          ) : (
-            <>
-              <textarea className={styles.textarea} />
-            </>
-          )}
-        </div>
-        <div
-          className={
-            questionNumber === 4 ? styles.question : styles.displayNone
-          }
-        >
-          <h1>{subSubCategoryQuestion}</h1>
-          {serviceSubSubCategory !== "description" ? (
-            <>
-              {" "}
-              {serviceSubSubCategory.map((serviceSubSubCategory, index) =>
-                index === 0 ? null : (
-                  <label
-                    key={index}
-                    className={
-                      selectedSubSubCategory === serviceSubSubCategory
-                        ? styles.categoryLabelSelected
-                        : styles.categoryLabel
-                    }
-                  >
-                    <input
-                      onChange={handleSubSubCatergoryChange}
-                      checked={selectedSubSubCategory === serviceSubSubCategory}
-                      type="checkbox"
-                      value={serviceSubSubCategory}
-                      className={styles.displayNone}
-                    />
-                    <h4>{serviceSubSubCategory}</h4>
-                  </label>
-                )
-              )}
-            </>
-          ) : (
-            <>
-              <textarea
-                className={styles.textarea}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </>
-          )}
-        </div>
-        <div
-          className={
-            questionNumber === 5 ? styles.question : styles.displayNone
-          }
-        >
-          <h1>Qual é o título do seu trabalho?</h1>
-          <input
-            className={styles.textareaSmall}
-            onChange={(e) => setHeadline(e.target.value)}
-          />
-        </div>
-        <div
-          className={
-            questionNumber === 6 ? styles.question : styles.displayNone
-          }
-        >
-          {!user ? (
-            <form onSubmit={handleSubmit}>
-              <div className={styles.formDesktop}>
-                <br></br>
-                <div className={styles.postJobUm}>
-                  <div>
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <input
-                      type="text"
-                      id="firstName"
-                      placeholder="Primeiro Nome"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      id="lastName"
-                      placeholder="Último Nome"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className={styles.postJobDois}>
-                  <div>
-                    <input
-                      type="text"
-                      id="phone"
-                      placeholder="Número de Telemóvel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <Select
-                    className={styles.Select2}
-                    options={distritos}
-                    onChange={handleDistritoChange}
-                    placeholder="Distrito"
-                    value={selectedDistrito}
-                    getOptionLabel={(option) => option.label}
-                    getOptionValue={(option) => option.value}
-                  />
-
-                  <Select
-                    className={styles.Select2}
-                    options={filteredConcelhos.map((concelho) => ({
-                      value: concelho,
-                      label: concelho,
-                    }))}
-                    onChange={handleConcelhoChange}
-                    placeholder="Concelho"
-                    value={selectedConcelho}
-                    isDisabled={!selectedDistrito} // Disable if no distrito is selected
-                  />
-
-                  <div>
-                    <input
-                      type="password"
-                      id="password"
-                      placeholder="Palavra-passe"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className={styles.containerTudoCheckBoxes}>
-                  <div>
-                    <label
-                      className={styles.containerCheckBoxes}
-                      htmlFor="termsChecked"
-                    >
-                      Eu concordo com os{" "}
-                      <a href="/terms" style={{ color: "#219ebc" }}>
-                        Termos e Condições
-                      </a>
-                      .
-                      <input
-                        type="checkbox"
-                        id="termsChecked"
-                        checked={termsChecked}
-                        className={styles.checkBox}
-                        onChange={(e) => setTermsChecked(e.target.checked)}
-                        required
-                      />
-                      <span className={styles.checkmark}></span>
-                    </label>
-                  </div>
-                </div>
-                {error && <p>{error}</p>}
-                <button id={styles.Continuarbtn} type="submit">
-                  Continuar
-                </button>
+                <span>{distrito}</span>
+                <span className={styles.dropdownArrow}>
+                  {openDropdown[distrito] ? "▼" : "►"}
+                </span>
               </div>
-              <div className={styles.formMobile}>
-                <div>
-                  <input
-                    type="text"
-                    id="firstName"
-                    placeholder="Primeiro Nome"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    id="lastName"
-                    placeholder="Último Nome"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    id="phone"
-                    placeholder="Número de Telemóvel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-                </div>
-                <Select
-                  className={styles.Select2}
-                  options={distritos}
-                  onChange={handleDistritoChange}
-                  placeholder="Distrito"
-                  value={selectedDistrito}
-                  getOptionLabel={(option) => option.label}
-                  getOptionValue={(option) => option.value}
-                />
-
-                <Select
-                  className={styles.Select2}
-                  options={filteredConcelhos.map((concelho) => ({
-                    value: concelho,
-                    label: concelho,
-                  }))}
-                  onChange={handleConcelhoChange}
-                  placeholder="Concelho"
-                  value={selectedConcelho}
-                  isDisabled={!selectedDistrito} // Disable if no distrito is selected
-                />
-                <div>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Palavra-passe"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className={styles.containerTudoCheckBoxes}>
-                  <div>
-                    <label
-                      className={styles.containerCheckBoxes}
-                      htmlFor="termsChecked"
-                    >
-                      Eu concordo com os{" "}
-                      <a href="/terms" style={{ color: "#219ebc" }}>
-                        Termos e Condições
-                      </a>
-                      .
-                      <input
-                        type="checkbox"
-                        id="termsChecked"
-                        checked={termsChecked}
-                        className={styles.checkBox}
-                        onChange={(e) => setTermsChecked(e.target.checked)}
-                        required
-                      />
-                      <span className={styles.checkmark}></span>
-                    </label>
-                  </div>
-                </div>
-                {error && <p>{error}</p>}
-                <button id={styles.Continuarbtn} type="submit">
-                  Continuar
-                </button>
-              </div>
-            </form>
-          ) : (
-            <button onClick={() => SaveJob(user)}>Continuar</button>
-          )}
-        </div>
-        <br />
-        <button
-          className={
-            questionNumber > 1 ? styles.anteriorBtn : styles.displayNone
-          }
-          onClick={questionDicrement}
-        >
-          Anterior
-        </button>
-        {questionNumber > 4 ? (
-          <>
-            {!user ? (
-              questionNumber === 6 ? null : (
-                <button
-                  className={styles.continueButton}
-                  onClick={questionIncrement}
-                >
-                  Continuar
-                </button>
-              )
-            ) : (
-              <button
-                onClick={() => SaveJob(user)}
-                className={styles.continueButton}
-              >
-                Continuar
-              </button>
-            )}
-          </>
-        ) : (
-          <button className={styles.continueButton} onClick={questionIncrement}>
-            Continuar
-          </button>
-        )}
-      </div>
+              {openDropdown[distrito] && (
+                <ul className={styles.concelhosList}>
+                  {worker.concelhos
+                    .filter((concelho) =>
+                      concelhos[distrito].includes(concelho)
+                    )
+                    .map((concelho) => (
+                      <li key={concelho}>{concelho}</li>
+                    ))}
+                </ul>
+              )}
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };
-export default PostJob;
+
+export default WorkerPage;

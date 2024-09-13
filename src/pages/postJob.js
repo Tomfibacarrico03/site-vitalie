@@ -99,6 +99,9 @@ const PostJob = () => {
     console.log(val);
   };
   function questionIncrement() {
+    if (selectedConcelho == null || selectedDistrito == null) {
+      return;
+    }
     setQuestionNumber(questionNumber + 1);
   }
   async function questionDicrement() {
@@ -138,7 +141,6 @@ const PostJob = () => {
         postalCode: "",
         headline: "Some headline",
         description: "Some description",
-        location,
         trade_member: false,
       });
       SaveJob(user);
@@ -165,6 +167,8 @@ const PostJob = () => {
       interestedUsers: [],
       rejectedUsers: [],
       shortlistedUsers: [],
+      selectedConcelho: selectedConcelho.value,
+      selectedDistrito: selectedDistrito.value,
       invitesLeft: 5,
       userHired: "",
       feedback: false,
@@ -343,6 +347,34 @@ const PostJob = () => {
             questionNumber === 6 ? styles.question : styles.displayNone
           }
         >
+          <h3>Localização</h3>
+          <Select
+            className={styles.Select2}
+            options={distritos}
+            onChange={handleDistritoChange}
+            placeholder="Distrito"
+            value={selectedDistrito}
+            getOptionLabel={(option) => option.label}
+            getOptionValue={(option) => option.value}
+          />
+
+          <Select
+            className={styles.Select2}
+            options={filteredConcelhos.map((concelho) => ({
+              value: concelho,
+              label: concelho,
+            }))}
+            onChange={handleConcelhoChange}
+            placeholder="Concelho"
+            value={selectedConcelho}
+            isDisabled={!selectedDistrito} // Disable if no distrito is selected
+          />
+        </div>
+        <div
+          className={
+            questionNumber === 7 ? styles.question : styles.displayNone
+          }
+        >
           {!user ? (
             <form onSubmit={handleSubmit}>
               <div className={styles.formDesktop}>
@@ -391,28 +423,6 @@ const PostJob = () => {
                       required
                     />
                   </div>
-
-                  <Select
-                    className={styles.Select2}
-                    options={distritos}
-                    onChange={handleDistritoChange}
-                    placeholder="Distrito"
-                    value={selectedDistrito}
-                    getOptionLabel={(option) => option.label}
-                    getOptionValue={(option) => option.value}
-                  />
-
-                  <Select
-                    className={styles.Select2}
-                    options={filteredConcelhos.map((concelho) => ({
-                      value: concelho,
-                      label: concelho,
-                    }))}
-                    onChange={handleConcelhoChange}
-                    placeholder="Concelho"
-                    value={selectedConcelho}
-                    isDisabled={!selectedDistrito} // Disable if no distrito is selected
-                  />
 
                   <div>
                     <input
@@ -573,7 +583,7 @@ const PostJob = () => {
         {questionNumber > 4 ? (
           <>
             {!user ? (
-              questionNumber === 6 ? null : (
+              questionNumber === 7 ? null : (
                 <button
                   className={styles.continueButton}
                   onClick={questionIncrement}
