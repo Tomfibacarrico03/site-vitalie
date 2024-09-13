@@ -34,7 +34,7 @@ const PostJob = () => {
   const { createUser, user } = UserAuth();
   const [headline, setHeadline] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState([]);
+
   const [error, setError] = useState(null);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [tradeSelected, setTradeSelected] = useState("");
