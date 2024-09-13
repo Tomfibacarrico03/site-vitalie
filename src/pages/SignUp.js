@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
-import { db, functions } from "../firebase";
+import { db } from "../firebase";
 import Select from "react-select";
 import styles from "../css/register.module.css";
 import { trades, distritos } from "../lib/SelectOptions";
-import { httpsCallable } from "firebase/functions";
+
 import concelhos from "../lib/concelhos";
 import hide from "../imgs/hideIcon.png";
 import show from "../imgs/viewIcon.png";
@@ -49,28 +49,22 @@ const SignUp = () => {
 
   const { createUser, user } = UserAuth();
 
-  async function sendEmail({ email, type }) {
+  const sendEmail = async (email, type) => {
     try {
-      const response = await fetch("https://meujob.vercel.app/api/sendEmail", {
-        // Adjust the endpoint URL if necessary
+      await fetch("https://meujob.vercel.app/api/sendJoinEmail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, type }),
+        body: JSON.stringify({
+          email,
+          type,
+        }),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("Email enviado com sucesso!", data.message);
-      } else {
-        console.error("Erro ao enviar o email:", data.message);
-      }
     } catch (error) {
-      console.error("Erro ao enviar o email:", error.message);
+      console.error("Erro ao enviar o email:", error);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,7 +108,7 @@ const SignUp = () => {
       setError(null);
 
       navigate("/minha-conta/detalhes-de-contacto");
-      await sendEmail({ email: email, type: "tradesperson" });
+      await sendEmail(email, "tradesperson");
     } catch (error) {
       setError(error.message);
       console.log(error.message);
@@ -141,12 +135,14 @@ const SignUp = () => {
         interestedJobs: [],
         workName,
         description,
-        distritos: selectedDistritos,
-        concelhos: selectedConcelhos,
+        distritos: selectedDistritos.map((item) => item.value),
+        concelhos: selectedConcelhos.map((item) => item.value),
         trades_member_since: serverTimestamp(),
         positiveReviewCount: 0,
         reviewCount: 0,
       });
+      await sendEmail(email, "tradesperson");
+      navigate("/minha-conta/detalhes-de-contacto");
     } catch (error) {
       console.log(error.message);
     }

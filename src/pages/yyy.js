@@ -1,387 +1,654 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { updateDoc, doc, arrayUnion, getDoc } from "firebase/firestore";
+import styles from "../css/postJob.module.css";
+import { trades, distritos } from "../lib/SelectOptions";
+import serviceCategories from "../lib/ServiceCategories";
+import serviceSubCategories from "../lib/ServiceSubCategories";
+import serviceSubSubCategories from "../lib/ServiceSubCategories2";
+import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
-import styles from "../css/workerPage.module.css";
-
+import {
+  serverTimestamp,
+  setDoc,
+  doc,
+  addDoc,
+  collection,
+} from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
-import { servicesData } from "../lib/taxes";
+import Select from "react-select";
 
-const WorkerPage = () => {
-  const { jobId, workerId } = useParams();
-  const { user } = UserAuth();
-  const [job, setJob] = useState(null);
-  const [worker, setWorker] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isUserRejected, setIsUserRejected] = useState(false);
-  const [isUserShortlisted, setIsUserShortlisted] = useState(false);
+import concelhos from "../lib/concelhos";
 
-  const navigate = useNavigate();
+import hide from "../imgs/hideIcon.png";
+import show from "../imgs/viewIcon.png";
+
+const PostJob = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [selectedDistrito, setSelectedDistrito] = useState(null);
+  const [filteredConcelhos, setFilteredConcelhos] = useState([]);
+  const [selectedConcelho, setSelectedConcelho] = useState(null);
+
+  const [termsChecked, setTermsChecked] = useState(false);
+
+  const { createUser, user } = UserAuth();
+  const [headline, setHeadline] = useState("");
+  const [description, setDescription] = useState("");
+
+  const [error, setError] = useState(null);
+  const [questionNumber, setQuestionNumber] = useState(1);
+  const [tradeSelected, setTradeSelected] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [selectedSubSubCategory, setSelectedSubSubCategory] = useState("");
+  const [subCategoryQuestion, setSubCategoryQuestion] = useState("");
+  const [subSubCategoryQuestion, setSubSubCategoryQuestion] = useState("");
+  const [serviceCategory, setServiceCategory] = useState(["..."]);
+  const [serviceSubCategory, setServiceSubCategory] = useState(["..."]);
+  const [serviceSubSubCategory, setServiceSubSubCategory] = useState(["..."]);
+
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder a palavra-passe
 
   useEffect(() => {
-    const fetchJobAndWorkerData = async () => {
-      // Fetch job data by jobId
-      const jobDocRef = doc(db, "jobs", jobId);
-      const jobSnapshot = await getDoc(jobDocRef);
+    if (serviceSubCategory === "description") {
+      setSubCategoryQuestion(
+        "Coloque aqui uma descrição do trabalho que necessita."
+      );
+    } else {
+      setSubCategoryQuestion(serviceSubCategory[0]);
+    }
+  }, [serviceSubCategory]);
+  useEffect(() => {
+    if (serviceSubSubCategory === "description") {
+      setSubSubCategoryQuestion(
+        "Coloque aqui uma descrição do trabalho que necessita."
+      );
+    } else {
+      setSubSubCategoryQuestion(serviceSubSubCategory[0]);
+    }
+  }, [serviceSubSubCategory]);
+  const handleChange = (selectedOption) => {
+    setTradeSelected(selectedOption.label);
+    if (serviceCategories[selectedOption.value]) {
+      setServiceCategory(serviceCategories[selectedOption.value]);
+    }
+  };
 
-      if (jobSnapshot.exists()) {
-        const jobData = jobSnapshot.data();
-        setJob({ ...jobData, id: jobSnapshot.id });
+  const handleCatergory1Change = (event) => {
+    const val = event.target.value;
+    setSelectedCategory(val);
+    if (serviceSubCategories[val]) {
+      setServiceSubCategory(serviceSubCategories[val]);
+    } else {
+      setServiceSubCategory("description");
+      console.log("description 1");
+    }
+  };
+  const handleSubCatergoryChange = (event) => {
+    const val = event.target.value;
+    setSelectedSubCategory(val);
+    if (serviceSubSubCategories[val]) {
+      setServiceSubSubCategory(serviceSubSubCategories[val]);
+      console.log(val);
+    } else {
+      setServiceSubSubCategory("description");
+      console.log("description 2");
+    }
+  };
+  const handleSubSubCatergoryChange = (event) => {
+    const val = event.target.value;
+    setSelectedSubSubCategory(val);
+    console.log(val);
+  };
+  function questionIncrement() {
+    if (
+      questionNumber == 7 &&
+      (selectedConcelho == null || selectedDistrito == null)
+    ) {
+      return;
+    }
+    setQuestionNumber(questionNumber + 1);
+  }
+  async function questionDicrement() {
+    setQuestionNumber(questionNumber - 1);
+  }
 
-        // Check if the worker is rejected or shortlisted
-        setIsUserRejected(jobData.rejectedUsers.includes(workerId));
-        setIsUserShortlisted(jobData.shortlistedUsers.includes(workerId));
-      } else {
-        console.log(`Job with ID ${jobId} not found.`);
-      }
+  const navigate = useNavigate();
+  const sendEmail = async (email, type) => {
+    try {
+      await fetch("https://meujob.vercel.app/api/sendJoinEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          type,
+        }),
+      });
+    } catch (error) {
+      console.error("Erro ao enviar o email:", error);
+    }
+  };
 
-      // Fetch worker data by workerId
-      const workerDocRef = doc(db, "users", workerId);
-      const workerSnapshot = await getDoc(workerDocRef);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      if (workerSnapshot.exists()) {
-        const workerData = workerSnapshot.data();
-        setWorker(workerData);
-      } else {
-        console.log(`Worker with ID ${workerId} not found.`);
-      }
+    if (termsChecked == false) {
+      setError("Por favor aceite os termos e condições");
+      console.log("Por favor aceite os termos e condições");
+      return;
+    }
+    if (!selectedDistrito) {
+      setError("Por favor selecione um distrito");
+      return;
+    }
 
-      // Data fetching is complete, set loading to false
-      setLoading(false);
+    if (!selectedConcelho) {
+      setError("Por favor selecione um concelho");
+      return;
+    }
+
+    try {
+      const { user } = await createUser(email, password);
+      await setDoc(doc(db, "users", user.uid), {
+        firstName,
+        lastName,
+        email,
+        phone,
+        address1: "",
+        address2: "",
+        city: "",
+        postalCode: "",
+        headline: "Some headline",
+        description: "Some description",
+        trade_member: false,
+      });
+      SaveJob(user);
+      setError(null);
+      navigate("/publicar-trabalho/publicado");
+      await sendEmail({
+        email: email,
+        type: "homeowner",
+      });
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const SaveJob = async (user) => {
+    const newJob = {
+      headline,
+      description,
+      userId: user.uid,
+      createdAt: serverTimestamp(),
+      tradeSelected,
+      selectedCategory,
+      selectedSubCategory,
+      interestedUsers: [],
+      rejectedUsers: [],
+      shortlistedUsers: [],
+      selectedConcelho: selectedConcelho.value,
+      selectedDistrito: selectedDistrito.value,
+      invitesLeft: 5,
+      userHired: "",
+      feedback: false,
+      totalInterestedUsers: 0,
     };
 
-    fetchJobAndWorkerData();
-  }, [jobId, workerId, job]);
-
-  const handleReject = async () => {
-    const jobRef = doc(db, "jobs", jobId);
     try {
-      await updateDoc(jobRef, {
-        rejectedUsers: [...job.rejectedUsers, workerId],
-      });
-      setIsUserRejected(true);
-      console.log("User added to rejectedUsers field");
+      const docRef = await addDoc(collection(db, "jobs"), newJob);
+      const docId = docRef.id;
+
+      navigate(`/publicar-trabalho/${docId}/publicado`);
     } catch (error) {
-      console.error("Error adding user to rejectedUsers field", error);
+      console.error(error);
+    }
+  };
+  const handleDistritoChange = (selectedOption) => {
+    setSelectedDistrito(selectedOption);
+
+    // Reset concelho when distrito changes
+    setSelectedConcelho(null);
+
+    // Filter concelhos based on selected distrito
+    if (selectedOption) {
+      setFilteredConcelhos(concelhos[selectedOption.value] || []);
+    } else {
+      setFilteredConcelhos([]);
     }
   };
 
-  const handleUndoReject = async () => {
-    const jobRef = doc(db, "jobs", jobId);
-    try {
-      await updateDoc(jobRef, {
-        rejectedUsers: job.rejectedUsers.filter(
-          (userId) => userId !== workerId
-        ),
-      });
-      setIsUserRejected(false);
-      console.log("User removed from rejectedUsers field");
-    } catch (error) {
-      console.error("Error removing user from rejectedUsers field", error);
-    }
+  const handleConcelhoChange = (selectedOption) => {
+    setSelectedConcelho(selectedOption);
   };
 
-  const [shortlistPopUp, setShortlistPopUp] = useState(false);
-
-  async function addToShortList() {
-    const jobRef = doc(db, "jobs", jobId);
-    const userRef = doc(db, "users", workerId);
-
-    try {
-      await updateDoc(jobRef, {
-        shortlistedUsers: arrayUnion(workerId),
-      });
-      setIsUserShortlisted(true);
-      console.log("User added to shortlisted field");
-
-      await updateDoc(userRef, {
-        shortlistedJobs: arrayUnion(jobId),
-        credits:
-          worker.credits -
-          servicesData[job.tradeSelected][job.selectedCategory],
-      });
-      setShortlistPopUp(true);
-      console.log("Job added to user's shortlistedJobs field");
-    } catch (error) {
-      console.error("Error adding user to shortlisted field", error);
-    }
-  }
-
-  const hireWorker = async () => {
-    try {
-      const jobRef = doc(db, "jobs", jobId);
-      const userRef = doc(db, "users", workerId);
-
-      await updateDoc(jobRef, {
-        userHired: workerId,
-      });
-
-      await updateDoc(userRef, {
-        hiredJobs: arrayUnion(jobId),
-      });
-      if (jobStatusOption == "done") {
-        navigate(
-          `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
-        );
-      }
-      setIsLeavingReview(!isLeavingReview);
-    } catch (error) {
-      console.error("Error adding user to shortlisted field", error);
-    }
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
-
-  const [isLeavingReview, setIsLeavingReview] = useState(false);
-  const [jobStatusOption, setJobStatusOption] = useState("");
-
-  const reviewCard = (head, body, status, Number) => {
-    return (
-      <label
-        htmlFor={"reviewCheckbox" + Number}
-        className={
-          jobStatusOption === status ? styles.optionSelected : styles.option
-        }
-      >
-        <h3>{head}</h3>
-        <p>{body}</p>
-        <input
-          style={{ display: "none" }}
-          type="checkbox"
-          id={"reviewCheckbox" + Number}
-          name="reviewCheckbox"
-          checked={jobStatusOption === status}
-          onChange={() => setJobStatusOption(status)}
-        />
-      </label>
-    );
-  };
-
-  if (loading == true) {
-    return <h1>Loading</h1>;
-  }
 
   return (
-    <div className={styles.workerPage}>
-      <header>
-        <h1>{worker.workName}</h1>
-        <b>
-          {worker.hiredJobs.includes(job.id)
-            ? "Trabalhador Contratado"
-            : "Interessado no teu trabalho"}
-        </b>
-      </header>
-      <p className={styles.feedback}>
-        {" "}
-        {worker.hiredJobs.includes(job.id)
-          ? "Crítica submetida"
-          : "Ainda sem feedback"}
-      </p>
-      <p className={styles.nome}>
-        <b style={{ fontSize: 19 }}>
-          {worker.firstName} {worker.lastName}
-        </b>
-        <br></br>
+    <div className={styles.page}>
+      <div className={styles.divCabecalho}>
+        <h1 className={styles.title}>Criar Trabalho {questionNumber}</h1>
+        <h3 className={styles.subtitle}>
+          Publica o trabalho que necessitas <br></br>e encontra o melhor
+          trabalhador para ti!
+        </h3>
+      </div>
+
+      <div className={styles.divQuestions}>
         <div
-          style={{ display: "inline-flex", alignItems: "center", marginTop: 5 }}
+          className={
+            questionNumber === 1 ? styles.question : styles.displayNone
+          }
         >
-          {shortlistPopUp == false && isUserShortlisted && (
-            <img
-              style={{ width: 13, height: 13, marginRight: 5 }}
-              src={require("../imgs/phoneVitalie.png")}
-            />
-          )}
-          <b style={{ color: "#508ce4" }}>
-            {shortlistPopUp == false && isUserShortlisted && worker.phone}
-          </b>
+          <h1>O que precisas no teu trabalhador?</h1>
+          <Select
+            className={styles.Select}
+            options={trades}
+            onChange={(option) => handleChange(option)}
+            placeholder="Serviço Necessário"
+          />
         </div>
-      </p>
-      {!isUserShortlisted && (
-        <p className={styles.adiciona}>
-          Adiciona à shortlist para discutir o trabalho
-        </p>
-      )}
-
-      {worker.hiredJobs.includes(job.id) ? null : (
-        <div className={styles.estruturaPerfil}>
-          {!isLeavingReview && (
-            <div className={styles.agoraDepois}>
-              <div className={styles.agora}>
-                <p>Agora</p>
-                <hr />
-
-                {/* <p>{workerId}</p> */}
-                {isUserRejected ? (
-                  <button onClick={handleUndoReject}>Desfazer recusa</button>
-                ) : isUserShortlisted ? (
-                  <>
-                    {shortlistPopUp == true ? (
-                      <>
-                        <p>{worker.workName}</p>
-                        <p
-                          style={{
-                            backgroundColor: "#333",
-                            textAlign: "center",
-                            paddingTop: 10,
-                            paddingBottom: 10,
-                            marginBottom: 5,
-                            borderRadius: 5,
-                            fontSize: 12,
-                            color: "#fff",
-                            fontWeight: "400",
-                          }}
-                        >
-                          Foi adicionado à tua lista restrita
-                        </p>
-                        <p>
-                          Aguarde um telefonema do {worker.firstName}{" "}
-                          {worker.lastName} para discutir o emprego ou entre em
-                          contato diretamente com ele.
-                        </p>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginTop: 5,
-                          }}
-                        >
-                          <img
-                            style={{
-                              width: 13,
-                              height: 13,
-                              marginRight: 5,
-                              marginBottom: -20,
-                            }}
-                            src={require("../imgs/phoneVitalie.png")}
-                          />
-                          <p style={{ color: "#508ce4", marginBottom: -10 }}>
-                            {worker.phone}
-                          </p>
-                        </div>
-                        <br></br>
-                        <button
-                          className={styles.btnFechar}
-                          onClick={() => setShortlistPopUp(false)}
-                        >
-                          Fechar
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        {job.userHired != "" ? (
-                          <button
-                            onClick={() =>
-                              navigate(
-                                `/meustrabalhos/${jobId}/deixar-critica/trabalhador/${workerId}`
-                              )
-                            }
-                          >
-                            Deixar uma crítica{" "}
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => setIsLeavingReview(!isLeavingReview)}
-                          >
-                            Contrata / Deixar uma crítica
-                          </button>
-                        )}
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <>
-                      {job.shortlistedUsers.lenght == 5 ? (
-                        <p>
-                          Não podes adicionar mais do que 5 pessoas à lista
-                          restrita
-                        </p>
-                      ) : (
-                        <button
-                          className={styles.adicionarBtn}
-                          onClick={addToShortList}
-                        >
-                          Adicionar à shortlist
-                        </button>
-                      )}
-                    </>
-
-                    <button
-                      className={styles.recusarBtn}
-                      onClick={handleReject}
-                    >
-                      Recusar
-                    </button>
-                  </>
-                )}
-              </div>
-              <div className={styles.depois}>
-                <p>Depois</p>
-                <hr />
-                <p>
-                  Uma vez selecionado, você trocará detalhes de contato e poderá
-                  solicitar cotações
-                </p>
-              </div>
-            </div>
-          )}
-          {!isLeavingReview ? (
-            <div className={styles.perfilDoMan}>
-              <h3>
-                Perfil de {worker.firstName} {worker.lastName}
-              </h3>
-              <p className={styles.descricao}>{worker.description}</p>
-              {worker.location.map((location) => (
-                <p>Trabalha nos distritos: {location}</p>
-              ))}
-              <p>Membro desde: 23 de março</p>
-              <h4>Serviços</h4>
-              {worker.tradesSelected.map((trade, index) => (
-                <p>
-                  {index + 1}. {trade}
-                </p>
-              ))}
-            </div>
+        <div
+          className={
+            questionNumber === 2 ? styles.question : styles.displayNone
+          }
+        >
+          <h1>Qual é a categoria do seu trabalho?</h1>
+          <div>
+            {serviceCategory.map((serviceCategory, index) => (
+              <label
+                key={index}
+                className={
+                  selectedCategory === serviceCategory
+                    ? styles.categoryLabelSelected
+                    : styles.categoryLabel
+                }
+              >
+                <input
+                  onChange={handleCatergory1Change}
+                  checked={selectedCategory === serviceCategory}
+                  type="checkbox"
+                  value={serviceCategory}
+                  className={styles.displayNone}
+                />
+                <h4>{serviceCategory}</h4>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div
+          className={
+            questionNumber === 3 ? styles.question : styles.displayNone
+          }
+        >
+          <h1>{subCategoryQuestion}</h1>
+          {serviceSubCategory !== "description" ? (
+            <>
+              {" "}
+              {serviceSubCategory.map((serviceSubCategory, index) =>
+                index === 0 ? null : (
+                  <label
+                    key={index}
+                    className={
+                      selectedSubCategory === serviceSubCategory
+                        ? styles.categoryLabelSelected
+                        : styles.categoryLabel
+                    }
+                  >
+                    <input
+                      onChange={handleSubCatergoryChange}
+                      checked={selectedSubCategory === serviceSubCategory}
+                      type="checkbox"
+                      value={serviceSubCategory}
+                      className={styles.displayNone}
+                    />
+                    <h4>{serviceSubCategory}</h4>
+                  </label>
+                )
+              )}
+            </>
           ) : (
-            <div>
-              <h2 style={{ fontSize: 25, paddingTop: 35 }}>
-                Contrata {worker.workName}
-              </h2>
-              <p style={{ marginRight: 10 }}>
-                Conte-nos sobre o status do seu trabalho. Avisaremos a outros
-                comerciantes que seu trabalho não é mais disponível. Você também
-                pode deixar comentários quando o trabalho for concluído
-              </p>
-              <div>
-                {reviewCard(
-                  "Trabalho ainda não começou",
-                  "Eu já acordei num preço e contratei este trabalhador",
-                  "not_started",
-                  0
-                )}
-                {reviewCard(
-                  "Trabalho em progresso",
-                  "Trabalho em andamente neste momento",
-                  "on_going",
-                  1
-                )}
-                {reviewCard(
-                  "Trabalho concluído",
-                  "Deves deixar um feedback quando estiveres pronto",
-                  "done",
-                  2
-                )}
-              </div>
-              <div>
-                <button onClick={() => setIsLeavingReview(!isLeavingReview)}>
-                  Cancelar
-                </button>
-                <button onClick={() => hireWorker()}>Continuar</button>
-              </div>
-            </div>
+            <>
+              <textarea className={styles.textarea} />
+            </>
           )}
         </div>
-      )}
+        <div
+          className={
+            questionNumber === 4 ? styles.question : styles.displayNone
+          }
+        >
+          <h1>{subSubCategoryQuestion}</h1>
+          {serviceSubSubCategory !== "description" ? (
+            <>
+              {" "}
+              {serviceSubSubCategory.map((serviceSubSubCategory, index) =>
+                index === 0 ? null : (
+                  <label
+                    key={index}
+                    className={
+                      selectedSubSubCategory === serviceSubSubCategory
+                        ? styles.categoryLabelSelected
+                        : styles.categoryLabel
+                    }
+                  >
+                    <input
+                      onChange={handleSubSubCatergoryChange}
+                      checked={selectedSubSubCategory === serviceSubSubCategory}
+                      type="checkbox"
+                      value={serviceSubSubCategory}
+                      className={styles.displayNone}
+                    />
+                    <h4>{serviceSubSubCategory}</h4>
+                  </label>
+                )
+              )}
+            </>
+          ) : (
+            <>
+              <textarea
+                className={styles.textarea}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </>
+          )}
+        </div>
+        <div
+          className={
+            questionNumber === 5 ? styles.question : styles.displayNone
+          }
+        >
+          <h1>Qual é o título do seu trabalho?</h1>
+          <input
+            className={styles.textareaSmall}
+            onChange={(e) => setHeadline(e.target.value)}
+          />
+        </div>
+        <div
+          className={
+            questionNumber === 6 ? styles.question : styles.displayNone
+          }
+        >
+          <h3>Localização</h3>
+
+          <div className={styles.localizacoes}>
+            <Select
+              className={styles.Select2}
+              options={distritos}
+              onChange={handleDistritoChange}
+              placeholder="Distrito"
+              value={selectedDistrito}
+              getOptionLabel={(option) => option.label}
+              getOptionValue={(option) => option.value}
+            />
+
+            <Select
+              className={styles.Select2}
+              options={filteredConcelhos.map((concelho) => ({
+                value: concelho,
+                label: concelho,
+              }))}
+              onChange={handleConcelhoChange}
+              placeholder="Concelho"
+              value={selectedConcelho}
+              isDisabled={!selectedDistrito} // Disable if no distrito is selected
+            />
+          </div>
+        </div>
+        <div
+          className={
+            questionNumber === 7 ? styles.question : styles.displayNone
+          }
+        >
+          {!user ? (
+            <form onSubmit={handleSubmit}>
+              <div className={styles.formDesktop}>
+                <br></br>
+                <div className={styles.postJobUm}>
+                  <div>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      type="text"
+                      id="firstName"
+                      placeholder="Primeiro Nome"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      id="lastName"
+                      placeholder="Último Nome"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className={styles.postJobDois}>
+                  <div>
+                    <input
+                      type="text"
+                      id="phone"
+                      placeholder="Número de Telemóvel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.passContainer}>
+                    <input
+                      type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
+                      id="password"
+                      placeholder="Palavra-passe"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className={styles.togglePasswordButton}
+                    >
+                      {showPassword ? <img src={show} /> : <img src={hide} />}
+                    </button>
+                  </div>
+                </div>
+                <div className={styles.containerTudoCheckBoxes}>
+                  <div>
+                    <label
+                      className={styles.containerCheckBoxes}
+                      htmlFor="termsChecked"
+                    >
+                      Eu concordo com os{" "}
+                      <a
+                        href="/terms"
+                        style={{ color: "#219ebc", marginLeft: 5 }}
+                      >
+                        Termos e Condições
+                      </a>
+                      .
+                      <input
+                        type="checkbox"
+                        id="termsChecked"
+                        checked={termsChecked}
+                        className={styles.checkBox}
+                        onChange={(e) => setTermsChecked(e.target.checked)}
+                        required
+                      />
+                      <span className={styles.checkmark}></span>
+                    </label>
+                  </div>
+                </div>
+                {error && <p>{error}</p>}
+              </div>
+              <div className={styles.formMobile}>
+                <div>
+                  <input
+                    type="text"
+                    id="firstName"
+                    placeholder="Primeiro Nome"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Último Nome"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <input
+                    type="text"
+                    id="phone"
+                    placeholder="Número de Telemóvel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className={styles.passContainer}>
+                  <input
+                    type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
+                    id="password"
+                    placeholder="Palavra-passe"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    style={{ marginLeft: -10 }}
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className={styles.togglePasswordButton}
+                  >
+                    {showPassword ? <img src={show} /> : <img src={hide} />}
+                  </button>
+                </div>
+
+                <div className={styles.containerTudoCheckBoxes}>
+                  <div>
+                    <label
+                      className={styles.containerCheckBoxes}
+                      htmlFor="termsChecked"
+                    >
+                      Eu concordo com os{" "}
+                      <a
+                        href="/terms"
+                        style={{ color: "#219ebc", marginLeft: 5 }}
+                      >
+                        Termos e Condições
+                      </a>
+                      .
+                      <input
+                        type="checkbox"
+                        id="termsChecked"
+                        checked={termsChecked}
+                        className={styles.checkBox}
+                        onChange={(e) => setTermsChecked(e.target.checked)}
+                        required
+                      />
+                      <span className={styles.checkmark}></span>
+                    </label>
+                  </div>
+                </div>
+                {error && <p>{error}</p>}
+              </div>
+
+              {questionNumber == 7 && (
+                <button
+                  className={
+                    questionNumber > 1 ? styles.anteriorBtn : styles.displayNone
+                  }
+                  onClick={questionDicrement}
+                >
+                  Anterior
+                </button>
+              )}
+              <button id={styles.Continuarbtn} type="submit">
+                Continuar
+              </button>
+            </form>
+          ) : (
+            <button onClick={() => SaveJob(user)}>Continuar</button>
+          )}
+        </div>
+        <br />
+        {questionNumber < 7 && (
+          <button
+            className={
+              questionNumber > 1 ? styles.anteriorBtn : styles.displayNone
+            }
+            onClick={questionDicrement}
+          >
+            Anterior
+          </button>
+        )}
+
+        {questionNumber > 5 ? (
+          <>
+            {!user ? (
+              questionNumber === 7 ? null : (
+                <button
+                  className={styles.continueButton}
+                  onClick={questionIncrement}
+                >
+                  Continuar
+                </button>
+              )
+            ) : (
+              <button
+                onClick={() => SaveJob(user)}
+                className={styles.continueButton}
+              >
+                Concluir
+              </button>
+            )}
+          </>
+        ) : (
+          <button className={styles.continueButton} onClick={questionIncrement}>
+            Continuar
+          </button>
+        )}
+      </div>
     </div>
   );
 };
-
-export default WorkerPage;
+export default PostJob;

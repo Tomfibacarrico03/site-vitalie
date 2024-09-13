@@ -5,7 +5,7 @@ import serviceCategories from "../lib/ServiceCategories";
 import serviceSubCategories from "../lib/ServiceSubCategories";
 import serviceSubSubCategories from "../lib/ServiceSubCategories2";
 import { useNavigate } from "react-router-dom";
-import { db, functions } from "../firebase";
+import { db } from "../firebase";
 import {
   serverTimestamp,
   setDoc,
@@ -15,15 +15,13 @@ import {
 } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import Select from "react-select";
-import { httpsCallable } from "firebase/functions";
+
 import concelhos from "../lib/concelhos";
 
 import hide from "../imgs/hideIcon.png";
 import show from "../imgs/viewIcon.png";
 
 const PostJob = () => {
-  const sendEmail = httpsCallable(functions, "sendEmail");
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -118,6 +116,22 @@ const PostJob = () => {
   }
 
   const navigate = useNavigate();
+  const sendEmail = async (email, type) => {
+    try {
+      await fetch("https://meujob.vercel.app/api/sendJoinEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          type,
+        }),
+      });
+    } catch (error) {
+      console.error("Erro ao enviar o email:", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -155,10 +169,7 @@ const PostJob = () => {
       SaveJob(user);
       setError(null);
       navigate("/publicar-trabalho/publicado");
-      await sendEmail({
-        email: email,
-        type: "homeowner",
-      });
+      await sendEmail(email, "homeowner");
     } catch (error) {
       setError(error.message);
     }
@@ -219,6 +230,7 @@ const PostJob = () => {
     <div className={styles.page}>
       <div className={styles.divCabecalho}>
         <h1 className={styles.title}>Criar Trabalho {questionNumber}</h1>
+
         <h3 className={styles.subtitle}>
           Publica o trabalho que necessitas <br></br>e encontra o melhor
           trabalhador para ti!
