@@ -566,12 +566,12 @@ const PostJob = () => {
                 </div>
                 {error && <p>{error}</p>}
                 <button id={styles.Continuarbtn} type="submit">
-                  Continuar
+                  Concluir
                 </button>
               </div>
             </form>
           ) : (
-            <button onClick={() => SaveJob(user)}>Continuar</button>
+            <button onClick={() => SaveJob(user)}>Concluir</button>
           )}
         </div>
         <br />

@@ -13,7 +13,6 @@ import show from "../imgs/viewIcon.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const sendEmail = httpsCallable(functions, "sendEmail");
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -49,6 +48,29 @@ const SignUp = () => {
   }, []);
 
   const { createUser, user } = UserAuth();
+
+  async function sendEmail({ email, type }) {
+    try {
+      const response = await fetch("https://meujob.vercel.app/api/sendEmail", {
+        // Adjust the endpoint URL if necessary
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, type }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Email enviado com sucesso!", data.message);
+      } else {
+        console.error("Erro ao enviar o email:", data.message);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar o email:", error.message);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

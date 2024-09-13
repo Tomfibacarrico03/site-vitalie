@@ -60,11 +60,25 @@ exports.sendEmail = functions.https.onCall((data, context) => {
   const { email, type } = data;
 
   const mailOptions = {
-    from: "afonsoresendes03@gmail.com", // This should match the email used in the transporter
+    from: "afonsoresendes03@gmail.com", // Certifique-se de que este é o mesmo email usado no transporter
     to: email,
-    subject: "MeuJob.pt",
-    text: `Registo de ${type == "homeowner" ? "contratante" : "trabalhador"
-      } feito com sucesso`,
+    subject: "Bem-vindo ao MeuJob.pt!",
+    html: `
+    <h1>Bem-vindo ao MeuJob.pt!</h1>
+    <p>Olá ${type == "homeowner" ? "Contratante" : "Trabalhador"},</p>
+    <p>
+      ${
+        type == "homeowner"
+          ? "Obrigado por se registar no MeuJob.pt! Agora pode começar a publicar os seus projetos e encontrar os melhores profissionais para realizá-los."
+          : "Obrigado por se juntar à nossa rede de profissionais! Agora pode começar a procurar oportunidades de trabalho e mostrar o seu talento em novos projetos."
+      }
+    </p>
+    <p>
+      Estamos aqui para o ajudar em cada etapa, seja para realizar o seu próximo projeto ou para encontrar o próximo trabalho dos seus sonhos.
+    </p>
+    <p>Estamos ansiosos por trabalhar consigo!</p>
+    <p>Com os melhores cumprimentos,<br/>A equipa do MeuJob.pt</p>
+  `,
   };
 
   return new Promise((resolve, reject) => {
@@ -205,7 +219,6 @@ exports.requestCIT = functions.https.onRequest(async (req, res) => {
           type: "UCOF",
           amountQualifier: "ESTIMATED",
         },
-
       });
 
       const requestOptions = {
@@ -269,9 +282,8 @@ exports.statusTransaction = functions.https.onRequest(async (req, res) => {
     }
 
     try {
-      const paymentRef = db.collection('payments').doc(transactionId);
+      const paymentRef = db.collection("payments").doc(transactionId);
       const paymentDoc = await paymentRef.get();
-
 
       const apiUrl = "https://spg.qly.site1.sibs.pt/api/v2/payments/";
 
@@ -285,7 +297,10 @@ exports.statusTransaction = functions.https.onRequest(async (req, res) => {
         },
         redirect: "follow",
       };
-      const response = await fetch(apiUrl + transactionId + "/status", requestOptions)
+      const response = await fetch(
+        apiUrl + transactionId + "/status",
+        requestOptions
+      );
       const fetchResponse = JSON.parse(await response.text());
       const responseData = {
         userId: userId,
@@ -301,15 +316,16 @@ exports.statusTransaction = functions.https.onRequest(async (req, res) => {
         await paymentRef.set(responseData);
         res.status(200).json(responseData);
         if (!paymentDoc.exists) {
-
-
-          const querySnapshot = await db.collection('payments').where('userId', '==', userId).get();
+          const querySnapshot = await db
+            .collection("payments")
+            .where("userId", "==", userId)
+            .get();
 
           const batch = db.batch();
 
           querySnapshot.forEach((doc) => {
             if (doc.id !== transactionId) {
-              const docRef = db.collection('payments').doc(doc.id);
+              const docRef = db.collection("payments").doc(doc.id);
               batch.update(docRef, { active: false });
             }
           });
@@ -323,9 +339,6 @@ exports.statusTransaction = functions.https.onRequest(async (req, res) => {
 
         res.status(200).json(responseData);
       }
-
-
-
     } catch (error) {
       console.error("GET request error:", error);
       res.status(500).send("Internal Server Error");
@@ -337,7 +350,6 @@ exports.statusTransaction = functions.https.onRequest(async (req, res) => {
 });
 
 exports.executePayment = functions.https.onRequest(async (req, res) => {
-
   const userId = req.query.userId;
   const tradeSelected = req.query.tradeSelected;
   const selectedCategory = req.query.selectedCategory;
@@ -363,11 +375,16 @@ exports.executePayment = functions.https.onRequest(async (req, res) => {
     }
 
     try {
-      const querySnapshotValue = await db.collection('taxas').get();
+      const querySnapshotValue = await db.collection("taxas").get();
       var dataVal = null;
-      const docVal = querySnapshotValue.forEach((doc) => { dataVal = doc.data() });
+      const docVal = querySnapshotValue.forEach((doc) => {
+        dataVal = doc.data();
+      });
       const value = dataVal[tradeSelected][selectedCategory];
-      const querySnapshot = await db.collection('payments').where('userId', '==', userId).get();
+      const querySnapshot = await db
+        .collection("payments")
+        .where("userId", "==", userId)
+        .get();
       var transactionId = null;
       querySnapshot.forEach((doc) => {
         if (doc.data().active) {
@@ -376,23 +393,23 @@ exports.executePayment = functions.https.onRequest(async (req, res) => {
       });
       console.log("transactionId: " + transactionId);
       var raw = JSON.stringify({
-        "merchant": {
-          "terminalId": 59172,
-          "channel": "web",
-          "merchantTransactionId": "5351136"
+        merchant: {
+          terminalId: 59172,
+          channel: "web",
+          merchantTransactionId: "5351136",
         },
-        "transaction": {
-          "transactionTimestamp": new Date().toISOString(),
-          "description": "Transaction short description",
-          "amount": {
-            "value": value,
-            "currency": "EUR"
+        transaction: {
+          transactionTimestamp: new Date().toISOString(),
+          description: "Transaction short description",
+          amount: {
+            value: value,
+            currency: "EUR",
           },
-          "originalTransaction": {
-            "id": transactionId,
-            "datetime": "2023-08-22T15:09:16.102Z"
-          }
-        }
+          originalTransaction: {
+            id: transactionId,
+            datetime: "2023-08-22T15:09:16.102Z",
+          },
+        },
       });
 
       const apiUrl = "https://spg.qly.site1.sibs.pt/api/v2/payments/";
@@ -408,7 +425,12 @@ exports.executePayment = functions.https.onRequest(async (req, res) => {
         body: raw,
         redirect: "follow",
       };
-      const response = await fetch("https://spg.qly.site1.sibs.pt/api/v2/payments/" + transactionId + "/mit", requestOptions)
+      const response = await fetch(
+        "https://spg.qly.site1.sibs.pt/api/v2/payments/" +
+          transactionId +
+          "/mit",
+        requestOptions
+      );
       const fetchResponse = JSON.parse(await response.text());
       const responseData = {
         userId: userId,
@@ -416,8 +438,6 @@ exports.executePayment = functions.https.onRequest(async (req, res) => {
       };
 
       res.status(200).json(responseData);
-
-
     } catch (error) {
       console.error("POST request error:", error);
       res.status(500).send("Internal Server Error");
@@ -429,7 +449,6 @@ exports.executePayment = functions.https.onRequest(async (req, res) => {
 });
 
 exports.executePaymentCapture = functions.https.onRequest(async (req, res) => {
-
   const userId = req.query.userId;
   const tradeSelected = req.query.tradeSelected;
   const selectedCategory = req.query.selectedCategory;
@@ -455,33 +474,38 @@ exports.executePaymentCapture = functions.https.onRequest(async (req, res) => {
     }
 
     try {
-      const querySnapshotValue = await db.collection('taxas').get();
+      const querySnapshotValue = await db.collection("taxas").get();
       var dataVal = null;
-      const docVal = querySnapshotValue.forEach((doc) => { dataVal = doc.data() });
+      const docVal = querySnapshotValue.forEach((doc) => {
+        dataVal = doc.data();
+      });
       const value = dataVal[tradeSelected][selectedCategory];
-      const querySnapshot = await db.collection('payments').where('userId', '==', userId).get();
+      const querySnapshot = await db
+        .collection("payments")
+        .where("userId", "==", userId)
+        .get();
       var transactionId = null;
 
       querySnapshot.forEach((doc) => {
         if (doc.data().active) {
           transactionId = doc.id;
         }
-      }); 
+      });
 
       var raw = JSON.stringify({
-        "merchant": {
-          "terminalId": 59172,
-          "channel": "web",
-          "merchantTransactionId": "5351136"
+        merchant: {
+          terminalId: 59172,
+          channel: "web",
+          merchantTransactionId: "5351136",
         },
-        "transaction": {
-          "transactionTimestamp": new Date().toISOString(),
-          "description": "Transaction short description",
-          "amount": {
-            "value": value,
-            "currency": "EUR"
-          }
-        }
+        transaction: {
+          transactionTimestamp: new Date().toISOString(),
+          description: "Transaction short description",
+          amount: {
+            value: value,
+            currency: "EUR",
+          },
+        },
       });
 
       const requestOptions = {
@@ -495,7 +519,12 @@ exports.executePaymentCapture = functions.https.onRequest(async (req, res) => {
         body: raw,
         redirect: "follow",
       };
-      const response = await fetch("https://spg.qly.site1.sibs.pt/api/v2/payments/" + transactionId + "/capture", requestOptions)
+      const response = await fetch(
+        "https://spg.qly.site1.sibs.pt/api/v2/payments/" +
+          transactionId +
+          "/capture",
+        requestOptions
+      );
       const fetchResponse = JSON.parse(await response.text());
       const responseData = {
         userId: userId,
@@ -503,8 +532,6 @@ exports.executePaymentCapture = functions.https.onRequest(async (req, res) => {
       };
 
       res.status(200).json(responseData);
-
-
     } catch (error) {
       console.error("POST request error:", error);
       res.status(500).send("Internal Server Error");
