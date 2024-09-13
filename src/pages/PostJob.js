@@ -194,10 +194,12 @@ const PostJob = () => {
     }
   };
   const handleDistritoChange = (selectedOption) => {
-    setSelectedDistrito(selectedOption); // Reset concelho when distrito changes
+    setSelectedDistrito(selectedOption);
 
-    setSelectedConcelho(null); // Filter concelhos based on selected distrito
+    // Reset concelho when distrito changes
+    setSelectedConcelho(null);
 
+    // Filter concelhos based on selected distrito
     if (selectedOption) {
       setFilteredConcelhos(concelhos[selectedOption.value] || []);
     } else {
@@ -215,45 +217,35 @@ const PostJob = () => {
 
   return (
     <div className={styles.page}>
-            
       <div className={styles.divCabecalho}>
-                
         <h1 className={styles.title}>Criar Trabalho {questionNumber}</h1>
-                
         <h3 className={styles.subtitle}>
-                    Publica o trabalho que necessitas <br></br>e encontra o
-          melhor           trabalhador para ti!         
+          Publica o trabalho que necessitas <br></br>e encontra o melhor
+          trabalhador para ti!
         </h3>
-              
       </div>
-            
+
       <div className={styles.divQuestions}>
-                
         <div
           className={
             questionNumber === 1 ? styles.question : styles.displayNone
           }
         >
-                    <h1>O que precisas no teu trabalhador?</h1>
-                    
+          <h1>O que precisas no teu trabalhador?</h1>
           <Select
             className={styles.Select}
             options={trades}
             onChange={(option) => handleChange(option)}
             placeholder="Serviço Necessário"
           />
-                  
         </div>
-                
         <div
           className={
             questionNumber === 2 ? styles.question : styles.displayNone
           }
         >
-                    <h1>Qual é a categoria do seu trabalho?</h1>
-                    
+          <h1>Qual é a categoria do seu trabalho?</h1>
           <div>
-                        
             {serviceCategory.map((serviceCategory, index) => (
               <label
                 key={index}
@@ -263,7 +255,6 @@ const PostJob = () => {
                     : styles.categoryLabel
                 }
               >
-                                
                 <input
                   onChange={handleCatergory1Change}
                   checked={selectedCategory === serviceCategory}
@@ -271,25 +262,20 @@ const PostJob = () => {
                   value={serviceCategory}
                   className={styles.displayNone}
                 />
-                                <h4>{serviceCategory}</h4>
-                              
+                <h4>{serviceCategory}</h4>
               </label>
             ))}
-                      
           </div>
-                  
         </div>
-                
         <div
           className={
             questionNumber === 3 ? styles.question : styles.displayNone
           }
         >
-                    <h1>{subCategoryQuestion}</h1>
-                    
+          <h1>{subCategoryQuestion}</h1>
           {serviceSubCategory !== "description" ? (
             <>
-                                           
+              {" "}
               {serviceSubCategory.map((serviceSubCategory, index) =>
                 index === 0 ? null : (
                   <label
@@ -300,7 +286,6 @@ const PostJob = () => {
                         : styles.categoryLabel
                     }
                   >
-                                        
                     <input
                       onChange={handleSubCatergoryChange}
                       checked={selectedSubCategory === serviceSubCategory}
@@ -308,33 +293,26 @@ const PostJob = () => {
                       value={serviceSubCategory}
                       className={styles.displayNone}
                     />
-                                        <h4>{serviceSubCategory}</h4>
-                                      
+                    <h4>{serviceSubCategory}</h4>
                   </label>
                 )
               )}
-                          
             </>
           ) : (
             <>
-                            
               <textarea className={styles.textarea} />
-                          
             </>
           )}
-                  
         </div>
-                
         <div
           className={
             questionNumber === 4 ? styles.question : styles.displayNone
           }
         >
-                    <h1>{subSubCategoryQuestion}</h1>
-                    
+          <h1>{subSubCategoryQuestion}</h1>
           {serviceSubSubCategory !== "description" ? (
             <>
-                                           
+              {" "}
               {serviceSubSubCategory.map((serviceSubSubCategory, index) =>
                 index === 0 ? null : (
                   <label
@@ -345,7 +323,6 @@ const PostJob = () => {
                         : styles.categoryLabel
                     }
                   >
-                                        
                     <input
                       onChange={handleSubSubCatergoryChange}
                       checked={selectedSubSubCategory === serviceSubSubCategory}
@@ -353,49 +330,39 @@ const PostJob = () => {
                       value={serviceSubSubCategory}
                       className={styles.displayNone}
                     />
-                                        <h4>{serviceSubSubCategory}</h4>
-                                      
+                    <h4>{serviceSubSubCategory}</h4>
                   </label>
                 )
               )}
-                          
             </>
           ) : (
             <>
-                            
               <textarea
                 className={styles.textarea}
                 onChange={(e) => setDescription(e.target.value)}
               />
-                          
             </>
           )}
-                  
         </div>
-                
         <div
           className={
             questionNumber === 5 ? styles.question : styles.displayNone
           }
         >
-                    <h1>Qual é o título do seu trabalho?</h1>
-                    
+          <h1>Qual é o título do seu trabalho?</h1>
           <input
             className={styles.textareaSmall}
             onChange={(e) => setHeadline(e.target.value)}
           />
-                  
         </div>
-                
         <div
           className={
             questionNumber === 6 ? styles.question : styles.displayNone
           }
         >
-                    <h3>Localização</h3>
-                    
+          <h3>Localização</h3>
+
           <div className={styles.localizacoes}>
-                        
             <Select
               className={styles.Select2}
               options={distritos}
@@ -405,7 +372,7 @@ const PostJob = () => {
               getOptionLabel={(option) => option.label}
               getOptionValue={(option) => option.value}
             />
-                        
+
             <Select
               className={styles.Select2}
               options={filteredConcelhos.map((concelho) => ({
@@ -417,27 +384,19 @@ const PostJob = () => {
               value={selectedConcelho}
               isDisabled={!selectedDistrito} // Disable if no distrito is selected
             />
-                      
           </div>
-                  
         </div>
-                
         <div
           className={
             questionNumber === 7 ? styles.question : styles.displayNone
           }
         >
-                    
           {!user ? (
             <form onSubmit={handleSubmit}>
-                            
               <div className={styles.formDesktop}>
-                                <br></br>
-                                
+                <br></br>
                 <div className={styles.postJobUm}>
-                                    
                   <div>
-                                        
                     <input
                       type="email"
                       id="email"
@@ -446,11 +405,9 @@ const PostJob = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                     />
-                                      
                   </div>
-                                    
+
                   <div>
-                                        
                     <input
                       type="text"
                       id="firstName"
@@ -459,11 +416,8 @@ const PostJob = () => {
                       onChange={(e) => setFirstName(e.target.value)}
                       required
                     />
-                                      
                   </div>
-                                    
                   <div>
-                                        
                     <input
                       type="text"
                       id="lastName"
@@ -472,15 +426,10 @@ const PostJob = () => {
                       onChange={(e) => setLastName(e.target.value)}
                       required
                     />
-                                      
                   </div>
-                                  
                 </div>
-                                
                 <div className={styles.postJobDois}>
-                                    
                   <div>
-                                        
                     <input
                       type="text"
                       id="phone"
@@ -489,11 +438,9 @@ const PostJob = () => {
                       onChange={(e) => setPhone(e.target.value)}
                       required
                     />
-                                      
                   </div>
-                                    
+
                   <div className={styles.passContainer}>
-                                        
                     <input
                       type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
                       id="password"
@@ -502,39 +449,29 @@ const PostJob = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
-                                        
                     <button
                       type="button"
                       onClick={togglePasswordVisibility}
                       className={styles.togglePasswordButton}
                     >
-                                            
                       {showPassword ? <img src={show} /> : <img src={hide} />}
-                                          
                     </button>
-                                      
                   </div>
-                                  
                 </div>
-                                
                 <div className={styles.containerTudoCheckBoxes}>
-                                    
                   <div>
-                                        
                     <label
                       className={styles.containerCheckBoxes}
                       htmlFor="termsChecked"
                     >
-                                            Eu concordo com os{" "}
-                                            
+                      Eu concordo com os{" "}
                       <a
                         href="/terms"
                         style={{ color: "#219ebc", marginLeft: 5 }}
                       >
-                                                Termos e Condições
-                                              
+                        Termos e Condições
                       </a>
-                                            .                       
+                      .
                       <input
                         type="checkbox"
                         id="termsChecked"
@@ -543,22 +480,14 @@ const PostJob = () => {
                         onChange={(e) => setTermsChecked(e.target.checked)}
                         required
                       />
-                                            
                       <span className={styles.checkmark}></span>
-                                          
                     </label>
-                                      
                   </div>
-                                  
                 </div>
-                                {error && <p>{error}</p>}
-                              
+                {error && <p>{error}</p>}
               </div>
-                            
               <div className={styles.formMobile}>
-                                
                 <div>
-                                    
                   <input
                     type="text"
                     id="firstName"
@@ -567,11 +496,8 @@ const PostJob = () => {
                     onChange={(e) => setFirstName(e.target.value)}
                     required
                   />
-                                  
                 </div>
-                                
                 <div>
-                                    
                   <input
                     type="text"
                     id="lastName"
@@ -580,11 +506,9 @@ const PostJob = () => {
                     onChange={(e) => setLastName(e.target.value)}
                     required
                   />
-                                  
                 </div>
-                                
+
                 <div>
-                                    
                   <input
                     type="text"
                     id="phone"
@@ -593,11 +517,9 @@ const PostJob = () => {
                     onChange={(e) => setPhone(e.target.value)}
                     required
                   />
-                                  
                 </div>
-                                
+
                 <div>
-                                    
                   <input
                     type="email"
                     id="email"
@@ -606,11 +528,9 @@ const PostJob = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                                  
                 </div>
-                                
+
                 <div className={styles.passContainer}>
-                                    
                   <input
                     type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
                     id="password"
@@ -620,37 +540,29 @@ const PostJob = () => {
                     required
                     style={{ marginLeft: -10 }}
                   />
-                                    
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
                     className={styles.togglePasswordButton}
                   >
-                                        
                     {showPassword ? <img src={show} /> : <img src={hide} />}
-                                      
                   </button>
-                                  
                 </div>
-                                
+
                 <div className={styles.containerTudoCheckBoxes}>
-                                    
                   <div>
-                                        
                     <label
                       className={styles.containerCheckBoxes}
                       htmlFor="termsChecked"
                     >
-                                            Eu concordo com os{" "}
-                                            
+                      Eu concordo com os{" "}
                       <a
                         href="/terms"
                         style={{ color: "#219ebc", marginLeft: 5 }}
                       >
-                                                Termos e Condições
-                                              
+                        Termos e Condições
                       </a>
-                                            .                       
+                      .
                       <input
                         type="checkbox"
                         id="termsChecked"
@@ -659,18 +571,13 @@ const PostJob = () => {
                         onChange={(e) => setTermsChecked(e.target.checked)}
                         required
                       />
-                                            
                       <span className={styles.checkmark}></span>
-                                          
                     </label>
-                                      
                   </div>
-                                  
                 </div>
-                                {error && <p>{error}</p>}
-                              
+                {error && <p>{error}</p>}
               </div>
-                            
+
               {questionNumber == 7 && (
                 <button
                   className={
@@ -678,23 +585,18 @@ const PostJob = () => {
                   }
                   onClick={questionDicrement}
                 >
-                                    Anterior                 
+                  Anterior
                 </button>
               )}
-                            
               <button id={styles.Continuarbtn} type="submit">
-                                Continuar               
+                Continuar
               </button>
-                          
             </form>
           ) : (
             <button onClick={() => SaveJob(user)}>Continuar</button>
           )}
-                  
         </div>
-                
         <br />
-                
         {questionNumber < 7 && (
           <button
             className={
@@ -702,20 +604,19 @@ const PostJob = () => {
             }
             onClick={questionDicrement}
           >
-                        Anterior           
+            Anterior
           </button>
         )}
-                
+
         {questionNumber > 5 ? (
           <>
-                        
             {!user ? (
               questionNumber === 7 ? null : (
                 <button
                   className={styles.continueButton}
                   onClick={questionIncrement}
                 >
-                                    Continuar                 
+                  Continuar
                 </button>
               )
             ) : (
@@ -723,19 +624,16 @@ const PostJob = () => {
                 onClick={() => SaveJob(user)}
                 className={styles.continueButton}
               >
-                                Concluir               
+                Concluir
               </button>
             )}
-                      
           </>
         ) : (
           <button className={styles.continueButton} onClick={questionIncrement}>
-                        Continuar           
+            Continuar
           </button>
         )}
-              
       </div>
-          
     </div>
   );
 };
