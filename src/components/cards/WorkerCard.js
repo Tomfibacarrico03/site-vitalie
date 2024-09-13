@@ -82,9 +82,7 @@ const WorkerCard = ({ worker, job }) => {
   };
 
   return (
-    <div
-      className={styles.categoriaConvitesDuplos}
-    >
+    <div className={styles.categoriaConvitesDuplos}>
       <div className={styles.tituloCriticas}>
         <header>
           <h3>{worker.workName}</h3>
@@ -113,7 +111,7 @@ const WorkerCard = ({ worker, job }) => {
 
       <div className={styles.local}>
         <p style={{ color: "#000", fontFamily: "Raleway", marginBottom: -5 }}>
-          {worker.tradesSelected[0]} - {worker.location[0]}{" "}
+          {worker.tradesSelected[0]} - {worker.distritos[0]}{" "}
         </p>
         <p>{formattedString}</p>
       </div>
