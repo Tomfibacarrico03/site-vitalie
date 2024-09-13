@@ -17,6 +17,10 @@
     font-family: "Raleway";
   }
 
+  .register h3 {
+    font-size: 32px;
+  }
+
   .distritosZone {
     display: flex;
     gap: 5px;

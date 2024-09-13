@@ -12,6 +12,9 @@ import {
   doc,
   addDoc,
   collection,
+  query,
+  where,
+  getDocs,
 } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import Select from "react-select";
@@ -170,8 +173,84 @@ const PostJob = () => {
       setError(null);
       navigate("/publicar-trabalho/publicado");
       await sendEmail(email, "homeowner");
+      await sendEmailToSpecificWorkers();
     } catch (error) {
       setError(error.message);
+    }
+  };
+
+  const sendEmailToSpecificWorkers = async () => {
+    console.log(selectedConcelho);
+    console.log(tradeSelected);
+
+    try {
+      const usersCollection = collection(db, "users");
+
+      // Query by tradeSelected
+      const tradeQuery = query(
+        usersCollection,
+        where("tradesSelected", "array-contains", tradeSelected)
+      );
+      const tradeSnapshot = await getDocs(tradeQuery);
+
+      // Collect user IDs that match the tradeSelected filter
+      const matchingUserIds = new Set();
+      tradeSnapshot.forEach((doc) => {
+        matchingUserIds.add(doc.id);
+      });
+
+      // Query by concelho for users that matched tradeSelected
+      const concelhoQuery = query(
+        usersCollection,
+        where("concelhos", "array-contains", selectedConcelho.value)
+      );
+      const concelhoSnapshot = await getDocs(concelhoQuery);
+
+      // Array to store emails
+      const emails = [];
+
+      // Collect emails of users that matched both filters
+      concelhoSnapshot.forEach((doc) => {
+        if (matchingUserIds.has(doc.id)) {
+          const userData = doc.data();
+          emails.push(userData.email);
+        }
+      });
+
+      // Check if emails array has any emails and call sendEmailNewJob if it does
+      if (emails.length > 0) {
+        const jobType = tradeSelected; // replace with actual job type
+        const distrito = selectedDistrito.label; // replace with actual distrito
+        const concelho = selectedConcelho.label; // or .value based on your data structure
+
+        // Call the email sending function
+        await sendEmailNewJob(emails, jobType, distrito, concelho);
+        console.log("Emails sent successfully");
+      } else {
+        console.log("No matching users found to send emails.");
+      }
+    } catch (error) {
+      console.error("Error fetching users: ", error);
+    }
+  };
+
+  // Email sending function
+  const sendEmailNewJob = async (emails, jobType, distrito, concelho) => {
+    try {
+      await fetch("https://meujob.vercel.app/api/sendNewJobEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emails,
+          jobType,
+          distrito,
+          concelho,
+        }),
+      });
+    } catch (error) {
+      console.error("Erro ao enviar o email:", error);
     }
   };
 
@@ -198,7 +277,7 @@ const PostJob = () => {
     try {
       const docRef = await addDoc(collection(db, "jobs"), newJob);
       const docId = docRef.id;
-
+      await sendEmailToSpecificWorkers();
       navigate(`/publicar-trabalho/${docId}/publicado`);
     } catch (error) {
       console.error(error);
@@ -229,7 +308,7 @@ const PostJob = () => {
   return (
     <div className={styles.page}>
       <div className={styles.divCabecalho}>
-        <h1 className={styles.title}>Criar Trabalho {questionNumber}</h1>
+        <h1 className={styles.title}>Criar Trabalho</h1>
 
         <h3 className={styles.subtitle}>
           Publica o trabalho que necessitas <br></br>e encontra o melhor
