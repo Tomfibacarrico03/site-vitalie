@@ -16,6 +16,15 @@
     align-self: center;
   }
 
+  .localizacoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
   .formDesktop {
     display: block;
   }
@@ -255,12 +264,36 @@
   .postJobUm,
   .postJobDois {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 15px;
   }
 
   .postJobUm input,
   .postJobDois input {
     width: 300px;
+  }
+
+  .passContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .togglePasswordButton {
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    margin-left: -35px;
+  }
+
+  .togglePasswordButton img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: invert(1);
   }
 
   #Continuarbtn {

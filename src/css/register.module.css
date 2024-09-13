@@ -126,6 +126,8 @@
 
   .btnRegistar {
     background-color: #508ce4;
+    width: 200px;
+    margin-left: 430px;
   }
 }
 

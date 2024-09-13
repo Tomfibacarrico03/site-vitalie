@@ -17,6 +17,10 @@ import { UserAuth } from "../context/AuthContext";
 import Select from "react-select";
 import { httpsCallable } from "firebase/functions";
 import concelhos from "../lib/concelhos";
+
+import hide from "../imgs/hideIcon.png";
+import show from "../imgs/viewIcon.png";
+
 const PostJob = () => {
   const sendEmail = httpsCallable(functions, "sendEmail");
 
@@ -46,6 +50,8 @@ const PostJob = () => {
   const [serviceCategory, setServiceCategory] = useState(["..."]);
   const [serviceSubCategory, setServiceSubCategory] = useState(["..."]);
   const [serviceSubSubCategory, setServiceSubSubCategory] = useState(["..."]);
+
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder a palavra-passe
 
   useEffect(() => {
     if (serviceSubCategory === "description") {
@@ -205,6 +211,10 @@ const PostJob = () => {
     setSelectedConcelho(selectedOption);
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.divCabecalho}>
@@ -351,27 +361,30 @@ const PostJob = () => {
           }
         >
           <h3>Localização</h3>
-          <Select
-            className={styles.Select2}
-            options={distritos}
-            onChange={handleDistritoChange}
-            placeholder="Distrito"
-            value={selectedDistrito}
-            getOptionLabel={(option) => option.label}
-            getOptionValue={(option) => option.value}
-          />
 
-          <Select
-            className={styles.Select2}
-            options={filteredConcelhos.map((concelho) => ({
-              value: concelho,
-              label: concelho,
-            }))}
-            onChange={handleConcelhoChange}
-            placeholder="Concelho"
-            value={selectedConcelho}
-            isDisabled={!selectedDistrito} // Disable if no distrito is selected
-          />
+          <div className={styles.localizacoes}>
+            <Select
+              className={styles.Select2}
+              options={distritos}
+              onChange={handleDistritoChange}
+              placeholder="Distrito"
+              value={selectedDistrito}
+              getOptionLabel={(option) => option.label}
+              getOptionValue={(option) => option.value}
+            />
+
+            <Select
+              className={styles.Select2}
+              options={filteredConcelhos.map((concelho) => ({
+                value: concelho,
+                label: concelho,
+              }))}
+              onChange={handleConcelhoChange}
+              placeholder="Concelho"
+              value={selectedConcelho}
+              isDisabled={!selectedDistrito} // Disable if no distrito is selected
+            />
+          </div>
         </div>
         <div
           className={
@@ -427,15 +440,22 @@ const PostJob = () => {
                     />
                   </div>
 
-                  <div>
+                  <div className={styles.passContainer}>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
                       id="password"
                       placeholder="Palavra-passe"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className={styles.togglePasswordButton}
+                    >
+                      {showPassword ? <img src={show} /> : <img src={hide} />}
+                    </button>
                   </div>
                 </div>
                 <div className={styles.containerTudoCheckBoxes}>
@@ -445,7 +465,10 @@ const PostJob = () => {
                       htmlFor="termsChecked"
                     >
                       Eu concordo com os{" "}
-                      <a href="/terms" style={{ color: "#219ebc" }}>
+                      <a
+                        href="/terms"
+                        style={{ color: "#219ebc", marginLeft: 5 }}
+                      >
                         Termos e Condições
                       </a>
                       .
@@ -462,9 +485,6 @@ const PostJob = () => {
                   </div>
                 </div>
                 {error && <p>{error}</p>}
-                <button id={styles.Continuarbtn} type="submit">
-                  Continuar
-                </button>
               </div>
               <div className={styles.formMobile}>
                 <div>
@@ -498,27 +518,7 @@ const PostJob = () => {
                     required
                   />
                 </div>
-                <Select
-                  className={styles.Select2}
-                  options={distritos}
-                  onChange={handleDistritoChange}
-                  placeholder="Distrito"
-                  value={selectedDistrito}
-                  getOptionLabel={(option) => option.label}
-                  getOptionValue={(option) => option.value}
-                />
 
-                <Select
-                  className={styles.Select2}
-                  options={filteredConcelhos.map((concelho) => ({
-                    value: concelho,
-                    label: concelho,
-                  }))}
-                  onChange={handleConcelhoChange}
-                  placeholder="Concelho"
-                  value={selectedConcelho}
-                  isDisabled={!selectedDistrito} // Disable if no distrito is selected
-                />
                 <div>
                   <input
                     type="email"
@@ -530,15 +530,23 @@ const PostJob = () => {
                   />
                 </div>
 
-                <div>
+                <div className={styles.passContainer}>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"} // Altera o tipo de input para mostrar/esconder
                     id="password"
                     placeholder="Palavra-passe"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    style={{ marginLeft: -10 }}
                   />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className={styles.togglePasswordButton}
+                  >
+                    {showPassword ? <img src={show} /> : <img src={hide} />}
+                  </button>
                 </div>
 
                 <div className={styles.containerTudoCheckBoxes}>
@@ -548,7 +556,10 @@ const PostJob = () => {
                       htmlFor="termsChecked"
                     >
                       Eu concordo com os{" "}
-                      <a href="/terms" style={{ color: "#219ebc" }}>
+                      <a
+                        href="/terms"
+                        style={{ color: "#219ebc", marginLeft: 5 }}
+                      >
                         Termos e Condições
                       </a>
                       .
@@ -565,24 +576,38 @@ const PostJob = () => {
                   </div>
                 </div>
                 {error && <p>{error}</p>}
-                <button id={styles.Continuarbtn} type="submit">
-                  Continuar
-                </button>
               </div>
+
+              {questionNumber == 7 && (
+                <button
+                  className={
+                    questionNumber > 1 ? styles.anteriorBtn : styles.displayNone
+                  }
+                  onClick={questionDicrement}
+                >
+                  Anterior
+                </button>
+              )}
+              <button id={styles.Continuarbtn} type="submit">
+                Continuar
+              </button>
             </form>
           ) : (
             <button onClick={() => SaveJob(user)}>Continuar</button>
           )}
         </div>
         <br />
-        <button
-          className={
-            questionNumber > 1 ? styles.anteriorBtn : styles.displayNone
-          }
-          onClick={questionDicrement}
-        >
-          Anterior
-        </button>
+        {questionNumber < 7 && (
+          <button
+            className={
+              questionNumber > 1 ? styles.anteriorBtn : styles.displayNone
+            }
+            onClick={questionDicrement}
+          >
+            Anterior
+          </button>
+        )}
+
         {questionNumber > 5 ? (
           <>
             {!user ? (
