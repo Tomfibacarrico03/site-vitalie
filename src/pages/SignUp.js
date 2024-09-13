@@ -293,15 +293,20 @@ const SignUp = () => {
           )}
           <div>
             <label htmlFor="trade">Que trabalhos deseja realizar</label>
+            <br></br>
+            <label style={{ color: "#508ce4" }} htmlFor="trade">
+              Pode adicionar mais que um trabalho
+            </label>
+
             <Select
               isMulti
               options={trades}
               onChange={handleSelectedOptionsChange}
               placeholder="Selecionar"
             />
-
-            <label htmlFor="trade">Pode adicionar mais que um trabalho</label>
           </div>
+          <br></br>
+
           <div>
             <label htmlFor="workName">Nome de trabalho</label>
             <input
