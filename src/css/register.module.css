@@ -17,6 +17,30 @@
     font-family: "Raleway";
   }
 
+  .distritosZone {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    overflow: auto;
+  }
+
+  .distritosZone::-webkit-scrollbar {
+    display: none;
+  }
+
+  .distritosZone a {
+    padding: 10px;
+    background-color: #508ce4;
+    border: 0;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    justify-content: flex-end;
+    align-content: flex-end;
+    margin-top: 10px;
+    white-space: nowrap;
+  }
+
   .togglePasswordButton {
     width: 25px;
     height: 25px;
