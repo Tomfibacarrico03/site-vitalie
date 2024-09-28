@@ -23,6 +23,7 @@ nav ul {
   display: flex;
   gap: 2rem;
   padding-right: 200px;
+  align-items: center;
 }
 
 nav ul li {

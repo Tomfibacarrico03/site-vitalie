@@ -99,9 +99,23 @@ const NavBar = () => {
               <>
                 <Link
                   to="/registrar-como-comerciante"
-                  style={{ textDecoration: "none" }}
+                  style={{
+                    textDecoration: "none",
+                    backgroundColor: "#fff",
+                    paddingTop: 12,
+                    paddingBottom: 12,
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    textAlign: "center",
+                    borderRadius: 5,
+                  }}
                 >
-                  <li className={styles.btnPostJob}>Tornar-se trabalhador</li>
+                  <li
+                    style={{ color: "#508ce4" }}
+                    className={styles.btnPostJob}
+                  >
+                    Tornar-se trabalhador
+                  </li>
                 </Link>
                 <Link to="/entrar" style={{ textDecoration: "none" }}>
                   <li className={styles.btnEntrar}>Entrar</li>
